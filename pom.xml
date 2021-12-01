@@ -4,6 +4,6 @@
   <artifactId>test</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <properties>
-  <sonar.projectKey>Solaris</sonar.projectKey>
-	</properties>
+  	<sonar.projectKey>Solaris</sonar.projectKey>
+  </properties>
 </project>
