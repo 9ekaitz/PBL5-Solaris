@@ -25,9 +25,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            
-        }
-    }
 }
