@@ -1,12 +1,12 @@
 pipeline {
 
     agent any
-
+    
     stages {
         stage('Build') {
             steps {
                 echo '----- Build app -----'
-                withMaven {
+                withMaven (maven: 'M3') {
                     sh 'mvn compile'
                 }
             }
@@ -14,7 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo '----- Test app -----'
-                withMaven {
+                withMaven (maven: 'M3') {
                     sh 'mvn test'
                 }
             }
@@ -23,11 +23,6 @@ pipeline {
             steps {
                 echo '----- Deploy app -----'
             }
-        }
-    }
-    post {
-        always {
-            
         }
     }
 }
