@@ -1,0 +1,15 @@
+spring:     
+  datasource:
+    driverClassName: org.postgresql.Driver
+    password: 
+    username: postgres
+    url: jdbc:postgresql://kindercloud.ddns.net:5432/solaris
+    hikari:
+      schema: solaris
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate: 
+      ddl-auto: update
+    properties:
+      hibernate:
+        default-schema: solaris
