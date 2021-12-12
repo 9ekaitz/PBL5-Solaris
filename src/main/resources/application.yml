@@ -1,1 +1,28 @@
-spring:       datasource:    driverClassName: org.postgresql.Driver    url: jdbc:postgresql://localhost:5432/solaris    hikari:      schema: solaris  jpa:    database-platform: org.hibernate.dialect.PostgreSQLDialect    hibernate:       ddl-auto: update    properties:      hibernate:        default-schema: solaris  security:    user:      name: admin      password: adminlogging:    level:      org:        hibernate:          #type: TRACE          #SQL: TRACE
+spring:     
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/solaris
+    hikari:
+      schema: solaris
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate: 
+      ddl-auto: update
+    properties:
+      hibernate:
+        default-schema: solaris
+
+  # autoconfigure:
+  #   exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.ManagementWebSecurityAutoConfiguration
+
+  # security:
+  #   user:
+  #     name: admin
+  #     password: admin
+
+logging:
+    level:
+      org:
+        hibernate:
+          #type: TRACE
+          #SQL: TRACE

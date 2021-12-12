@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties
-public class Properties {
+public class PropertiesConfig {
 
 }
