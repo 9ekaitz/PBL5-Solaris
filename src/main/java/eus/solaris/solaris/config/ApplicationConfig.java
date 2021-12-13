@@ -12,14 +12,14 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableEncryptableProperties
 public class ApplicationConfig {
 
-    @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper;
-    }
+  @Bean
+  public ModelMapper modelMapper() {
+    ModelMapper modelMapper = new ModelMapper();
+    return modelMapper;
+  }
 
-    @Bean
-    public LayoutDialect layoutDialect() {
-        return new LayoutDialect();
-    }
+  @Bean
+  public LayoutDialect layoutDialect() {
+    return new LayoutDialect();
+  }
 }

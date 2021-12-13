@@ -28,14 +28,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/public/**", "/css/**", "/js/**").permitAll()
-		.antMatchers("/login", "/register").anonymous()
-		.anyRequest().permitAll()
-		.and()
-		.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=true")
-		.loginProcessingUrl("/login").permitAll()
-		.and()
-		.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+		http.requiresChannel(channel -> channel.anyRequest().requiresSecure()).authorizeRequests()
+				.antMatchers("/", "/public/**", "/css/**", "/js/**").permitAll()
+				.antMatchers("/login", "/register").anonymous()
+				.anyRequest().permitAll()
+				.and()
+				.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=true")
+				.loginProcessingUrl("/login").permitAll()
+				.and()
+				.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
 	}
 
 	@Bean

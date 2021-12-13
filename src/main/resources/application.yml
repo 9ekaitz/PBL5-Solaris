@@ -20,9 +20,20 @@ spring:
   #     name: admin
   #     password: admin
 
+server:
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore/solaris.p12
+    key-store-password: ENC(Pxpe3b0nLP3X9pJOBzzDTnnMb6FtRcWTxCTChdDoQLe5P46nloLeGlj1BQ4EvD3C)
+    key-alias: solaris
+    key-password: ENC(Pxpe3b0nLP3X9pJOBzzDTnnMb6FtRcWTxCTChdDoQLe5P46nloLeGlj1BQ4EvD3C)
+  port: 8443
+
 logging:
     level:
       org:
         hibernate:
           #type: TRACE
           #SQL: TRACE
+  
