@@ -1,7 +1,7 @@
 spring:     
   datasource:
     driverClassName: org.postgresql.Driver
-    password: 
+    password: ${{ secrets.DB_PASSWORD }}
     username: postgres
     url: jdbc:postgresql://kindercloud.ddns.net:5432/solaris
     hikari:
