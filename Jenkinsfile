@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo '----- Test app -----'
                 withMaven (maven: 'M3') {
-                    sh 'mvn test'
+                    sh 'mvn test -Dspring.profiles.active=ci'
                 }
             }
         }
