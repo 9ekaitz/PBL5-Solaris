@@ -8,6 +8,7 @@ pipeline {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'db-password', variable: 'DB_PASSWORD')]) {
+                        sh 'echo ${DB_PASSWORD}'
                         sh 'mvn compile -Dspring.profiles.active=ci'
                     }
                 }
