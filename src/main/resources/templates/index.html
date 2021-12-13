@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template}">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,13 @@
     <link rel="stylesheet" th:href="@{css/style.css}">
     <title>Document</title>
 </head>
+
 <body>
-    <h1> hihi!</h1>
-    <p th:text="${user.username}">username</p>
+    <div layout:fragment="content">
+
+        <h1> hihi!</h1>
+        <p th:text="${user.username}">username</p>
+    </div>
 </body>
+
 </html>
