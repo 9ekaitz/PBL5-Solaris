@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
-                    sh 'mvn compile'
+                    sh 'mvn compile --spring.profiles.active=ci'
                 }
             }
         }
