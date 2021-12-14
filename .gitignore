@@ -1,4 +1,5 @@
 /bin/
+/.mvn/wrapper
 
 HELP.md
 /target/
@@ -33,3 +34,4 @@ build/
 
 ### VS Code ###
 .vscode/
+.settings/org.eclipse.jdt.core.prefs
