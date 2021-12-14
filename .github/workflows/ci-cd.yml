@@ -34,6 +34,7 @@ jobs:
 
   CI-CD:
     name: DinamicAnalysis and deployment
+    needs: [StaticAnalysis]
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
