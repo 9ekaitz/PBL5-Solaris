@@ -27,6 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '----- Deploy app -----'
+                echo $JOB_NAME
             }
         }
     }
