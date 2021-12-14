@@ -2,8 +2,8 @@ name: CI/CD
 on: [push]
 
 jobs:
-  build:
-    name: CI/CD
+  Testing:
+    name: StaticAnalysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +30,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dspring.profiles.active=ci -Djasypt.encryptor.${{ secrets.DB_PASSWORD }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dspring.profiles.active=ci -Djasypt.encryptor.password=${{ secrets.JASYPT_SECRET }}
+
+  CI-CD:
+    name: DinamicAnalysis and deployment
+    runs-on: ubuntu-latest
+    steps:
       - name: Trigger Jenkins Job
         uses: appleboy/jenkins-action@master
         with:
