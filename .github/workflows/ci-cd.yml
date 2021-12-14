@@ -1,12 +1,9 @@
-name: Build
-on:
-  push:
-    branches:
-      - master # or the name of your main branch
+name: CI/CD
+on: [push]
 
 jobs:
   build:
-    name: Testing
+    name: Static Analysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,3 +31,14 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+    
+    name: Dynamic Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Jenkins Job
+        uses: appleboy/jenkins-action@master
+        with:
+          url: "https://jenkinssolaris.ddns.net"
+          user: "pipeline-user"
+          token: ${{ secrets.JENKINS_API_TOKEN }}
+          job: "Solaris Web"
