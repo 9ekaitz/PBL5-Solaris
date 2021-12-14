@@ -31,6 +31,12 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dspring.profiles.active=ci -Djasypt.encryptor.password=${{ secrets.JASYPT_SECRET }}
+      - name: SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        # Force to fail step after specific time
+        timeout-minutes: 5
+        env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   CI-CD:
     name: DinamicAnalysis and deployment
