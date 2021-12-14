@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    name: Static Analysis
+    name: CI/CD
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,16 +25,12 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Build and analyze
+      - name: Static Analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-    
-    name: Dynamic Analysis
-    runs-on: ubuntu-latest
-    steps:
       - name: Trigger Jenkins Job
         uses: appleboy/jenkins-action@master
         with:
