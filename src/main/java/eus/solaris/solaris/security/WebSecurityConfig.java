@@ -30,15 +30,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.requiresChannel(channel -> channel.anyRequest().requiresSecure()).authorizeRequests()
+		http
+				.csrf().disable()
+				.requiresChannel(channel -> channel.anyRequest().requiresSecure()).authorizeRequests()
 				.antMatchers("/", "/public/**", "/css/**", "/js/**").permitAll()
 				.antMatchers("/login", "/register").anonymous()
 				.anyRequest().permitAll()
 				.and()
-				.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=true")
-				.loginProcessingUrl("/login").permitAll()
+				.formLogin()
+					.loginPage("/login")
+					.defaultSuccessUrl("/")
+					.failureUrl("/login?error=true")
+					.loginProcessingUrl("/login").permitAll()
 				.and()
-				.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+				.logout()
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/login");
 	}
 
 	@Bean
