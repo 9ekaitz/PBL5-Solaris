@@ -7,7 +7,7 @@ pipeline {
             steps {
                 withMaven(maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
-                                    string(credentialsId: 'sonar-token', variable: 'SONAR-TOKEN')]) {
+                                    string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                         sh 'mvn clean verify sonar:sonar \
                             -Dsonar.projectKey=solaris \
                             -Dsonar.host.url=https://sonarsolaris.ddns.net \
