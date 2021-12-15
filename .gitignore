@@ -6,6 +6,7 @@ HELP.md
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.settings/org.eclipse.jdt.core.prefs
 
 ### STS ###
 .apt_generated
