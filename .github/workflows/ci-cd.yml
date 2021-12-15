@@ -4,7 +4,6 @@ on: [push]
 jobs:
   CI-CD:
     name: Testing, build and deployment
-    needs: [Testing]
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Jenkins Job
