@@ -6,16 +6,23 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 withMaven(maven: 'M3') {
-                    withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn clean verify sonar:sonar \
-                            -Dsonar.projectKey=solaris \
-                            -Dsonar.host.url=https://sonarsolaris.ddns.net \
-                            -Dsonar.login=3df1e1608d3989038a15957af00fb0893162f347 \
-                            -Dspring.profiles.active=ci \
-                            -Djasypt.encryptor.password=${JASYPT}'
+                    // withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
+                    //                 string(credentialsId: 'sonar-token', variable: 'SONAR-TOKEN')]) {
+                    //     sh 'mvn clean verify sonar:sonar \
+                    //         -Dsonar.projectKey=solaris \
+                    //         -Dsonar.host.url=https://sonarsolaris.ddns.net \
+                    //         -Dsonar.login=${SONAR_TOKEN} \
+                    //         -Dspring.profiles.active=ci \
+                    //         -Djasypt.encryptor.password=${JASYPT}'
+                    // }
+                    withSonarQubeEnv('SonarQube') {
+                        sh "./gradlew sonarqube"
                     }
                 }
             }
+        }
+        stage('QualityGate') {
+            waitForQualityGate abortPipeline: true 
         }
         stage('Build') {
             steps {
