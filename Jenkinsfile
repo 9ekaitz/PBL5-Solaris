@@ -6,7 +6,7 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 withMaven(maven: 'M3') {
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                    withSonarQubeEnv('SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                             sh 'mvn clean verify sonar:sonar \
