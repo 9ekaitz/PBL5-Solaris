@@ -6,10 +6,14 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 withMaven(maven: 'M3') {
-                    sh 'mvn clean verify sonar:sonar \
-                        -Dsonar.projectKey=solar \
-                        -Dsonar.host.url=https://sonarsolaris.ddns.net \
-                        -Dsonar.login=solaris'
+                    withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
+                        sh 'mvn clean verify sonar:sonar \
+                            -Dsonar.projectKey=solar \
+                            -Dsonar.host.url=https://sonarsolaris.ddns.net \
+                            -Dsonar.login=solaris \
+                            -Dspring.profiles.active=ci \
+                            -Djasypt.encryptor.password=${JASYPT}'
+                    }
                 }
             }
         }
@@ -18,7 +22,8 @@ pipeline {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn compile -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
+                        sh 'mvn compile -Dspring.profiles.active=ci \
+                            -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
             }
@@ -28,7 +33,8 @@ pipeline {
                 echo '----- Test app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn test -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
+                        sh 'mvn test -Dspring.profiles.active=ci \
+                            -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
             }
