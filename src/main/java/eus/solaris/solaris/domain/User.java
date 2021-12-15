@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -19,7 +20,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "`user`")
 @Getter @Setter
-public class User {
+public class User implements Serializable {
+    
+    private static final long serialVersionUID = -8446982019565427240L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

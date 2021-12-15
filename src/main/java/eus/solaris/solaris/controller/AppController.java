@@ -2,7 +2,9 @@ package eus.solaris.solaris.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,15 +36,20 @@ public class AppController {
 
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
-		String name = authentication.getName();
-		User user = userService.findByUsername(name);
-		if (user != null)
-			model.addAttribute("user", user);
+		if(authentication != null) {
+			String name = authentication.getName();
+			User user = userService.findByUsername(name);
+			if (user != null)
+				model.addAttribute("user", user);
+		}
 		return "index";
 	}
 
 	@GetMapping("/login")
 	public String login(Model model) {
+		if(checkLogedIn()) {
+			return "redirect:/";
+		}
 		model.addAttribute("user", new User());
 
 		return "login";
@@ -50,6 +57,9 @@ public class AppController {
 
 	@GetMapping("/register")
 	public String registerForm(Model model) {
+		if(checkLogedIn()) {
+			return "redirect:/";
+		}
 		model.addAttribute("user", new UserRegistrationDto());
 
 		return "register";
@@ -63,6 +73,15 @@ public class AppController {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.save(user);
 		return "login";
+	}
+
+	private boolean checkLogedIn() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return false;
+        }
+ 
+        return true;
 	}
 
 }
