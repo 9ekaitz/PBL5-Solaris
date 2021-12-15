@@ -3,6 +3,7 @@ package eus.solaris.solaris.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class UserController {
     public String get(@RequestParam String name, Model model) {
         User user = userRepository.findByUsername(name);
         model.addAttribute("user", user);
+        System.out.println("get user 4");
         return "user";
     }
 
@@ -32,6 +34,7 @@ public class UserController {
         return userRepository.findById(id).orElse(null);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/all")
     public String all(Model model) {
         List<User> users = userRepository.findAll();
