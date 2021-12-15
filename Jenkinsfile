@@ -8,7 +8,6 @@ pipeline {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'echo ${JASYPT}'
                         sh 'mvn compile -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
