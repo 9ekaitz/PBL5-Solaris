@@ -8,9 +8,9 @@ pipeline {
                 withMaven(maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
                         sh 'mvn clean verify sonar:sonar \
-                            -Dsonar.projectKey=solar \
+                            -Dsonar.projectKey=solaris \
                             -Dsonar.host.url=https://sonarsolaris.ddns.net \
-                            -Dsonar.login=solaris \
+                            -Dsonar.login=3df1e1608d3989038a15957af00fb0893162f347 \
                             -Dspring.profiles.active=ci \
                             -Djasypt.encryptor.password=${JASYPT}'
                     }
