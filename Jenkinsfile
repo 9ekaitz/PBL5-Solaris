@@ -9,13 +9,13 @@ pipeline {
                     withSonarQubeEnv(installationName:'SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                            sh 'mvn clean verify sonar:sonar \
-                                -Dsonar.projectKey=solaris \
-                                -Dsonar.host.url=https://sonarsolaris.ddns.net \
-                                -Dsonar.login=${SONAR_TOKEN} \
-                                -Dspring.profiles.active=ci \
-                                -Djasypt.encryptor.password=${JASYPT}'
-                        }
+                                            sh 'mvn clean package sonar:sonar \
+                                                -Dsonar.projectKey=solaris \
+                                                -Dsonar.host.url=https://sonarsolaris.ddns.net \
+                                                -Dsonar.login=${SONAR_TOKEN} \
+                                                -Dspring.profiles.active=ci \
+                                                -Djasypt.encryptor.password=${JASYPT}'
+                        } //pakcage al principio era verify
                         
                     }
                     // withSonarQubeEnv('SonarQube') {
@@ -26,7 +26,12 @@ pipeline {
         }
         stage('QualityGate') {
             steps {
-                waitForQualityGate abortPipeline: true 
+                timeout(time: 1, unit: 'HOURS') {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }
+                }
             }
         }
         stage('Build') {
