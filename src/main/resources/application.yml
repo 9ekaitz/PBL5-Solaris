@@ -36,4 +36,9 @@ logging:
         hibernate:
           #type: TRACE
           #SQL: TRACE
-  
+solaris:
+  web:
+    home-url: /
+    login-url: /login
+    login-failed-url: /login?error=true
+    logout-url: /logout
