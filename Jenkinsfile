@@ -9,13 +9,19 @@ pipeline {
                     withSonarQubeEnv(installationName:'SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                                            sh 'mvn clean package sonar:sonar \
-                                                -Dsonar.projectKey=solaris \
-                                                -Dsonar.host.url=https://sonarsolaris.ddns.net \
-                                                -Dsonar.login=${SONAR_TOKEN} \
-                                                -Dsonar.qualityProfile=solaris \
-                                                -Dspring.profiles.active=ci \
-                                                -Djasypt.encryptor.password=${JASYPT}'
+                                            // sh 'mvn clean verify sonar:sonar \
+                                            //     -Dsonar.projectKey=solaris \
+                                            //     -Dsonar.host.url=https://sonarsolaris.ddns.net \
+                                            //     -Dsonar.login=${SONAR_TOKEN} \
+                                            //     -Dsonar.qualityProfile=solaris \
+                                            //     -Dspring.profiles.active=ci \
+                                            //     -Djasypt.encryptor.password=${JASYPT}'
+                                            sh 'mvn clean verify sonar:sonar \
+                                                    -Dsonar.projectKey=test \
+                                                    -Dsonar.host.url=https://sonarsolaris.ddns.net \
+                                                    -Dspring.profiles.active=ci \
+                                                    -Dsonar.login=${SONAR_TOKEN} \
+                                                    -Djasypt.encryptor.password=${JASYPT}'
                         }
                     }
                 }
@@ -40,7 +46,7 @@ pipeline {
                 }
             }
         }
-        stage('Testing') {
+        stage('Unit Testing') {
             steps {
                 echo '----- Test app -----'
                 withMaven (maven: 'M3') {
@@ -51,9 +57,19 @@ pipeline {
                 }
             }
         }
+        stage('Generate WARs') {
+            steps {
+                withMaven (maven: 'M3') {
+                    withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
+                        sh 'mvn package -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
+                    }
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 echo '----- Deploy app -----'
+                sh 'deploy adapters: [tomcat9(path: '', url: 'http://kindercloud.ddns.net:9003')], contextPath: '/', war: '**/*.war''
             }
         }
     }
