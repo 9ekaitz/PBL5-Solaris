@@ -15,12 +15,8 @@ pipeline {
                                                 -Dsonar.login=${SONAR_TOKEN} \
                                                 -Dspring.profiles.active=ci \
                                                 -Djasypt.encryptor.password=${JASYPT}'
-                        } //pakcage al principio era verify
-                        
+                        }
                     }
-                    // withSonarQubeEnv('SonarQube') {
-                    //     sh "./gradlew sonarqube"
-                    // }
                 }
             }
         }
