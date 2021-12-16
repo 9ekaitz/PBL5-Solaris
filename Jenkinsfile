@@ -18,15 +18,18 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
-        stage('QualityGate') {
-            steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
         }
+        // stage('QualityGate') {
+        //     steps {
+        //         timeout(time: 10, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
         stage('Build') {
             steps {
                 echo '----- Build app -----'
