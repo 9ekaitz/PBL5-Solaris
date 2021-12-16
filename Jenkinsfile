@@ -72,6 +72,7 @@ pipeline {
                 script {
                     deploy adapters: [tomcat9(path: '', url: 'http://kindercloud.ddns.net:9003')], contextPath: '/', onFailure: false, war: '**/*.war'  
                 }
+            }
         }
     }
 }
