@@ -29,7 +29,7 @@ pipeline {
         }
         stage('QualityGate') {
             steps {
-                sh 'sleep 1'
+                sh 'sleep 5'
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token'
                 }
