@@ -1,31 +1,28 @@
-<!DOCTYPE html>
-<html layout:decorate="~{layout.html}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template}">
 <head>
-    <title>User registration</title>
+  <title>User Registration</title>
 </head>
-
 <body>
-    <div th:fragment="content">
-        <h1>User registration</h1>
-        <form th:action="@{/register}" method="post" modelAttribute="user">
-            <div>
-                <label for="email">E-mail</label>
-                <input type="text" name="email" id="email" />
-            </div>
-            <div>
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" />
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" />
-            </div>
-            <div>
-                <input type="submit" value="Register" />
-            </div>
-        </form>
-    </div>
+  <div layout:fragment="content">
+    <h1>User registration</h1>
+    <form th:action="@{/register}" method="post" modelAttribute="user">
+      <div>
+        <label for="email">E-mail</label>
+        <input type="text" name="email" id="email" />
+      </div>
+      <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+      </div>
+      <div>
+        <input type="submit" value="Register" />
+      </div>
+    </form>
+  </div>
 </body>
 
 </html>

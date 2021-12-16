@@ -1,10 +1,12 @@
 /bin/
+/.mvn/wrapper
 
 HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.settings/org.eclipse.jdt.core.prefs
 
 ### STS ###
 .apt_generated
@@ -33,3 +35,4 @@ build/
 
 ### VS Code ###
 .vscode/
+.settings/org.eclipse.jdt.core.prefs

@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import eus.solaris.solaris.domain.User;
 
 public class CustomUserDetails implements UserDetails {
+
+    private static final long serialVersionUID = -6727242238249572740L;
+    
     private User user;
 
     public CustomUserDetails(User user) {
