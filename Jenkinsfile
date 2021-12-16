@@ -9,13 +9,11 @@ pipeline {
                     withSonarQubeEnv(installationName:'SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                                            sh 'mvn clean package sonar:sonar \
+                                            sh 'mvn sonar:sonar \
                                                 -Dsonar.projectKey=solaris \
                                                 -Dsonar.host.url=https://sonarsolaris.ddns.net \
                                                 -Dsonar.login=${SONAR_TOKEN} \
-                                                -Dsonar.qualityProfile=solaris \
-                                                -Dspring.profiles.active=ci \
-                                                -Djasypt.encryptor.password=${JASYPT}'
+                                                -Dsonar.qualityProfile=solaris'
                         }
                     }
                 }
@@ -54,7 +52,6 @@ pipeline {
             steps {
                 echo '----- Deploy app -----'
             }
-            //Try 2
         }
     }
 }
