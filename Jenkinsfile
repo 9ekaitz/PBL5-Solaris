@@ -19,19 +19,16 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+        stage('QualityGate') {
+            steps {
                 sh 'sleep 1'
-                timeout(time: 10, unit: 'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token'
                 }
             }
         }
-        // stage('QualityGate') {
-        //     steps {
-        //         timeout(time: 10, unit: 'MINUTES') {
-        //             waitForQualityGate abortPipeline: true
-        //         }
-        //     }
-        // }
         stage('Build') {
             steps {
                 echo '----- Build app -----'
