@@ -5,13 +5,14 @@ form {
     * {
       display: block;
     }
-
-    label { 
-    }
   }
 }
-.logo {
-  width: 100%;
-  max-width: 16rem;
-}
 
+h1 {
+  text-align: center;
+
+  .logo {
+    width: 100%;
+    max-width: 16rem;
+  }
+}

@@ -14,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import eus.solaris.solaris.service.UserService;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -44,13 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${solaris.web.home-url}")
 	private String homeUrl;
 
-	@Autowired
-	private UserService userService;
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.csrf().disable()
 			.requiresChannel(channel -> channel.anyRequest().requiresSecure()).authorizeRequests()
 			.anyRequest().permitAll()
 			.and()
