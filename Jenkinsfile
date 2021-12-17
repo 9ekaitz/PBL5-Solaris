@@ -50,7 +50,7 @@ pipeline {
         }
         stage('Generate WARs') {
             when {
-                branch 'SLR-80_CD-pipeline'
+                branch 'origin/SLR-80_CD-pipeline'
             }
             steps {
                 withMaven (maven: 'M3') {
@@ -62,7 +62,7 @@ pipeline {
         }
         stage('Deploy') {
             when {
-                branch 'SLR-80_CD-pipeline'
+                branch 'origin/SLR-80_CD-pipeline'
             }
             steps {
                 echo '----- Deploy app -----'
