@@ -49,15 +49,21 @@ pipeline {
             }
         }
         stage('Generate WARs') {
+            when {
+                branch 'origin/SLR-80_CD-pipeline'
+            }
             steps {
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
                         sh 'mvn package -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
-            }
+            }      
         }
         stage('Deploy') {
+            when {
+                branch 'origin/SLR-80_CD-pipeline'
+            }
             steps {
                 echo '----- Deploy app -----'
                 script {
@@ -66,4 +72,5 @@ pipeline {
             }
         }
     }
+    //
 }
