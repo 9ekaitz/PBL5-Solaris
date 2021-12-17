@@ -49,6 +49,9 @@ pipeline {
             }
         }
         stage('Generate WARs') {
+            when {
+                    branch 'SLR-80_CD-pipeline'
+                }
             steps {
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
