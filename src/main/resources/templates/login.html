@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template}">
+
 <head>
+    <link rel="stylesheet" th:href="@{/css/page/login.css}" href="/css/page/login.css">
+    <title>Log in</title>
 </head>
+
 <body>
-<h1>User login</h1>
-<form method="POST" th:action="@{/login}">
-<p th:if="${param.error}">Authentication failed</p>
-<div>
-<label for="username">Username</label>
-<input type="text" id="username" name="username"/>
-</div>
-<div>
-<label for="password">Password</label>
-<input type="password" id="password" name="password"/>
-</div>
-<div>
-<input type="submit" value="Log in">
-</div>
-</form>
+    <div layout:fragment="content">
+        <!-- <div class="col"> -->
+            <!-- <div class="row"> -->
+
+                <!-- <div class="section section-rounded"> -->
+
+                    <h1><img class="logo" th:src="@{/images/logo.svg}" src="/images/logo.svg" alt="Solaris" /></h1>
+                    <form class="form login-form" method="POST" th:action="@{/login}">
+                        <p th:if="${param.error}" th:text="page.login.error">Authentication failed</p>
+                        <div class="field">
+                            <label for="username" th:text="#{user.email}">E-mail</label>
+                            <input type="text" id="username" name="username" />
+                        </div>
+                        <div class="field">
+                            <label for="password" th:text="#{user.password}">Password</label>
+                            <input type="password" id="password" name="password" />
+                        </div>
+                        <div>
+                            <input class="btn" type="submit" value="Log in" th:value="#{page.login.login}">
+                        </div>
+                    </form>
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    </div>
 </body>
+
 </html>

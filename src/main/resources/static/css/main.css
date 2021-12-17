@@ -1,12 +1,14 @@
+@import url("normalize.css");
+@import url("font/saira/saira.css");
 .cls-1 {
   fill: none;
-  stroke: #f9aa31;
+  stroke: #F9AA31;
   stroke-miterlimit: 10;
   stroke-width: 3px;
 }
 
 .cls-2 {
-  fill: #f9aa31;
+  fill: #F9AA31;
 }
 
 #anim-logo {
@@ -108,72 +110,72 @@
 }
 @-webkit-keyframes show-letter-big-s {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 155.5;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-big-s {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 155.5;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes show-letter-o {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 127.8;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-o {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 127.8;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes show-letter-l {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 73.6;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-l {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 73.6;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes fill-letter {
   to {
-    fill: #f9aa31;
+    fill: #F9AA31;
   }
 }
 @keyframes fill-letter {
   to {
-    fill: #f9aa31;
+    fill: #F9AA31;
   }
 }
 #eUX3co8Wz5g2_to {
@@ -259,4 +261,68 @@
   100% {
     transform: scale(1.99505, 1.99505);
   }
-}/*# sourceMappingURL=logo-load.css.map */
+}
+* {
+  font-family: "Saira", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.btn {
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.4rem;
+  min-width: 10rem;
+  min-height: 3rem;
+  color: #000;
+  background-color: #F9AA31;
+  border: 0;
+  padding-inline: 2rem;
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: #F19F24;
+}
+.btn.btn-big {
+  width: 18rem;
+  height: 4rem;
+  border-radius: 0.6rem;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  border-color: #C7C7C7;
+  padding: 2rem;
+}
+.section.section-rounded {
+  border-radius: 0.4rem;
+}/*# sourceMappingURL=main.css.map */

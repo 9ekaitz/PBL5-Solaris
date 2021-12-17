@@ -1,0 +1,71 @@
+@import url("normalize.css");
+@import url("font/saira/saira.css");
+@import "logo-load";
+
+* {
+  font-family: $saira-font;
+  color: $text-color;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.btn {
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: $btn-border;
+  min-width: 10rem;
+  min-height: 3rem;
+  color: $text-color;
+  background-color: $main-color;
+  border: 0;
+  padding-inline: 2rem;
+  
+  &:hover {
+    cursor: pointer;
+    background-color: $main-dark-color;
+  }
+
+  &.btn-big {
+    width: 18rem;
+    height: 4rem;
+    border-radius: 1.5 * $btn-border;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  border-color: $border-color;
+  padding: 2rem;
+
+  &.section-rounded {
+    border-radius: $section-border;
+  }
+}

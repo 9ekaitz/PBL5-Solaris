@@ -1,0 +1,17 @@
+@import "../util/variables";
+
+form {
+  .field {
+    * {
+      display: block;
+    }
+
+    label { 
+    }
+  }
+}
+.logo {
+  width: 100%;
+  max-width: 16rem;
+}
+
