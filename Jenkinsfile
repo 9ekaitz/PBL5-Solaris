@@ -61,7 +61,7 @@ pipeline {
             steps {
                 echo '----- Deploy app -----'
                 script {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: '/usr/local/tomcat/webapps', onFailure: false, war: '**/*.war'
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: '/', onFailure: false, war: '**/*.war'
                 }
             }
         }
