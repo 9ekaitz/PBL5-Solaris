@@ -60,8 +60,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '----- Deploy app -----'
+                withCredentials([string(credentialsId: 'tomcat-deploy-user', variable: 'JASYPT')]) {
                 script {
-                    deploy adapters: [tomcat9(path: '', url: 'http://kindercloud.ddns.net:9003')], contextPath: '/', onFailure: false, war: '**/*.war'  
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: '/usr/local/tomcat/webapps', onFailure: false, war: '**/*.war'
                 }
             }
         }
