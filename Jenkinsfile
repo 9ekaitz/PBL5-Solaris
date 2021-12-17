@@ -9,19 +9,11 @@ pipeline {
                     withSonarQubeEnv(installationName:'SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                                            // sh 'mvn clean verify sonar:sonar \
-                                            //     -Dsonar.projectKey=solaris \
-                                            //     -Dsonar.host.url=https://sonarsolaris.ddns.net \
-                                            //     -Dsonar.login=${SONAR_TOKEN} \
-                                            //     -Dsonar.qualityProfile=solaris \
-                                            //     -Dspring.profiles.active=ci \
-                                            //     -Djasypt.encryptor.password=${JASYPT}'
-                                            sh 'mvn clean verify sonar:sonar \
-                                                    -Dsonar.projectKey=test \
-                                                    -Dsonar.host.url=https://sonarsolaris.ddns.net \
-                                                    -Dspring.profiles.active=ci \
-                                                    -Dsonar.login=${SONAR_TOKEN} \
-                                                    -Djasypt.encryptor.password=${JASYPT}'
+                                            sh 'mvn sonar:sonar \
+                                                -Dsonar.projectKey=solaris \
+                                                -Dsonar.host.url=https://sonarsolaris.ddns.net \
+                                                -Dsonar.login=${SONAR_TOKEN} \
+                                                -Dsonar.qualityProfile=solaris'
                         }
                     }
                 }
@@ -29,7 +21,6 @@ pipeline {
         }
         stage('QualityGate') {
             steps {
-                sh 'sleep 5'
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token'
                 }
@@ -40,7 +31,7 @@ pipeline {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn compile -Dspring.profiles.active=ci \
+                        sh 'mvn clean compile -Dspring.profiles.active=ci \
                             -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
@@ -70,7 +61,7 @@ pipeline {
             steps {
                 echo '----- Deploy app -----'
                 script {
-                    deploy adapters: [tomcat9(path: '', url: 'http://kindercloud.ddns.net:9003')], contextPath: '/', onFailure: false, war: '**/*.war'  
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: 'solaris', onFailure: false, war: '**/*.war'
                 }
             }
         }
