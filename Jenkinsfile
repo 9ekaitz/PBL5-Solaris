@@ -60,6 +60,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '----- Deploy app -----'
+                when {
+                    branch 'SLR-80_CD-pipeline'
+                }
                 script {
                     deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: 'solaris', onFailure: false, war: '**/*.war'
                 }
