@@ -58,8 +58,7 @@ body {
 
   .input-field {
     display: block;
-    margin: 1em;
-    background-color: #f00;
+    margin-block: 0.5em 1em;
   }
 }
 
@@ -67,11 +66,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid;
-  border-color: $border-color;
   padding: 2rem;
 
   &.section-rounded {
     border-radius: $section-border;
+  }
+
+  @media screen and (min-width: $medium ) {
+    border-color: $border-color
   }
 }

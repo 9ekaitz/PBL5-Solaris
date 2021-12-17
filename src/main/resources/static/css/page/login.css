@@ -1,7 +1,11 @@
 form .field * {
   display: block;
 }
-.logo {
+
+h1 {
+  text-align: center;
+}
+h1 .logo {
   width: 100%;
   max-width: 16rem;
 }/*# sourceMappingURL=login.css.map */
