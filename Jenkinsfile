@@ -49,9 +49,6 @@ pipeline {
             }
         }
         stage('Generate WARs') {
-            when {
-                branch 'origin/SLR-80_CD-pipeline'
-            }
             steps {
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
@@ -61,13 +58,10 @@ pipeline {
             }      
         }
         stage('Deploy') {
-            when {
-                branch 'origin/SLR-80_CD-pipeline'
-            }
             steps {
                 echo '----- Deploy app -----'
                 script {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: 'solaris', onFailure: false, war: '**/*.war'
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: '/', onFailure: false, war: '**/*.war'
                 }
             }
         }
