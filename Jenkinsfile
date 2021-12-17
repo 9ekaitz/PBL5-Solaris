@@ -49,25 +49,24 @@ pipeline {
             }
         }
         stage('Generate WARs') {
-            when {
-                    branch 'SLR-80_CD-pipeline'
-                }
             steps {
-                withMaven (maven: 'M3') {
-                    withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn package -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
+                if (env.BRANCH_NAME == 'SLR-80_CD-pipeline') {
+                    withMaven (maven: 'M3') {
+                        withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
+                            sh 'mvn package -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
+                        }
                     }
                 }
+                
             }
         }
         stage('Deploy') {
             steps {
-                when {
-                    branch 'SLR-80_CD-pipeline'
-                }
-                echo '----- Deploy app -----'
-                script {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: 'solaris', onFailure: false, war: '**/*.war'
+                if (env.BRANCH_NAME == 'SLR-80_CD-pipeline') {
+                    echo '----- Deploy app -----'
+                    script {
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: 'solaris', onFailure: false, war: '**/*.war'
+                    }
                 }
             }
         }
