@@ -9,13 +9,11 @@ pipeline {
                     withSonarQubeEnv(installationName:'SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                                            sh 'mvn clean package sonar:sonar \
+                                            sh 'mvn sonar:sonar \
                                                 -Dsonar.projectKey=solaris \
                                                 -Dsonar.host.url=https://sonarsolaris.ddns.net \
                                                 -Dsonar.login=${SONAR_TOKEN} \
-                                                -Dsonar.qualityProfile=solaris \
-                                                -Dspring.profiles.active=ci \
-                                                -Djasypt.encryptor.password=${JASYPT}'
+                                                -Dsonar.qualityProfile=solaris'
                         }
                     }
                 }
@@ -23,7 +21,6 @@ pipeline {
         }
         stage('QualityGate') {
             steps {
-                sh 'sleep 1'
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token'
                 }
@@ -34,13 +31,13 @@ pipeline {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn compile -Dspring.profiles.active=ci \
+                        sh 'mvn clean compile -Dspring.profiles.active=ci \
                             -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
             }
         }
-        stage('Testing') {
+        stage('Unit Testing') {
             steps {
                 echo '----- Test app -----'
                 withMaven (maven: 'M3') {
@@ -51,9 +48,27 @@ pipeline {
                 }
             }
         }
+        stage('Generate WARs') {
+            when {
+                branch 'origin/SLR-80_CD-pipeline'
+            }
+            steps {
+                withMaven (maven: 'M3') {
+                    withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
+                        sh 'mvn package -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
+                    }
+                }
+            }      
+        }
         stage('Deploy') {
+            when {
+                branch 'origin/SLR-80_CD-pipeline'
+            }
             steps {
                 echo '----- Deploy app -----'
+                script {
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: 'solaris', onFailure: false, war: '**/*.war'
+                }
             }
         }
     }
