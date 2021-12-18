@@ -13,7 +13,9 @@ pipeline {
                                                 -Dsonar.projectKey=solaris \
                                                 -Dsonar.host.url=https://sonarsolaris.ddns.net \
                                                 -Dsonar.login=${SONAR_TOKEN} \
-                                                -Dsonar.qualityProfile=solaris'
+                                                -Dsonar.qualityProfile=solaris \
+                                                -Dspring.profiles.active=ci \
+                                                -Djasypt.encryptor.password=${JASYPT}'
                         }
                     }
                 }
