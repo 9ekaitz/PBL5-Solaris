@@ -33,7 +33,7 @@ pipeline {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn clean compile -Dspring.profiles.active=ci \
+                        sh 'mvn compile -Dspring.profiles.active=ci \
                             -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
@@ -63,7 +63,7 @@ pipeline {
             steps {
                 echo '----- Deploy app -----'
                 script {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: '/', onFailure: false, war: '**/*.war'
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'http://deploysolaris.ddns.net:80')], contextPath: '/', onFailure: false, war: '**/*.war'
                 }
             }
         }
