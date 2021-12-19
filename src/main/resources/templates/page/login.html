@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/login.css}" href="/css/page/login.css">
+    <script th:src="@{/js/page/login.js}" src="/js/page/login.js"></script>
+    <title>Log in</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="col">
+            <div class="row">
+
+                <div class="section section-rounded">
+
+                    <h1><img class="logo" th:src="@{/images/logo.svg}" src="/images/logo.svg" alt="Solaris" /></h1>
+                    <form class="form login-form" method="POST" th:action="@{/login}">
+                        <div class="field">
+                            <label for="username" th:text="#{user.email}">E-mail</label>
+                            <div>
+                                <input class="input-field" type="text" id="username" name="username" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="password" th:text="#{user.password}">Password</label>
+                            <div class="password">
+                                <input class="input-field" type="password" id="password" name="password" />
+                                <div id="show-password">
+                                    <svg id="password-icon-show" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M12 3C6.40848 3 1.71018 6.82432 0.378052 12C1.71018 17.1757 6.40848 21 12 21C17.5915 21 22.2898 17.1757 23.6219 12C22.2898 6.82432 17.5915 3 12 3ZM16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" />
+                                    </svg>
+                                    <svg class="hide" id="password-icon-hide" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M12 3C17.5915 3 22.2898 6.82432 23.6219 12C22.2898 17.1757 17.5915 21 12 21C6.40848 21 1.71018 17.1757 0.378052 12C1.71018 6.82432 6.40848 3 12 3ZM12 19C7.52443 19 3.73132 16.0581 2.45723 12C3.73132 7.94186 7.52443 5 12 5C16.4756 5 20.2687 7.94186 21.5428 12C20.2687 16.0581 16.4756 19 12 19Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field remember-me">
+                            <input type="checkbox" name="remember-me" id="remember-me">
+                            <label for="remember-me" th:text="#{page.login.rememberMe}">Remember me</label>
+                        </div>
+                        <div>
+                            <input class="btn" type="submit" value="Log in" th:value="#{page.login.login}">
+                        </div>
+                        <p class="error" th:if="${param.error}" th:text="#{page.login.error}">Authentication failed</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

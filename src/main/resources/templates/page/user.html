@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title th:text="${user.username} + ' User Page'">User page</title >
+	</head>
+	
+	<body>
+		<ul>
+			<li><p>Username: <b th:text="${user.username}">Username</b></li>
+			<li><p>Name: <b th:text="${user.name}">Name</b></li>
+			<li><p>First Surname: <b th:text="${user.firstSurname}">First Surname</b></li>
+			<li><p>Second Surname: <b th:text="${user.secondSurname}">Second Surname</b></li>
+		</ul>
+	</body>
+
+</html >

@@ -42,6 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${solaris.web.home-url}")
 	private String homeUrl;
 
+	@Value("${solaris.security.remember-me.key}")
+	private String rememberMeKey;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -55,8 +58,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl(loginUrl).permitAll()
 			.and()
 			.logout()
+				.deleteCookies("JSESSIONID")
 				.logoutRequestMatcher(new AntPathRequestMatcher(logoutUrl))
-				.logoutSuccessUrl(loginUrl);
+				.logoutSuccessUrl(loginUrl)
+			.and()
+			.rememberMe()
+				.key(rememberMeKey)
+					.userDetailsService(userDetailsService);
 	}
 
 	@Bean

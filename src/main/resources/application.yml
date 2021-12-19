@@ -42,3 +42,6 @@ solaris:
     login-url: /login
     login-failed-url: /login?error=true
     logout-url: /logout
+  security:
+    remember-me:
+      key: ENC(kpXkc5glu8o9LUfpVIZgEs7i+egWhzDJOI214DzobKOqRbIJkqnCWxX427eTPVUrs2/MtkYoMRXd0GmJx8MLaw==)

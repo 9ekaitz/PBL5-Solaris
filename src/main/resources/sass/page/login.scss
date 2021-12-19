@@ -1,17 +1,98 @@
 @import "../util/variables";
 
-form {
-  .field {
-    * {
-      display: block;
+.login-form {
+    input[type="submit"].btn {
+        margin-right: 2rem;
     }
-  }
+
+    .remember-me {
+        @include no-select;
+        @include no-drag;
+
+        display: inline-flex;
+        align-items: flex-end;
+        font-size: 1.2rem;
+        margin-top: 0;
+        input {
+            margin-right: 0.6em;
+            width: 1em;
+            height: 1em;
+        }
+    }
+
+    @mixin input-border {
+        outline: 1px solid $main-color;
+        border-color: $main-color;
+    }
+
+    label {
+        &:hover,
+        &:focus {
+            + .password {
+                @include input-border;
+            }
+        }
+    }
+
+    .password {
+        display: flex;
+        border: 1px solid $text-color;
+        border-radius: $input-border;
+        margin-block: 0.5rem 0;
+
+        &:focus-within,
+        &:hover {
+            @include input-border;
+        }
+
+        input {
+            padding-right: 0;
+            border: none;
+            width: 90%;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            &:focus {
+                border: none;
+            }
+        }
+
+        #show-password {
+            @include no-select;
+            width: 10%;
+            height: 100%;
+            padding: 0.25em;
+            padding-left: 0;
+
+            svg {
+                margin: auto;
+                fill: $element-off-color;
+            }
+
+            &:hover {
+                svg {
+                    fill: $text-color;
+                }
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+svg {
+    display: block;
 }
 
 h1 {
-  text-align: center;
-  .logo {
-    width: 100%;
-    max-width: 16rem;
-  }
+    @include no-select;
+    text-align: center;
+    .logo {
+        @include no-drag;
+        font-size: inherit;
+        width: 6em;
+    }
+}
+
+.error {
+    font-size: 1rem;
 }
