@@ -30,6 +30,9 @@ main .main-content .content-section.phases p.info {
   padding: 0.5rem 0 0 0;
   font-size: 1rem;
 }
+main .main-content .content-section.phases p.number {
+  font-weight: bold;
+}
 main .main-content .content-section div {
   width: 100%;
 }

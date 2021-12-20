@@ -57,7 +57,7 @@ header{
                         align-items: center;
 
                         img:hover{
-                            filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+                            filter: $svg-filter-color;
                         }
                     }
 
@@ -142,7 +142,7 @@ header{
                 max-width: 1.5rem;
                 &:hover{
                     cursor: pointer;
-                    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+                    filter: $svg-filter-color;
                 }
             }
 
@@ -158,7 +158,7 @@ header{
                 }
 
                 &:hover{
-                    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+                    filter: $svg-filter-color;
                     color: $main-color;
                 }
             }
