@@ -35,6 +35,9 @@ header .header-computer {
     gap: 2rem;
     font-weight: lighter;
   }
+  header .header-computer .header-computer-1 .header-computer-main .header-computer-options a:hover {
+    color: #F9AA31;
+  }
   header .header-computer .header-computer-1 .header-computer-icons {
     display: flex;
     gap: 1rem;
@@ -42,6 +45,9 @@ header .header-computer {
   header .header-computer .header-computer-1 .header-computer-icons a {
     display: flex;
     align-items: center;
+  }
+  header .header-computer .header-computer-1 .header-computer-icons a img:hover {
+    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
   }
   header .header-computer .header-computer-1 .header-computer-icons #search-computer-icon:hover {
     cursor: pointer;
@@ -106,6 +112,10 @@ header .header-mobile .header-mobile-top {
 header .header-mobile .header-mobile-top div a img {
   max-width: 1.5rem;
 }
+header .header-mobile .header-mobile-top div a img:hover {
+  cursor: pointer;
+  filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+}
 header .header-mobile .header-mobile-top .header-mobile-top-not-login {
   display: flex;
   gap: 1rem;
@@ -115,6 +125,10 @@ header .header-mobile .header-mobile-top .header-mobile-top-not-login p {
   margin: auto;
   font-size: 0.75rem;
   color: #FFF;
+}
+header .header-mobile .header-mobile-top .header-mobile-top-not-login:hover {
+  filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+  color: #F9AA31;
 }
 header .header-mobile .header-mobile-search {
   background-color: #282828;
@@ -165,9 +179,11 @@ header .header-mobile .header-mobile-bottom {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0 0.5rem 0;
-  position: absolute;
+  position: fixed;
+  left: 0;
   bottom: 0;
   width: calc(100% - 0rem);
+  text-align: center;
 }
 header .header-mobile .header-mobile-bottom .header-mobile-bottom-section {
   display: flex;
@@ -177,6 +193,9 @@ header .header-mobile .header-mobile-bottom .header-mobile-bottom-section {
   justify-content: center;
   text-decoration: none;
   gap: 0.5rem;
+}
+header .header-mobile .header-mobile-bottom .header-mobile-bottom-section:hover {
+  filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
 }
 header .header-mobile .header-mobile-bottom .header-mobile-bottom-section img {
   width: 100%;

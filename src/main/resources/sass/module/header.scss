@@ -41,6 +41,10 @@ header{
                         display: flex;
                         gap: 2rem;
                         font-weight: lighter;
+
+                        a:hover{
+                            color: $main-color;
+                        }
                     }
                 }
     
@@ -51,6 +55,10 @@ header{
                     a{
                         display:flex;
                         align-items: center;
+
+                        img:hover{
+                            filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+                        }
                     }
 
                     #search-computer-icon:hover{
@@ -132,6 +140,10 @@ header{
 
             div a img{
                 max-width: 1.5rem;
+                &:hover{
+                    cursor: pointer;
+                    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+                }
             }
 
             .header-mobile-top-not-login{
@@ -143,6 +155,11 @@ header{
                     margin: auto;
                     font-size: 0.75rem;
                     color: $text-light-color;
+                }
+
+                &:hover{
+                    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+                    color: $main-color;
                 }
             }
 
@@ -207,9 +224,11 @@ header{
             justify-content: space-between;
             padding: 0.5rem 0 0.5rem 0;
 
-            position:absolute;
-            bottom:0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
             width: calc(100% - 0rem);
+            text-align: center;
 
             .header-mobile-bottom-section{
                 display: flex;
@@ -222,6 +241,9 @@ header{
                 text-decoration: none;
                 gap: 0.5rem;
 
+                &:hover{
+                    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+                }
                 img{
                     width: 100%;
                     max-width: 1.5rem;

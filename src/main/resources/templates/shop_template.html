@@ -3,15 +3,15 @@
     <link rel="stylesheet" th:href="@{/css/normalize.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/module/header.css}">
+    <link rel="stylesheet" th:href="@{/css/module/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/page/index.css}">
     <script th:src="@{/js/header.js}"></script>
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
 </head>
 <body>
-    <div th:insert="header :: header">
-    </div>
+    <div th:insert="header :: header"></div>
     <div layout:fragment="content">
         <p>Changing contents</p>
     </div>
-    <div layout:fragment="footer">
-    </div>
+    <div th:insert="footer :: footer"></div>
 </body>
