@@ -1,0 +1,17 @@
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/module/header.css}">
+    <script th:src="@{/js/header.js}"></script>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
+</head>
+<body>
+    <div th:insert="header :: header">
+    </div>
+    <div layout:fragment="content">
+        <p>Changing contents</p>
+    </div>
+    <div layout:fragment="footer">
+    </div>
+</body>

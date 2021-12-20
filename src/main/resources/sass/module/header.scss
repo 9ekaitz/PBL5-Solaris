@@ -3,6 +3,10 @@
 body{
     margin: 0;
     display: block;
+
+    &.search-open{
+        background-color: rgba($color: $text-color, $alpha: 0.5);
+    }
 }
 
 header{
@@ -36,6 +40,7 @@ header{
                     .header-computer-options{
                         display: flex;
                         gap: 2rem;
+                        font-weight: lighter;
                     }
                 }
     
@@ -47,6 +52,14 @@ header{
                         display:flex;
                         align-items: center;
                     }
+
+                    #search-computer-icon:hover{
+                        cursor: pointer;
+                    }
+
+                    #lang-computer-icon:hover{
+                        cursor: pointer;
+                    }
                 }
     
                 a{
@@ -57,17 +70,22 @@ header{
 
             .header-computer-search{
                 background-color: $search-bg-color;
-                padding: 0.5rem 5rem 0.5rem 5rem;
 
                 form{
-                    display: flex;
-                    justify-content: flex-end;
+                    display: none;
                     text-align: center;
+
+                    &.show-search{
+                        display: flex;
+                        justify-content: flex-end;
+                        padding: 0.5rem 10rem 0.5rem 10rem;
+                    }
 
                     input[type="text"]{
                         background-color: transparent;
                         border: none;
                         color: $text-light-color;
+                        font-size: 1rem;
                         border-bottom: 1px solid $text-light-color;
                         width: 100%;
 
@@ -81,6 +99,24 @@ header{
                         width: 1.5rem;
                         height: 1.5rem;
                     }
+                }
+            }
+
+            .header-computer-lang{
+                background-color: $search-bg-color;
+                display: none;
+
+                &.show-lang{
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    justify-content: flex-end;
+                    padding: 0.5rem 10rem 0.5rem 10rem;
+                }
+
+                a{
+                    color: $text-light-color;
+                    font-size: 1rem;
                 }
             }
         }
@@ -110,6 +146,59 @@ header{
                 }
             }
 
+        }
+
+        .header-mobile-search{
+            background-color: $search-bg-color;
+
+            form{
+                display: none;
+                text-align: center;
+
+                &.show-search{
+                    display: flex;
+                    justify-content: flex-end;
+                    padding: 0.5rem 1rem 0.5rem 1rem;
+                }
+
+                input[type="text"]{
+                    background-color: transparent;
+                    border: none;
+                    font-size: 0.75rem;
+                    color: $text-light-color;
+                    border-bottom: 1px solid $text-light-color;
+                    width: 100%;
+
+                    &:focus{
+                        outline: none;
+                    }
+                }
+
+                input[type="image"]{
+                    margin: auto;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+            }
+        }
+
+        .header-mobile-lang{
+            background-color: $search-bg-color;
+            display: none;
+            width: calc(100% - 2rem);
+
+            &.show-lang{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: flex-end;
+                padding: 0.5rem 1rem 0.5rem 1rem;
+            }
+
+            a{
+                font-size: 0.75rem;
+                color: $text-light-color;
+            }
         }
 
         .header-mobile-bottom{
@@ -151,7 +240,4 @@ header{
             display: none;
         }
     }
-
-
-
 }

@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/module/header.css}">
 </head>
 <body>
-    <header>
+    <header th:fragment="header">
         <div class="header-computer">
             <div class="header-computer-1">
                 <div class="header-computer-main">
@@ -24,19 +20,24 @@
                     </div>
                 </div>
                 <div class="header-computer-icons">
-                    <a href=""><img class="logo" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" /></a>
+                    <a><img id="search-computer-icon" class="logo" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" /></a>
                     <a href="/profile" th:if="${user != null}"><img class="logo" th:src="@{/images/profile.svg}" src="/images/profile.svg" alt="Profile" /></a>
                     <a href="/login" th:if="${user == null}"><img class="logo" th:src="@{/images/profile.svg}" src="/images/profile.svg" alt="Login" /></a>
                     <a href="/info"><img class="logo" th:src="@{/images/info.svg}" src="/images/info.svg" alt="Information" /></a>
                     <a href="/shopping-cart"><img class="logo" th:src="@{/images/shopping-cart.svg}" src="/images/shopping-cart.svg" alt="Shopping cart" /></a>
-                    <a href=""><img class="logo" th:src="@{/images/globe-alt.svg}" src="/images/globe-alt.svg" alt="Language" /></a>
+                    <a><img id="lang-computer-icon" class="logo" th:src="@{/images/globe-alt.svg}" src="/images/globe-alt.svg" alt="Language" /></a>
                 </div>
             </div>
             <div class="header-computer-search">
-                <form method="GET" th:action="@{/}">
-                    <input type="text" name="" id="">
+                <form method="GET" th:action="@{/login}" id="search-computer-bar">
+                    <input type="text" name="" id="search-computer-box" placeholder="Producto" autofocus="autofocus">
                     <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products">
                 </form>
+            </div>
+            <div class="header-computer-lang" id="header-computer-lang">
+                <th:block th:each="lang : ${languages}">
+                    <a th:text=${lang.code}></a>
+                </th:block>
             </div>
         </div>
         <div class="header-mobile">
@@ -49,9 +50,20 @@
                     </a>
                 </div>
                 <div>
-                    <a href=""><img class="logo" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" /></a>
-                    <a href=""><img class="logo" th:src="@{/images/globe-alt.svg}" src="/images/globe-alt.svg" alt="Language" /></a>
+                    <a><img id="search-mobile-icon" class="logo" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" /></a>
+                    <a><img id="lang-mobile-icon" class="logo" th:src="@{/images/globe-alt.svg}" src="/images/globe-alt.svg" alt="Language" /></a>
                 </div>               
+            </div>
+            <div class="header-mobile-search">
+                <form method="GET" th:action="@{/login}" id="search-mobile-bar">
+                    <input type="text" name="" id="search-mobile-box" placeholder="Producto" autofocus="autofocus">
+                    <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products">
+                </form>
+            </div>
+            <div class="header-mobile-lang" id="header-mobile-lang">
+                <th:block th:each="lang : ${languages}">
+                    <a th:text=${lang.code}></a>
+                </th:block>
             </div>
             <div class="header-mobile-bottom">
                     <a href="/index" class="header-mobile-bottom-section">
@@ -76,6 +88,6 @@
                     </a> 
             </div>
         </div>
-    </header>
+    </header>   
 </body>
 </html>

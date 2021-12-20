@@ -2,6 +2,9 @@ body {
   margin: 0;
   display: block;
 }
+body.search-open {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
 header .header-computer {
   display: none;
@@ -30,6 +33,7 @@ header .header-computer {
   header .header-computer .header-computer-1 .header-computer-main .header-computer-options {
     display: flex;
     gap: 2rem;
+    font-weight: lighter;
   }
   header .header-computer .header-computer-1 .header-computer-icons {
     display: flex;
@@ -39,23 +43,33 @@ header .header-computer {
     display: flex;
     align-items: center;
   }
+  header .header-computer .header-computer-1 .header-computer-icons #search-computer-icon:hover {
+    cursor: pointer;
+  }
+  header .header-computer .header-computer-1 .header-computer-icons #lang-computer-icon:hover {
+    cursor: pointer;
+  }
   header .header-computer .header-computer-1 a {
     color: #FFF;
     text-decoration: none;
   }
   header .header-computer .header-computer-search {
     background-color: #282828;
-    padding: 0.5rem 5rem 0.5rem 5rem;
   }
   header .header-computer .header-computer-search form {
+    display: none;
+    text-align: center;
+  }
+  header .header-computer .header-computer-search form.show-search {
     display: flex;
     justify-content: flex-end;
-    text-align: center;
+    padding: 0.5rem 10rem 0.5rem 10rem;
   }
   header .header-computer .header-computer-search form input[type=text] {
     background-color: transparent;
     border: none;
     color: #FFF;
+    font-size: 1rem;
     border-bottom: 1px solid #FFF;
     width: 100%;
   }
@@ -66,6 +80,21 @@ header .header-computer {
     margin: auto;
     width: 1.5rem;
     height: 1.5rem;
+  }
+  header .header-computer .header-computer-lang {
+    background-color: #282828;
+    display: none;
+  }
+  header .header-computer .header-computer-lang.show-lang {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding: 0.5rem 10rem 0.5rem 10rem;
+  }
+  header .header-computer .header-computer-lang a {
+    color: #FFF;
+    font-size: 1rem;
   }
 }
 header .header-mobile .header-mobile-top {
@@ -84,6 +113,50 @@ header .header-mobile .header-mobile-top .header-mobile-top-not-login {
 }
 header .header-mobile .header-mobile-top .header-mobile-top-not-login p {
   margin: auto;
+  font-size: 0.75rem;
+  color: #FFF;
+}
+header .header-mobile .header-mobile-search {
+  background-color: #282828;
+}
+header .header-mobile .header-mobile-search form {
+  display: none;
+  text-align: center;
+}
+header .header-mobile .header-mobile-search form.show-search {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-search form input[type=text] {
+  background-color: transparent;
+  border: none;
+  font-size: 0.75rem;
+  color: #FFF;
+  border-bottom: 1px solid #FFF;
+  width: 100%;
+}
+header .header-mobile .header-mobile-search form input[type=text]:focus {
+  outline: none;
+}
+header .header-mobile .header-mobile-search form input[type=image] {
+  margin: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+header .header-mobile .header-mobile-lang {
+  background-color: #282828;
+  display: none;
+  width: calc(100% - 2rem);
+}
+header .header-mobile .header-mobile-lang.show-lang {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-lang a {
   font-size: 0.75rem;
   color: #FFF;
 }
