@@ -2,7 +2,6 @@ package eus.solaris.solaris;
 
 import java.util.Locale;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +15,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @SpringBootApplication
 public class SolarisApplication implements WebMvcConfigurer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SolarisApplication.class, args);
-	}
-
-	@Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("message");

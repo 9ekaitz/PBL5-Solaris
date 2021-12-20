@@ -3,7 +3,7 @@ spring:
     driverClassName: org.postgresql.Driver
     password: ENC(r3NjUAbTkDAlljGjSJiRXFO9sb40yu7LWsa/88b1Ijhj12/gI0kxjxyP7l5vuNA1RFcJMcHKSmPqN1E4zoKnDQ==)
     username: postgres
-    url: jdbc:postgresql://kindercloud.ddns.net:5432/solaris
+    url: jdbc:postgresql://deploysolaris.ddns.net:5432/solaris
     hikari:
       schema: solaris
   jpa:
