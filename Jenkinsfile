@@ -9,11 +9,13 @@ pipeline {
                     withSonarQubeEnv(installationName:'SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                                            sh 'mvn sonar:sonar \
+                                            sh 'mvn clean verify sonar:sonar \
                                                 -Dsonar.projectKey=solaris \
                                                 -Dsonar.host.url=https://sonarsolaris.ddns.net \
                                                 -Dsonar.login=${SONAR_TOKEN} \
-                                                -Dsonar.qualityProfile=solaris'
+                                                -Dsonar.qualityProfile=solaris \
+                                                -Dspring.profiles.active=ci \
+                                                -Djasypt.encryptor.password=${JASYPT}'
                         }
                     }
                 }
@@ -31,7 +33,7 @@ pipeline {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn clean compile -Dspring.profiles.active=ci \
+                        sh 'mvn compile -Dspring.profiles.active=ci \
                             -Djasypt.encryptor.password=${JASYPT}'
                     }
                 }
@@ -50,7 +52,7 @@ pipeline {
         }
         stage('Generate WARs') {
             when {
-                branch 'origin/SLR-80_CD-pipeline'
+                branch 'master'
             }
             steps {
                 withMaven (maven: 'M3') {
@@ -62,12 +64,12 @@ pipeline {
         }
         stage('Deploy') {
             when {
-                branch 'origin/SLR-80_CD-pipeline'
+                branch 'master'
             }
             steps {
                 echo '----- Deploy app -----'
                 script {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: 'solaris', onFailure: false, war: '**/*.war'
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-deploy-user', path: '', url: 'https://deploysolaris.ddns.net')], contextPath: '/', onFailure: false, war: '**/*.war'
                 }
             }
         }

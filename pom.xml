@@ -10,6 +10,7 @@
 	<groupId>eus.solaris</groupId>
 	<artifactId>solaris</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging> 
 	<name>solaris</name>
 	<description>Solaris web</description>
 	<properties>
@@ -106,6 +107,11 @@
 			<artifactId>jasypt-spring-boot-starter</artifactId>
 			<version>3.0.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -131,5 +137,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
