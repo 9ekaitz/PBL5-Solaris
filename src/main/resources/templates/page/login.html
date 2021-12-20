@@ -48,9 +48,11 @@
                             <input type="checkbox" name="remember-me" id="remember-me">
                             <label for="remember-me" th:text="#{page.login.rememberMe}">Remember me</label>
                         </div>
-                        <div>
+                        <div class="submit-wrap">
+                            <a class="register-link" href="/register" th:href="@{/register}" th:text="#{page.login.register}">Create account</a>
                             <input class="btn" type="submit" value="Log in" th:value="#{page.login.login}">
                         </div>
+                        <a class="password-reset" href="/recover-account" th:href="@{/recover-account}" th:text="#{page.login.passwordReset}">Forgot password?</a>
                         <p class="error" th:if="${param.error}" th:text="#{page.login.error}">Authentication failed</p>
                     </form>
                 </div>

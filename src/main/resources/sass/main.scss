@@ -3,6 +3,7 @@
 * {
     font-family: $saira-font;
     color: $text-color;
+    font-size: 24px;
 }
 
 body {
@@ -12,7 +13,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 24px;
 }
 
 .hide {
@@ -36,7 +36,7 @@ body {
     align-items: center;
 
     .field {
-        margin-block: 1rem;
+        margin-block: 0.3rem;
         width: 100%;
     }
 
@@ -48,7 +48,7 @@ body {
 
 input {
     display: block;
-    margin-block: 0.5em 0;
+    margin-block: 0.5rem 0;
     border: 1px solid $text-color;
     border-radius: $input-border;
     padding: 0.2em;
@@ -92,15 +92,15 @@ input[type="checkbox"] {
 }
 
 input[type="submit"] {
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: bold;
     border: none;
     border-radius: $btn-border;
-    min-width: 10rem;
-    min-height: 3rem;
+    min-width: 10em;
+    min-height: 3em;
     color: $text-color;
     background-color: $main-color;
-    padding-inline: 2rem;
+    padding-inline: 2em;
 
     &:hover,
     &:focus {
@@ -133,4 +133,8 @@ input[type="submit"] {
 }
 .error {
     color: $danger-color;
+}
+
+svg {
+    display: block;
 }
