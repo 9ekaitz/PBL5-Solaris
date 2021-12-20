@@ -51,6 +51,9 @@ pipeline {
             }
         }
         stage('Generate WARs') {
+            when {
+                branch 'master'
+            }
             steps {
                 withMaven (maven: 'M3') {
                     withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
@@ -60,6 +63,9 @@ pipeline {
             }      
         }
         stage('Deploy') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo '----- Deploy app -----'
                 script {
