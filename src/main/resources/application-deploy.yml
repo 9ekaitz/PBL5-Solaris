@@ -1,0 +1,44 @@
+spring:     
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://solaris-db:5432/solaris
+    hikari:
+      schema: solaris
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate: 
+      ddl-auto: update
+    properties:
+      hibernate:
+        default-schema: solaris
+
+  # autoconfigure:
+  #   exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.ManagementWebSecurityAutoConfiguration
+
+  # security:
+  #   user:
+  #     name: admin
+  #     password: admin
+
+server:
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore/solaris.p12
+    key-store-password: ENC(Pxpe3b0nLP3X9pJOBzzDTnnMb6FtRcWTxCTChdDoQLe5P46nloLeGlj1BQ4EvD3C)
+    key-alias: solaris
+    key-password: ENC(Pxpe3b0nLP3X9pJOBzzDTnnMb6FtRcWTxCTChdDoQLe5P46nloLeGlj1BQ4EvD3C)
+  port: 8443
+
+logging:
+    level:
+      org:
+        hibernate:
+          #type: TRACE
+          #SQL: TRACE
+solaris:
+  web:
+    home-url: /
+    login-url: /login
+    login-failed-url: /login?error=true
+    logout-url: /logout
