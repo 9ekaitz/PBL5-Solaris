@@ -1,12 +1,12 @@
 .cls-1 {
   fill: none;
-  stroke: #f9aa31;
+  stroke: #F9AA31;
   stroke-miterlimit: 10;
   stroke-width: 3px;
 }
 
 .cls-2 {
-  fill: #f9aa31;
+  fill: #F9AA31;
 }
 
 #anim-logo {
@@ -108,72 +108,72 @@
 }
 @-webkit-keyframes show-letter-big-s {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 155.5;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-big-s {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 155.5;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes show-letter-o {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 127.8;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-o {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 127.8;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes show-letter-l {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 73.6;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-l {
   from {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 73.6;
   }
   to {
-    stroke: #f9aa31;
+    stroke: #F9AA31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes fill-letter {
   to {
-    fill: #f9aa31;
+    fill: #F9AA31;
   }
 }
 @keyframes fill-letter {
   to {
-    fill: #f9aa31;
+    fill: #F9AA31;
   }
 }
 #eUX3co8Wz5g2_to {
