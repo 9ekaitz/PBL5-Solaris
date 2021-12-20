@@ -6,10 +6,15 @@ spring:
     url: jdbc:postgresql://localhost:5432/solaris
     hikari:
       schema: solaris
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate: 
       ddl-auto: update
     properties:
       hibernate:
-        default-schema: solaris
+        default-schema: 
+
+  thyemeleaf:
+    cache: false
+  

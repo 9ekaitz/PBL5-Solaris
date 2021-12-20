@@ -259,4 +259,133 @@
   100% {
     transform: scale(1.99505, 1.99505);
   }
-}/*# sourceMappingURL=logo-load.css.map */
+}
+* {
+  font-family: "Saira", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000;
+  font-size: 24px;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form .field {
+  margin-block: 0.3rem;
+  width: 100%;
+}
+.form .input-field {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  padding: 0.2em;
+  height: 1.5em;
+}
+input:focus, input:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+
+input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  display: grid;
+  place-content: center;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+input[type=checkbox]::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+          clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background-color: #fff;
+  transform: scale(0);
+  transition: transform 0.5s;
+}
+input[type=checkbox]:checked {
+  border-color: #f9aa31;
+  box-shadow: inset 0 0 0 2em #f9aa31;
+}
+input[type=checkbox]:checked::before {
+  transform: scale(0.7);
+}
+
+input[type=submit] {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.2rem;
+  min-width: 10em;
+  min-height: 3em;
+  color: #000;
+  background-color: #f9aa31;
+  padding-inline: 2em;
+}
+input[type=submit]:hover, input[type=submit]:focus {
+  cursor: pointer;
+  background-color: #f09407;
+}
+input[type=submit].btn-big {
+  width: 18rem;
+  height: 4rem;
+  border-radius: 0.3rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.section.section-rounded {
+  border-radius: 0.2rem;
+}
+
+@media screen and (min-width: 480px) {
+  .section {
+    border: 1px solid #c7c7c7;
+  }
+}
+.error {
+  color: #da3633;
+}
+
+svg {
+  display: block;
+}/*# sourceMappingURL=main.css.map */
