@@ -15,6 +15,7 @@ pipeline {
                                                 -Dsonar.login=${SONAR_TOKEN} \
                                                 -Dspring.profiles.active=ci \
                                                 -Dsonar.log.level=DEBUG \
+                                                -Dsonar.sources=src \
                                                 -Djasypt.encryptor.password=${JASYPT}'
                         }
                     }
