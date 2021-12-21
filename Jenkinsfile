@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
-                    withCredentials() {
+                    withCredentials([]) {
                         sh 'mvn clean compile'
                     }
                 }
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 echo '----- Deploy app -----'
                 withMaven (maven: 'M3') {
-                    withCredentials() {
+                    withCredentials([]) {
                         sh 'mvn -Dmaven.test.skip package'
                     }
                 }
