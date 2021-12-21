@@ -16,7 +16,6 @@
 	<properties>
 		<java.version>11</java.version>
 		<sonar.projectKey>Solaris</sonar.projectKey>
-		<sonar.sources>src/main/resources</sonar.sources>
 	</properties>
 
 	<dependencies>
