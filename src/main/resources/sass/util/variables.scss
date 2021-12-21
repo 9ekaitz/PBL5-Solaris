@@ -1,5 +1,5 @@
-$main-color: #F9AA31;
-$main-dark-color: #F19F24;
+$main-color: #f9aa31;
+$main-dark-color: darken($main-color, 10%);
 $text-color: #000;
 $text-light-color: #FFF;
 $bg-color: #E5E5E5;
@@ -15,6 +15,23 @@ $svg-filter-color: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brig
 
 $saira-font: "Saira", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
-$btn-border: 0.4rem;
-$input-border: 0.4rem;
-$section-border: 0.4rem;
+$btn-border: 0.2rem;
+$input-border: 0.2rem;
+$section-border: 0.2rem;
+
+$medium-screen: 480px;
+$large-screen: 768px;
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin no-drag {
+  -webkit-user-drag: none;
+  user-drag: none;
+}

@@ -87,6 +87,7 @@ public class AppController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return false;
         }
+ 
         return true;
 	}
 

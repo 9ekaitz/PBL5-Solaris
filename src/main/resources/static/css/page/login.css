@@ -1,7 +1,109 @@
-form .field * {
-  display: block;
+.login-form input[type=submit] {
+  font-size: 0.7rem;
 }
-.logo {
+.login-form .remember-me {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  display: inline-flex;
+  align-items: flex-end;
+  font-size: 0.8rem;
+  margin-top: 0;
+}
+.login-form .remember-me input {
+  margin-right: 0.6em;
+  width: 1em;
+  height: 1em;
+}
+.login-form .remember-me label {
+  font-size: inherit;
+}
+.login-form label:hover + .password, .login-form label:focus + .password {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.login-form .password {
+  display: flex;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  margin-block: 0.5em 0;
+}
+.login-form .password:focus-within, .login-form .password:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.login-form .password input {
+  padding-right: 0;
+  border: none;
+  width: 90%;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+}
+.login-form .password input:focus {
+  border: none;
+}
+.login-form .password #show-password {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 10%;
+  height: 100%;
+  padding: 0.25em;
+}
+.login-form .password #show-password svg {
+  margin: auto;
+  fill: #52525c;
+}
+.login-form .password #show-password:hover {
+  cursor: pointer;
+}
+.login-form .password #show-password:hover svg {
+  fill: #000;
+}
+.login-form .submit-wrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   width: 100%;
-  max-width: 16rem;
+}
+
+.password-reset,
+.register-link {
+  text-decoration: none;
+  color: #f9aa31;
+  font-size: 0.7rem;
+}
+
+.register-link {
+  font-weight: bold;
+}
+
+.password-reset {
+  margin-top: 0.8rem;
+}
+
+h1 {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+}
+h1 .logo {
+  -webkit-user-drag: none;
+  user-drag: none;
+  font-size: inherit;
+  width: 5em;
+}
+
+.error {
+  font-size: 0.75rem;
 }/*# sourceMappingURL=login.css.map */

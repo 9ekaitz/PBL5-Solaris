@@ -1,12 +1,12 @@
 .cls-1 {
   fill: none;
-  stroke: #F9AA31;
+  stroke: #f9aa31;
   stroke-miterlimit: 10;
   stroke-width: 3px;
 }
 
 .cls-2 {
-  fill: #F9AA31;
+  fill: #f9aa31;
 }
 
 #anim-logo {
@@ -108,72 +108,72 @@
 }
 @-webkit-keyframes show-letter-big-s {
   from {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 155.5;
   }
   to {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-big-s {
   from {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 155.5;
   }
   to {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes show-letter-o {
   from {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 127.8;
   }
   to {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-o {
   from {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 127.8;
   }
   to {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes show-letter-l {
   from {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 73.6;
   }
   to {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 0;
   }
 }
 @keyframes show-letter-l {
   from {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 73.6;
   }
   to {
-    stroke: #F9AA31;
+    stroke: #f9aa31;
     stroke-dashoffset: 0;
   }
 }
 @-webkit-keyframes fill-letter {
   to {
-    fill: #F9AA31;
+    fill: #f9aa31;
   }
 }
 @keyframes fill-letter {
   to {
-    fill: #F9AA31;
+    fill: #f9aa31;
   }
 }
 #eUX3co8Wz5g2_to {
@@ -263,37 +263,20 @@
 * {
   font-family: "Saira", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #000;
+  font-size: 24px;
 }
 
 body {
   margin: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 24px;
 }
 
-.btn {
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 0.4rem;
-  min-width: 10rem;
-  min-height: 3rem;
-  color: #000;
-  background-color: #F9AA31;
-  border: 0;
-  padding-inline: 2rem;
-}
-.btn:hover {
-  cursor: pointer;
-  background-color: #F19F24;
-}
-.btn.btn-big {
-  width: 18rem;
-  height: 4rem;
-  border-radius: 0.6rem;
+.hide {
+  display: none;
 }
 
 .row {
@@ -312,15 +295,97 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.form .field {
+  margin-block: 0.3rem;
+  width: 100%;
+}
+.form .input-field {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  padding: 0.2em;
+  height: 1.5em;
+}
+input:focus, input:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+
+input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  display: grid;
+  place-content: center;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+input[type=checkbox]::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+          clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background-color: #fff;
+  transform: scale(0);
+  transition: transform 0.5s;
+}
+input[type=checkbox]:checked {
+  border-color: #f9aa31;
+  box-shadow: inset 0 0 0 2em #f9aa31;
+}
+input[type=checkbox]:checked::before {
+  transform: scale(0.7);
+}
+
+input[type=submit] {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.2rem;
+  min-width: 10em;
+  min-height: 3em;
+  color: #000;
+  background-color: #f9aa31;
+  padding-inline: 2em;
+}
+input[type=submit]:hover, input[type=submit]:focus {
+  cursor: pointer;
+  background-color: #f09407;
+}
+input[type=submit].btn-big {
+  width: 18rem;
+  height: 4rem;
+  border-radius: 0.3rem;
+}
 
 .section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid;
-  border-color: #C7C7C7;
   padding: 2rem;
 }
 .section.section-rounded {
-  border-radius: 0.4rem;
+  border-radius: 0.2rem;
+}
+
+@media screen and (min-width: 480px) {
+  .section {
+    border: 1px solid #c7c7c7;
+  }
+}
+.error {
+  color: #da3633;
+}
+
+svg {
+  display: block;
 }/*# sourceMappingURL=main.css.map */

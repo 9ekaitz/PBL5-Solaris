@@ -2,74 +2,78 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
-    <main layout:fragment="content">
-        <div class="helper">
-            <a href="/">Home</a>
+  <main layout:fragment="content">
+    <div class="helper">
+      <a href="/">Home</a>
+    </div>
+    <hr>
+    <div class="main-content">
+      <div class="content-section main">
+        <div>
+          <form method="GET" th:action="@{/installation}">
+            <h1>Solar panels easy instalation</h1>
+            <p>We build custom installation around your budget, optimized for the necesities you have, all protected by
+              a 2-year warranty.</p>
+            <input class="btn" type="submit" value="Get started">
+          </form>
         </div>
-        <hr>
-        <div class="main-content">
-            <div class="content-section main">
-                <div>
-                    <form method="GET" th:action="@{/installation}">
-                        <h1>Solar panels easy instalation</h1>
-                        <p>We build custom installation around your budget, optimized for the necesities you have, all protected by a 2-year warranty.</p>
-                        <input class="btn" type="submit" value="Get started">
-                    </form>
-                </div>
-                <div>
-                    <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
-                </div>
-            </div>
-            <div class="content-section phases">
-                <div>
-                    <p class="number">1</p>
-                    <p class="info">Select your budget and m2 you want to fill</p>
-                </div>
-                <div>
-                    <p class="number">2</p>
-                    <p class="info">Select the extra information</p>
-                </div>
-                <div>
-                    <p class="number">3</p>
-                    <p class="info">We build and install you solar panels</p>
-                </div>
-            </div>
-            <div class="content-section">
-                <div>
-                    <h1>Competitive pricing</h1>
-                    <p>We list everything that goes into your build and display cost clearly. Not only do you know exactly what you're getting, but it's more cost-effective than buying parts separately.</p>
-                </div>
-                <div>
-                    <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
-                </div>
-            </div>
-            <div class="content-section">
-                <div>
-                    <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
-                </div>
-                <div>
-                    <h1>Competitive pricing</h1>
-                    <p>We list everything that goes into your build and display cost clearly. Not only do you know exactly what you're getting, but it's more cost-effective than buying parts separately.</p>
-                </div>
-            </div>
-            <div class="content-section">
-                <div>
-                    <h1>Own dashboard application</h1>
-                    <p>We list everything that goes into your build and display cost clearly. Not only do you know exactly what you're getting, but it's more cost-effective than buying parts separately.</p>
-                </div>
-                <div>
-                    <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
-                </div>
-            </div>
+        <div>
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
         </div>
-    </main>
+      </div>
+      <div class="content-section phases">
+        <div>
+          <p class="number">1</p>
+          <p class="info">Select your budget and m2 you want to fill</p>
+        </div>
+        <div>
+          <p class="number">2</p>
+          <p class="info">Select the extra information</p>
+        </div>
+        <div>
+          <p class="number">3</p>
+          <p class="info">We build and install you solar panels</p>
+        </div>
+      </div>
+      <div class="content-section">
+        <div>
+          <h1>Competitive pricing</h1>
+          <p>We list everything that goes into your build and display cost clearly. Not only do you know exactly what
+            you're getting, but it's more cost-effective than buying parts separately.</p>
+        </div>
+        <div>
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
+        </div>
+      </div>
+      <div class="content-section">
+        <div>
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
+        </div>
+        <div>
+          <h1>Competitive pricing</h1>
+          <p>We list everything that goes into your build and display cost clearly. Not only do you know exactly what
+            you're getting, but it's more cost-effective than buying parts separately.</p>
+        </div>
+      </div>
+      <div class="content-section">
+        <div>
+          <h1>Own dashboard application</h1>
+          <p>We list everything that goes into your build and display cost clearly. Not only do you know exactly what
+            you're getting, but it's more cost-effective than buying parts separately.</p>
+        </div>
+        <div>
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </main>
 </body>
 
 </html>

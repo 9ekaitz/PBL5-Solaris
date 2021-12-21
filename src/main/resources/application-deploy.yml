@@ -1,7 +1,9 @@
 spring:     
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/solaris
+    password: ENC(r3NjUAbTkDAlljGjSJiRXFO9sb40yu7LWsa/88b1Ijhj12/gI0kxjxyP7l5vuNA1RFcJMcHKSmPqN1E4zoKnDQ==)
+    username: postgres
+    url: jdbc:postgresql://solaris-db:5432/solaris
     hikari:
       schema: solaris
   jpa:
@@ -42,6 +44,3 @@ solaris:
     login-url: /login
     login-failed-url: /login?error=true
     logout-url: /logout
-  security:
-    remember-me:
-      key: ENC(kpXkc5glu8o9LUfpVIZgEs7i+egWhzDJOI214DzobKOqRbIJkqnCWxX427eTPVUrs2/MtkYoMRXd0GmJx8MLaw==)
