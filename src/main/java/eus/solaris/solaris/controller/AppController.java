@@ -49,7 +49,7 @@ public class AppController {
 
 		model.addAttribute("languages", languageService.findAll());
 
-		return "index";
+		return "page/index";
 	}
 
 	@GetMapping("/login")
@@ -59,7 +59,7 @@ public class AppController {
 		}
 		model.addAttribute("user", new User());
 
-		return "login";
+		return "page/login";
 	}
 
 	@GetMapping("/register")
@@ -69,7 +69,7 @@ public class AppController {
 		}
 		model.addAttribute("user", new UserRegistrationDto());
 
-		return "register";
+		return "page/register";
 	}
 
 	@PostMapping("/register")
@@ -79,7 +79,7 @@ public class AppController {
 		user.setEnabled(true);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.save(user);
-		return "login";
+		return "page/login";
 	}
 
 	private boolean checkLogedIn() {

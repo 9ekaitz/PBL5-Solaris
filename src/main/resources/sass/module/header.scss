@@ -3,10 +3,6 @@
 body{
     margin: 0;
     display: block;
-
-    &.search-open{
-        background-color: rgba($color: $text-color, $alpha: 0.5);
-    }
 }
 
 header{
@@ -16,13 +12,13 @@ header{
         @media (min-width: 768px){
             display: block;
 
-            .header-computer-1{
+            .header-computer-main{
                 background-color: $breadcrumbs-off-color;
                 padding: 1.5rem 10rem 1.5rem 10rem;
                 display: flex;
                 justify-content: space-between;
     
-                .header-computer-main{
+                .header-computer-submain{
                     display: flex;
     
                     .header-computer-icon{
@@ -216,46 +212,6 @@ header{
                 font-size: 0.75rem;
                 color: $text-light-color;
             }
-        }
-
-        .header-mobile-bottom{
-            background-color: $breadcrumbs-off-color;
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0 0.5rem 0;
-
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: calc(100% - 0rem);
-            text-align: center;
-
-            .header-mobile-bottom-section{
-                display: flex;
-                flex: 1;
-                flex-direction: column;
-
-                align-items: center;
-                justify-content: center;
-
-                text-decoration: none;
-                gap: 0.5rem;
-
-                &:hover{
-                    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
-                }
-                img{
-                    width: 100%;
-                    max-width: 1.5rem;
-                }
-
-                p{
-                    margin: 0;
-                    font-size: 0.75rem;
-                    color: $text-light-color;
-                }
-            }
-
         }
 
         @media (min-width: 768px){

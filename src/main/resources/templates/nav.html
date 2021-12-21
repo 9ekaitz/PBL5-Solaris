@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <th:block th:fragment="nav">
+        <a href="/index" class="header-mobile-bottom-section">
+            <img class="logo" th:src="@{/images/home-alt.svg}" src="/images/home-alt.svg" alt="Instalación" />
+            <p>Home</p>
+        </a>
+        <a href="/shop" class="header-mobile-bottom-section">
+            <img class="logo" th:src="@{/images/shopping-bag.svg}" src="/images/shopping-bag.svg" alt="Shopping cart" />
+            <p>Tienda</p>
+        </a>
+        <a href="/solar-zone" class="header-mobile-bottom-section" th:if="${user != null}">
+            <img class="logo" th:src="@{/images/shopping-cart.svg}" src="/images/shopping-cart.svg" alt="Shopping cart" />
+            <p>Zona Solar</p>
+        </a>
+        <a href="/info" class="header-mobile-bottom-section">
+            <img class="logo" th:src="@{/images/info.svg}" src="/images/info.svg" alt="Information" />
+            <p>Info</p>
+        </a>
+        <a href="/cart" class="header-mobile-bottom-section">
+            <img class="logo" th:src="@{/images/shopping-cart.svg}" src="/images/shopping-cart.svg" alt="Shopping cart" />
+            <p>Carrito</p>
+        </a> 
+    </th:block>
+</body>
+</html>

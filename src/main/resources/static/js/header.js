@@ -54,7 +54,6 @@ function removeSearch(){
     search_bar = document.getElementById("search-computer-bar");
     if(search_bar.classList.contains("show-search")){
         search_bar.classList.remove("show-search");
-        document.getElementsByTagName("body")[0].classList.remove("search-open");
     }
 }
 
@@ -62,11 +61,9 @@ function showComputerSearch(){
     let search_bar = document.getElementById("search-computer-bar");
     if(search_bar.classList.contains("show-search")){
         search_bar.classList.remove("show-search");
-        document.getElementsByTagName("body")[0].classList.remove("search-open");
     }else{
         search_bar.classList.add("show-search");
         document.getElementById("search-computer-box").focus();
-        document.getElementsByTagName("body")[0].classList.add("search-open");
     }
 }
 

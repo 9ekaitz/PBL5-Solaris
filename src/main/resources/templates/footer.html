@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <footer th:fragment="footer">
+    <th:block th:fragment="footer">
         <div>
             <p>© 2021 All rights Reserved Terms of Use and Privacy Policiy</p>
         </div>
@@ -17,6 +17,6 @@
             <a href=""><img class="logo" th:src="@{/images/facebook.svg}" src="/images/facebook.svg" alt="Facebook" /></a>
             <a href=""><img class="logo" th:src="@{/images/linkedin.svg}" src="/images/linkedin.svg" alt="Linkedin" /></a>
         </div>
-    </footer>
+    </th:block>
 </body>
 </html>

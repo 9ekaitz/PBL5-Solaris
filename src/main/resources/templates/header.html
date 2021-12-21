@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <header th:fragment="header">
+    <th:block th:fragment="header">
         <div class="header-computer">
-            <div class="header-computer-1">
-                <div class="header-computer-main">
+            <div class="header-computer-main">
+                <div class="header-computer-submain">
                     <div class="header-computer-icon">
-                        <a href="/index"><img class="logo" th:src="@{/images/solaris-white.png}" src="/images/solaris-white.png" alt="Solaris icon" /></a>
+                        <a href="/"><img class="logo" th:src="@{/images/solaris-white.png}" src="/images/solaris-white.png" alt="Solaris icon" /></a>
                     </div>
                     <div class="header-computer-options">
-                        <a href="/index">Instalación</a>
+                        <a href="/">Instalación</a>
                         <a href="" th:if="${user != null}">Zona Solar</a>
                         <a href="/shop">Tienda</a>
                     </div>
@@ -41,53 +41,33 @@
             </div>
         </div>
         <div class="header-mobile">
-            <div class="header-mobile-top">
-                <div>
-                    <a href="/profile" th:if="${user != null}"><img class="logo" th:src="@{/images/profile.svg}" src="/images/profile.svg" alt="Profile" /></a>
-                    <a href="/login" th:if="${user == null}" class="header-mobile-top-not-login">
-                        <img class="logo" th:src="@{/images/profile.svg}" src="/images/profile.svg" alt="Login" />
-                        <p>Log In / Register</p>
-                    </a>
+            <div>
+                <div class="header-mobile-top">
+                    <div>
+                        <a href="/profile" th:if="${user != null}"><img class="logo" th:src="@{/images/profile.svg}" src="/images/profile.svg" alt="Profile" /></a>
+                        <a href="/login" th:if="${user == null}" class="header-mobile-top-not-login">
+                            <img class="logo" th:src="@{/images/profile.svg}" src="/images/profile.svg" alt="Login" />
+                            <p>Log In / Register</p>
+                        </a>
+                    </div>
+                    <div>
+                        <a><img id="search-mobile-icon" class="logo" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" /></a>
+                        <a><img id="lang-mobile-icon" class="logo" th:src="@{/images/globe-alt.svg}" src="/images/globe-alt.svg" alt="Language" /></a>
+                    </div>               
                 </div>
-                <div>
-                    <a><img id="search-mobile-icon" class="logo" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" /></a>
-                    <a><img id="lang-mobile-icon" class="logo" th:src="@{/images/globe-alt.svg}" src="/images/globe-alt.svg" alt="Language" /></a>
-                </div>               
-            </div>
-            <div class="header-mobile-search">
-                <form method="GET" th:action="@{/login}" id="search-mobile-bar">
-                    <input type="text" name="" id="search-mobile-box" placeholder="Producto" autofocus="autofocus">
-                    <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products">
-                </form>
-            </div>
-            <div class="header-mobile-lang" id="header-mobile-lang">
-                <th:block th:each="lang : ${languages}">
-                    <a th:text=${lang.code}></a>
-                </th:block>
-            </div>
-            <div class="header-mobile-bottom">
-                    <a href="/index" class="header-mobile-bottom-section">
-                        <img class="logo" th:src="@{/images/home-alt.svg}" src="/images/home-alt.svg" alt="Instalación" />
-                        <p>Home</p>
-                    </a>
-                    <a href="/shop" class="header-mobile-bottom-section">
-                        <img class="logo" th:src="@{/images/shopping-bag.svg}" src="/images/shopping-bag.svg" alt="Shopping cart" />
-                        <p>Tienda</p>
-                    </a>
-                    <a href="/solar-zone" class="header-mobile-bottom-section" th:if="${user != null}">
-                        <img class="logo" th:src="@{/images/shopping-cart.svg}" src="/images/shopping-cart.svg" alt="Shopping cart" />
-                        <p>Zona Solar</p>
-                    </a>
-                    <a href="/info" class="header-mobile-bottom-section">
-                        <img class="logo" th:src="@{/images/info.svg}" src="/images/info.svg" alt="Information" />
-                        <p>Info</p>
-                    </a>
-                    <a href="/cart" class="header-mobile-bottom-section">
-                        <img class="logo" th:src="@{/images/shopping-cart.svg}" src="/images/shopping-cart.svg" alt="Shopping cart" />
-                        <p>Carrito</p>
-                    </a> 
+                <div class="header-mobile-search">
+                    <form method="GET" th:action="@{/login}" id="search-mobile-bar">
+                        <input type="text" name="" id="search-mobile-box" placeholder="Producto" autofocus="autofocus">
+                        <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products">
+                    </form>
+                </div>
+                <div class="header-mobile-lang" id="header-mobile-lang">
+                    <th:block th:each="lang : ${languages}">
+                        <a th:text=${lang.code}></a>
+                    </th:block>
+                </div>
             </div>
         </div>
-    </header>   
+    </th:block>   
 </body>
 </html>
