@@ -7,9 +7,8 @@ pipeline {
             steps {
                 echo '----- Build app -----'
                 withMaven (maven: 'M3') {
-                    withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn clean compile -Dspring.profiles.active=ci \
-                            -Djasypt.encryptor.password=${JASYPT}'
+                    withCredentials() {
+                        sh 'mvn clean compile'
                     }
                 }
             }
@@ -54,8 +53,8 @@ pipeline {
             steps {
                 echo '----- Deploy app -----'
                 withMaven (maven: 'M3') {
-                    withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT')]) {
-                        sh 'mvn package -Dspring.profiles.active=ci -Djasypt.encryptor.password=${JASYPT}'
+                    withCredentials() {
+                        sh 'mvn -Dmaven.test.skip package'
                     }
                 }
                 script {
@@ -64,5 +63,4 @@ pipeline {
             }
         }
     }
-    //
 }
