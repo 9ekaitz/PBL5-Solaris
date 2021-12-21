@@ -9,7 +9,7 @@ pipeline {
                     withSonarQubeEnv(installationName:'SonarQube', credentialsId: 'sonar-token') {
                         withCredentials([string(credentialsId: 'jasypt-secret', variable: 'JASYPT'), 
                                         string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                                            sh 'mvn clean mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar \
+                                            sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar \
                                                 -Dsonar.projectKey=solaris \
                                                 -Dsonar.host.url=https://sonarsolaris.ddns.net \
                                                 -Dsonar.login=${SONAR_TOKEN} \
