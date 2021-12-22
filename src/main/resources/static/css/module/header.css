@@ -23,7 +23,7 @@ header .header-computer {
     padding-right: 6rem;
     font-weight: bolder;
   }
-  header .header-computer .header-computer-main .header-computer-submain .header-computer-icon a img {
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-icon .link .logo {
     width: 100%;
     max-width: 100px;
   }
@@ -32,19 +32,25 @@ header .header-computer {
     gap: 2rem;
     font-weight: lighter;
   }
-  header .header-computer .header-computer-main .header-computer-submain .header-computer-options a:hover {
-    color: #F9AA31;
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-options .link {
+    font-size: 1.5rem;
+  }
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-options .link:hover {
+    color: #f9aa31;
   }
   header .header-computer .header-computer-main .header-computer-icons {
     display: flex;
     gap: 1rem;
   }
-  header .header-computer .header-computer-main .header-computer-icons a {
+  header .header-computer .header-computer-main .header-computer-icons .icon {
     display: flex;
     align-items: center;
   }
-  header .header-computer .header-computer-main .header-computer-icons a img:hover {
-    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+  header .header-computer .header-computer-main .header-computer-icons .icon .logo {
+    fill: #FFF;
+  }
+  header .header-computer .header-computer-main .header-computer-icons .icon .logo:hover {
+    fill: #f9aa31;
   }
   header .header-computer .header-computer-main .header-computer-icons #search-computer-icon:hover {
     cursor: pointer;
@@ -95,7 +101,7 @@ header .header-computer {
     justify-content: flex-end;
     padding: 0.5rem 10rem 0.5rem 10rem;
   }
-  header .header-computer .header-computer-lang a {
+  header .header-computer .header-computer-lang .lang {
     color: #FFF;
     font-size: 1rem;
   }
@@ -106,26 +112,17 @@ header .header-mobile .header-mobile-top {
   justify-content: space-between;
   padding: 0.5rem 1rem 0.5rem 1rem;
 }
-header .header-mobile .header-mobile-top div a img {
-  max-width: 1.5rem;
-}
-header .header-mobile .header-mobile-top div a img:hover {
-  cursor: pointer;
-  filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
-}
-header .header-mobile .header-mobile-top .header-mobile-top-not-login {
+header .header-mobile .header-mobile-top .header-mobile-icons {
   display: flex;
   gap: 1rem;
-  text-decoration: none;
 }
-header .header-mobile .header-mobile-top .header-mobile-top-not-login p {
-  margin: auto;
-  font-size: 0.75rem;
-  color: #FFF;
+header .header-mobile .header-mobile-top .logo {
+  max-width: 1.5rem;
+  fill: #FFF;
 }
-header .header-mobile .header-mobile-top .header-mobile-top-not-login:hover {
-  filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
-  color: #F9AA31;
+header .header-mobile .header-mobile-top .logo:hover {
+  cursor: pointer;
+  fill: #f9aa31;
 }
 header .header-mobile .header-mobile-search {
   background-color: #282828;
@@ -167,7 +164,7 @@ header .header-mobile .header-mobile-lang.show-lang {
   justify-content: flex-end;
   padding: 0.5rem 1rem 0.5rem 1rem;
 }
-header .header-mobile .header-mobile-lang a {
+header .header-mobile .header-mobile-lang .lang {
   font-size: 0.75rem;
   color: #FFF;
 }

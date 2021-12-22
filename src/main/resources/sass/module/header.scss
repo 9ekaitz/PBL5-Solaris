@@ -25,8 +25,8 @@ header{
                         padding-right: 6rem;
                         font-weight: bolder;
     
-                        a{
-                            img{
+                        .link{
+                            .logo{
                                 width: 100%;
                                 max-width: 100px;
                             }
@@ -38,8 +38,11 @@ header{
                         gap: 2rem;
                         font-weight: lighter;
 
-                        a:hover{
-                            color: $main-color;
+                        .link{
+                            font-size: 1.5rem;
+                            &:hover{
+                                color: $main-color;
+                            }
                         }
                     }
                 }
@@ -48,12 +51,16 @@ header{
                     display:flex;
                     gap: 1rem;
     
-                    a{
+                    .icon{
                         display:flex;
                         align-items: center;
 
-                        img:hover{
-                            filter: $svg-filter-color;
+                        .logo{
+                            fill: $section-bg-color;
+                        }
+
+                        .logo:hover{
+                            fill: $main-color;
                         }
                     }
 
@@ -118,7 +125,7 @@ header{
                     padding: 0.5rem 10rem 0.5rem 10rem;
                 }
 
-                a{
+                .lang{
                     color: $text-light-color;
                     font-size: 1rem;
                 }
@@ -134,28 +141,17 @@ header{
             justify-content: space-between;
             padding: 0.5rem 1rem 0.5rem 1rem;
 
-            div a img{
-                max-width: 1.5rem;
-                &:hover{
-                    cursor: pointer;
-                    filter: $svg-filter-color;
-                }
-            }
-
-            .header-mobile-top-not-login{
+            .header-mobile-icons{
                 display: flex;
                 gap: 1rem;
-                text-decoration: none;
+            }
 
-                p{
-                    margin: auto;
-                    font-size: 0.75rem;
-                    color: $text-light-color;
-                }
-
+            .logo{
+                max-width: 1.5rem;
+                fill: $section-bg-color;
                 &:hover{
-                    filter: $svg-filter-color;
-                    color: $main-color;
+                    cursor: pointer;
+                    fill: $main-color;
                 }
             }
 
@@ -208,7 +204,7 @@ header{
                 padding: 0.5rem 1rem 0.5rem 1rem;
             }
 
-            a{
+            .lang{
                 font-size: 0.75rem;
                 color: $text-light-color;
             }

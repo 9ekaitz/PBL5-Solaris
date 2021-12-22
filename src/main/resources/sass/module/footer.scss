@@ -11,9 +11,13 @@ footer{
         display: flex;
         gap: 0.5rem;
 
-        a:hover{
-            img{
-                filter: invert(77%) sepia(52%) saturate(1364%) hue-rotate(334deg) brightness(100%) contrast(96%);
+        .link:hover{
+            svg{
+                fill: $section-bg-color;
+
+                &:hover{
+                    fill: $main-color;
+                }
             }
         }
     }
@@ -22,11 +26,11 @@ footer{
         filter: invert(100%);
     }
 
-    p{
-        margin: 0;
+    .copyright{
+        margin: 0.1rem;
         color: $text-light-color;
         font-weight: lighter;
-        font-size: 0.5rem;
+        font-size: 0.75rem;
     }
 
     @media (min-width: 768px){
@@ -37,7 +41,7 @@ footer{
             gap: 1rem;
         }
 
-        p{
+        .copyright{
             font-size: 1rem;
         }
     }

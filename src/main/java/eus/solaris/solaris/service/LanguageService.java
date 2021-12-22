@@ -1,10 +1,10 @@
 package eus.solaris.solaris.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import eus.solaris.solaris.domain.Language;
 
 public interface LanguageService {
-    public ArrayList<Language> findAll();
+    public List<Language> findAll();
     
 }

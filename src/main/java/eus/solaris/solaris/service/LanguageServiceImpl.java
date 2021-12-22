@@ -1,6 +1,6 @@
 package eus.solaris.solaris.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class LanguageServiceImpl implements LanguageService{
     private LanguageRepository languageRepository;
 
     @Override
-    public ArrayList<Language> findAll() {
+    public List<Language> findAll() {
         return languageRepository.findAll();
     }
     

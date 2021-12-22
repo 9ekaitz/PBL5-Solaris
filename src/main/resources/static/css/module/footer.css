@@ -9,17 +9,20 @@ footer .footer-icons {
   display: flex;
   gap: 0.5rem;
 }
-footer .footer-icons a:hover img {
-  filter: invert(77%) sepia(52%) saturate(1364%) hue-rotate(334deg) brightness(100%) contrast(96%);
+footer .footer-icons .link:hover svg {
+  fill: #FFF;
+}
+footer .footer-icons .link:hover svg:hover {
+  fill: #f9aa31;
 }
 footer .logo {
   filter: invert(100%);
 }
-footer p {
-  margin: 0;
+footer .copyright {
+  margin: 0.1rem;
   color: #FFF;
   font-weight: lighter;
-  font-size: 0.5rem;
+  font-size: 0.75rem;
 }
 @media (min-width: 768px) {
   footer {
@@ -29,7 +32,7 @@ footer p {
   footer .footer-icons {
     gap: 1rem;
   }
-  footer p {
+  footer .copyright {
     font-size: 1rem;
   }
 }/*# sourceMappingURL=footer.css.map */

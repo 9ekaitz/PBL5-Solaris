@@ -26,7 +26,8 @@ nav{
             &:hover{
                 filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
             }
-            img{
+            .logo{
+                fill: white;
                 width: 100%;
                 max-width: 1.5rem;
             }

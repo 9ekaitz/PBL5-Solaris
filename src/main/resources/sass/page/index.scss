@@ -22,6 +22,16 @@ main{
             padding: 0rem 1rem 0rem 1rem;
             margin-block: 1rem;
 
+            &.main{
+                .title{
+                    font-size: 3rem;
+                }
+
+                .subtitle{
+                    font-size: 1.5rem;
+                }
+            }
+
             
             &.phases{
                 background-color: $extra-info-color;
@@ -50,7 +60,7 @@ main{
     
             }
 
-            div{
+            .sub-section{
                 width: 100%;
 
                 img{
@@ -58,8 +68,13 @@ main{
                     margin-block: 1rem;
                 }
 
-                h1{
+                .title{
+                    font-size: 2.75rem;
                     margin: 0;
+                }
+
+                .subtitle{
+                    font-size: 1.5rem;
                 }
 
             }
@@ -101,7 +116,16 @@ main{
                 font-size: 1.5rem;
 
                 &.main{
-                    font-size: 2rem;
+
+                    .title{
+                        font-size: 3.5rem;
+                    }
+
+                    .subtitle{
+                        font-size: 1.5rem;
+                        font-weight: lighter;
+                        text-align: justify;
+                    }
                 }
 
                 &.phases{
@@ -110,7 +134,7 @@ main{
                     justify-content: space-between;
                     padding: 2rem 10rem 2rem 10rem;
         
-                    p{
+                    .text{
                         text-align: center;
                         justify-content: center;
                         padding: 0;
@@ -131,20 +155,24 @@ main{
         
                 }
 
-                div{
-                    p{
-                        font-weight: lighter;
-                        text-align: justify;
-                    }
-
-                    img{
-                        margin-block: 0;
+                &.unit{
+                    .sub-section{
+                        width: 100%;
+        
+                        .title{
+                            font-size: 2rem;
+                            margin: 0;
+                        }
+        
+                        .subtitle{
+                            font-size: 1.25rem;
+                            font-weight: lighter;
+                            text-align: justify;
+                        }
+        
                     }
                 }
-
-                
             }
-
         }
     }
 }

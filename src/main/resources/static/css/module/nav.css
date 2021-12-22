@@ -21,7 +21,8 @@ nav .header-mobile-bottom-section {
 nav .header-mobile-bottom-section:hover {
   filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
 }
-nav .header-mobile-bottom-section img {
+nav .header-mobile-bottom-section .logo {
+  fill: white;
   width: 100%;
   max-width: 1.5rem;
 }
