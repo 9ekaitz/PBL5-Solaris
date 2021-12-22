@@ -9,12 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.dto.UserRegistrationDto;
+import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
 
@@ -57,17 +58,26 @@ public class AppController {
 
 	@GetMapping("/register")
 	public String registerForm(Model model) {
-		if(checkLogedIn()) {
-			return "redirect:/";
+		if(checkLogedIn()) {  
+			return "redirect:/";  
 		}
-		model.addAttribute("user", new UserRegistrationDto());
+		model.addAttribute("form", new UserRegistrationForm());
 
 		return "page/register";
 	}
 
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute("user") UserRegistrationDto dto, BindingResult result, Model model) {
-		User user = modelMapper.map(dto, User.class);
+	public String registerUser(@Validated @ModelAttribute("user") UserRegistrationForm form, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			model.addAttribute("errors", result.getAllErrors());
+			model.addAttribute("form", form);
+			return "page/register";
+		}
+
+		if(checkLogedIn()) {
+			return "redirect:/";
+		}
+		User user = modelMapper.map(form, User.class);
 		user.setRole(roleService.findByName("ROLE_ADMIN"));
 		user.setEnabled(true);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));

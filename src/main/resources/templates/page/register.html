@@ -1,22 +1,45 @@
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{template}">
 <head>
   <title>User Registration</title>
 </head>
 <body>
   <div layout:fragment="content">
     <h1>User registration</h1>
-    <form th:action="@{/register}" method="post" modelAttribute="user">
-      <div>
-        <label for="email">E-mail</label>
-        <input type="text" name="email" id="email" />
-      </div>
+
+    aaaaa
+    <form th:object="${form}" th:action="@{/register}" method="post" modelAttribute="user">
+      <ul class="error" th:text="#{page.login.error}">
+        <li>Error</li>
+        <li th:each="error : ${#fields.allErrors()}" th:text="${error.msg}">Error</li>
+      </ul>
+      <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
       <div>
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" />
+        <input type="text" name="username" id="username" th:field="*{username}"  />
+      </div>
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" th:field="*{name}" />
+      </div>
+      <div>
+        <label for="email">E-mail</label>
+        <input type="text" name="email" id="email" th:field="*{email}" />
+      </div>
+      <div>
+        <label for="first-surname">First Surname</label>
+        <input type="text" name="firstSurname" id="first-surname" th:field="*{firstSurname}" />
+      </div>
+      <div>
+        <label for="second-surname">Second Surname</label>
+        <input type="text" name="secondSurname" id="second-surname" th:field="*{secondSurname}" />
       </div>
       <div>
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" />
+        <input type="password" name="password" id="password" th:field="*{password}" />
+      </div>
+      <div>
+        <label for="repeat-password">Repeat Password</label>
+        <input type="password" name="repeat-password" id="repeat-password" th:field="*{verifyPassword}" />
       </div>
       <div>
         <input type="submit" value="Register" />
