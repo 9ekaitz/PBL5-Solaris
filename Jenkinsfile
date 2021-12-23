@@ -21,7 +21,7 @@ pipeline {
                                             sh 'mvn sonar:sonar \
                                                 -Dsonar.host.url=https://sonarsolaris.ddns.net \
                                                 -Dsonar.login=${SONAR_TOKEN} \
-                                                -Dsonar.sources=src/main/resources, src/main/java'
+                                                -Dsonar.sources=src/main/resources,src/main/java'
                         }
                     }
                 }
