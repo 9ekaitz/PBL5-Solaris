@@ -1,0 +1,12 @@
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+      <link rel="stylesheet" th:href="@{/css/normalize.css}">
+      <link rel="stylesheet" th:href="@{/css/main.css}">
+      <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
+  </head>
+  <body>
+      <main layout:fragment="content">
+          <p>Changing contents</p>
+      </main>
+      <!-- <nav th:insert="nav :: nav"></nav> -->
+  </body>

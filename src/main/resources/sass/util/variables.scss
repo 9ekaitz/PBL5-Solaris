@@ -28,5 +28,5 @@ $large-screen: 768px;
 
 @mixin no-drag {
   -webkit-user-drag: none;
-  user-drag: none;
+  -moz-user-drag: none;
 }
