@@ -59,7 +59,7 @@
 }
 .login-form .password #show-password svg {
   margin: auto;
-  fill: #52525c;
+  fill: #52525C;
 }
 .login-form .password #show-password:hover {
   cursor: pointer;
