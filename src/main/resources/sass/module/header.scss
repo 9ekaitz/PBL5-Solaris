@@ -9,6 +9,7 @@ header{
 
     .header-computer{
         display: none;
+        position: relative;
         @media (min-width: 768px){
             display: block;
 
@@ -130,6 +131,49 @@ header{
                     font-size: 1rem;
                 }
             }
+        }
+
+        .header-computer-left{
+            position: absolute;
+            top: 50%;
+            transform: translate(0%, -50%);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            .expand{
+                border: none;
+                border-radius: 0 16px 16px 0;
+                animation: none;
+                background: $breadcrumbs-off-color;
+                padding: 0.3rem 0.3rem 0.3rem 0;
+                margin-right: 2rem;
+                .logo{
+                    fill: $section-bg-color;
+                }
+
+                .logo:hover{
+                    fill: $main-color;
+                }
+            }
+            .expand:hover{
+                cursor: pointer;
+            }
+            
+            .profile {
+                border-radius: 1rem;
+                width: 2rem;
+                display: block;
+            }
+
+            
+        }
+        .page-title{
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+            padding: 1rem 0 1rem 0;
+            margin: 0;
         }
     }
 

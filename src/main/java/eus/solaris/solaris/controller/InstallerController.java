@@ -9,6 +9,7 @@ public class InstallerController {
   
   @GetMapping("/install")
   public String showInstallerPage(Model model) {
+    model.addAttribute("page_title", "GENERAL");
     return "page/installer.html";
   } 
 
