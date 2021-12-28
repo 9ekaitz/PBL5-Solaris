@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{user-zone-template}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
 
 <head>
   <link rel="stylesheet" th:href="@{/css/page/installer.css}">
@@ -7,12 +7,18 @@
 </head>
 
 <body>
-  <main layout:fragment="content">
-    <div class="user-banner">
-      <h1>Bienvenido, <span> Max Verstapen</span></h1>
+  <main layout:fragment="content" class="installer-dashboard">
+    <div class="user-banner container">
+      <h1 class="title">Bienvenido, <span> Max Verstapen</span></h1>
     </div>
-    <div class="container">
-      <h2>Instalaciones</h2>
+    <div class="available-install container current">
+      <h2 class="title">Instalaciones</h2>
+      <ul class="task-list">
+        <li></li>
+      </ul>
+    </div>
+    <div class="finished-install container">
+      <h2 class="title">Instalaciones</h2>
       <ul class="task-list">
         <li></li>
       </ul>

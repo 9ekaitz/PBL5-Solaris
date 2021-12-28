@@ -3,16 +3,59 @@
 
 main {
   background-color: $bg-color;
+  flex-grow: 1;
 }
 
 .container {
   background: $section-bg-color;
+  display: none;
 }
 
-.task {
-  
-  
-  li {
-    margin: 1rem;
+@media (min-width: 768px) {
+
+  main {
+    grid-column: 2;
+    grid-row: 2;
   }
+
+  .container {
+    display: inline-block;
+    box-shadow: 2px 3px 1px 2px #00000040;
+    padding: 1rem 2rem 1rem 2rem;
+    .title{
+      font-weight: lighter;
+    }
+  }
+  
+  .installer-dashboard{
+    display: grid;
+    padding: 1rem;
+    gap: 1.5rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 2fr;
+  
+    .user-banner{
+      grid-column: span 2; 
+    }
+  
+    .available-install {
+    }
+
+    .finished-install {
+    }
+  }
+  
+  
+  
+  .task {
+    
+    
+    li {
+      margin: 1rem;
+    }
+  }
+}
+
+.current {
+  display: inline-block;
 }
