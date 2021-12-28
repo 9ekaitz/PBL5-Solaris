@@ -14,9 +14,9 @@
                         <a class="link" href="/"><img class="logo" th:src="@{/images/solaris-white.png}" src="/images/solaris-white.png" alt="Solaris icon" th:alt=#{img.alt.solaris}/></a>
                     </div>
                     <div class="header-computer-options">
-                        <a class="link" href="/" th:text=#{page.header.installation}>Instalación</a>
-                        <a class="link" href="" th:if="${user != null}" th:text=#{page.header.solarZone}>Zona Solar</a>
-                        <a class="link" href="/shop" th:text=#{page.header.shop}>Tienda</a>
+                        <a class="link" href="/" th:text=#{header.installation}>Instalación</a>
+                        <a class="link" href="" th:if="${user != null}" th:text=#{header.solarZone}>Zona Solar</a>
+                        <a class="link" href="/shop" th:text=#{header.shop}>Tienda</a>
                     </div>
                 </div>
                 <div class="header-computer-icons">
@@ -142,7 +142,7 @@
             </div>
             <div class="header-computer-lang" id="header-computer-lang">
                 <th:block th:each="lang : ${languages}">
-                    <a class="lang" th:text=${lang.code}></a>
+                    <a href="" class="lang" th:text=#{${lang.i18n}}></a>
                 </th:block>
             </div>
         </div>
@@ -257,7 +257,7 @@
                 </div>
                 <div class="header-mobile-lang" id="header-mobile-lang">
                     <th:block th:each="lang : ${languages}">
-                        <a class="lang" th:text=${lang.code}></a>
+                      <a href="" class="lang" th:text=#{${lang.i18n}}></a>
                     </th:block>
                 </div>
             </div>

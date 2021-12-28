@@ -4,19 +4,17 @@ let computer_lang_bar;
 let mobile_search_bar;
 let computer_search_bar;
 
-
-window.onload = function() {
+window.addEventListener("DOMContentLoaded", function() {
     document.getElementById("search-computer-icon").addEventListener("click", showSearch, false);
     document.getElementById("search-mobile-icon").addEventListener("click", showSearch, false);
     document.getElementById("lang-computer-icon").addEventListener("click", showLang, false);
     document.getElementById("lang-mobile-icon").addEventListener("click", showLang, false);
 
-    
     mobile_lang_bar = document.getElementById("header-mobile-lang");
     computer_lang_bar = document.getElementById("header-computer-lang");
     mobile_search_bar = document.getElementById("search-mobile-bar");
     computer_search_bar = document.getElementById("search-computer-bar");
-}
+})
 
 function showSearch(){
     removeLang();
