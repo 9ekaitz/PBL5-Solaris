@@ -1,0 +1,18 @@
+@import "../util/variables.scss";
+
+
+main {
+  background-color: $bg-color;
+}
+
+.container {
+  background: $section-bg-color;
+}
+
+.task {
+  
+  
+  li {
+    margin: 1rem;
+  }
+}

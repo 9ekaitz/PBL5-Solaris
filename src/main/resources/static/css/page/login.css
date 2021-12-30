@@ -8,7 +8,7 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
-  user-drag: none;
+  -moz-user-drag: none;
   display: inline-flex;
   align-items: flex-end;
   font-size: 0.8rem;
@@ -59,7 +59,7 @@
 }
 .login-form .password #show-password svg {
   margin: auto;
-  fill: #52525c;
+  fill: #52525C;
 }
 .login-form .password #show-password:hover {
   cursor: pointer;
@@ -99,7 +99,7 @@ h1 {
 }
 h1 .logo {
   -webkit-user-drag: none;
-  user-drag: none;
+  -moz-user-drag: none;
   font-size: inherit;
   width: 5em;
 }

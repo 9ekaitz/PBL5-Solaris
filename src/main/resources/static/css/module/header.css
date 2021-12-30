@@ -1,0 +1,214 @@
+body {
+  margin: 0;
+  display: block;
+}
+
+header .header-computer {
+  display: none;
+  position: relative;
+}
+@media (min-width: 768px) {
+  header .header-computer {
+    display: block;
+  }
+  header .header-computer .header-computer-main {
+    background-color: #4D4D4D;
+    padding: 1.5rem 10rem 1.5rem 10rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  header .header-computer .header-computer-main .header-computer-submain {
+    display: flex;
+  }
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-icon {
+    padding-right: 6rem;
+    font-weight: bolder;
+  }
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-icon .link .logo {
+    width: 100%;
+    max-width: 100px;
+  }
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-options {
+    display: flex;
+    gap: 2rem;
+    font-weight: lighter;
+  }
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-options .link {
+    font-size: 1.5rem;
+  }
+  header .header-computer .header-computer-main .header-computer-submain .header-computer-options .link:hover {
+    color: #f9aa31;
+  }
+  header .header-computer .header-computer-main .header-computer-icons {
+    display: flex;
+    gap: 1rem;
+  }
+  header .header-computer .header-computer-main .header-computer-icons .icon {
+    display: flex;
+    align-items: center;
+  }
+  header .header-computer .header-computer-main .header-computer-icons .icon .logo {
+    fill: #FFF;
+  }
+  header .header-computer .header-computer-main .header-computer-icons .icon .logo:hover {
+    fill: #f9aa31;
+  }
+  header .header-computer .header-computer-main .header-computer-icons #search-computer-icon:hover {
+    cursor: pointer;
+  }
+  header .header-computer .header-computer-main .header-computer-icons #lang-computer-icon:hover {
+    cursor: pointer;
+  }
+  header .header-computer .header-computer-main a {
+    color: #FFF;
+    text-decoration: none;
+  }
+  header .header-computer .header-computer-search {
+    background-color: #282828;
+  }
+  header .header-computer .header-computer-search form {
+    display: none;
+    text-align: center;
+  }
+  header .header-computer .header-computer-search form.show-search {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 10rem 0.5rem 10rem;
+  }
+  header .header-computer .header-computer-search form input[type=text] {
+    background-color: transparent;
+    border: none;
+    color: #FFF;
+    font-size: 1rem;
+    border-bottom: 1px solid #FFF;
+    width: 100%;
+  }
+  header .header-computer .header-computer-search form input[type=text]:focus {
+    outline: none;
+  }
+  header .header-computer .header-computer-search form input[type=image] {
+    margin: auto;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  header .header-computer .header-computer-lang {
+    background-color: #282828;
+    display: none;
+  }
+  header .header-computer .header-computer-lang.show-lang {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding: 0.5rem 10rem 0.5rem 10rem;
+  }
+  header .header-computer .header-computer-lang .lang {
+    color: #FFF;
+    font-size: 1rem;
+  }
+}
+header .header-computer .header-computer-left {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+header .header-computer .header-computer-left .expand {
+  border: none;
+  border-radius: 0 16px 16px 0;
+  -webkit-animation: none;
+          animation: none;
+  background: #4D4D4D;
+  padding: 0.3rem 0.3rem 0.3rem 0;
+  margin-right: 2rem;
+}
+header .header-computer .header-computer-left .expand .logo {
+  fill: #FFF;
+}
+header .header-computer .header-computer-left .expand .logo:hover {
+  fill: #f9aa31;
+}
+header .header-computer .header-computer-left .expand:hover {
+  cursor: pointer;
+}
+header .header-computer .header-computer-left .profile {
+  border-radius: 1rem;
+  width: 2rem;
+  display: block;
+}
+header .header-computer .page-title {
+  font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+}
+header .header-mobile .header-mobile-top {
+  background-color: #4D4D4D;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-top .header-mobile-icons {
+  display: flex;
+  gap: 1rem;
+}
+header .header-mobile .header-mobile-top .logo {
+  max-width: 1.5rem;
+  fill: #FFF;
+}
+header .header-mobile .header-mobile-top .logo:hover {
+  cursor: pointer;
+  fill: #f9aa31;
+}
+header .header-mobile .header-mobile-search {
+  background-color: #282828;
+}
+header .header-mobile .header-mobile-search form {
+  display: none;
+  text-align: center;
+}
+header .header-mobile .header-mobile-search form.show-search {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-search form input[type=text] {
+  background-color: transparent;
+  border: none;
+  font-size: 0.75rem;
+  color: #FFF;
+  border-bottom: 1px solid #FFF;
+  width: 100%;
+}
+header .header-mobile .header-mobile-search form input[type=text]:focus {
+  outline: none;
+}
+header .header-mobile .header-mobile-search form input[type=image] {
+  margin: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+header .header-mobile .header-mobile-lang {
+  background-color: #282828;
+  display: none;
+  width: calc(100% - 2rem);
+}
+header .header-mobile .header-mobile-lang.show-lang {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-lang .lang {
+  font-size: 0.75rem;
+  color: #FFF;
+}
+@media (min-width: 768px) {
+  header .header-mobile {
+    display: none;
+  }
+}/*# sourceMappingURL=header.css.map */

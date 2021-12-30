@@ -1,0 +1,136 @@
+main hr {
+  border: none;
+  display: none;
+}
+main .helper {
+  display: none;
+}
+main .main-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0rem 1rem 0rem;
+}
+main .main-content .content-section {
+  display: block;
+  font-size: 1rem;
+  padding: 0rem 1rem 0rem 1rem;
+  margin-block: 1rem;
+}
+main .main-content .content-section.main .title {
+  font-size: 3rem;
+}
+main .main-content .content-section.main .subtitle {
+  font-size: 1.5rem;
+}
+main .main-content .content-section.phases {
+  background-color: #F1F1F1;
+  display: block;
+  padding: 1rem 1rem 1rem 1rem;
+}
+main .main-content .content-section.phases p {
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+main .main-content .content-section.phases p.info {
+  padding: 0.5rem 0 0 0;
+  font-size: 1rem;
+}
+main .main-content .content-section.phases p.number {
+  margin: auto;
+  width: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid black;
+}
+main .main-content .content-section .sub-section {
+  width: 100%;
+}
+main .main-content .content-section .sub-section img {
+  max-width: 100%;
+  margin-block: 1rem;
+}
+main .main-content .content-section .sub-section .title {
+  font-size: 2.75rem;
+  margin: 0;
+}
+main .main-content .content-section .sub-section .subtitle {
+  font-size: 1.5rem;
+}
+@media (min-width: 768px) {
+  main .helper {
+    display: block;
+    margin: 0;
+    padding: 0.5rem 0 0.5rem 10rem;
+    font-size: 1rem;
+  }
+  main .helper a {
+    color: #f9aa31;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  main hr {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid #C7C7C7;
+  }
+  main .main-content {
+    padding: 7.5rem 0rem 5rem 0rem;
+    gap: 10rem;
+  }
+  main .main-content .content-section {
+    display: flex;
+    gap: 5rem;
+    margin-block: 0;
+    padding: 0rem 10rem 0rem 10rem;
+    font-size: 1.5rem;
+  }
+  main .main-content .content-section.main .title {
+    font-size: 3.5rem;
+  }
+  main .main-content .content-section.main .subtitle {
+    font-size: 1.5rem;
+    font-weight: lighter;
+    text-align: justify;
+  }
+  main .main-content .content-section.phases {
+    background-color: #F1F1F1;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 10rem 2rem 10rem;
+  }
+  main .main-content .content-section.phases .text {
+    text-align: center;
+    justify-content: center;
+    padding: 0;
+  }
+  main .main-content .content-section.phases .text.info {
+    padding: 0.5rem 0 0 0;
+    font-size: 1rem;
+  }
+  main .main-content .content-section.phases .text.number {
+    margin: auto;
+    width: 70px;
+    line-height: 70px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 2rem;
+    border: 1px solid black;
+  }
+  main .main-content .content-section.unit .sub-section {
+    width: 100%;
+  }
+  main .main-content .content-section.unit .sub-section .title {
+    font-size: 2rem;
+    margin: 0;
+  }
+  main .main-content .content-section.unit .sub-section .subtitle {
+    font-size: 1.25rem;
+    font-weight: lighter;
+    text-align: justify;
+  }
+}/*# sourceMappingURL=index.css.map */
