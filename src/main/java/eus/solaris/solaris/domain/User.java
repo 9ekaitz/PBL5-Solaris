@@ -54,5 +54,4 @@ public class User implements Serializable {
     
     @Version
     private Integer version;
-    
 }

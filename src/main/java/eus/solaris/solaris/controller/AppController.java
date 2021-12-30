@@ -2,6 +2,7 @@ package eus.solaris.solaris.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,6 +66,12 @@ public class AppController {
 		return "page/register";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/dashboard")
+	public String getAdminDashboard(Model model) {
+		return "page/dashboard";
+	}
+
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute("user") UserRegistrationDto dto, BindingResult result, Model model) {
 		User user = modelMapper.map(dto, User.class);
@@ -83,5 +90,4 @@ public class AppController {
  
         return true;
 	}
-
 }

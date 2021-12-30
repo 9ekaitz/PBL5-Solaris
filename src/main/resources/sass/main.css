@@ -1,0 +1,391 @@
+.cls-1 {
+  fill: none;
+  stroke: #f9aa31;
+  stroke-miterlimit: 10;
+  stroke-width: 3px;
+}
+
+.cls-2 {
+  fill: #f9aa31;
+}
+
+#anim-logo {
+  position: relative;
+  margin: auto;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+#logo-sun-wrap {
+  -webkit-animation: sun-move 3s linear forwards;
+          animation: sun-move 3s linear forwards;
+}
+
+#logo-sun {
+  -webkit-animation: sun-rotate 3s linear forwards;
+          animation: sun-rotate 3s linear forwards;
+  transform-origin: center;
+  transform-box: fill-box;
+  position: absolute;
+}
+
+#logo-small-s {
+  -webkit-animation: delete-letter 0.1s linear forwards;
+          animation: delete-letter 0.1s linear forwards;
+  stroke-dasharray: 57.9;
+  stroke-dashoffset: 57.9;
+}
+
+#logo-i {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.2s;
+          animation: delete-letter 0.1s linear forwards 0.2s;
+  stroke-dasharray: 33.6;
+  stroke-dashoffset: 33.6;
+}
+
+#logo-r {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.4s;
+          animation: delete-letter 0.1s linear forwards 0.4s;
+  stroke-dasharray: 72;
+  stroke-dashoffset: 72;
+}
+
+#logo-a {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.5s;
+          animation: delete-letter 0.1s linear forwards 0.5s;
+  stroke-dasharray: 142.2;
+  stroke-dashoffset: 142.2;
+}
+
+#logo-l {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.6s, show-letter-l 0.5s linear forwards 1.6s, fill-letter 0.2s linear forwards 2.1s;
+          animation: delete-letter 0.1s linear forwards 0.6s, show-letter-l 0.5s linear forwards 1.6s, fill-letter 0.2s linear forwards 2.1s;
+  stroke-dasharray: 73.6;
+  stroke-dashoffset: 73.6;
+}
+
+#logo-o {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.8s, show-letter-o 0.5s linear forwards 1.4s, fill-letter 0.2s linear forwards 1.9s;
+          animation: delete-letter 0.1s linear forwards 0.8s, show-letter-o 0.5s linear forwards 1.4s, fill-letter 0.2s linear forwards 1.9s;
+  stroke-dasharray: 127.8;
+  stroke-dashoffset: 127.8;
+}
+
+#logo-big-s {
+  -webkit-animation: delete-letter 0.1s linear forwards 1s, show-letter-big-s 0.5s linear forwards 1.2s, fill-letter 0.2s linear forwards 1.7s;
+          animation: delete-letter 0.1s linear forwards 1s, show-letter-big-s 0.5s linear forwards 1.2s, fill-letter 0.2s linear forwards 1.7s;
+  stroke-dasharray: 155.5;
+  stroke-dashoffset: 155.5;
+}
+
+#logo-wrap {
+  -webkit-animation: center-logo 1s linear forwards;
+          animation: center-logo 1s linear forwards;
+  transform-box: border-box;
+  transform-origin: center;
+}
+
+@-webkit-keyframes center-logo {
+  to {
+    transform: translateX(20%);
+  }
+}
+
+@keyframes center-logo {
+  to {
+    transform: translateX(20%);
+  }
+}
+@-webkit-keyframes delete-letter {
+  to {
+    fill: transparent;
+  }
+}
+@keyframes delete-letter {
+  to {
+    fill: transparent;
+  }
+}
+@-webkit-keyframes show-letter-big-s {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 155.5;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes show-letter-big-s {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 155.5;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes show-letter-o {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 127.8;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes show-letter-o {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 127.8;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes show-letter-l {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 73.6;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes show-letter-l {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 73.6;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes fill-letter {
+  to {
+    fill: #f9aa31;
+  }
+}
+@keyframes fill-letter {
+  to {
+    fill: #f9aa31;
+  }
+}
+#eUX3co8Wz5g2_to {
+  -webkit-animation: eUX3co8Wz5g2_to__to 3000ms linear 1 normal forwards;
+          animation: eUX3co8Wz5g2_to__to 3000ms linear 1 normal forwards;
+}
+
+@-webkit-keyframes eUX3co8Wz5g2_to__to {
+  0% {
+    transform: translate(183.334999px, 77.305px);
+  }
+  33.333333% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+  100% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+}
+
+@keyframes eUX3co8Wz5g2_to__to {
+  0% {
+    transform: translate(183.334999px, 77.305px);
+  }
+  33.333333% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+  100% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+}
+#eUX3co8Wz5g2_tr {
+  -webkit-animation: eUX3co8Wz5g2_tr__tr 3000ms linear 1 normal forwards;
+          animation: eUX3co8Wz5g2_tr__tr 3000ms linear 1 normal forwards;
+}
+
+@-webkit-keyframes eUX3co8Wz5g2_tr__tr {
+  0% {
+    transform: rotate(0deg);
+  }
+  33.333333% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes eUX3co8Wz5g2_tr__tr {
+  0% {
+    transform: rotate(0deg);
+  }
+  33.333333% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+#eUX3co8Wz5g2_ts {
+  -webkit-animation: eUX3co8Wz5g2_ts__ts 3000ms linear 1 normal forwards;
+          animation: eUX3co8Wz5g2_ts__ts 3000ms linear 1 normal forwards;
+}
+
+@-webkit-keyframes eUX3co8Wz5g2_ts__ts {
+  0% {
+    transform: scale(1, 1);
+  }
+  33.333333% {
+    transform: scale(1.99505, 1.99505);
+  }
+  100% {
+    transform: scale(1.99505, 1.99505);
+  }
+}
+
+@keyframes eUX3co8Wz5g2_ts__ts {
+  0% {
+    transform: scale(1, 1);
+  }
+  33.333333% {
+    transform: scale(1.99505, 1.99505);
+  }
+  100% {
+    transform: scale(1.99505, 1.99505);
+  }
+}
+* {
+  font-family: "Saira", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000;
+  font-size: 24px;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form .field {
+  margin-block: 0.3rem;
+  width: 100%;
+}
+.form .input-field {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  padding: 0.2em;
+  height: 1.5em;
+}
+input:focus, input:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+
+input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  display: grid;
+  place-content: center;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+input[type=checkbox]::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+          clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background-color: #fff;
+  transform: scale(0);
+  transition: transform 0.5s;
+}
+input[type=checkbox]:checked {
+  border-color: #f9aa31;
+  box-shadow: inset 0 0 0 2em #f9aa31;
+}
+input[type=checkbox]:checked::before {
+  transform: scale(0.7);
+}
+
+input[type=submit] {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.2rem;
+  min-width: 10em;
+  min-height: 3em;
+  color: #000;
+  background-color: #f9aa31;
+  padding-inline: 2em;
+}
+input[type=submit]:hover, input[type=submit]:focus {
+  cursor: pointer;
+  background-color: #f09407;
+}
+input[type=submit].btn-big {
+  width: 18rem;
+  height: 4rem;
+  border-radius: 0.3rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.section.section-rounded {
+  border-radius: 0.2rem;
+}
+
+@media screen and (min-width: 480px) {
+  .section {
+    border: 1px solid #c7c7c7;
+  }
+}
+.error {
+  color: #da3633;
+}
+
+svg {
+  display: block;
+}/*# sourceMappingURL=main.css.map */
