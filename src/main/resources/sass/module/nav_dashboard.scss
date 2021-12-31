@@ -1,10 +1,12 @@
 @import "../util/variables";
 
 nav {
+  width: 100%;
+  position: sticky;
+  bottom: 0;
   @media screen and (min-width: 768px) {
     grid-row: span 2;
-    width: 3.6rem;
-    transition: width 0.5s;
+    width: fit-content;
   }
 }
 
@@ -34,6 +36,7 @@ nav {
     &:hover {
       filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
         brightness(175%) contrast(95%);
+        cursor: pointer;
     }
     .logo {
       fill: white;
@@ -67,6 +70,7 @@ hr {
     justify-content: space-between;
     flex-direction: column;
     height: 100%;
+    transition: width 0.5s;
 
     .nav-item {
       display: flex;
@@ -76,10 +80,12 @@ hr {
         display: inline-block;
       }
 
-      &:hover {
+      &:hover{
         filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
           brightness(175%) contrast(95%);
+          cursor: pointer;
       }
+      
       .logo {
         fill: $border-color;
         max-width: 2rem;
@@ -95,6 +101,15 @@ hr {
         white-space: nowrap;
       }
     }
+    .no-animation:hover{
+      filter: none;
+      cursor: initial;
+    }
+    .current{
+      filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
+        brightness(175%) contrast(95%);
+    }
+
     h2 {
       color: $border-color;
     }

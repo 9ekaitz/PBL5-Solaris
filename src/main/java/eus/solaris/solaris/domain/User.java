@@ -51,6 +51,9 @@ public class User implements Serializable {
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SolarPanel> solarPanels;
+
+    @OneToMany(mappedBy = "installer", fetch = FetchType.LAZY)
+    private Set<Task> tasks;
     
     @Version
     private Integer version;

@@ -1,8 +1,15 @@
+nav {
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+}
 @media screen and (min-width: 768px) {
   nav {
     grid-row: span 2;
-    width: 3.6rem;
-    transition: width 0.5s;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
   }
 }
 
@@ -28,6 +35,7 @@
 }
 .nav-mobile .nav-mobile-item:hover {
   filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+  cursor: pointer;
 }
 .nav-mobile .nav-mobile-item .logo {
   fill: white;
@@ -62,6 +70,7 @@ hr {
     justify-content: space-between;
     flex-direction: column;
     height: 100%;
+    transition: width 0.5s;
   }
   .nav-computer .nav-item {
     display: flex;
@@ -73,6 +82,7 @@ hr {
   }
   .nav-computer .nav-item:hover {
     filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+    cursor: pointer;
   }
   .nav-computer .nav-item .logo {
     fill: #C7C7C7;
@@ -87,6 +97,13 @@ hr {
     margin: 0 1rem 0 1rem;
     overflow: hidden;
     white-space: nowrap;
+  }
+  .nav-computer .no-animation:hover {
+    filter: none;
+    cursor: initial;
+  }
+  .nav-computer .current {
+    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
   }
   .nav-computer h2 {
     color: #C7C7C7;
