@@ -21,7 +21,7 @@
           <th:block th:each="item : ${user.tasks}">
             <li>
               <div class="task-details">
-                <img th:src="@{/images/user.png}" />
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
                 <div>
                   <p class="name" th:text="${item.name}"></p>
                   <p class="info">
@@ -56,7 +56,7 @@
           <th:block th:each="item : ${user.tasks}">
             <li>
               <div class="task-details">
-                <img th:src="@{/images/user.png}" />
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
                 <div>
                   <p class="name" th:text="${item.name}">
                     Install solar panel here
