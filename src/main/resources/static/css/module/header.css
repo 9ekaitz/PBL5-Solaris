@@ -105,6 +105,10 @@ header .header-computer {
   header .header-computer .header-computer-lang .lang {
     color: #FFF;
     font-size: 1rem;
+    text-decoration: none;
+  }
+  header .header-computer .header-computer-lang .lang:hover {
+    color: #f9aa31;
   }
 }
 header .header-mobile .header-mobile-top {
@@ -168,6 +172,10 @@ header .header-mobile .header-mobile-lang.show-lang {
 header .header-mobile .header-mobile-lang .lang {
   font-size: 0.75rem;
   color: #FFF;
+  text-decoration: none;
+}
+header .header-mobile .header-mobile-lang .lang:hover {
+  color: #f9aa31;
 }
 @media (min-width: 768px) {
   header .header-mobile {

@@ -129,6 +129,11 @@ header{
                 .lang{
                     color: $text-light-color;
                     font-size: 1rem;
+                    text-decoration: none;
+
+                    &:hover{
+                        color: $main-color;
+                    }
                 }
             }
         }
@@ -208,6 +213,11 @@ header{
             .lang{
                 font-size: 0.75rem;
                 color: $text-light-color;
+                text-decoration: none;
+
+                &:hover{
+                    color: $main-color;
+                }
             }
         }
 

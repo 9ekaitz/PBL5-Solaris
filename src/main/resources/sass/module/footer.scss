@@ -11,8 +11,8 @@ footer{
         display: flex;
         gap: 0.5rem;
 
-        .link:hover{
-            svg{
+        .link{
+            .icon{
                 fill: $section-bg-color;
 
                 &:hover{
@@ -20,10 +20,6 @@ footer{
                 }
             }
         }
-    }
-            
-    .logo{
-        filter: invert(100%);
     }
 
     .copyright{
