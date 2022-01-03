@@ -9,14 +9,11 @@ footer .footer-icons {
   display: flex;
   gap: 0.5rem;
 }
-footer .footer-icons .link:hover svg {
+footer .footer-icons .link .icon {
   fill: #FFF;
 }
-footer .footer-icons .link:hover svg:hover {
+footer .footer-icons .link .icon:hover {
   fill: #f9aa31;
-}
-footer .logo {
-  filter: invert(100%);
 }
 footer .copyright {
   margin: 0.1rem;

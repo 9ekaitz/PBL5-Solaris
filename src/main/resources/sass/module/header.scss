@@ -129,51 +129,13 @@ header{
                 .lang{
                     color: $text-light-color;
                     font-size: 1rem;
+                    text-decoration: none;
+
+                    &:hover{
+                        color: $main-color;
+                    }
                 }
             }
-        }
-
-        .header-computer-left{
-            position: absolute;
-            top: 50%;
-            transform: translate(0%, -50%);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-
-            .expand{
-                border: none;
-                border-radius: 0 16px 16px 0;
-                animation: none;
-                background: $breadcrumbs-off-color;
-                padding: 0.3rem 0.3rem 0.3rem 0;
-                margin-right: 2rem;
-                .logo{
-                    fill: $section-bg-color;
-                }
-
-                .logo:hover{
-                    fill: $main-color;
-                }
-            }
-            .expand:hover{
-                cursor: pointer;
-            }
-            
-            .profile {
-                border-radius: 1rem;
-                width: 2rem;
-                display: block;
-            }
-
-            
-        }
-        .page-title{
-            font-weight: bold;
-            text-align: center;
-            flex-grow: 1;
-            padding: 1rem 0 1rem 0;
-            margin: 0;
         }
     }
 
@@ -251,6 +213,11 @@ header{
             .lang{
                 font-size: 0.75rem;
                 color: $text-light-color;
+                text-decoration: none;
+
+                &:hover{
+                    color: $main-color;
+                }
             }
         }
 

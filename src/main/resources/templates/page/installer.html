@@ -1,23 +1,91 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{user-zone-template}">
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="@{dashboard_template}"
+>
+  <head>
+    <link rel="stylesheet" th:href="@{/css/page/installer.css}" />
+    <title>Instalador</title>
+  </head>
 
-<head>
-  <link rel="stylesheet" th:href="@{/css/page/installer.css}">
-  <title>Instalador</title>
-</head>
-
-<body>
-  <main layout:fragment="content">
-    <div class="user-banner">
-      <h1>Bienvenido, <span> Max Verstapen</span></h1>
-    </div>
-    <div class="container">
-      <h2>Instalaciones</h2>
-      <ul class="task-list">
-        <li></li>
-      </ul>
-    </div>
-  </main>
-</body>
-
+  <body>
+    <main layout:fragment="content" class="installer-dashboard">
+      <div class="user-banner container">
+        <h1 class="title" th:text="#{page.installer.welcome } +' '+ ${user.name}"><span> Max Verstapen</span></h1>
+      </div>
+      <div class="available-tasks container current">
+        <h2 class="title" th:text="#{page.installer.insllations}"></h2>
+        <ul class="task-list">
+          <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(user.tasks)}"></p>
+          <th:block th:each="item : ${user.tasks}">
+            <li>
+              <div class="task-details">
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
+                <div>
+                  <p class="name" th:text="${item.name}"></p>
+                  <p class="info">
+                    Perform the installation of 4 solar panels here
+                  </p>
+                </div>
+              </div>
+              <a class="button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  version="1.1"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="logo"
+                  th:alt="#{img.alt.expand}"
+                >
+                  <path
+                    d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                  />
+                </svg>
+              </a>
+            </li>
+          </th:block>
+        </ul>
+      </div>
+      <div class="completed-tasks container">
+        <h2 class="title" th:text="#{page.installer.finished-insllations}"></h2>
+        <ul class="task-list">
+        <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(user.tasks)}"></p>
+          <th:block th:each="item : ${user.tasks}">
+            <li>
+              <div class="task-details">
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
+                <div>
+                  <p class="name" th:text="${item.name}">
+                    Install solar panel here
+                  </p>
+                  <p class="info">
+                    Perform the installation of 4 solar panels here
+                  </p>
+                </div>
+              </div>
+              <a class="button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  version="1.1"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="logo"
+                  th:alt="#{img.alt.expand}"
+                >
+                  <path
+                    d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                  />
+                </svg>
+              </a>
+            </li>
+          </th:block>
+        </ul>
+      </div>
+    </main>
+  </body>
 </html>

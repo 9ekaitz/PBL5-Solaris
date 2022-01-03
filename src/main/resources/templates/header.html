@@ -14,9 +14,9 @@
                         <a class="link" href="/"><img class="logo" th:src="@{/images/solaris-white.png}" src="/images/solaris-white.png" alt="Solaris icon" th:alt=#{img.alt.solaris}/></a>
                     </div>
                     <div class="header-computer-options">
-                        <a class="link" href="/" th:text=#{page.header.installation}>Instalación</a>
-                        <a class="link" href="" th:if="${user != null}" th:text=#{page.header.solarZone}>Zona Solar</a>
-                        <a class="link" href="/shop" th:text=#{page.header.shop}>Tienda</a>
+                        <a class="link" href="/" th:text=#{header.installation}>Instalación</a>
+                        <a class="link" href="" th:if="${user != null}" th:text=#{header.solarZone}>Zona Solar</a>
+                        <a class="link" href="/shop" th:text=#{header.shop}>Tienda</a>
                     </div>
                 </div>
                 <div class="header-computer-icons">
@@ -142,7 +142,7 @@
             </div>
             <div class="header-computer-lang" id="header-computer-lang">
                 <th:block th:each="lang : ${languages}">
-                    <a class="lang" th:text=${lang.code}></a>
+                    <a href="" class="lang" th:text=#{${lang.i18n}}></a>
                 </th:block>
             </div>
         </div>
@@ -257,37 +257,11 @@
                 </div>
                 <div class="header-mobile-lang" id="header-mobile-lang">
                     <th:block th:each="lang : ${languages}">
-                        <a class="lang" th:text=${lang.code}></a>
+                      <a href="" class="lang" th:text=#{${lang.i18n}}></a>
                     </th:block>
                 </div>
             </div>
         </div>
     </th:block>
-    <th:block th:fragment="zone-header">
-      <div class="header-computer">
-          <div class="header-computer-left">
-            <button class="expand">
-              <svg xmlns="http://www.w3.org/2000/svg" class="logo" 
-                  width="16" 
-                  height="16"
-                  fill="none"
-                  viewBox="0 0 16 16">
-                    <path 
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-              </svg>
-            </button>
-            <div th:if="${user != null}" class="profile-container">
-              <img class="profile" th:src="@{/images/moraito_pocco.png}">
-            </div>
-            <div th:unless="${user != null}" class="profile-container">
-              <img class="profile" th:src="@{/images/user.png}">
-            </div>
-            <h2 class=>Profile Name</h2>
-          </div>
-          <h2 class="page-title" th:text="${page_title}"></h2>
-      </div>
-    </th:block>  
 </body>
 </html>

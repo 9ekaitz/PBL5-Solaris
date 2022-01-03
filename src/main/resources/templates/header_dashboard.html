@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <th:block th:fragment="header">
+    <div class="header-computer">
+      <div class="header-computer-left">
+        <button id="nav-expand" class="expand">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24"
+            height="24" viewBox="0 0 24 24" class="logo" th:alt="#{img.alt.expand}">
+            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+          </svg>
+        </button>
+        <div th:if="${user != null}" class="profile-container">
+          <img class="profile" th:alt="#{img.alt.user-profile}" th:src="@{/images/user.png}">
+        </div>
+        <div th:unless="${user != null}" class="profile-container">
+          <img class="profile" th:alt="#{img.alt.user-profile}" th:src="@{/images/moraito_pocco.png}" >
+        </div>
+        <h2 th:text="${user.name +' ' + user.firstSurname}"></h2>
+      </div>
+      <h2 class="page-title" th:text="${page_title}"></h2>
+    </div>
+  </th:block>
+</body>
