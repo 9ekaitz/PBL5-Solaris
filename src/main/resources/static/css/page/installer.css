@@ -9,7 +9,7 @@ main {
   background: #FFF;
   display: none;
   overflow: hidden;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1rem 2rem;
 }
 .container .title {
   font-weight: normal;
@@ -93,5 +93,7 @@ main {
   }
   .installer-dashboard .user-banner {
     grid-column: span 2;
+    background: #FFF;
+    padding: 1rem 2rem;
   }
 }/*# sourceMappingURL=installer.css.map */

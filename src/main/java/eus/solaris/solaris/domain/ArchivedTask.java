@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 import lombok.Getter;
@@ -16,7 +17,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Task {
+@Table(name= "archived_task")
+public class ArchivedTask {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +26,6 @@ public class Task {
 
   @Column
   private String name;
-
-  @Column
-  private String description;
-
-  @Column
-  private Boolean completed = false;
 
   @OneToOne
   @JoinColumn(name = "order_id", nullable = false)

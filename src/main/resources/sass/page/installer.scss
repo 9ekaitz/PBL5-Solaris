@@ -12,7 +12,7 @@ main {
   background: $section-bg-color;
   display: none;
   overflow: hidden;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1rem 2rem;
   .title{
     font-weight: normal;
     font-size: 1.5rem;
@@ -99,6 +99,8 @@ main {
   
     .user-banner{
       grid-column: span 2; 
+      background: $section-bg-color;
+      padding: 1rem 2rem;
     }
   }
 }

@@ -17,19 +17,17 @@
       <div class="available-tasks container current">
         <h2 class="title" th:text="#{page.installer.insllations}"></h2>
         <ul class="task-list">
-          <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(user.tasks)}"></p>
-          <th:block th:each="item : ${user.tasks}">
+          <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(pendingTasks)}"></p>
+          <th:block th:each="task : ${pendingTasks}">
             <li>
               <div class="task-details">
                 <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
                 <div>
-                  <p class="name" th:text="${item.name}"></p>
-                  <p class="info">
-                    Perform the installation of 4 solar panels here
-                  </p>
+                  <p class="name" th:text="${task.name}"></p>
+                  <p class="info" th:text="${task.description}"></p>
                 </div>
               </div>
-              <a class="button">
+              <a class="button" th:href="@{'/install/task/'+${task.id}}">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -52,21 +50,17 @@
       <div class="completed-tasks container">
         <h2 class="title" th:text="#{page.installer.finished-insllations}"></h2>
         <ul class="task-list">
-        <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(user.tasks)}"></p>
-          <th:block th:each="item : ${user.tasks}">
+        <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedTasks)}"></p>
+        <th:block th:each="task : ${completedTasks}">
             <li>
               <div class="task-details">
                 <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
                 <div>
-                  <p class="name" th:text="${item.name}">
-                    Install solar panel here
-                  </p>
-                  <p class="info">
-                    Perform the installation of 4 solar panels here
-                  </p>
+                  <p class="name" th:text="${task.name}"></p>
+                  <p class="info" th:text="${task.description}"></p>
                 </div>
               </div>
-              <a class="button">
+              <a class="button" th:href="@{'/install/task/'+${task.id}}">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
