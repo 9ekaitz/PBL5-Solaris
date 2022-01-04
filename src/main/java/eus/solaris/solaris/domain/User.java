@@ -51,7 +51,7 @@ public class User implements Serializable {
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SolarPanel> solarPanels;
-    
+
     @Version
     private Integer version;
     

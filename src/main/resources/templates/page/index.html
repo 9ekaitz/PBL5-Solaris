@@ -1,20 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
-    <div layout:fragment="content">
-        
-        <h1> hihi!</h1>
-        <p th:if="${user}" th:text="${user.username}">username</p>
-        <input type="checkbox" name="" id="">
+  <main layout:fragment="content">
+    <div class="helper">
+      <a href="/" th:text="#{page.index.title}">Home</a>
     </div>
+    <hr>
+    <div class="main-content">
+      <div class="content-section main">
+        <div class="sub-section">
+          <form method="GET" th:action="@{/installation}">
+            <h1 class="title" th:text="#{page.index.easyInstallation}">Solar panels easy instalation</h1>
+            <p class="subtitle" th:text="#{page.index.easyInstallationDescription}">We build custom installation around your budget, optimized for the necesities you have, all protected by
+              a 2-year warranty.</p>
+            <input class="btn" type="submit" value="Get started" th:value="#{page.index.getStarted}">
+          </form>
+        </div>
+        <div class="sub-section">
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
+        </div>
+      </div>
+      <div class="content-section phases">
+        <div>
+          <p class="text number">1</p>
+          <p class="text info" th:text="#{page.index.phase1}">Select your budget and m2 you want to fill</p>
+        </div>
+        <div>
+          <p class="text number">2</p>
+          <p class="text info" th:text="#{page.index.phase2}">Select the extra information</p>
+        </div>
+        <div>
+          <p class="text number">3</p>
+          <p class="text info" th:text="#{page.index.phase3}">We build and install you solar panels</p>
+        </div>
+      </div>
+      <div class="content-section unit">
+        <div class="sub-section">
+          <h1 class="title" th:text="#{page.index.price}">Competitive pricing</h1>
+          <p class="subtitle" th:text="#{page.index.price.sub}">We list everything that goes into your build and display cost clearly. Not only do you know exactly what
+            you're getting, but it's more cost-effective than buying parts separately.</p>
+        </div>
+        <div class="sub-section">
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
+        </div>
+      </div>
+      <div class="content-section unit">
+        <div class="sub-section">
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
+        </div>
+        <div class="sub-section">
+          <h1 class="title">Competitive pricing</h1>
+          <p class="subtitle">We list everything that goes into your build and display cost clearly. Not only do you know exactly what
+            you're getting, but it's more cost-effective than buying parts separately.</p>
+        </div>
+      </div>
+      <div class="content-section unit">
+        <div class="sub-section">
+          <h1 class="title" th:text=#{page.index.dashboard}>Own dashboard application</h1>
+          <p class="subtitle" th:text=#{page.index.dashboard.sub}>We list everything that goes into your build and display cost clearly. Not only do you know exactly what
+            you're getting, but it's more cost-effective than buying parts separately.</p>
+        </div>
+        <div class="sub-section">
+          <img th:src="@{/images/placasFoto.jpg}" src="/images/placasFoto.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </main>
 </body>
 
 </html>
