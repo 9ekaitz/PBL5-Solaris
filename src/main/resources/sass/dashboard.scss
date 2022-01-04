@@ -1,0 +1,35 @@
+@import "util/variables.scss";
+
+main {
+  background-color: $bg-color;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.container {
+  background: $section-bg-color;
+  display: none;
+  overflow: hidden;
+  padding: 1rem 2rem;
+  .title{
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  main {
+    grid-column: 2;
+    grid-row: 2;
+    overflow: hidden;
+    display: grid;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .container {
+    display: inline-block;
+    box-shadow: 2px 3px 1px 2px #00000040;
+  }
+}
