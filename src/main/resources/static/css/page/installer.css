@@ -25,20 +25,20 @@ main {
   padding: 0;
 }
 
-.task-list {
+.installation-list {
   list-style: none;
   padding-left: 0;
   overflow: auto;
   height: calc(100% - 4rem);
 }
-.task-list li + li {
+.installation-list li + li {
   margin-top: 1rem;
 }
-.task-list .empty {
+.installation-list .empty {
   font-weight: lighter;
   text-align: center;
 }
-.task-list li {
+.installation-list li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,28 +47,28 @@ main {
   padding: 0.5rem;
   gap: 0.5rem;
 }
-.task-list li .task-details {
+.installation-list li .installations-details {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.task-list li img {
+.installation-list li img {
   width: 64px;
   border-radius: 8px;
 }
-.task-list li .name {
+.installation-list li .name {
   font-weight: bold;
   margin: 0;
 }
-.task-list li .info {
+.installation-list li .info {
   font-weight: lighter;
   margin: 0;
 }
-.task-list li .button {
+.installation-list li .button {
   background: #f9aa31;
   border-radius: 16px;
 }
-.task-list li .button:hover {
+.installation-list li .button:hover {
   cursor: pointer;
 }
 

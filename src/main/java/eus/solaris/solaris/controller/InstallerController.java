@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import eus.solaris.solaris.domain.Role;
-import eus.solaris.solaris.domain.Task;
+import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.service.TaskService;
+import eus.solaris.solaris.service.InstallationService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
@@ -24,7 +24,7 @@ public class InstallerController {
   UserService userService;
 
   @Autowired
-  TaskService taskService;
+  InstallationService installationService;
 
 
   @GetMapping
@@ -39,11 +39,11 @@ public class InstallerController {
     user.setRole(role);
     /* --------------------------------- */
 
-    List<Task> pendingTasks = taskService.findByInstallerAndCompleted(user, false);
-    List<Task> completedTasks = taskService.findByInstallerAndCompleted(user, true);
+    List<Installation> pendingInstallations = installationService.findByInstallerAndCompleted(user, false);
+    List<Installation> completedInstallations = installationService.findByInstallerAndCompleted(user, true);
     model.addAttribute("user", user);
-    model.addAttribute("pendingTasks", pendingTasks);
-    model.addAttribute("completedTasks", completedTasks);
+    model.addAttribute("pendingInstallations", pendingInstallations);
+    model.addAttribute("completedInstallations", completedInstallations);
   
     return "page/installer";
   }

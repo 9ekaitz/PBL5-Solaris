@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Task {
+public class Installation {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
