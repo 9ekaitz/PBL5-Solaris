@@ -14,20 +14,20 @@
       <div class="user-banner container">
         <h1 class="title" th:text="#{page.installer.welcome } +' '+ ${user.name}"><span> Max Verstapen</span></h1>
       </div>
-      <div class="available-tasks container current">
+      <div class="available-installations container current">
         <h2 class="title" th:text="#{page.installer.insllations}"></h2>
-        <ul class="task-list">
-          <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(pendingTasks)}"></p>
-          <th:block th:each="task : ${pendingTasks}">
+        <ul class="installation-list">
+          <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(pendingInstallations)}"></p>
+          <th:block th:each="installation : ${pendingInstallations}">
             <li>
-              <div class="task-details">
-                <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
+              <div class="installation-details">
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
                 <div>
-                  <p class="name" th:text="${task.name}"></p>
-                  <p class="info" th:text="${task.description}"></p>
+                  <p class="name" th:text="${installation.name}"></p>
+                  <p class="info" th:text="${installation.description}"></p>
                 </div>
               </div>
-              <a class="button" th:href="@{'/install/task/'+${task.id}}">
+              <a class="button" th:href="@{'/install/installation/'+${installation.id}}">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -47,20 +47,20 @@
           </th:block>
         </ul>
       </div>
-      <div class="completed-tasks container">
+      <div class="completed-installations container">
         <h2 class="title" th:text="#{page.installer.finished-insllations}"></h2>
-        <ul class="task-list">
-        <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedTasks)}"></p>
-        <th:block th:each="task : ${completedTasks}">
+        <ul class="installation-list">
+        <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedInstallations)}"></p>
+        <th:block th:each="installation : ${completedInstallation}">
             <li>
-              <div class="task-details">
-                <img th:src="@{/images/user.png}" th:alt="#{img.alt.task}"/>
+              <div class="installation-details">
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
                 <div>
-                  <p class="name" th:text="${task.name}"></p>
-                  <p class="info" th:text="${task.description}"></p>
+                  <p class="name" th:text="${installation.name}"></p>
+                  <p class="info" th:text="${installation.description}"></p>
                 </div>
               </div>
-              <a class="button" th:href="@{'/install/task/'+${task.id}}">
+              <a class="button" th:href="@{'/install/installation/'+${installation.id}}">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
