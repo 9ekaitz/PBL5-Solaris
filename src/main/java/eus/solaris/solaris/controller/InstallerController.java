@@ -48,9 +48,18 @@ public class InstallerController {
     return "page/installer";
   }
 
-  @GetMapping(value = "/task/{id}")
-  public String showTask(@PathVariable(value = "id") Long id){
-    return "";
+  @GetMapping(value = "/installation/{id}")
+  public String showTask(@PathVariable(value = "id") Long id, Authentication authentication, Model model){
+    model.addAttribute("page_title", "GENERAL");
+    User user = userService.findByUsername(authentication.getName());
+    /* TODO: Remove manually setted role */
+    Role role = new Role();
+    role.setName("admin");
+    user.setRole(role);
+    /* --------------------------------- */
+    model.addAttribute("user", user);
+
+    return "page/installation";
   }
 
 }

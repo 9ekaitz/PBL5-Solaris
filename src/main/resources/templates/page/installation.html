@@ -5,13 +5,21 @@
   layout:decorate="@{dashboard_template}"
 >
   <head>
-    <link rel="stylesheet" th:href="@{/css/page/installer.css}" />
+    <link rel="stylesheet" th:href="@{/css/page/installation.css}" />
     <title>Instalador</title>
   </head>
 
   <body>
     <main layout:fragment="content" class="installer-dashboard">
-      <div class="container"></div>>
+      <div class="container current">
+        <h2 class="title" th:text="#{page.installer.insllations}">NOMBRE DE LA INSTALACION</h2>
+        <ul>
+          <li class="title">NOMBRE DEL CLIENTE</li>
+          <li class="title">DIRECCION</li>
+          <li class="title">ARTICULOS</li>
+
+        </ul>
+      </div>
     </main>
   </body>
 </html>
