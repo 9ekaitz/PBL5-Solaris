@@ -19,5 +19,10 @@ public class InstallationServiceImpl implements InstallationService{
   public List<Installation> findByInstallerAndCompleted(User user, Boolean completed) {
     return installationRepository.findByInstallerAndCompleted(user, completed);
   }
+
+  @Override
+  public Installation findById(Long id) {
+    return installainstallationRepository.findById(id).;
+  }
   
 }
