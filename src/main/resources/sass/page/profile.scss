@@ -1,0 +1,59 @@
+@import "../util/variables";    
+
+.profile-main{
+    background-color: $bg-color;
+    padding: 2rem;
+
+    .profile-background{
+        background-color: $section-bg-color;
+        border: 1px solid $border-color;
+        padding-inline: 2rem;
+        padding-block: 1.5rem;
+
+        .options{
+
+            .section-option{
+                text-decoration: none;
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+                border: 2px solid $border-color;
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                gap: 2rem;
+                
+    
+                .icon{
+                    fill: $main-color;
+                    max-width: 100%;
+                }
+    
+                .text{
+                    margin: 0;
+                    font-weight: lighter;
+                    font-size: 0.75rem;
+                    text-align: justify;
+                }
+            }
+        }
+
+        .extra-options{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+
+            .logout-link{
+                color: $main-color;
+            }
+    
+            .delete-account{
+                width: 100%;
+            }
+        }
+
+        .title{
+            margin: 0 0 1.5rem 0;
+            font-size: 1.5rem;
+        }
+    }
+}

@@ -366,6 +366,13 @@ input[type=submit].btn-big {
   height: 4rem;
   border-radius: 0.3rem;
 }
+input[type=submit].delete-account {
+  background-color: #DA3633;
+  color: #FFF;
+}
+input[type=submit].delete-account:hover, input[type=submit].delete-account:focus {
+  background-color: #b92421;
+}
 
 .section {
   display: flex;

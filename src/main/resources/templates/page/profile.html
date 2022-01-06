@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+
+<body layout:fragment="content">
+  <main class="profile-main">
+    <div class="profile-background">
+      <div>
+        <h1 class="title">Mi perfil</h1>
+      </div>
+      <div class="options">
+        <a class="section-option" href="/profile/security" th:href="@{/profile/security}">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.1 14.8,9.5V11C15.4,11 16,11.6 16,12.3V15.8C16,16.4 15.4,17 14.7,17H9.2C8.6,17 8,16.4 8,15.7V12.2C8,11.6 8.6,11 9.2,11V9.5C9.2,8.1 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z" /></svg>      
+          <div>
+            <h2>Seguridad</h2>
+            <p class="text">Cambio de contraseña</p>
+          </div>
+        </a>
+        <a class="section-option" href="/profile/address" th:href="@{/profile/address}">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 24 24"><path d="M12,3L2,12H5V20H19V12H22L12,3M12,8.75A2.25,2.25 0 0,1 14.25,11A2.25,2.25 0 0,1 12,13.25A2.25,2.25 0 0,1 9.75,11A2.25,2.25 0 0,1 12,8.75M12,15C13.5,15 16.5,15.75 16.5,17.25V18H7.5V17.25C7.5,15.75 10.5,15 12,15Z" /></svg>
+          <div>
+            <h2>Direcciones</h2>
+            <p class="text">Editar direcciones de envio</p>
+          </div>
+        </a>
+        <a class="section-option" href="/profile/data" th:href="@{/profile/data}">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20.24 12,20.92C9.89,20.24 8.08,18.85 6.87,17C6.53,16.5 6.24,16 6,15.47C6,13.82 8.71,12.47 12,12.47C15.29,12.47 18,13.79 18,15.47C17.76,16 17.47,16.5 17.13,17Z" /></svg>  
+          <div>
+            <h2>Mis datos</h2>
+            <p class="text">Editar datos personales, tales como: nombre y numero de telefono</p>
+          </div>
+        </a>
+        <a class="section-option" href="/profile/payment-method" th:href="@{/profile/payment-method}">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 24 24"><path d="M20.6 11.3C20.7 11.2 20.8 11.1 21 11.1C21.1 11.1 21.3 11.2 21.4 11.3L22.6 12.5C22.8 12.7 22.8 13.1 22.6 13.3L21.6 14.3L19.6 12.3L20.6 11.3M13 18.9L19 12.8L21.1 14.9L15.1 21H13V18.9M11 19.1V18.1L11.6 17.5L18.1 11H4V8H20V9.1L22 7.1V6C22 4.9 21.1 4 20 4H4C3.5 4 3 4.2 2.6 4.6C2.2 5 2 5.5 2 6V18C2 18.5 2.2 19 2.6 19.4C3 19.8 3.5 20 4 20H11V19.1Z" /></svg>
+          <div>
+            <h2>Tus pagos</h2>
+            <p class="text">Gestionar métodos de pago y configuraciones</p>
+          </div>
+        </a>
+      </div>
+      <div class="extra-options">
+        <a class="logout-link" href="/logout" th:href="@{/logout}">Cerrar sesión</a>
+        <form class="form login-form" method="GET" th:action="@{/delete-account}">
+          <input class="btn delete-account" type="submit" value="Borrar cuenta">
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
