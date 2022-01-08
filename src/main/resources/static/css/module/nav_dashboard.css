@@ -21,7 +21,7 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0 0.5rem 0;
-  width: calc(100% - 0rem);
+  width: 100%;
   text-align: center;
 }
 .nav-mobile .nav-mobile-item {

@@ -15,7 +15,7 @@
         <h1 class="title" th:text="#{page.installer.welcome } +' '+ ${user.name}"><span> Max Verstapen</span></h1>
       </div>
       <div class="available-installations container current">
-        <h2 class="title" th:text="#{page.installer.insllations}"></h2>
+        <h2 class="title" th:text="#{page.installer.installations}"></h2>
         <ul class="installation-list">
           <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(pendingInstallations)}"></p>
           <th:block th:each="installation : ${pendingInstallations}">
@@ -48,7 +48,7 @@
         </ul>
       </div>
       <div class="completed-installations container">
-        <h2 class="title" th:text="#{page.installer.finished-insllations}"></h2>
+        <h2 class="title" th:text="#{page.installer.finished-installations}"></h2>
         <ul class="installation-list">
         <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedInstallations)}"></p>
         <th:block th:each="installation : ${completedInstallation}">
