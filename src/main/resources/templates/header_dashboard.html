@@ -25,7 +25,7 @@
         </div>
         <h2 th:text="${user.name +' ' + user.firstSurname}"></h2>
       </div>
-      <h2 class="page-title" th:text="${page_title}"></h2>
+      <h2 class="page-title" layout:fragment="title">page_title</h2>
     </div>
   </th:block>
 </body>

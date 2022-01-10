@@ -29,7 +29,6 @@ public class InstallerController {
 
   @GetMapping
   public String showInstallerPage(Authentication authentication, Model model) {
-    model.addAttribute("page_title", "GENERAL");
     if (authentication == null) return "page/login";
     User user = userService.findByUsername(authentication.getName());
 
