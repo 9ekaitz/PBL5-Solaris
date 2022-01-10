@@ -7,6 +7,9 @@ nav {
   @media screen and (min-width: 768px) {
     grid-row: span 2;
     width: fit-content;
+    .expand {
+      width: 16rem;
+    }
   }
 }
 
@@ -71,6 +74,7 @@ hr {
     flex-direction: column;
     height: 100%;
     transition: width 0.5s;
+    width: 3.6rem;
 
     .nav-item {
       display: flex;

@@ -11,6 +11,9 @@ nav {
     width: -moz-fit-content;
     width: fit-content;
   }
+  nav .expand {
+    width: 16rem;
+  }
 }
 
 .nav-mobile {
@@ -71,6 +74,7 @@ hr {
     flex-direction: column;
     height: 100%;
     transition: width 0.5s;
+    width: 3.6rem;
   }
   .nav-computer .nav-item {
     display: flex;
