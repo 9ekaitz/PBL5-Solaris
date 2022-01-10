@@ -28,7 +28,7 @@
                   <p class="info" th:text="${installation.description}"></p>
                 </div>
               </div>
-              <i class="button" >
+              <i class="button" th:href="@{'/install/installation/'+${installation.id}}">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
