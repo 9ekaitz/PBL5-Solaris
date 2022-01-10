@@ -45,6 +45,9 @@ public class User implements Serializable {
     
     @Column(name = "enabled")
     private Boolean enabled;
+
+    @Column(name = "email")
+    private String email;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;

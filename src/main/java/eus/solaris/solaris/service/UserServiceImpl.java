@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
 	PasswordEncoder passwordEncoder;
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     @Override
@@ -45,5 +45,20 @@ public class UserServiceImpl implements UserService {
         }     
 
         return result;
+    }
+
+    @Override
+    public boolean editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication) {
+        Boolean result = false;
+        User user = findByUsername(authentication.getName());
+        user.setEmail(email);
+        user.setName(name);
+        user.setFirstSurname(firstSurname);
+        user.setSecondSurname(secondSurname);
+        User returnedUser = save(user);
+        if(returnedUser != null) result = true;
+
+        return result;
+    
     }
 }

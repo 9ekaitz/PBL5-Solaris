@@ -93,6 +93,38 @@ public class ProfileController {
         return "redirect:/";
     }
     
+    @GetMapping("/profile/edit")
+    public String profileEdit(Model model, Authentication authentication) {
+        if(authentication != null){
+            getUser(model, authentication);
+        }
+        else{
+            return "redirect:/login";
+        }
+
+        return "page/profile_edit";
+    }
+
+    @PostMapping("/profile/edit")
+    public String profileEdit(Model model, Authentication authentication, RedirectAttributes redirectAttributes, String name, String firstSurname, String secondSurname, String email) {
+        if(authentication != null){
+            getUser(model, authentication);
+        }
+        else{
+            return "redirect:/login";
+        }
+
+        boolean result = userService.editUser(name, firstSurname, secondSurname, email, authentication);
+        if(result){
+            redirectAttributes.addFlashAttribute("success", "alert.profile.success");
+        }
+        else{
+            redirectAttributes.addFlashAttribute("error", "alert.profile.error");
+        }
+
+        return "redirect:/profile";
+    }
+
     private void getUser(Model model, Authentication authentication) {
         String name = authentication.getName();
         User user = userService.findByUsername(name);
