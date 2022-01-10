@@ -37,14 +37,15 @@ public class InstallerController {
 
 
   @GetMapping
-  public String showInstallerPage(Model model, @ModelAttribute("user") User user) {
-    model.addAttribute("page_title", "GENERAL");
+  public String showInstallerPage(Authentication authentication, Model model) {
+    if (authentication == null) return "page/login";
+    User user = userService.findByUsername(authentication.getName());
 
-/* TODO: Remove manually setted role */
-Role role = new Role();
-role.setName("admin");
-user.setRole(role);
-/* --------------------------------- */
+  /* TODO: Remove manually setted role */
+  Role role = new Role();
+  role.setName("admin");
+  user.setRole(role);
+  /* --------------------------------- */
 
     List<Installation> pendingInstallations = installationService.findByInstallerAndCompleted(user, false);
     List<Installation> completedInstallations = installationService.findByInstallerAndCompleted(user, true);

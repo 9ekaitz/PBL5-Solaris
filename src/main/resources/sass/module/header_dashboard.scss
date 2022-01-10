@@ -38,7 +38,7 @@ header{
             padding: 0;
             margin-right: 2rem;
             .logo {
-              fill: $section-bg-color;
+              fill: $bg-color;
             }
         
             .logo:hover {
@@ -60,7 +60,6 @@ header{
           }
         }
         .page-title {
-          // box-sizing: border-box;
           font-weight: bold;
           text-align: center;
           flex-grow: 1;

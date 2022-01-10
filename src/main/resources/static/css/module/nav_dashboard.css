@@ -11,6 +11,9 @@ nav {
     width: -moz-fit-content;
     width: fit-content;
   }
+  nav .expand {
+    width: 16rem;
+  }
 }
 
 .nav-mobile {
@@ -20,8 +23,8 @@ nav {
   background-color: #4D4D4D;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0 0.5rem 0;
-  width: calc(100% - 0rem);
+  padding: 0.5rem 0;
+  width: 100%;
   text-align: center;
 }
 .nav-mobile .nav-mobile-item {
@@ -33,9 +36,11 @@ nav {
   text-decoration: none;
   gap: 0.5rem;
 }
-.nav-mobile .nav-mobile-item:hover {
-  filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
-  cursor: pointer;
+.nav-mobile .nav-mobile-item:hover .logo {
+  fill: #f9aa31;
+}
+.nav-mobile .nav-mobile-item:hover .text {
+  color: #f9aa31;
 }
 .nav-mobile .nav-mobile-item .logo {
   fill: white;
@@ -62,7 +67,7 @@ hr {
 
 .nav-computer {
   display: none;
-  background-color: #3e3e3e;
+  background: #3e3e3e;
 }
 @media screen and (min-width: 768px) {
   .nav-computer {
@@ -71,6 +76,7 @@ hr {
     flex-direction: column;
     height: 100%;
     transition: width 0.5s;
+    width: 3.6rem;
   }
   .nav-computer .nav-item {
     display: flex;
@@ -79,10 +85,6 @@ hr {
   }
   .nav-computer .nav-item * {
     display: inline-block;
-  }
-  .nav-computer .nav-item:hover {
-    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
-    cursor: pointer;
   }
   .nav-computer .nav-item .logo {
     fill: #C7C7C7;
@@ -98,14 +100,25 @@ hr {
     overflow: hidden;
     white-space: nowrap;
   }
-  .nav-computer .no-animation:hover {
-    filter: none;
-    cursor: initial;
+  .nav-computer .nav-item:hover {
+    cursor: pointer;
   }
-  .nav-computer .current {
-    filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+  .nav-computer .current .logo, .nav-computer .nav-item:hover .logo {
+    fill: #f9aa31;
   }
-  .nav-computer h2 {
-    color: #C7C7C7;
+  .nav-computer .current .text, .nav-computer .nav-item:hover .text {
+    color: #f9aa31;
   }
+}
+.nav-computer .no-animation:hover {
+  cursor: initial;
+}
+.nav-computer .no-animation:hover .logo {
+  fill: none;
+}
+.nav-computer .no-animation:hover .text {
+  color: #C7C7C7;
+}
+.nav-computer h2 {
+  color: #C7C7C7;
 }/*# sourceMappingURL=nav_dashboard.css.map */

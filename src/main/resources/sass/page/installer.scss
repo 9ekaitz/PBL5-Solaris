@@ -21,8 +21,9 @@
     font-weight: lighter;
     text-align: center;
   }
-  li {
+  a {
     display: flex;
+    text-decoration: none;
     justify-content: space-between;
     align-items: center;
     border: 2px solid $bg-color;
@@ -53,7 +54,6 @@
     .button:hover{
       cursor: pointer;
     }
-    
   }
 }
 
