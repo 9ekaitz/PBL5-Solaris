@@ -2,46 +2,58 @@ package eus.solaris.solaris.domain;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.persistence.Version;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "`order`")
 @Getter @Setter
-public class Order {
+public class Address {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne(mappedBy = "order", fetch = FetchType.LAZY)
-  private Installation installation;
+  @Column
+  private String country;
 
-  @ManyToOne
-  @JoinColumn(name = "owner", nullable = false)
-  private User owner;
+  @Column
+  private String province;
+
+  @Column
+  private String city;
+
+  @Column(name="postcode")
+  private String postcode;
+
+  @Column
+  private String address;
   
-  @OneToMany(mappedBy = "order")
-  Set<OrderArticle> articles;
+  @Column
+  private Boolean completed = false;
 
+  @OneToOne
+  @JoinColumn(name = "order_id", nullable = false)
+  private Order order;
 
   @ManyToOne
-  private Address address;
+  @JoinColumn(name = "installer", nullable = false)
+  private User installer;
+
+  @OneToMany(mappedBy = "installation", fetch = FetchType.LAZY)
+    private Set<Task> tasks;
 
   @Version
   private Integer version;
-
 }

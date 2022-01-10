@@ -20,7 +20,6 @@ import eus.solaris.solaris.service.UserService;
 
 @Controller
 @RequestMapping("/install")
-@SessionAttributes("user")
 public class InstallerController {
   
   @Autowired
@@ -29,26 +28,13 @@ public class InstallerController {
   @Autowired
   InstallationService installationService;
 
-  @ModelAttribute("user")
-  public User getUser(){
-    String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    return userService.findByUsername(username);
-  }
-
-
   @GetMapping
-  public String showInstallerPage(Authentication authentication, Model model) {
-    if (authentication == null) return "page/login";
-    User user = userService.findByUsername(authentication.getName());
-
-  /* TODO: Remove manually setted role */
-  Role role = new Role();
-  role.setName("admin");
-  user.setRole(role);
-  /* --------------------------------- */
+  public String showInstallerPage(Model model) {
+    User user = (User) model.getAttribute("user");
 
     List<Installation> pendingInstallations = installationService.findByInstallerAndCompleted(user, false);
     List<Installation> completedInstallations = installationService.findByInstallerAndCompleted(user, true);
+    
     model.addAttribute("pendingInstallations", pendingInstallations);
     model.addAttribute("completedInstallations", completedInstallations);
   
@@ -57,7 +43,6 @@ public class InstallerController {
 
   @GetMapping(value = "/installation/{id}")
   public String showTask(@PathVariable(value = "id") Long id, Model model){
-    model.addAttribute("page_title", "GENERAL");
     model.addAttribute("installation", installationService.findById(id));
 
     return "page/installation";
