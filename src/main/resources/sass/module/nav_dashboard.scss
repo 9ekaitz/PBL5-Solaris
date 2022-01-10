@@ -20,7 +20,7 @@ nav {
   background-color: $breadcrumbs-off-color;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
 
   width: 100%;
   text-align: center;
@@ -37,9 +37,12 @@ nav {
     gap: 0.5rem;
 
     &:hover {
-      filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
-        brightness(175%) contrast(95%);
-        cursor: pointer;
+      .logo {
+        fill: $main-color;
+      }
+      .text {
+        color: $main-color;
+      }
     }
     .logo {
       fill: white;
@@ -84,12 +87,6 @@ hr {
         display: inline-block;
       }
 
-      &:hover{
-        filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
-          brightness(175%) contrast(95%);
-          cursor: pointer;
-      }
-      
       .logo {
         fill: $border-color;
         max-width: 2rem;
@@ -104,19 +101,34 @@ hr {
         overflow: hidden;
         white-space: nowrap;
       }
+
+      &:hover{
+        cursor: pointer;
+      }
     }
-    .no-animation:hover{
-      filter: none;
+
+    .current, .nav-item:hover {
+      .logo {
+        fill: $main-color;
+      }
+      .text {
+        color: $main-color;
+      }
+    }
+
+    }
+    .no-animation:hover {
+      .logo{
+        fill: none;
+      }
+      .text {
+        color: $border-color;
+      }
       cursor: initial;
-    }
-    .current{
-      filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
-        brightness(175%) contrast(95%);
     }
 
     h2 {
       color: $border-color;
     }
-  }
-  background-color: $dashboard-nav-color;
+  background: $dashboard-nav-color;
 }

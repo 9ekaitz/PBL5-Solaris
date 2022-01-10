@@ -20,8 +20,9 @@
   font-weight: lighter;
   text-align: center;
 }
-.installation-list li {
+.installation-list a {
   display: flex;
+  text-decoration: none;
   justify-content: space-between;
   align-items: center;
   border: 2px solid #E5E5E5;
@@ -29,28 +30,28 @@
   padding: 0.5rem;
   gap: 0.5rem;
 }
-.installation-list li .installations-details {
+.installation-list a .installation-details {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.installation-list li img {
+.installation-list a img {
   width: 64px;
   border-radius: 8px;
 }
-.installation-list li .name {
+.installation-list a .name {
   font-weight: bold;
   margin: 0;
 }
-.installation-list li .info {
+.installation-list a .info {
   font-weight: lighter;
   margin: 0;
 }
-.installation-list li .button {
+.installation-list a .button {
   background: #f9aa31;
   border-radius: 16px;
 }
-.installation-list li .button:hover {
+.installation-list a .button:hover {
   cursor: pointer;
 }
 

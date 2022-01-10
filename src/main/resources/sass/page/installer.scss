@@ -21,15 +21,16 @@
     font-weight: lighter;
     text-align: center;
   }
-  li {
+  a {
     display: flex;
+    text-decoration: none;
     justify-content: space-between;
     align-items: center;
     border: 2px solid $bg-color;
     border-radius: 8px;
     padding: 0.5rem;
     gap: 0.5rem;
-    .installations-details{
+    .installation-details{
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -53,7 +54,6 @@
     .button:hover{
       cursor: pointer;
     }
-    
   }
 }
 
