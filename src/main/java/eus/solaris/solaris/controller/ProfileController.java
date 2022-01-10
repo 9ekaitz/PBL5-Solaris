@@ -1,15 +1,24 @@
 package eus.solaris.solaris.controller;
 
+import java.text.Normalizer.Form;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.dto.UserInformationEditForm;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
@@ -106,7 +115,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/edit")
-    public String profileEdit(Model model, Authentication authentication, RedirectAttributes redirectAttributes, String name, String firstSurname, String secondSurname, String email) {
+    public String profileEdit(@Validated @ModelAttribute("user") UserInformationEditForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
         if(authentication != null){
             getUser(model, authentication);
         }
@@ -114,15 +123,24 @@ public class ProfileController {
             return "redirect:/login";
         }
 
-        boolean result = userService.editUser(name, firstSurname, secondSurname, email, authentication);
-        if(result){
-            redirectAttributes.addFlashAttribute("success", "alert.profile.success");
+        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute("errors", errors);
+            model.addAttribute("form", form);
+
+            return "page/profile_edit";
         }
         else{
-            redirectAttributes.addFlashAttribute("error", "alert.profile.error");
+            boolean resultSQL = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), authentication);
+            if(resultSQL){
+                redirectAttributes.addFlashAttribute("success", "alert.profile.success");
+            }
+            else{
+                redirectAttributes.addFlashAttribute("error", "alert.profile.error");
+            }
+            return "redirect:/profile";
         }
 
-        return "redirect:/profile";
     }
 
     private void getUser(Model model, Authentication authentication) {
