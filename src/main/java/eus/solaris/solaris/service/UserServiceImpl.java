@@ -1,6 +1,8 @@
 package eus.solaris.solaris.service;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+	PasswordEncoder passwordEncoder;
 
     @Override
     public void save(User user) {
@@ -29,9 +34,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editPassword(String newPassword, Authentication authentication) {
+    public boolean editPassword(String newPassword, String oldPassword, Authentication authentication) {
+        Boolean result = false;
         User user = findByUsername(authentication.getName());
-        user.setPassword(newPassword);
-        userRepository.save(user);        
+
+        if(BCrypt.checkpw(oldPassword, user.getPassword())){
+            user.setPassword(passwordEncoder.encode(newPassword));
+            save(user);
+            result = true;
+        }     
+
+        return result;
     }
 }

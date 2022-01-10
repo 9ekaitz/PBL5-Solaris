@@ -149,6 +149,25 @@ input[type="submit"] {
     display: none;
 }
 
+.alert{
+    width: 100%;
+    border: 1px solid $border-color;
+    text-align: center;
+    padding-block: 1rem;
+    margin-bottom: 0.5rem;
+
+    &.alert-danger{
+        background-color: $danger-dark-color;
+        color: $text-light-color;
+    }
+
+    &.alert-success{
+        background-color: $success-color;
+        color: $text-light-color;
+    }
+
+}
+
 @media (min-width: $large-screen){
     .helper{
         display: block;

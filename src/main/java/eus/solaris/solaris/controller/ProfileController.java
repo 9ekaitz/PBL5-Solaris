@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.service.UserService;
@@ -45,7 +46,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/security")
-    public String profileSecurity(Model model, Authentication authentication, String old_password_1, String old_password_2, String new_password) {
+    public String profileSecurity(Model model, Authentication authentication, RedirectAttributes redirectAttributes, String old_password_1, String old_password_2, String new_password) {
         if(authentication != null){
             getUser(model, authentication);
         }
@@ -53,9 +54,15 @@ public class ProfileController {
             return "redirect:/login";
         }
 
-        userService.editPassword(passwordEncoder.encode(new_password), authentication);
+        boolean result = userService.editPassword(new_password, old_password_1, authentication);
+        if(result){
+            redirectAttributes.addFlashAttribute("success", "alert.password.success");
+        }
+        else{
+            redirectAttributes.addFlashAttribute("error", "alert.password.error");
+        }
 
-        return "page/profile";
+        return "redirect:/profile";
     }
 
     @GetMapping("/delete-account")

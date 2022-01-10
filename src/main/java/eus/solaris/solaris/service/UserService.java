@@ -8,5 +8,5 @@ public interface UserService {
     public void save(User user);
     public User findByUsername(String username);
     public void deleteUser(Long id);
-    public void editPassword(String newPassword, Authentication authentication);
+    public boolean editPassword(String newPassword, String oldPassword, Authentication authentication);
 }

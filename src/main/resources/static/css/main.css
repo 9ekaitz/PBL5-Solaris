@@ -394,6 +394,22 @@ input[type=submit].delete-account:hover, input[type=submit].delete-account:focus
   display: none;
 }
 
+.alert {
+  width: 100%;
+  border: 1px solid #C7C7C7;
+  text-align: center;
+  padding-block: 1rem;
+  margin-bottom: 0.5rem;
+}
+.alert.alert-danger {
+  background-color: #b92421;
+  color: #FFF;
+}
+.alert.alert-success {
+  background-color: #5CB85C;
+  color: #FFF;
+}
+
 @media (min-width: 768px) {
   .helper {
     display: block;
