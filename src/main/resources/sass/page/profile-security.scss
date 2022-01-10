@@ -1,0 +1,127 @@
+@import "../util/variables";  
+
+.password-form {
+
+    .remember-me {
+        @include no-select;
+        @include no-drag;
+
+        display: inline-flex;
+        align-items: flex-end;
+        font-size: 0.8rem;
+        margin-top: 0;
+        input {
+            margin-right: 0.6em;
+            width: 1em;
+            height: 1em;
+        }
+
+        label {
+          font-size: inherit;
+        }
+    }
+
+    @mixin input-border {
+        outline: 1px solid $main-color;
+        border-color: $main-color;
+    }
+
+    label {
+        &:hover,
+        &:focus {
+            + .password {
+                @include input-border;
+            }
+        }
+    }
+
+    .password {
+        display: flex;
+        border: 1px solid $text-color;
+        border-radius: $input-border;
+        margin-block: 0.5em 0;
+
+        &:focus-within,
+        &:hover {
+            @include input-border;
+        }
+
+        input {
+            padding-right: 0;
+            border: none;
+            width: 90%;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            &:focus {
+                border: none;
+            }
+        }
+
+        #show-password-1, #show-password-2, #show-password-3 {
+            @include no-select;
+            width: 10%;
+            height: 100%;
+            padding: 0.25em;
+
+            svg {
+                margin: auto;
+                fill: $element-off-color;
+            }
+
+            &:hover {
+                svg {
+                    fill: $text-color;
+                }
+                cursor: pointer;
+            }
+        }
+    }
+
+    .submit-wrap {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+.password-reset,
+.register-link   {
+    text-decoration: none;
+    color: $main-color;
+    font-size: 0.7rem;
+}
+
+.register-link {
+    font-weight: bold;
+}
+
+.password-reset {
+    margin-top: 0.8rem;
+}
+
+h1 {
+    @include no-select;
+    text-align: center;
+    .logo {
+        @include no-drag;
+        font-size: inherit;
+        width: 5em;
+    }
+}
+
+.error {
+    font-size: 0.75rem;
+}
+
+
+@media (min-width: $large-screen){
+    .profile-main{
+
+        &.security{
+            padding: 2rem 20rem;
+        }
+    }
+}
+

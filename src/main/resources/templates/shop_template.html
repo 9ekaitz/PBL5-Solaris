@@ -7,8 +7,10 @@
     <link rel="stylesheet" th:href="@{/css/module/nav.css}">
     <link rel="stylesheet" th:href="@{/css/page/index.css}">
     <link rel="stylesheet" th:href="@{/css/page/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/page/profile-security.css}">
     <link rel="stylesheet" th:href="@{/css/page/delete-account.css}">
     <script th:src="@{/js/header.js}"></script>
+    <script th:src="@{/js/page/profile_security.js}"></script>
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
 </head>
 <body>
@@ -17,6 +19,6 @@
         <p>Changing contents</p>
     </main>
     <footer th:insert="footer :: footer"></footer>
-    <hr>
+    <hr class="separator">
     <nav th:insert="nav :: nav"></nav>
 </body>

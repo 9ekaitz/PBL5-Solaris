@@ -18,13 +18,13 @@ nav .header-mobile-bottom-section {
   text-decoration: none;
   gap: 0.5rem;
 }
-nav .header-mobile-bottom-section:hover {
-  filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
-}
 nav .header-mobile-bottom-section .logo {
   fill: white;
   width: 100%;
   max-width: 1.5rem;
+}
+nav .header-mobile-bottom-section .logo:hover {
+  fill: #f9aa31;
 }
 nav .header-mobile-bottom-section p {
   margin: 0;
@@ -37,14 +37,14 @@ nav .header-mobile-bottom-section p {
   }
 }
 
-hr {
+.separator {
   margin: 0;
   border: none;
   border-top: 1px solid #C7C7C7;
   width: 100%;
 }
 @media (min-width: 768px) {
-  hr {
+  .separator {
     display: none;
   }
 }/*# sourceMappingURL=nav.css.map */

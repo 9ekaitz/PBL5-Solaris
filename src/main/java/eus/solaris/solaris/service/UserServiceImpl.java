@@ -1,5 +1,6 @@
 package eus.solaris.solaris.service;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public void editPassword(String newPassword, Authentication authentication) {
+        User user = findByUsername(authentication.getName());
+        user.setPassword(newPassword);
+        userRepository.save(user);        
     }
 }

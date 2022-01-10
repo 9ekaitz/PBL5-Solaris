@@ -1,9 +1,8 @@
 package eus.solaris.solaris.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,9 @@ public class ProfileController {
 
     @Autowired
 	UserService userService;
+
+    @Autowired
+	PasswordEncoder passwordEncoder;
 
     @GetMapping("/profile")
     public String profile(Model model, Authentication authentication) {
@@ -40,6 +42,20 @@ public class ProfileController {
         }
 
         return "page/profile_security";
+    }
+
+    @PostMapping("/profile/security")
+    public String profileSecurity(Model model, Authentication authentication, String old_password_1, String old_password_2, String new_password) {
+        if(authentication != null){
+            getUser(model, authentication);
+        }
+        else{
+            return "redirect:/login";
+        }
+
+        userService.editPassword(passwordEncoder.encode(new_password), authentication);
+
+        return "page/profile";
     }
 
     @GetMapping("/delete-account")

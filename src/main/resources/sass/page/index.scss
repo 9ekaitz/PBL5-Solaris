@@ -1,16 +1,6 @@
 @import "../util/variables";
 
 main{
-
-    hr{
-        border: none;
-        display: none;
-    }
-
-    .helper{
-        display: none;
-    }
-
     .main-content{
         display: flex;
         flex-direction: column;
@@ -82,27 +72,7 @@ main{
     }
 
 
-    @media (min-width: 768px){
-        .helper{
-            display: block;
-            margin: 0;
-            padding: 0.5rem 0 0.5rem 10rem;
-            font-size: 1rem;
-
-            a{
-                color: $main-color;
-                font-weight: bold;
-                text-decoration: none;
-            }
-        }
-
-        hr{
-            display: block;
-            margin: 0;
-            padding: 0;
-            border: 0;
-            border-top: 1px solid $border-color;
-        }
+    @media (min-width: $large-screen){
 
         .main-content{
             padding: 7.5rem 0rem 5rem 0rem;

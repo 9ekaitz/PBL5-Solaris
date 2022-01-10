@@ -10,8 +10,11 @@ body {
     margin: 0;
     width: 100%;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    // display: flex;
+    // flex-direction: column;
     justify-content: center;
 }
 
@@ -133,6 +136,42 @@ input[type="submit"] {
 
     &.section-rounded {
         border-radius: $section-border;
+    }
+}
+
+.helper{
+    display: none;
+}
+
+
+.helper-hr{
+    border: none;
+    display: none;
+}
+
+@media (min-width: $large-screen){
+    .helper{
+        display: block;
+        margin: 0;
+        padding: 0.5rem 0 0.5rem 10rem;
+        font-size: 1rem;
+
+        a{
+            text-decoration: none;
+
+            .helper-page{
+                font-weight: bold;
+                color: $main-color;
+            }
+        }
+    }
+
+    .helper-hr{
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-top: 1px solid $border-color !important;
     }
 }
 
