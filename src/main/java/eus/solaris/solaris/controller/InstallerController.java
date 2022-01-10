@@ -3,7 +3,6 @@ package eus.solaris.solaris.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,9 +55,9 @@ user.setRole(role);
   }
 
   @GetMapping(value = "/installation/{id}")
-  public String showTask(@PathVariable(value = "id") Long id, Authentication authentication, Model model){
+  public String showTask(@PathVariable(value = "id") Long id, Model model){
     model.addAttribute("page_title", "GENERAL");
-
+    model.addAttribute("installation", installationService.findById(id));
 
     return "page/installation";
   }

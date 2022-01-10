@@ -22,7 +22,7 @@ public class InstallationServiceImpl implements InstallationService{
 
   @Override
   public Installation findById(Long id) {
-    return installainstallationRepository.findById(id).;
+    return installationRepository.findById(id).orElse(null);
   }
   
 }
