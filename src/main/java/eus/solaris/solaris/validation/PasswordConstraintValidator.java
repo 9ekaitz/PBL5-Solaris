@@ -76,9 +76,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
         }
 
         List<String> messages = validator.getMessages(result);
-        for (String s : messages) {
-            System.out.println(s);
-        }
         String messageTemplate = messages.stream()
                 .collect(Collectors.joining(","));
         context.buildConstraintViolationWithTemplate(messageTemplate)

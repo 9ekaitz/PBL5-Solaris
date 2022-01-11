@@ -68,9 +68,8 @@ public class AppController {
 			Model model) {
 		if (result.hasErrors()
 				|| form.getUsername() != null
-						&& form.getUsername() != ""
+						&& !form.getUsername().equals("")
 						&& userService.findByUsername(form.getUsername()) != null) {
-			result.getAllErrors().stream().forEach(System.out::println);
 			Locale locale = LocaleContextHolder.getLocale();
 			List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
 			errors.add(new ObjectError("username duplicated",

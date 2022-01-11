@@ -11,6 +11,7 @@ public class ValidFieldsMatchValidator implements ConstraintValidator<ValidField
     private String fieldMatch;
     private String message;
 
+    @Override
     public void initialize(ValidFieldsMatch constraintAnnotation) {
         this.field = constraintAnnotation.field();
         this.fieldMatch = constraintAnnotation.fieldMatch();
