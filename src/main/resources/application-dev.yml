@@ -1,7 +1,7 @@
-spring:     
+spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    password: 
+    password: mutriku123
     username: postgres
     url: jdbc:postgresql://localhost:5432/solaris
     hikari:
@@ -9,12 +9,11 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate: 
+    hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        default-schema: 
+        default-schema:
 
   thyemeleaf:
     cache: false
-  

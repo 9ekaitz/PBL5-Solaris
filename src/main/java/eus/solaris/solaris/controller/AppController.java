@@ -1,5 +1,9 @@
 package eus.solaris.solaris.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -13,14 +17,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import eus.solaris.solaris.controller.multithreading.ThreadController;
+import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.UserRegistrationDto;
+import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
+import eus.solaris.solaris.util.SpringContextUtil;
 
 @Controller
 public class AppController {
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
@@ -33,21 +41,31 @@ public class AppController {
 	@Autowired
 	RoleService roleService;
 
+	@Autowired
+	SolarPanelRepository solarPanelRepository;
 
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
-		if(authentication != null) {
+		if (authentication != null) {
 			String name = authentication.getName();
 			User user = userService.findByUsername(name);
 			if (user != null)
 				model.addAttribute("user", user);
 		}
+
+		List<SolarPanel> panels = new ArrayList<>();
+		panels.add(solarPanelRepository.findById(5L).get());
+		Integer threads = 6;
+		LocalDate start = LocalDate.of(2021, 01, 01);
+		LocalDate end = LocalDate.of(2021, 01, 02);
+		ThreadController tc = new ThreadController(threads, start, end, panels);
+
 		return "page/index";
 	}
 
 	@GetMapping("/login")
 	public String login(Model model) {
-		if(checkLogedIn()) {
+		if (checkLogedIn()) {
 			return "redirect:/";
 		}
 		model.addAttribute("user", new User());
@@ -57,7 +75,7 @@ public class AppController {
 
 	@GetMapping("/register")
 	public String registerForm(Model model) {
-		if(checkLogedIn()) {
+		if (checkLogedIn()) {
 			return "redirect:/";
 		}
 		model.addAttribute("user", new UserRegistrationDto());
@@ -77,11 +95,11 @@ public class AppController {
 
 	private boolean checkLogedIn() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return false;
-        }
- 
-        return true;
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return false;
+		}
+
+		return true;
 	}
 
 }
