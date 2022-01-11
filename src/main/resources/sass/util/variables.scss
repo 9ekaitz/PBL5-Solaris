@@ -16,6 +16,7 @@ $section-border: 0.2rem;
 
 $medium-screen: 480px;
 $large-screen: 768px;
+$very-large-screen: 900px;
 
 @mixin no-select {
   -webkit-touch-callout: none;

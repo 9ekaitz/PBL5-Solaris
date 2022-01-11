@@ -1,15 +1,42 @@
-// package eus.solaris.solaris.validation;
+package eus.solaris.solaris.validation;
 
-// import javax.validation.Constraint;
-// import javax.validation.Payload;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-// @Constraint(validatedBy = PasswordConstraintValidator.class)
-// public @interface ValidPassword {
+import javax.validation.Constraint;
+import javax.validation.Payload;
 
-//     String message() default "Invalid Password";
+@Documented
+@Constraint(validatedBy = PasswordConstraintValidator.class)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ValidPassword {
 
-//     Class<?>[] groups() default {};
+    String message() default "Invalid Password";
 
-//     Class<? extends Payload>[] payload() default {};
+    Class<?>[] groups() default {};
+    
+    Class<? extends Payload>[] payload() default {};
+    
+    boolean lengthRule() default true;
+    int minLength() default 8;
+    int maxLength() default 30;
+    
+    boolean upperCaseRule() default false;
+    int minUpperCase() default 1;
+    
+    boolean lowerCaseRule() default false;
+    int minLowerCase() default 1;
+    
+    boolean digitRule() default false;
+    int minDigit() default 1;
+    
+    boolean specialCharacterRule() default false;
+    int minSpecialCharacter() default 1;
+    
+    boolean whitespaceRule() default false;
 
-// }
+}

@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import eus.solaris.solaris.validation.ValidFieldsMatch;
+import eus.solaris.solaris.validation.ValidPassword;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class UserRegistrationForm {
     @NotEmpty(message = "{page.register.field.username.notEmpty}")
     private String username;
 
-    // @ValidPassword
+    @ValidPassword(message = "{page.register.field.password.valid}")
     private String password;
 
     private String verifyPassword;
