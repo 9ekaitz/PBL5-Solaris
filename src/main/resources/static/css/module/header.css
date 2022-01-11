@@ -85,6 +85,9 @@ header .header-computer {
     width: 1.5rem;
     height: 1.5rem;
   }
+  header .header-computer .header-computer-search form .searcher {
+    border: none;
+  }
   header .header-computer .header-computer-lang {
     background-color: #282828;
     display: none;

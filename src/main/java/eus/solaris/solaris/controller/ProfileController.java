@@ -1,6 +1,5 @@
 package eus.solaris.solaris.controller;
 
-import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,6 +142,34 @@ public class ProfileController {
 
     }
 
+    @GetMapping("/profile/address")
+    public String profileAddress(Model model, Authentication authentication) {
+        if(authentication != null){
+            getUser(model, authentication);
+        }
+        else{
+            return "redirect:/login";
+        }
+
+        for(int i = 0; i < userService.getUserAddresses(authentication).size(); i++){
+            model.addAttribute("address" + i, userService.getUserAddresses(authentication).toArray()[i]);
+        }
+        model.addAttribute("addresses", userService.getUserAddresses(authentication));
+
+        return "page/profile_address";
+    }
+
+    @GetMapping("/profile/address/add")
+    public String profileAddressAdd(Model model, Authentication authentication) {
+        if(authentication != null){
+            getUser(model, authentication);
+        }
+        else{
+            return "redirect:/login";
+        }
+
+        return "page/profile_address_add";
+    }
     private void getUser(Model model, Authentication authentication) {
         String name = authentication.getName();
         User user = userService.findByUsername(name);

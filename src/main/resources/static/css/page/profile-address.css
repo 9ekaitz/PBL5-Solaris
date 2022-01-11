@@ -1,0 +1,67 @@
+.add-address {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.address-section {
+  border: 2px solid #C7C7C7;
+}
+.address-section .icon {
+  width: 25%;
+  height: 25%;
+  fill: grey;
+}
+.address-section .add {
+  font-weight: bold;
+}
+
+.address-info {
+  border: 2px solid #C7C7C7;
+  margin-top: 1.5rem;
+}
+.address-info .block {
+  text-decoration: none;
+}
+.address-info .block .default {
+  font-weight: lighter;
+}
+.address-info .block .default .text {
+  padding-left: 1rem;
+}
+.address-info .block .info {
+  padding-left: 1rem;
+}
+.address-info .block .info .name {
+  font-weight: bold;
+}
+.address-info .address-edit-options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-block: 1.5rem;
+}
+.address-info .address-edit-options .option {
+  text-decoration: none;
+  color: #f9aa31;
+}
+.address-info .address-edit-options .option:hover {
+  color: #f09407;
+}
+
+@media (min-width: 768px) {
+  .address-info {
+    margin-top: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+
+  .address {
+    padding: 2rem 10rem;
+  }
+}/*# sourceMappingURL=profile-address.css.map */

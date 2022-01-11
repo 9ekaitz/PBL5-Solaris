@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+
+<main layout:fragment="content" class="profile">
+  <div>
+    <div class="helper">
+      <a href="/">Mi Cuenta > <span class="helper-page">Direcciones</span></a>
+    </div>
+    <hr class="helper-hr">
+    <section class="profile-main address">
+      <div class="profile-background">
+        <div>
+          <h1 class="title" th:text="#{page.profile.address.edit.title}">Edit user</h1>
+        </div>
+        <div class="options">
+            <a href="/profile/address/add" th:href="@{/profile/address/add}" class="add-address address-section">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>            
+                <p class="add" th:text="#{page.profile.address.add}">Agregar dirección</p>
+            </a>
+            <th:block th:if="${addresses != null}">
+              <div th:each="address : ${addresses}" class="address-info">
+                  <div class="block">
+                    <div th:if="${address.defaultAddress == true}" class="default">
+                      <p class="text">Predeterminado</p>
+                      <hr class="helper-hr">
+                    </div>
+                    <div class="info">
+                      <p class="name" th:text="${address.user.name} + ' ' + ${address.user.firstSurname} + ' ' + ${address.user.secondSurname}">Name</p>
+                      <p th:text="${address.address}">Address</p>
+                      <p th:text="${address.city} + ', ' + ${address.province} + ' ' + ${address.postcode}">City, Province, PostalCode</p>
+                      <p th:text="${address.country}">Contry</p>
+                      <!-- <p th:text="Número de telefono: ${address.number}">NT</p> -->
+                    </div>
+                  </div>
+                  <div class="address-edit-options">
+                    <a class="option" th:href="@{/profile/address/edit/${address.id}}">Editar</a>
+                    <a class="option" th:href="@{/profile/address/delete/${address.id}}">Borrar</a>
+                    <a class="option" th:if="${address.defaultAddress == false}" href="">Definir como predeterminado</a>
+                  </div>
+              </div>
+            </th:block>        
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

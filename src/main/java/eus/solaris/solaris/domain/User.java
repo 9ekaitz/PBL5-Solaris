@@ -1,6 +1,7 @@
 package eus.solaris.solaris.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -48,6 +49,9 @@ public class User implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Address> addresses;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
