@@ -1,59 +1,50 @@
-package eus.solaris.solaris.controller.multithreading;
+package eus.solaris.solaris.service.multithreading;
 
 import java.time.Instant;
-import java.time.LocalDate;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import net.bytebuddy.asm.Advice.Local;
-
-public class GatherBuffer {
+public class DataBuffer {
     private Lock mutex;
 
-    private List<Map<LocalDate, Map<Instant, Double>>> buffer;
+    private List<Entry<Instant, Double>> buffer;
+
     private Condition isEmpty, isFull;
 
-    Integer maxCount;
-
-    public GatherBuffer(Integer maxCount) {
+    public DataBuffer() {
         this.mutex = new ReentrantLock();
         this.buffer = new ArrayList<>();
         this.isEmpty = this.mutex.newCondition();
         this.isFull = this.mutex.newCondition();
-        this.maxCount = maxCount;
     }
 
-    public void add(Map<LocalDate, Map<Instant, Double>> data) {
+    public void put(Instant instant, Double value) {
         this.mutex.lock();
         try {
-            this.buffer.add(data);
+            Entry<Instant, Double> entry = new SimpleEntry<>(instant, value);
+            this.buffer.add(entry);
             this.isEmpty.signal();
         } finally {
             this.mutex.unlock();
         }
     }
 
-    public Map<LocalDate, Map<Instant, Double>> get() {
+    public Entry<Instant, Double> get() {
         this.mutex.lock();
         try {
-            if (maxCount == 0) {
-                isEmpty.signal();
-                return null;
-            }
             while (this.buffer.size() == 0) {
                 this.isEmpty.await();
-                if (maxCount == 0) {
-                    return null;
-                }
             }
-            Map<LocalDate, Map<Instant, Double>> data = this.buffer.get(0);
+            Entry<Instant, Double> data = this.buffer.get(0);
             this.buffer.remove(0);
             this.isFull.signal();
-            this.maxCount--;
             return data;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -72,15 +63,15 @@ public class GatherBuffer {
         }
     }
 
-    public void print() {
-        buffer.forEach(action -> {
-            action.forEach((key, value) -> {
-                System.out.println(key);
-                value.forEach((k, v) -> {
-                    System.out.println(k + " " + v);
-                });
-            });
-        });
+    public Map<Instant, Double> getData() {
+        this.mutex.lock();
+        Map<Instant, Double> data = new TreeMap<>();
+        for (Entry<Instant, Double> entry : buffer) {
+            Instant instant = entry.getKey();
+            Double value = entry.getValue();
+            data.put(instant, value);
+        }
+        this.mutex.unlock();
+        return data;
     }
-
 }

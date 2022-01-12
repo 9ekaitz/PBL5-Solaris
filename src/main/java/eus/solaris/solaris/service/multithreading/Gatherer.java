@@ -1,4 +1,4 @@
-package eus.solaris.solaris.controller.multithreading;
+package eus.solaris.solaris.service.multithreading;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
@@ -25,13 +26,17 @@ public class Gatherer implements Runnable {
         this.dataEntryRepository = SpringContextUtil.getBean(DataEntryRepository.class);
     }
 
-    private Map<LocalDate, Map<Instant, Double>> processData(List<SolarPanelDataEntry> dataEntries, LocalDate day) {
-        Map<LocalDate, Map<Instant, Double>> returnMap = new HashMap<>();
-        Map<Instant, Double> dataMap = new HashMap<>();
+    public static Map<Instant, Double> extractData(List<SolarPanelDataEntry> dataEntries) {
+        Map<Instant, Double> dataMap = new TreeMap<>();
         for (SolarPanelDataEntry solarPanelDataEntry : dataEntries) {
             dataMap.put(solarPanelDataEntry.getTimestamp(), solarPanelDataEntry.getPower());
         }
-        returnMap.put(day, dataMap);
+        return dataMap;
+    }
+
+    private Map<LocalDate, Map<Instant, Double>> processData(List<SolarPanelDataEntry> dataEntries, LocalDate day) {
+        Map<LocalDate, Map<Instant, Double>> returnMap = new HashMap<>();
+        returnMap.put(day, Gatherer.extractData(dataEntries));
         return returnMap;
     }
 

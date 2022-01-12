@@ -1,4 +1,4 @@
-package eus.solaris.solaris.controller.multithreading;
+package eus.solaris.solaris.service.multithreading;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import eus.solaris.solaris.controller.multithreading.modes.DayGroupMode;
+import eus.solaris.solaris.service.multithreading.modes.DayGroupMode;
 
 public class DayGrouper implements Runnable {
 
@@ -63,24 +63,20 @@ public class DayGrouper implements Runnable {
                 Instant hour = groupedDataEntry.getKey();
                 List<Double> powerList = groupedDataEntry.getValue();
                 Double kWh = getKWh(powerList);
-
-                Map<Instant, Double> newData = new HashMap<>();
-                newData.put(hour, kWh);
-
-                dataBuffer.put(newData);
+                dataBuffer.put(hour, kWh);
             }
 
-        } else {
+        } else if (mode == DayGroupMode.DAILY) {
             List<Double> powerList = new ArrayList<>();
             for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
                 powerList.add(dataEntry.getValue());
             }
             Double kWh = getKWh(powerList);
-
-            Map<Instant, Double> newData = new HashMap<>();
-            newData.put(day.atStartOfDay().toInstant(ZoneOffset.UTC), kWh);
-
-            dataBuffer.put(newData);
+            dataBuffer.put(day.atStartOfDay().toInstant(ZoneOffset.UTC), kWh);
+        } else {
+            for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
+                dataBuffer.put(dataEntry.getKey(), dataEntry.getValue());
+            }
         }
 
     }

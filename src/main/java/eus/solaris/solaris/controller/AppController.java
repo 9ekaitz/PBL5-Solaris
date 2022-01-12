@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import eus.solaris.solaris.controller.multithreading.ThreadController;
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.UserRegistrationDto;
 import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
+import eus.solaris.solaris.service.multithreading.ThreadController;
 import eus.solaris.solaris.util.SpringContextUtil;
 
 @Controller
@@ -52,14 +52,6 @@ public class AppController {
 			if (user != null)
 				model.addAttribute("user", user);
 		}
-
-		List<SolarPanel> panels = new ArrayList<>();
-		panels.add(solarPanelRepository.findById(5L).get());
-		Integer threads = 6;
-		LocalDate start = LocalDate.of(2021, 01, 01);
-		LocalDate end = LocalDate.of(2021, 01, 02);
-		ThreadController tc = new ThreadController(threads, start, end, panels);
-
 		return "page/index";
 	}
 
@@ -100,6 +92,11 @@ public class AppController {
 		}
 
 		return true;
+	}
+
+	@GetMapping("/apitest")
+	public String apiTest() {
+		return "page/apitest";
 	}
 
 }

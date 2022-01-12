@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API</title>
+  </head>
+
+  <body>
+    <div layout:fragment="content">
+      <canvas id="cv" style="width: 700px; height: 400px"></canvas>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+      <script>
+        const getJSON = async () => {
+          const response = await fetch("/api/test", {
+            method: "GET",
+          });
+          const data = await response.json();
+          console.log(data);
+          new Chart(ctx, data);
+        };
+
+        const cv = document.getElementById("cv");
+        const ctx = cv.getContext("2d");
+
+        getJSON();
+      </script>
+    </div>
+  </body>
+</html>

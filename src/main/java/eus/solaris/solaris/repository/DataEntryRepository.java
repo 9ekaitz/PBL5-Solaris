@@ -1,5 +1,6 @@
 package eus.solaris.solaris.repository;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,4 +15,7 @@ import eus.solaris.solaris.domain.SolarPanelDataEntry;
 public interface DataEntryRepository extends JpaRepository<SolarPanelDataEntry, Long> {
     @Query("SELECT d FROM SolarPanelDataEntry d WHERE d.solarPanel = ?1 AND CAST(d.timestamp AS LocalDate) = ?2")
     public List<SolarPanelDataEntry> findBySolarPanelAndLocalDate(SolarPanel solarPanel, LocalDate day);
+
+    @Query("SELECT d FROM SolarPanelDataEntry d WHERE d.solarPanel = ?1 AND d.timestamp >= ?2 AND d.timestamp <= ?3")
+    public List<SolarPanelDataEntry> findByIdAndTimestampBetween(SolarPanel solarPanel, Instant start, Instant end);
 }
