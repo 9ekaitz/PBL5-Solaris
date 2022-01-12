@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 
 import lombok.Getter;
@@ -43,7 +44,8 @@ public class Installation {
   private User installer;
 
   @OneToMany(mappedBy = "installation", fetch = FetchType.LAZY)
-    private Set<Task> tasks;
+  @OrderBy("id ASC")
+  private Set<Task> tasks;
 
   @Version
   private Integer version;

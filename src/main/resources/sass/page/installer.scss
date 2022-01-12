@@ -10,8 +10,9 @@
 
 
 .installation-list {
-  list-style: none;
-  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   overflow: auto;
   height: calc(100% - 4rem);
   li+li {
@@ -30,6 +31,7 @@
     border-radius: 8px;
     padding: 0.5rem;
     gap: 0.5rem;
+    margin-right: 1rem;
     .installation-details{
       display: flex;
       align-items: center;

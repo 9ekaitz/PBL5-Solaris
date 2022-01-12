@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class Article {
+public class Article implements Comparable<Article>{
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +23,9 @@ public class Article {
 
   @Version
   private Integer version;
+
+  @Override
+  public int compareTo(Article arg0) {
+    return (int)(this.id - arg0.getId());
+  }
 }

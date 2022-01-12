@@ -16,7 +16,7 @@ body {
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .row {
@@ -91,7 +91,7 @@ input[type="checkbox"] {
     }
 }
 
-input[type="submit"] {
+input[type="submit"], .btn {
     font-size: 1em;
     font-weight: bold;
     border: none;
@@ -102,8 +102,7 @@ input[type="submit"] {
     background-color: $main-color;
     padding-inline: 2em;
 
-    &:hover,
-    &:focus {
+    &:hover {
         cursor: pointer;
         background-color: $main-dark-color;
     }

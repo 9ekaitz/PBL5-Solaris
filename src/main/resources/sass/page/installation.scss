@@ -1,8 +1,111 @@
 @import "../util/variables.scss";
 
 .container {
-  .subtitle{
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  .header-mobile {
+    width: fit-content;
+    position: relative;
+    &:hover {
+      cursor: pointer;
+    }
+    img {
+      border-radius: 8px;
+      width: 64px;
+    }
+    svg {
+      position: absolute;
+      left: -1.5rem;
+      top: 50%;
+      transform: translate(0%, -50%) rotate(180deg);
+    }
+  }
+  .subtitle {
     font-size: 1.3rem;
     font-weight: normal;
+    text-decoration: underline $main-color 3px;
+    text-underline-offset: 4px;
+  }
+  .details {
+    overflow: auto;
+    position: relative;
+
+    h3 + * {
+      font-weight: lighter;
+      padding-left: 1rem;
+      font-size: 1.1rem;
+    }
+    .address {
+      width: fit-content;
+      padding: 0.5rem 1rem;
+      border: 1px solid $border-color;
+      p {
+        margin: 0.2rem;
+        font-weight: lighter;
+        font-size: 1.1rem;
+      }
+    }
+    .article-list {
+      list-style: circle;
+    }
+    .map {
+      display: none;
+    }
+  }
+
+  ul {
+    list-style: none;
+    li {
+      font-size: 1.1rem;
+    }
+  }
+
+  ul,
+  form {
+    padding-left: 1rem;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    .check {
+      margin: 0 1rem 0 0;
+      font-size: 1.3rem;
+    }
+    .text {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media screen and (min-width: $large-screen) {
+    .header-mobile {
+      display: none;
+    }
+    grid-template-rows: auto 1fr auto;
+    padding: 2rem 4rem;
+    .details {
+      border: 1px solid $border-color;
+
+      h3 + * {
+        padding-left: 2rem;
+      }
+
+      ul,
+      form {
+        padding-left: 3rem;
+      }
+    }
+  }
+  @media screen and (min-width: $very-large-screen) {
+    .details {
+      .map {
+        display: inline-block;
+        position: absolute;
+        height: 30vw;
+        width: 30vw;
+        right: 3rem;
+        top: 2rem;
+      }
+    }
   }
 }

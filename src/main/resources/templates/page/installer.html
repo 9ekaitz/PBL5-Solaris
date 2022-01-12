@@ -22,7 +22,7 @@
           <th:block th:each="installation : ${pendingInstallations}">
             <a th:href="@{'/install/installation/'+${installation.id}}">
               <div class="installation-details">
-                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
+                <img th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=3e3e3e,707070,f9aa31&square=true'}" />
                 <div>
                   <p class="name" th:text="${installation.name}"></p>
                   <p class="info" th:text="${installation.description}"></p>
@@ -53,9 +53,9 @@
         <div class="installation-list">
         <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedInstallations)}"></p>
         <th:block th:each="installation : ${completedInstallation}">
-            <a>
+            <a th:href="@{'/install/installation/'+${installation.id}}">
               <div class="installation-details">
-                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
+                <img th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=f9aa31,FA8832,FACC32,FAEE32,E3FA32,C1FA32&square=true'}" />
                 <div>
                   <p class="name" th:text="${installation.name}"></p>
                   <p class="info" th:text="${installation.description}"></p>

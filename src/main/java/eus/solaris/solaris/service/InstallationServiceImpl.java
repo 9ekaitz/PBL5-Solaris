@@ -17,7 +17,7 @@ public class InstallationServiceImpl implements InstallationService{
 
   @Override
   public List<Installation> findByInstallerAndCompleted(User user, Boolean completed) {
-    return installationRepository.findByInstallerAndCompleted(user, completed);
+    return installationRepository.findByInstallerAndCompletedOrderByOrderId(user, completed);
   }
 
   @Override
