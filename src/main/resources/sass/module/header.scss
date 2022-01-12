@@ -5,165 +5,164 @@ body{
     display: block;
 }
 
+.header-mobile{
+
+    .header-mobile-top{
+        background-color: $breadcrumbs-off-color;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+
+        .header-mobile-icons{
+            display: flex;
+            gap: 1rem;
+        }
+
+        .logo{
+            max-width: 1.5rem;
+            fill: $section-bg-color;
+            &:hover{
+                cursor: pointer;
+                fill: $main-color;
+            }
+        }
+
+    }
+
+    .header-mobile-search{
+        background-color: $search-bg-color;
+
+        form{
+            display: none;
+            text-align: center;
+
+            &.show-search{
+                display: flex;
+                justify-content: flex-end;
+                padding: 0.5rem 1rem 0.5rem 1rem;
+            }
+
+            input[type="text"]{
+                background-color: transparent;
+                border: none;
+                font-size: 0.75rem;
+                color: $text-light-color;
+                border-bottom: 1px solid $text-light-color;
+                width: 100%;
+
+                &:focus{
+                    outline: none;
+                }
+            }
+
+            input[type="image"]{
+                margin: auto;
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+    }
+
+    .header-mobile-lang{
+        background-color: $search-bg-color;
+        display: none;
+        width: calc(100% - 2rem);
+
+        &.show-lang{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding: 0.5rem 1rem;
+        }
+
+        .lang{
+            font-size: 0.75rem;
+            color: $text-light-color;
+            text-decoration: none;
+
+            &:hover{
+                color: $main-color;
+            }
+        }
+    }
+
+    @media (min-width: 768px){
+        display: none;
+    }
+}
+
 header{
 
     .header-computer{
         display: none;
         position: relative;
-        @media (min-width: 768px){
-            display: block;
 
-            .header-computer-main{
-                background-color: $breadcrumbs-off-color;
-                padding: 1.5rem 10rem 1.5rem 10rem;
-                display: flex;
-                justify-content: space-between;
-    
-                .header-computer-submain{
-                    display: flex;
-    
-                    .header-computer-icon{
-                        padding-right: 6rem;
-                        font-weight: bolder;
-    
-                        .link{
-                            .logo{
-                                width: 100%;
-                                max-width: 100px;
-                            }
-                        }
-                    }
-    
-                    .header-computer-options{
-                        display: flex;
-                        gap: 2rem;
-                        font-weight: lighter;
-
-                        .link{
-                            font-size: 1.5rem;
-                            &:hover{
-                                color: $main-color;
-                            }
-                        }
-                    }
-                }
-    
-                .header-computer-icons{
-                    display:flex;
-                    gap: 1rem;
-    
-                    .icon{
-                        display:flex;
-                        align-items: center;
-
-                        .logo{
-                            fill: $section-bg-color;
-                        }
-
-                        .logo:hover{
-                            fill: $main-color;
-                        }
-                    }
-
-                    #search-computer-icon:hover{
-                        cursor: pointer;
-                    }
-
-                    #lang-computer-icon:hover{
-                        cursor: pointer;
-                    }
-                }
-    
-                a{
-                    color: $text-light-color;
-                    text-decoration: none;
-                }
-            }
-
-            .header-computer-search{
-                background-color: $search-bg-color;
-
-                form{
-                    display: none;
-                    text-align: center;
-
-                    &.show-search{
-                        display: flex;
-                        justify-content: flex-end;
-                        padding: 0.5rem 10rem 0.5rem 10rem;
-                    }
-
-                    input[type="text"]{
-                        background-color: transparent;
-                        border: none;
-                        color: $text-light-color;
-                        font-size: 1rem;
-                        border-bottom: 1px solid $text-light-color;
-                        width: 100%;
-
-                        &:focus{
-                            outline: none;
-                        }
-                    }
-
-                    input[type="image"]{
-                        margin: auto;
-                        width: 1.5rem;
-                        height: 1.5rem;
-                    }
-                }
-            }
-
-            .header-computer-lang{
-                background-color: $search-bg-color;
-                display: none;
-
-                &.show-lang{
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 1rem;
-                    justify-content: flex-end;
-                    padding: 0.5rem 10rem 0.5rem 10rem;
-                }
-
-                .lang{
-                    color: $text-light-color;
-                    font-size: 1rem;
-                    text-decoration: none;
-
-                    &:hover{
-                        color: $main-color;
-                    }
-                }
-            }
-        }
-    }
-
-    .header-mobile{
-
-        .header-mobile-top{
+        
+        .header-computer-main{
             background-color: $breadcrumbs-off-color;
+            padding: 1.5rem 10rem 1.5rem 10rem;
             display: flex;
             justify-content: space-between;
-            padding: 0.5rem 1rem 0.5rem 1rem;
 
-            .header-mobile-icons{
+            .header-computer-submain{
                 display: flex;
-                gap: 1rem;
-            }
 
-            .logo{
-                max-width: 1.5rem;
-                fill: $section-bg-color;
-                &:hover{
-                    cursor: pointer;
-                    fill: $main-color;
+                .header-computer-icon{
+                    padding-right: 6rem;
+                    font-weight: bolder;
+
+                    .link{
+                        .logo{
+                            width: 100%;
+                            max-width: 100px;
+                        }
+                    }
+                }
+
+                .header-computer-options{
+                    display: flex;
+                    gap: 2rem;
+                    font-weight: lighter;
+
+                    .link{
+                        font-size: 1.5rem;
+                        &:hover{
+                            color: $main-color;
+                        }
+                    }
                 }
             }
 
+            .header-computer-icons{
+                display:flex;
+                gap: 1rem;
+
+                .icon{
+                    display:flex;
+                    align-items: center;
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+
+                    .logo{
+                        fill: $section-bg-color;
+                    }
+
+                    .logo:hover{
+                        fill: $main-color;
+                    }
+                }
+            }
+
+            a{
+                color: $text-light-color;
+                text-decoration: none;
+            }
         }
 
-        .header-mobile-search{
+        .header-computer-search{
             background-color: $search-bg-color;
 
             form{
@@ -173,56 +172,31 @@ header{
                 &.show-search{
                     display: flex;
                     justify-content: flex-end;
-                    padding: 0.5rem 1rem 0.5rem 1rem;
+                    padding: 0.5rem 10rem 0.5rem 10rem;
                 }
 
                 input[type="text"]{
-                    background-color: transparent;
-                    border: none;
-                    font-size: 0.75rem;
-                    color: $text-light-color;
-                    border-bottom: 1px solid $text-light-color;
-                    width: 100%;
-
-                    &:focus{
-                        outline: none;
-                    }
-                }
-
-                input[type="image"]{
-                    margin: auto;
-                    width: 1.5rem;
-                    height: 1.5rem;
+                    font-size: 1rem;
                 }
             }
         }
 
-        .header-mobile-lang{
+        .header-computer-lang{
             background-color: $search-bg-color;
             display: none;
-            width: calc(100% - 2rem);
 
             &.show-lang{
-                display: flex;
-                flex-wrap: wrap;
-                gap: 1rem;
-                justify-content: flex-end;
-                padding: 0.5rem 1rem 0.5rem 1rem;
+                padding: 0.5rem 10rem;
             }
 
             .lang{
-                font-size: 0.75rem;
-                color: $text-light-color;
-                text-decoration: none;
-
-                &:hover{
-                    color: $main-color;
-                }
+                font-size: 1rem;
             }
         }
+    }
 
         @media (min-width: 768px){
-            display: none;
-        }
+            display: block;
     }
+
 }
