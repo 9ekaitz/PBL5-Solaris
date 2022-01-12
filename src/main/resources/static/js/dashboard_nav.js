@@ -14,8 +14,9 @@ function toggleNav() {
 }
 
 function changeView(evt) {
-  if (evt.currentTarget != document.querySelector(".current")) {
+  let container = document.querySelector("."+evt.currentTarget.id);
+  if (!container.classList.contains("current")) {
     document.querySelector(".current").classList.remove("current");
-    document.querySelector("."+evt.currentTarget.id).classList.add("current");
+    container.classList.add("current");
   }
 }
