@@ -1,8 +1,6 @@
 package eus.solaris.solaris.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,19 +18,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
-		// UserBuilder userBuilder = null;
-		CustomUserDetails userDeatils = null;
+		UserDetails userDetails = null;
 		
 		if(user != null) {
-			// userBuilder = org.springframework.security.core.userdetails.User.withUsername(username);
-			// userBuilder.disabled(false);
-			// userBuilder.password(user.getPassword());
-			// userBuilder.authorities(new SimpleGrantedAuthority((user.getRole() != null) ? user.getRole().getName() : "ADMIN"));
-			userDeatils = new CustomUserDetails(user);
+			userDetails = new CustomUserDetails(user);
 		}
 		else throw new UsernameNotFoundException("Username not found");
 
-		return userDeatils;
+		return userDetails;
 	}
 
 }
