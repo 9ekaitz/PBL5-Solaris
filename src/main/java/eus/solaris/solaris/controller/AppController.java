@@ -37,12 +37,6 @@ public class AppController {
 	@Autowired
 	LanguageService languageService;
 
-	@ModelAttribute
-	public void addLanguages(Model model) {
-		model.addAttribute("languages", languageService.findAll());
-	}
-
-
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
 		if(authentication != null) {
