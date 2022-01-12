@@ -26,7 +26,7 @@ public class UserAddressForm {
     private Long provinceId;
 
     @NotEmpty(message = "{page.profile.field.number.notEmpty}")
-    @Pattern(regexp="(^$|[0-9]{10})", message = "{page.profile.field.number.valid}")
+    // @Pattern(regexp="(^$|[0-9]{10})", message = "{page.profile.field.number.valid}")
     private String number;
 
 }

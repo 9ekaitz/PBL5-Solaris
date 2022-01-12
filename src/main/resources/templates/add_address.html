@@ -8,10 +8,6 @@
 </head>
 <body>
     <th:block>
-        <th:block th:switch="${address}">
-            <div th:case="null" th:with="route=${'/profile/address/add'}"></div>
-            <div th:case="true" th:with="route=${''/profile/address/edit' + ${address.id}'}"></div>
-        </th:block>
         <div th:fragment="add_address" class="profile-main">
             <ul class="error">
                 <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
@@ -20,39 +16,39 @@
                 <div>
                     <h1 class="title" th:text="#{page.profile.address.add.title}">Dirección de envio</h1>
                 </div>
-                <form class="form" method="POST" th:action="@{${route}}">
+                <form class="form" method="POST" th:action="(${address} == null) ? @{/profile/address/add} : @{'/profile/address/edit/' + ${address.id}}">
                     <div class="field">
                       <label for="address">Dirección</label>
                       <div> 
-                          <input class="input-field" type="text" id="address" name="address" th:value="${address.address}" placeholder="Dirección"/>
+                          <input class="input-field" type="text" id="address" name="address" th:value="(${address} == null) ? null : ${address.address}" placeholder="Dirección"/>
                       </div>
                     </div>
                     <div class="field">
                         <label for="country">Pais</label>
                         <div> 
                             <select name="countryId" id="countryId" class="select">
-                                <option class="country-option" th:each="country : ${countries}" value="${country.id}" th:value="${country.id}" th:text="#{${country.i18n}}" th:selected="${address.country == country}"></option>
+                                <option class="country-option" th:each="country : ${countries}" th:value="${country.id}" th:text="#{${country.i18n}}" th:selected="(${address} != null AND ${address.country.id} == ${country.id})"></option>
                             </select>
                         </div>
                     </div>
                     <div class="field">
                         <label for="city">Ciudad</label>
                         <div> 
-                            <input class="input-field" type="text" id="city" name="city" th:value=${address.city} placeholder="Ciudad"/>
+                            <input class="input-field" type="text" id="city" name="city" th:value="(${address} == null) ? null : ${address.city}" placeholder="Ciudad"/>
                         </div>
                     </div>
                     <div class="double">
                         <div class="field">
                             <label for="postcode">Codigo postal</label>
                             <div> 
-                                <input class="input-field" type="text" id="postcode" name="postcode" th:value=${address.postcode} placeholder="Codigo postal"/>
+                                <input class="input-field" type="text" id="postcode" name="postcode" th:value="(${address} == null) ? null : ${address.postcode}" placeholder="Codigo postal"/>
                             </div>
                         </div>
                         <div class="field">
                             <label for="province">Provincia</label>
                             <div> 
                                 <select name="provinceId" id="provinceId" class="select">
-                                    <option class="country-option" th:each="province : ${provinces}" value="${province.id}" th:value="${province.id}" th:text="#{${province.i18n}}" th:selected="${address.province == province}"></option>
+                                    <option class="country-option" th:each="province : ${provinces}" th:value="${province.id}" th:text="#{${province.i18n}}" th:selected="(${address} != null AND ${address.province.id} == ${province.id})"></option>
                                 </select>
                             </div>
                         </div>
@@ -60,7 +56,7 @@
                     <div class="field">
                         <label for="number">Telefono</label>
                         <div> 
-                            <input class="input-field" type="text" id="number" name="number" th:value=${address.number} placeholder="Telefono movil"/>
+                            <input class="input-field" type="text" id="number" name="number" placeholder="Telefono movil" th:value="(${address} == null) ? null : ${address.number}"/>
                         </div>
                     </div>
                     <input class="btn" type="submit" value="Edit password" th:value="#{page.profile.edit.save}">
