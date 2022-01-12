@@ -48,7 +48,7 @@ public class User implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
-    
+        
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SolarPanel> solarPanels;
     

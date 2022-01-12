@@ -2,6 +2,7 @@ package eus.solaris.solaris.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,28 +34,28 @@ public class AppController {
 	@Autowired
 	RoleService roleService;
 
-
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
 		if(authentication != null) {
 			String name = authentication.getName();
 			User user = userService.findByUsername(name);
 			if (user != null)
-				model.addAttribute("user", user);
+			model.addAttribute("user", user);
 		}
 		return "index";
 	}
-
+	
 	@GetMapping("/login")
 	public String login(Model model) {
 		if(checkLogedIn()) {
 			return "redirect:/";
 		}
 		model.addAttribute("user", new User());
-
+		
 		return "login";
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 		if(checkLogedIn()) {

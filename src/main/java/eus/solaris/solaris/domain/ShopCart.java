@@ -1,29 +1,30 @@
 package eus.solaris.solaris.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "product")
 @Getter @Setter
-public class Product {
-
+public class ShopCart {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
+    private Integer id;
+
+    @OneToOne
     private User user;
-    
-    @Version
-    private Integer version;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<CartProduct> products;
+
 }

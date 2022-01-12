@@ -21,11 +21,11 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public String get(@RequestParam String name, Model model) {
         User user = userRepository.findByUsername(name);
         model.addAttribute("user", user);
-        System.out.println("get user 4");
         return "user";
     }
 
