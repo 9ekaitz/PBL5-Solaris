@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.UserRegistrationDto;
+import eus.solaris.solaris.service.LanguageService;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
 
@@ -33,6 +34,8 @@ public class AppController {
 	@Autowired
 	RoleService roleService;
 
+	@Autowired
+	LanguageService languageService;
 
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
@@ -42,6 +45,7 @@ public class AppController {
 			if (user != null)
 				model.addAttribute("user", user);
 		}
+
 		return "page/index";
 	}
 
