@@ -70,7 +70,6 @@
     display: grid;
     gap: 4rem;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
   }
   .profile-main .profile-background .options .section-option {
     margin-bottom: 0;

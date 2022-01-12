@@ -11,12 +11,13 @@
 <main layout:fragment="content" class="profile">
   <div>
     <div class="helper">
-      <a href="/">Mi Cuenta > <span class="helper-page">Direcciones</span></a>
+      <p class="a">
+        <a href="/profile" class="helper-page">Mi Cuenta</a> > 
+        <a href="/profile/address" class="helper-page selected">Direcciones</a>
+      </p>
     </div>
     <hr class="helper-hr">
-    <div style="display: flex;">
-      <section th:insert="add_address :: add_address"></section>
-      <section th:insert="add_address :: add_address"></section>
+    <div>
       <section th:insert="add_address :: add_address"></section>
     </div>
   </div>

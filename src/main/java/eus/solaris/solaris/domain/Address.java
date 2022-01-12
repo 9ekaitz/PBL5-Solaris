@@ -1,7 +1,5 @@
 package eus.solaris.solaris.domain;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 import lombok.Getter;
@@ -22,11 +21,11 @@ public class Address {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "country", nullable = false)
-  private String country;
+  @OneToOne(fetch = FetchType.LAZY)
+  private Country country;
 
-  @Column(name = "province", nullable = false)
-  private String province;
+  @OneToOne(fetch = FetchType.LAZY)
+  private Province province;
 
   @Column(name = "city", nullable = false)
   private String city;

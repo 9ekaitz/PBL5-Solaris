@@ -299,9 +299,28 @@ body {
   margin-block: 0.3rem;
   width: 100%;
 }
+.form .field .select {
+  width: 100%;
+}
+.form .double {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+.form .double .field {
+  width: 50%;
+}
 .form .input-field {
   width: 100%;
   box-sizing: border-box;
+}
+
+.select {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  height: 1.5em;
 }
 
 input {
@@ -416,10 +435,13 @@ input[type=submit].delete-account:hover, input[type=submit].delete-account:focus
     padding: 0.5rem 0 0.5rem 10rem;
     font-size: 1rem;
   }
-  .helper a {
+  .helper .a {
+    margin: 0;
+  }
+  .helper .a .helper-page {
     text-decoration: none;
   }
-  .helper a .helper-page {
+  .helper .a .helper-page.selected {
     font-weight: bold;
     color: #f9aa31;
   }

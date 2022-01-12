@@ -11,7 +11,10 @@
 <main layout:fragment="content" class="profile">
   <div>
     <div class="helper">
-      <a href="/">Mi Cuenta > <span class="helper-page">Direcciones</span></a>
+      <p class="a">
+        <a href="/profile" class="helper-page">Mi Cuenta</a> > 
+        <a href="/profile/address" class="helper-page selected">Direcciones</a>
+      </p>
     </div>
     <hr class="helper-hr">
     <section class="profile-main address">
@@ -22,7 +25,7 @@
         <div class="options">
             <a href="/profile/address/add" th:href="@{/profile/address/add}" class="add-address address-section">
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>            
-                <p class="add" th:text="#{page.profile.address.add}">Agregar dirección</p>
+                <p class="add" th:text="#{page.profile.address.add.title}">Agregar dirección</p>
             </a>
             <th:block th:if="${addresses != null}">
               <div th:each="address : ${addresses}" class="address-info">
@@ -34,14 +37,14 @@
                     <div class="info">
                       <p class="name" th:text="${address.user.name} + ' ' + ${address.user.firstSurname} + ' ' + ${address.user.secondSurname}">Name</p>
                       <p th:text="${address.address}">Address</p>
-                      <p th:text="${address.city} + ', ' + ${address.province} + ' ' + ${address.postcode}">City, Province, PostalCode</p>
-                      <p th:text="${address.country}">Contry</p>
-                      <!-- <p th:text="Número de telefono: ${address.number}">NT</p> -->
+                      <p th:text="${address.city} + ', ' + #{${address.province.i18n}} + ' ' + ${address.postcode}">City, Province, PostalCode</p>
+                      <p th:text="#{${address.country.i18n}}">Contry</p> 
+                      <p th:text="'Número de telefono: ' + ${address.number}">NT</p>
                     </div>
                   </div>
                   <div class="address-edit-options">
-                    <a class="option" th:href="@{/profile/address/edit/${address.id}}">Editar</a>
-                    <a class="option" th:href="@{/profile/address/delete/${address.id}}">Borrar</a>
+                    <a class="option" th:href="@{'/profile/address/edit/' + ${address.id}}">Editar</a>
+                    <a class="option" th:href="@{'/profile/address/delete/' + ${address.id}}">Borrar</a>
                     <a class="option" th:if="${address.defaultAddress == false}" href="">Definir como predeterminado</a>
                   </div>
               </div>
