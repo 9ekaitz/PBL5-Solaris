@@ -1,0 +1,57 @@
+@import "../util/variables";
+
+nav{
+    position: sticky;
+    bottom: 0;
+    
+        background-color: $breadcrumbs-off-color;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0 0.5rem 0;
+
+        width: calc(100% - 0rem);
+        text-align: center;
+
+        .header-mobile-bottom-section{
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-decoration: none;
+            gap: 0.5rem;
+
+            &:hover{
+                filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
+            }
+            .logo{
+                fill: white;
+                width: 100%;
+                max-width: 1.5rem;
+            }
+
+            p{
+                margin: 0;
+                font-size: 0.75rem;
+                color: $text-light-color;
+            }
+
+    }
+
+    @media (min-width: 768px){
+        display: none;
+    }
+}
+
+hr{
+    margin: 0;
+    border: none;
+    border-top: 1px solid $border-color;
+    width: 100%;
+
+    @media (min-width: 768px){
+        display: none;
+    }
+}
