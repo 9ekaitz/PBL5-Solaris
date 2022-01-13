@@ -34,6 +34,12 @@ import eus.solaris.solaris.service.UserService;
 @PreAuthorize("hasRole('ROLE_USER')")
 public class ProfileController {
 
+    final static String SUCCESS_ATTRIBUTE = "success";
+    final static String ERROR_ATTRIBUTE = "error";
+    final static String ERROR_FORM = "errors";
+    final static String PROVINCE_ATTRIBUTE = "provinces";
+    final static String COUNTRY_ATTRIBUTE = "countries";
+
     @Autowired
 	UserService userService;
 
@@ -69,10 +75,10 @@ public class ProfileController {
 
         boolean result = userService.editPassword(new_password, old_password_1, authentication);
         if(result){
-            redirectAttributes.addFlashAttribute("success", "alert.password.success");
+            redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.password.success");
         }
         else{
-            redirectAttributes.addFlashAttribute("error", "alert.password.error");
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.password.error");
         }
 
         return "redirect:/profile";
@@ -105,18 +111,18 @@ public class ProfileController {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute("errors", errors);
+            model.addAttribute(ERROR_FORM, errors);
             model.addAttribute("form", form);
 
             return "page/profile_edit";
         }
         else{
             boolean resultSQL = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), authentication);
-            if(resultSQL){
-                redirectAttributes.addFlashAttribute("success", "alert.profile.success");
+            if(resultSQL == true){
+                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.profile.success");
             }
             else{
-                redirectAttributes.addFlashAttribute("error", "alert.profile.error");
+                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.profile.error");
             }
             return "redirect:/profile";
         }
@@ -134,8 +140,8 @@ public class ProfileController {
     @GetMapping("/profile/address/add")
     public String profileAddressAdd(Model model, Authentication authentication) {
 
-        model.addAttribute("provinces", provinceService.findAll());
-        model.addAttribute("countries", countryService.findAll());
+        model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
+        model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
 
         return "page/profile_address_edit";
     }
@@ -145,10 +151,10 @@ public class ProfileController {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute("errors", errors);
+            model.addAttribute(ERROR_FORM, errors);
             model.addAttribute("form", form);
-            model.addAttribute("provinces", provinceService.findAll());
-            model.addAttribute("countries", countryService.findAll());
+            model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
+            model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
 
             return "page/profile_address_edit";
         }
@@ -157,11 +163,11 @@ public class ProfileController {
             getAddressInformation(address, form, authentication);
             Boolean resultSQL = addressService.save(address);
 
-            if(resultSQL){
-                redirectAttributes.addFlashAttribute("success", "alert.address.add.success");
+            if(resultSQL == true){
+                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.add.success");
             }
             else{
-                redirectAttributes.addFlashAttribute("error", "alert.address.add.error");
+                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.address.add.error");
             }
             return "redirect:/profile/address";
         }
@@ -172,8 +178,8 @@ public class ProfileController {
     public String profileAddressEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Address address = addressService.findById(id);
         model.addAttribute("address", address);
-        model.addAttribute("provinces", provinceService.findAll());
-        model.addAttribute("countries", countryService.findAll());
+        model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
+        model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
 
         return "page/profile_address_edit";
     }
@@ -183,10 +189,10 @@ public class ProfileController {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute("errors", errors);
+            model.addAttribute(ERROR_FORM, errors);
             model.addAttribute("form", form);
-            model.addAttribute("provinces", provinceService.findAll());
-            model.addAttribute("countries", countryService.findAll());
+            model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
+            model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
 
             return "page/profile_address_edit";
         }
@@ -195,11 +201,11 @@ public class ProfileController {
             getAddressInformation(address, form, authentication);
             Boolean resultSQL = addressService.save(address);
 
-            if(resultSQL){
-                redirectAttributes.addFlashAttribute("success", "alert.address.edit.success");
+            if(resultSQL == true){
+                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.edit.success");
             }
             else{
-                redirectAttributes.addFlashAttribute("error", "alert.address.edit.error");
+                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.address.edit.error");
             }
             return "redirect:/profile/address";
         }
@@ -221,7 +227,7 @@ public class ProfileController {
         }
         userService.save(user);
 
-        redirectAttributes.addFlashAttribute("success", "alert.address.edit.default.success");
+        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.edit.default.success");
         return "redirect:/profile/address";
     }
 
@@ -244,7 +250,7 @@ public class ProfileController {
         }
 
         model.addAttribute("addresses", userService.getUserAddresses(authentication));
-        redirectAttributes.addFlashAttribute("success", "alert.address.delete.success");
+        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.delete.success");
 
         return "redirect:/profile/address";
     }
@@ -279,7 +285,7 @@ public class ProfileController {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute("errors", errors);
+            model.addAttribute(ERROR_FORM, errors);
             model.addAttribute("form", form);
             List<Integer> years = new ArrayList<>();
             List<Integer> months = new ArrayList<>();
@@ -299,11 +305,11 @@ public class ProfileController {
             getPaymentMethodInformation(paymentMethod, form, authentication);
             Boolean resultSQL = paymentMethodService.save(paymentMethod);
 
-           if(resultSQL){
-               redirectAttributes.addFlashAttribute("success", "alert.payment_method.add.success");
+           if(resultSQL == true){
+               redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.add.success");
             }
             else{
-                redirectAttributes.addFlashAttribute("error", "alert.payment_method.add.error");
+                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.payment_method.add.error");
             }
             return "redirect:/profile/payment-method";
         }
@@ -333,7 +339,7 @@ public class ProfileController {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute("errors", errors);
+            model.addAttribute(ERROR_FORM, errors);
             model.addAttribute("form", form);
             List<Integer> years = new ArrayList<>();
             List<Integer> months = new ArrayList<>();
@@ -354,10 +360,10 @@ public class ProfileController {
             Boolean resultSQL = paymentMethodService.save(paymentMethod);
 
             if(resultSQL){
-                redirectAttributes.addFlashAttribute("success", "alert.payment_method.edit.success");
+                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.edit.success");
             }
             else{
-                redirectAttributes.addFlashAttribute("error", "alert.payment_method.edit.error");
+                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.payment_method.edit.error");
             }
             return "redirect:/profile/payment-method";
         }
@@ -379,7 +385,7 @@ public class ProfileController {
         }
         userService.save(user);
 
-        redirectAttributes.addFlashAttribute("success", "alert.payment_method.edit.default.success");
+        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.edit.default.success");
         return "redirect:/profile/payment-method";
     }
     
@@ -401,7 +407,7 @@ public class ProfileController {
             }
         }
 
-        redirectAttributes.addFlashAttribute("success", "alert.payment_method.delete.success");
+        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.delete.success");
         return "redirect:/profile/payment-method";
     }
     
