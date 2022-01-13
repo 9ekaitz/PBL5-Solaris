@@ -1,0 +1,140 @@
+@import "logo-load";
+
+* {
+    font-family: $saira-font;
+    color: $text-color;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hide {
+    display: none;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .field {
+        margin-block: 0.3rem;
+        width: 100%;
+    }
+
+    .input-field {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+input {
+    display: block;
+    margin-block: 0.5rem 0;
+    border: 1px solid $text-color;
+    border-radius: $input-border;
+    padding: 0.2em;
+    height: 1.5em;
+
+    &:focus,
+    &:hover {
+        outline: 1px solid $main-color;
+        border-color: $main-color;
+    }
+}
+
+input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+    -webkit-appearance: none;
+    appearance: none;
+    display: grid;
+    place-content: center;
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+    
+    &::before {
+        content: "";
+        width: 1em;
+        height: 1em;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        background-color: $section-bg-color;
+        transform: scale(0);
+        transition: transform 0.5s;
+    }
+    
+    &:checked {
+        border-color: $main-color;
+        box-shadow: inset 0 0 0 2em $main-color;
+        
+        &::before {
+            transform: scale(0.7);
+        }
+    }
+}
+
+input[type="submit"] {
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: $btn-border;
+    min-width: 10em;
+    min-height: 3em;
+    color: $text-color;
+    background-color: $main-color;
+    padding-inline: 2em;
+
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        background-color: $main-dark-color;
+    }
+
+    &.btn-big {
+        width: 18rem;
+        height: 4rem;
+        border-radius: 1.5 * $btn-border;
+    }
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+
+    &.section-rounded {
+        border-radius: $section-border;
+    }
+}
+
+@media screen and (min-width: $medium-screen) {
+    .section {
+        border: 1px solid $border-color;
+    }
+}
+.error {
+    color: $danger-color;
+}
+
+svg {
+    display: block;
+}

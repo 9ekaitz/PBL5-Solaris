@@ -1,0 +1,134 @@
+@import "../util/variables";
+
+nav {
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  @media screen and (min-width: 768px) {
+    grid-row: span 2;
+    width: fit-content;
+    .expand {
+      width: 16rem;
+    }
+  }
+}
+
+.nav-mobile {
+  position: sticky;
+  bottom: 0;
+
+  background-color: $breadcrumbs-off-color;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+
+  width: 100%;
+  text-align: center;
+
+  .nav-mobile-item {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    gap: 0.5rem;
+
+    &:hover {
+      .logo {
+        fill: $main-color;
+      }
+      .text {
+        color: $main-color;
+      }
+    }
+    .logo {
+      fill: white;
+      width: 100%;
+      max-width: 1.5rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: $text-light-color;
+    }
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+hr {
+  margin: 0;
+  border: none;
+  border-top: 1px solid $dashboard-nav-alt-color;
+  width: 100%;
+}
+
+.nav-computer {
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    transition: width 0.5s;
+    width: 3.6rem;
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      margin: 0.8rem;
+      * {
+        display: inline-block;
+      }
+
+      .logo {
+        fill: $border-color;
+        max-width: 2rem;
+        max-height: 2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+        width: 100%;
+      }
+      .text {
+        color: $border-color;
+        margin: 0 1rem 0 1rem;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      &:hover{
+        cursor: pointer;
+      }
+    }
+
+    .current, .nav-item:hover {
+      .logo {
+        fill: $main-color;
+      }
+      .text {
+        color: $main-color;
+      }
+    }
+
+    }
+    .no-animation:hover {
+      .logo{
+        fill: none;
+      }
+      .text {
+        color: $border-color;
+      }
+      cursor: initial;
+    }
+
+    h2 {
+      color: $border-color;
+    }
+  background: $dashboard-nav-color;
+}

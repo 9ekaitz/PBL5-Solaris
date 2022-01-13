@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="@{dashboard_template}"
+>
+  <head>
+    <link rel="stylesheet" th:href="@{/css/page/installer.css}" />
+    <title>Instalador</title>
+  </head>
+
+  <body>
+    <h2 class="page-title" layout:fragment="title" th:text="#{header.title.overview}"></h2>
+    <main layout:fragment="content" class="installer-dashboard">
+      <div class="user-banner container">
+        <h1 class="title" th:text="#{page.installer.welcome } +' '+ ${user.name}"><span> Max Verstapen</span></h1>
+      </div>
+      <div class="available-installations container current">
+        <h2 class="title" th:text="#{page.installer.installations}"></h2>
+        <div class="installation-list">
+          <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(pendingInstallations)}"></p>
+          <th:block th:each="installation : ${pendingInstallations}">
+            <a th:href="@{'/install/installation/'+${installation.id}}">
+              <div class="installation-details">
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
+                <div>
+                  <p class="name" th:text="${installation.name}"></p>
+                  <p class="info" th:text="${installation.description}"></p>
+                </div>
+              </div>
+              <i class="button" th:href="@{'/install/installation/'+${installation.id}}">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  version="1.1"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="logo"
+                  th:alt="#{img.alt.expand}"
+                >
+                  <path
+                    d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                  />
+                </svg>
+              </i>
+            </a>
+          </th:block>
+        </div>
+      </div>
+      <div class="completed-installations container">
+        <h2 class="title" th:text="#{page.installer.finished-installations}"></h2>
+        <div class="installation-list">
+        <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedInstallations)}"></p>
+        <th:block th:each="installation : ${completedInstallation}">
+            <a>
+              <div class="installation-details">
+                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
+                <div>
+                  <p class="name" th:text="${installation.name}"></p>
+                  <p class="info" th:text="${installation.description}"></p>
+                </div>
+              </div>
+              <i class="button" th:href="@{'/install/installation/'+${installation.id}}">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  version="1.1"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="logo"
+                  th:alt="#{img.alt.expand}"
+                >
+                  <path
+                    d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                  />
+                </svg>
+              </i>
+            </a>
+          </th:block>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

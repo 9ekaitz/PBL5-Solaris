@@ -14,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import eus.solaris.solaris.service.UserService;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -44,8 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Value("${solaris.web.home-url}")
 	private String homeUrl;
 
-	@Autowired
-	private UserService userService;
+	@Value("${solaris.security.remember-me.key}")
+	private String rememberMeKey;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -60,8 +58,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl(loginUrl).permitAll()
 			.and()
 			.logout()
+				.deleteCookies("JSESSIONID")
 				.logoutRequestMatcher(new AntPathRequestMatcher(logoutUrl))
-				.logoutSuccessUrl(loginUrl);
+				.logoutSuccessUrl(loginUrl)
+			.and()
+			.rememberMe()
+				.key(rememberMeKey)
+					.userDetailsService(userDetailsService);
 	}
 
 	@Bean

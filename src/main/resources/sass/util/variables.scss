@@ -1,0 +1,38 @@
+$main-color: #f9aa31;
+$main-dark-color: darken($main-color, 10%);
+$text-color: #000;
+$text-light-color: #FFF;
+$bg-color: #E5E5E5;
+$section-bg-color: #FFF;
+$breadcrumbs-off-color: #4D4D4D;
+$element-off-color: #52525C;
+$search-bg-color: #282828;
+$danger-color: #DA3633;
+$border-color: #C7C7C7;
+$extra-info-color: #F1F1F1;
+$dashboard-nav-color: #3e3e3e;
+$dashboard-nav-alt-color: #707070;
+
+
+$saira-font: "Saira", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+$btn-border: 0.2rem;
+$input-border: 0.2rem;
+$section-border: 0.2rem;
+
+$medium-screen: 480px;
+$large-screen: 768px;
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin no-drag {
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+}

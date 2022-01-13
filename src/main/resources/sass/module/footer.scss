@@ -1,0 +1,44 @@
+@import "../util/variables";
+
+footer{
+    background-color: $breadcrumbs-off-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1rem 1.5rem 1rem;
+
+    .footer-icons{
+        display: flex;
+        gap: 0.5rem;
+
+        .link{
+            .icon{
+                fill: $section-bg-color;
+
+                &:hover{
+                    fill: $main-color;
+                }
+            }
+        }
+    }
+
+    .copyright{
+        margin: 0.1rem;
+        color: $text-light-color;
+        font-weight: lighter;
+        font-size: 0.75rem;
+    }
+
+    @media (min-width: 768px){
+        padding: 1.5rem 10rem 1.5rem 10rem;
+        width: calc(100% - 20rem); 
+
+        .footer-icons{
+            gap: 1rem;
+        }
+
+        .copyright{
+            font-size: 1rem;
+        }
+    }
+}

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.UserRegistrationDto;
+import eus.solaris.solaris.service.LanguageService;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
 
@@ -34,6 +35,9 @@ public class AppController {
 	@Autowired
 	RoleService roleService;
 
+	@Autowired
+	LanguageService languageService;
+
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
 		if(authentication != null) {
@@ -42,7 +46,8 @@ public class AppController {
 			if (user != null)
 			model.addAttribute("user", user);
 		}
-		return "index";
+
+		return "page/index";
 	}
 	
 	@GetMapping("/login")
@@ -51,8 +56,8 @@ public class AppController {
 			return "redirect:/";
 		}
 		model.addAttribute("user", new User());
-		
-		return "login";
+
+		return "page/login";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -63,7 +68,7 @@ public class AppController {
 		}
 		model.addAttribute("user", new UserRegistrationDto());
 
-		return "register";
+		return "page/register";
 	}
 
 	@PostMapping("/register")
@@ -73,7 +78,7 @@ public class AppController {
 		user.setEnabled(true);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.save(user);
-		return "login";
+		return "page/login";
 	}
 
 	private boolean checkLogedIn() {
