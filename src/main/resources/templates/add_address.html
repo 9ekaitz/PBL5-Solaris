@@ -18,13 +18,13 @@
                 </div>
                 <form class="form" method="POST" th:action="(${address} == null) ? @{/profile/address/add} : @{'/profile/address/edit/' + ${address.id}}">
                     <div class="field">
-                      <label for="street">Dirección</label>
+                      <label for="street" th:value="#{page.profile.address.edit.street}">Dirección</label>
                       <div> 
-                          <input class="input-field" type="text" id="street" name="street" th:value="(${address} == null) ? null : ${address.street}" placeholder="Dirección"/>
+                          <input class="input-field" type="text" id="street" name="street" th:value="(${address} == null) ? null : ${address.street}" placeholder="Dirección" th:placeholder="#{page.profile.address.edit.street}"/>
                       </div>
                     </div>
                     <div class="field">
-                        <label for="country">Pais</label>
+                        <label for="country" th:text="#{page.profile.address.edit.country}">Pais</label>
                         <div> 
                             <select name="countryId" id="countryId" class="select">
                                 <option class="country-option" th:each="country : ${countries}" th:value="${country.id}" th:text="#{${country.i18n}}" th:selected="(${address} != null AND ${address.country.id} == ${country.id})"></option>
@@ -32,20 +32,20 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label for="city">Ciudad</label>
+                        <label for="city" th:text="#{page.profile.address.edit.city}">Ciudad</label>
                         <div> 
-                            <input class="input-field" type="text" id="city" name="city" th:value="(${address} == null) ? null : ${address.city}" placeholder="Ciudad"/>
+                            <input class="input-field" type="text" id="city" name="city" th:value="(${address} == null) ? null : ${address.city}" placeholder="Ciudad" th:placeholder="#{page.profile.address.edit.city}"/>
                         </div>
                     </div>
                     <div class="double">
                         <div class="field">
-                            <label for="postcode">Codigo postal</label>
+                            <label for="postcode" th:text="#{page.profile.address.edit.postalcode}">Codigo postal</label>
                             <div> 
-                                <input class="input-field" type="text" id="postcode" name="postcode" th:value="(${address} == null) ? null : ${address.postcode}" placeholder="Codigo postal"/>
+                                <input class="input-field" type="text" id="postcode" name="postcode" th:value="(${address} == null) ? null : ${address.postcode}" placeholder="Codigo postal" th:placeholder="#{page.profile.address.edit.postalcode}"/>
                             </div>
                         </div>
                         <div class="field">
-                            <label for="province">Provincia</label>
+                            <label for="province" th:text="#{page.profile.address.edit.province}">Provincia</label>
                             <div> 
                                 <select name="provinceId" id="provinceId" class="select">
                                     <option class="country-option" th:each="province : ${provinces}" th:value="${province.id}" th:text="#{${province.i18n}}" th:selected="(${address} != null AND ${address.province.id} == ${province.id})"></option>
@@ -54,9 +54,9 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label for="number">Telefono</label>
+                        <label for="number" th:text="#{page.profile.address.edit.mobile}">Telefono</label>
                         <div> 
-                            <input class="input-field" type="text" id="number" name="number" placeholder="Telefono movil" th:value="(${address} == null) ? null : ${address.number}"/>
+                            <input class="input-field" type="text" id="number" name="number" placeholder="Telefono movil"  th:placeholder="#{page.profile.address.edit.mobile}" th:value="(${address} == null) ? null : ${address.number}"/>
                         </div>
                     </div>
                     <input class="btn" type="submit" value="Edit password" th:value="#{page.profile.edit.save}">

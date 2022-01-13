@@ -89,9 +89,9 @@ public class ProfileController {
 
         String name = authentication.getName();
         User user = userService.findByUsername(name);
-        userService.deleteUser(user.getId());
+        userService.disableUser(user);
 
-        return "redirect:/";
+        return "redirect:/logout";
     }
     
     @GetMapping("/profile/edit")
@@ -101,7 +101,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/edit")
-    public String profileEdit(@Validated @ModelAttribute("user") UserInformationEditForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String profileEdit(@Validated @ModelAttribute UserInformationEditForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());

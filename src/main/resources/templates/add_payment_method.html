@@ -14,29 +14,29 @@
               </ul>
             <div class="profile-background">
                 <div>
-                    <h1 class="title" th:text="#{page.profile.address.add.title}">Dirección de envio</h1>
+                    <h1 class="title" th:text="#{page.profile.payment_method.add.title}">Dirección de envio</h1>
                 </div>
                 <form class="form" method="POST" th:action="(${paymentMethod} == null) ? @{/profile/payment-method/add} : @{'/profile/payment-method/edit/' + ${paymentMethod.id}}">
                     <div class="field">
-                      <label for="cardNumber">Numero de la tarjeta</label>
+                      <label for="cardNumber" th:text="#{page.profile.payment_method.edit.cardNumber}">Numero de la tarjeta</label>
                       <div> 
-                          <input class="input-field" type="text" id="cardNumber" name="cardNumber" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardNumber}" placeholder="NUmero de tarjeta"/>
+                          <input class="input-field" type="text" id="cardNumber" name="cardNumber" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardNumber}" placeholder="Numero de tarjeta" th:placeholder="#{page.profile.payment_method.edit.cardNumber}"/>
                       </div>
                     </div>
                     <div class="field">
-                        <label for="cardHolderName">Nombre</label>
+                        <label for="cardHolderName" th:text="#{page.profile.payment_method.edit.name}">Nombre</label>
                         <div> 
-                            <input class="input-field" type="text" id="cardHolderName" name="cardHolderName" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardHolderName}" placeholder="Nombre"/>
+                            <input class="input-field" type="text" id="cardHolderName" name="cardHolderName" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardHolderName}" placeholder="Nombre" th:placeholder="#{page.profile.payment_method.edit.name}"/>
                         </div>
                     </div>
                     <div class="field">
-                        <label for="securityCode">CVC</label>
+                        <label for="securityCode" th:text="#{page.profile.payment_method.edit.cvc}">CVC</label>
                         <div> 
-                            <input class="input-field" type="text" id="securityCode" name="securityCode" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.securityCode}" placeholder="CVC"/>
+                            <input class="input-field" type="text" id="securityCode" name="securityCode" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.securityCode}" placeholder="CVC" th:placeholder="#{page.profile.payment_method.edit.cvc}"/>
                         </div>
                     </div>
                     <div class="allWidth">
-                        <label for="city">Fecha de vencimiento</label>
+                        <label for="city" th:text="#{page.profile.payment_method.edit.expirationDate}">Fecha de vencimiento</label>
                         <div class="double">
                             <div class="field">
                                 <div> 

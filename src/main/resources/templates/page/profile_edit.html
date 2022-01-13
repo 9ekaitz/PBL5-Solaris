@@ -12,8 +12,8 @@
   <div>
     <div class="helper">
       <p class="a">
-        <a href="/profile" class="helper-page">Mi Cuenta</a> > 
-        <a href="/profile/edit" class="helper-page selected">Mis datos</a>
+        <a href="/profile" class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
+        <a href="/profile/edit" class="helper-page selected" th:text="#{helper.profile.personalInfo}">Mis datos</a>
       </p>
     </div>
     <hr class="helper-hr">
@@ -39,13 +39,13 @@
             </div>
           </div>
           <div class="field">
-            <label for="firstSurname" th:text="#{user.email}">firstSurname</label>
+            <label for="firstSurname" th:text="#{user.firstSurname}">firstSurname</label>
             <div>
                 <input class="input-field" type="text" id="firstSurname" name="firstSurname" th:value="${user.firstSurname}"/>
             </div>
           </div>
           <div class="field">
-            <label for="secondSurname" th:text="#{page.profile.edit.user}">secondSurname</label>
+            <label for="secondSurname" th:text="#{user.secondSurname}">secondSurname</label>
             <div>
                 <input class="input-field" type="text" id="secondSurname" name="secondSurname" th:value="${user.secondSurname}"/>
             </div>

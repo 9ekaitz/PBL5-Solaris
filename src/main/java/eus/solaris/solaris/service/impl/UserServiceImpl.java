@@ -41,6 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void disableUser(User user) {
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
+
+    @Override
     public boolean editPassword(String newPassword, String oldPassword, Authentication authentication) {
         Boolean result = false;
         User user = findByUsername(authentication.getName());

@@ -12,8 +12,8 @@
   <div>
     <div class="helper">
       <p class="a">
-        <a href="/profile" class="helper-page">Mi Cuenta</a> > 
-        <a href="/profile/address" class="helper-page selected">Direcciones</a>
+        <a href="/profile" class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
+        <a href="/profile/address" class="helper-page selected" th:text="#{helper.profile.address}">Direcciones</a>
       </p>
     </div>
     <hr class="helper-hr">
@@ -33,7 +33,7 @@
               <div th:each="address : ${addresses}" class="address-info">
                   <div class="block">
                     <div th:if="${address.defaultAddress == true}" class="default">
-                      <p class="text">Predeterminado</p>
+                      <p class="text" th:text="#{page.profile.default.title}">Predeterminado</p>
                       <hr class="helper-hr">
                     </div>
                     <div class="info">
@@ -46,13 +46,13 @@
                   </div>
                   <div class="address-edit-options">
                     <form method="GET" th:action="@{'/profile/address/edit/' + ${address.id}}">
-                      <input class="option" type="submit" value="Editar">
+                      <input class="option" type="submit" value="Editar" th:value="#{page.profile.edit}">
                     </form>
                     <form method="POST" th:action="@{'/profile/address/delete/' + ${address.id}}">
-                      <input class="option" type="submit" value="Borrar">
+                      <input class="option" type="submit" value="Borrar" th:value="#{page.profile.delete}">
                     </form>
                     <form method="POST" th:action="@{'/profile/address/edit/set-default/' + ${address.id}}" th:if="${address.defaultAddress == false}">
-                      <input class="option" type="submit" value="Definir como predeterminado">
+                      <input class="option" type="submit" value="Definir como predeterminado" th:value="#{page.profile.default.set}">
                     </form>
                   </div>
               </div>
