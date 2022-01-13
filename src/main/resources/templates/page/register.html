@@ -13,8 +13,7 @@
         <div class="section section-rounded">
           <h1 th:text="#{page.register.title}">User registration</h1>
 
-          <form class="form login-form" th:object="${form}" th:action="@{/register}" method="post"
-            modelAttribute="user">
+          <form class="form login-form" th:object="${form}" th:action="@{/register}" method="post">
             <ul class="error">
               <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
             </ul>
