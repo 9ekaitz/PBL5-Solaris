@@ -20,7 +20,7 @@ public class UserControllerAdvice {
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       User user = null;
       if (auth != null) user = userService.findByUsername(auth.getName());
-        return user;
+      return user;
     }
     
 }

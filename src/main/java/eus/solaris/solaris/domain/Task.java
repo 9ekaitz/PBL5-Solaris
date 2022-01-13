@@ -38,5 +38,11 @@ public class Task implements Comparable<Task>{
     return (int) (this.id - arg0.getId());
   }
 
-
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (!(obj instanceof Task)) return false;
+    Task t = (Task) obj;
+    return t.id == this.id;
+  }
 }

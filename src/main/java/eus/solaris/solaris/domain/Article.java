@@ -28,4 +28,12 @@ public class Article implements Comparable<Article>{
   public int compareTo(Article arg0) {
     return (int)(this.id - arg0.getId());
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (!(obj instanceof Article)) return false;
+    Article a = (Article) obj;
+    return a.id == this.id;
+  }
 }

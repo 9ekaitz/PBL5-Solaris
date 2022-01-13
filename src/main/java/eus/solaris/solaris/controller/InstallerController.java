@@ -1,6 +1,7 @@
 package eus.solaris.solaris.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,7 +24,7 @@ import eus.solaris.solaris.service.UserService;
 @Controller
 @RequestMapping("/install")
 public class InstallerController {
-  
+
   @Autowired
   UserService userService;
 
@@ -40,24 +41,26 @@ public class InstallerController {
 
     List<Installation> pendingInstallations = installationService.findByInstallerAndCompleted(user, false);
     List<Installation> completedInstallations = installationService.findByInstallerAndCompleted(user, true);
-    
+
     model.addAttribute("pendingInstallations", pendingInstallations);
     model.addAttribute("completedInstallations", completedInstallations);
-  
+
     return "page/installer";
   }
 
   @GetMapping(value = "/{id}")
-  public String showTask(@PathVariable(value = "id") Long id, Model model){
+  public String showTask(@PathVariable(value = "id") Long id, Model model) {
     model.addAttribute("installation", installationService.findById(id));
 
     return "page/installation";
   }
 
   @PostMapping(value = "/save/{id}")
-  public String saveTask(@PathVariable(value = "id") Long id, @ModelAttribute TaskForm form, Model model){
-    if (form.getTasksId() != null) form.getTasksId().stream().filter((i)-> i != null).forEach((i)-> taskService.markCompleted(taskService.findById(i)));
+  public String saveTask(@PathVariable(value = "id") Long id, @ModelAttribute TaskForm form, Model model) {
+    if (form.getTasksId() != null) form.getTasksId().stream()
+                                                    .filter(Objects::nonNull)
+                                                    .forEach(i -> taskService.markCompleted(taskService.findById(i)));
     model.addAttribute("installation", installationService.findById(id));
-    return "redirect:/install/"+id;
-  } 
+    return "redirect:/install/" + id;
+  }
 }

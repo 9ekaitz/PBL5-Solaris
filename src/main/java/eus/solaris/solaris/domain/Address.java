@@ -38,7 +38,7 @@ public class Address {
   private String postcode;
 
   @Column
-  private String address;
+  private String street;
   
   @Column
   private Boolean completed = false;

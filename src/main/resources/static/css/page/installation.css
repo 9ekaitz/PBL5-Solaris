@@ -42,7 +42,7 @@
   width: -moz-fit-content;
   width: fit-content;
   padding: 0.5rem 1rem;
-  border: 1px solid #C7C7C7;
+  border: 1px solid #c7c7c7;
 }
 .container .details .address p {
   margin: 0.2rem;
@@ -85,7 +85,7 @@
     display: none;
   }
   .container .details {
-    border: 1px solid #C7C7C7;
+    border: 1px solid #c7c7c7;
   }
   .container .details h3 + * {
     padding-left: 2rem;
@@ -103,5 +103,8 @@
     width: 30vw;
     right: 3rem;
     top: 2rem;
+  }
+  .container .details .map iframe {
+    border: 1px solid #c7c7c7;
   }
 }/*# sourceMappingURL=installation.css.map */

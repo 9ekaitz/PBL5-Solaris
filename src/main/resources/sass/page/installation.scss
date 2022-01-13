@@ -105,6 +105,9 @@
         width: 30vw;
         right: 3rem;
         top: 2rem;
+        iframe {
+          border: 1px solid $border-color;
+        }
       }
     }
   }
