@@ -40,7 +40,7 @@ public class InstallerController {
     return "page/installer";
   }
 
-  @GetMapping(value = "/installation/{id}")
+  @GetMapping(value = "/{id}")
   public String showTask(@PathVariable(value = "id") Long id, Model model){
     model.addAttribute("installation", installationService.findById(id));
 
