@@ -245,7 +245,7 @@ public class ProfileController {
             addressService.save(address);
 
             List<Address> addresses = userService.getUserAddresses(authentication);
-            if(addresses.size() > 0){
+            if(!addresses.isEmpty()){
                 Address newDefault = addresses.iterator().next();
                 newDefault.setDefaultAddress(true);
                 addressService.save(newDefault);
@@ -398,12 +398,12 @@ public class ProfileController {
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
         paymentMethodService.disable(paymentMethod);
 
-        if(paymentMethod.getDefaultMethod()){
+        if(Boolean.TRUE.equals(paymentMethod.getDefaultMethod())){
             paymentMethod.setDefaultMethod(false);
             paymentMethodService.save(paymentMethod);
 
             List<PaymentMethod> paymentMethods = userService.getUserPaymentMethods(authentication);
-            if(paymentMethods.size() > 0){
+            if(!paymentMethods.isEmpty()){
                 PaymentMethod newDefault = paymentMethods.iterator().next();
                 newDefault.setDefaultMethod(true);
                 paymentMethodService.save(newDefault);
@@ -416,7 +416,7 @@ public class ProfileController {
     }
     
     private void getPaymentMethodInformation(PaymentMethod paymentMethod, UserPaymentMethodForm form, Authentication authentication) {
-        if(userService.getUserPaymentMethods(authentication).size() == 0){
+        if(userService.getUserPaymentMethods(authentication).isEmpty()){
             paymentMethod.setDefaultMethod(true);
         }
         paymentMethod.setUser(userService.findByUsername(authentication.getName()));
@@ -428,7 +428,7 @@ public class ProfileController {
     }
 
     private void getAddressInformation(Address address, UserAddressForm form, Authentication authentication) {
-        if(userService.getUserAddresses(authentication).size() == 0){
+        if(userService.getUserAddresses(authentication).isEmpty()){
             address.setDefaultAddress(true);
         }
         address.setStreet(form.getStreet());
