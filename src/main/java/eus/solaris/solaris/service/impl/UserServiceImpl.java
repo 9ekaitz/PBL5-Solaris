@@ -73,4 +73,11 @@ public class UserServiceImpl implements UserService {
 
         return user.getAddresses();
     }
+
+    @Override
+    public Object getUserPaymentMethods(Authentication authentication) {
+        User user = findByUsername(authentication.getName());
+
+        return user.getPaymentMethods();
+    }
 }

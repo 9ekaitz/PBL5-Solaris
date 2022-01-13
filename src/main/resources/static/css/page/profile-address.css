@@ -47,7 +47,7 @@
   margin-block: 1.5rem;
 }
 .address-info .address-edit-options .option {
-  text-decoration: none;
+  background-color: transparent;
   color: #f9aa31;
 }
 .address-info .address-edit-options .option:hover {

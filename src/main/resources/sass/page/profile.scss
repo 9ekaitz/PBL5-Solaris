@@ -73,7 +73,7 @@
     }
 
     .profile-main{
-        padding: 3rem;
+        padding: 3rem 5rem;
     
         .profile-background{
             padding-inline: 4rem;
@@ -86,7 +86,7 @@
     
             .options{
                 display: grid;
-                gap: 4rem;
+                gap: 2rem;
                 grid-template-columns: 1fr 1fr;
     
                 .section-option{
@@ -105,8 +105,8 @@
                     }
 
                     .icon{
-                        width: 90%;
-                        height: 90%;
+                        width: 80%;
+                        height: 80%;
                     }
                 }
             }

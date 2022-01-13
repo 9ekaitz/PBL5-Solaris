@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+
+<main layout:fragment="content" class="profile">
+  <div>
+    <div class="helper">
+      <p class="a">
+        <a href="/profile" class="helper-page">Mi Cuenta</a> > 
+        <a href="/profile/address" class="helper-page selected">Direcciones</a>
+      </p>
+    </div>
+    <hr class="helper-hr">
+    <div>
+      <section th:insert="add_payment_method :: add_payment_method"></section>
+    </div>
+  </div>
+</main>

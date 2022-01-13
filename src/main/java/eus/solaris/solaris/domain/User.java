@@ -51,8 +51,12 @@ public class User implements Serializable {
     private String email;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @OrderBy("default_address ASC")
+    @OrderBy("default_address DESC")
     private Set<Address> addresses;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("default_method DESC")
+    private Set<PaymentMethod> paymentMethods;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;

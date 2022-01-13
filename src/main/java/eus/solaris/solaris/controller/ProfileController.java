@@ -135,7 +135,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/address/add")
-    public String profileAddressAdd(@Validated @ModelAttribute("address") UserAddressForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String profileAddressAdd(@Validated @ModelAttribute UserAddressForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
@@ -153,10 +153,10 @@ public class ProfileController {
             Boolean resultSQL = addressService.save(address);
 
             if(resultSQL){
-                redirectAttributes.addFlashAttribute("success", "alert.address.success");
+                redirectAttributes.addFlashAttribute("success", "alert.address.add.success");
             }
             else{
-                redirectAttributes.addFlashAttribute("error", "alert.address.error");
+                redirectAttributes.addFlashAttribute("error", "alert.address.add.error");
             }
             return "redirect:/profile/address";
         }
@@ -192,14 +192,66 @@ public class ProfileController {
             Boolean resultSQL = addressService.save(address);
 
             if(resultSQL){
-                redirectAttributes.addFlashAttribute("success", "alert.address.success");
+                redirectAttributes.addFlashAttribute("success", "alert.address.edit.success");
             }
             else{
-                redirectAttributes.addFlashAttribute("error", "alert.address.error");
+                redirectAttributes.addFlashAttribute("error", "alert.address.edit.error");
             }
             return "redirect:/profile/address";
         }
 
+    }
+    
+    @PostMapping("profile/address/edit/set-default/{id}")
+    public String profileAddressEditSetDefault(@PathVariable("id") Long id, Authentication authentication, RedirectAttributes redirectAttributes) {
+        Address address = addressService.findById(id);
+        User user = userService.findByUsername(authentication.getName());
+        
+        for (Address address2 : user.getAddresses()) {
+            if(address2.getId() == address.getId()){
+                address2.setDefaultAddress(true);
+            }
+            else{
+                address2.setDefaultAddress(false);
+            }
+        }
+        userService.save(user);
+
+        redirectAttributes.addFlashAttribute("success", "alert.address.edit.default.success");
+        return "redirect:/profile/address";
+    }
+
+    @PostMapping("/profile/address/delete/{id}")
+    public String profileAddressDelete(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+
+        Address address = addressService.findById(id);
+        addressService.delete(address);
+        if(address.getDefaultAddress()){
+            User user = userService.findByUsername(authentication.getName());
+            if(user.getAddresses().size() > 0){
+                Address newDefault = user.getAddresses().iterator().next();
+                newDefault.setDefaultAddress(true);
+                addressService.save(newDefault);
+            }
+        }
+        model.addAttribute("addresses", userService.getUserAddresses(authentication));
+        redirectAttributes.addFlashAttribute("success", "alert.address.delete.success");
+
+        return "redirect:/profile/address";
+    }
+    
+    @GetMapping("/profile/payment-method")
+    public String profilePaymentMethod(Model model, Authentication authentication) {
+
+        model.addAttribute("paymentMethods", userService.getUserPaymentMethods(authentication));
+
+        return "page/profile_payment_method";
+    }
+
+    @GetMapping("/profile/payment-method/add")
+    public String profilePaymentMethodAdd(Model model, Authentication authentication) {
+
+        return "page/profile_payment_method_edit";
     }
     
     private void getAddressInformation(Address address, UserAddressForm form, User user) {
@@ -214,12 +266,5 @@ public class ProfileController {
         address.setNumber(form.getNumber());
         address.setUser(user);
     }
-
-    // private void getUser(Model model, Authentication authentication) {
-    //     String name = authentication.getName();
-    //     User user = userService.findByUsername(name);
-    //     if (user != null)
-    //         model.addAttribute("user", user);
-    // }
     
 }

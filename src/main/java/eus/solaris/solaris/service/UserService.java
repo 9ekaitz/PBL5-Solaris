@@ -14,4 +14,5 @@ public interface UserService {
     public boolean editPassword(String newPassword, String oldPassword, Authentication authentication);
     public boolean editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication);
     public Set<Address> getUserAddresses(Authentication authentication);
+    public Object getUserPaymentMethods(Authentication authentication);
 }

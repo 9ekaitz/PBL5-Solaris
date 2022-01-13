@@ -23,5 +23,10 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.getById(id);
     }
 
+    @Override
+    public void delete(Address address) {
+        addressRepository.delete(address);
+    }
+
 
 }

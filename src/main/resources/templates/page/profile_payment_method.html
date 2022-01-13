@@ -13,7 +13,7 @@
     <div class="helper">
       <p class="a">
         <a href="/profile" class="helper-page">Mi Cuenta</a> > 
-        <a href="/profile/address" class="helper-page selected">Direcciones</a>
+        <a href="/profile/address" class="helper-page selected">Métodos de pago</a>
       </p>
     </div>
     <hr class="helper-hr">
@@ -25,33 +25,32 @@
           <h1 class="title" th:text="#{page.profile.address.edit.title}">Edit user</h1>
         </div>
         <div class="options">
-            <a href="/profile/address/add" th:href="@{/profile/address/add}" class="add-address address-section">
+            <a href="/profile/payment-method/add" th:href="@{/profile/payment-method/add}" class="add-address address-section">
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>            
                 <p class="add" th:text="#{page.profile.address.add.title}">Agregar dirección</p>
             </a>
-            <th:block th:if="${addresses != null}">
-              <div th:each="address : ${addresses}" class="address-info">
+            <th:block th:if="${paymentMethods != null}">
+              <div th:each="paymentMethod : ${paymentMethods}" class="address-info">
                   <div class="block">
-                    <div th:if="${address.defaultAddress == true}" class="default">
+                    <div th:if="${paymentMethod.defaultMethod == true}" class="default">
                       <p class="text">Predeterminado</p>
                       <hr class="helper-hr">
                     </div>
                     <div class="info">
-                      <p class="name" th:text="${address.user.name} + ' ' + ${address.user.firstSurname} + ' ' + ${address.user.secondSurname}">Name</p>
-                      <p th:text="${address.address}">Address</p>
-                      <p th:text="${address.city} + ', ' + #{${address.province.i18n}} + ' ' + ${address.postcode}">City, Province, PostalCode</p>
-                      <p th:text="#{${address.country.i18n}}">Contry</p> 
-                      <p th:text="'Número de telefono: ' + ${address.number}">NT</p>
+                      <p class="name" th:text="${paymentMethod.user.name} + ' ' + ${paymentMethod.user.firstSurname} + ' ' + ${paymentMethod.user.secondSurname}">Name</p>
+                      <p th:text="${paymentMethod.number}">Address</p>
+                      <p th:text="'Fecha de vencimiento: ' + ${paymentMethod.expireDate}">City, Province, PostalCode</p>
+                      <p th:text="'CVC: ' + ${paymentMethod.cvc}">Contry</p> 
                     </div>
                   </div>
                   <div class="address-edit-options">
-                    <form method="GET" th:action="@{'/profile/address/edit/' + ${address.id}}">
+                    <form method="GET" th:action="@{'/profile/address/edit/' + ${paymentMethod.id}}">
                       <input class="option" type="submit" value="Editar">
                     </form>
-                    <form method="POST" th:action="@{'/profile/address/delete/' + ${address.id}}">
+                    <form method="POST" th:action="@{'/profile/address/delete/' + ${paymentMethod.id}}">
                       <input class="option" type="submit" value="Borrar">
                     </form>
-                    <form method="POST" th:action="@{'/profile/address/edit/set-default/' + ${address.id}}" th:if="${address.defaultAddress == false}">
+                    <form method="POST" th:action="@{'/profile/address/edit/set-default/' + ${paymentMethod.id}}" th:if="${paymentMethod.defaultMethod == false}">
                       <input class="option" type="submit" value="Definir como predeterminado">
                     </form>
                   </div>

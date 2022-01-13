@@ -10,6 +10,7 @@ main .main-content .content-section {
   margin-block: 1rem;
 }
 main .main-content .content-section.main .title {
+  text-align: left;
   font-size: 3rem;
 }
 main .main-content .content-section.main .subtitle {
@@ -46,6 +47,7 @@ main .main-content .content-section .sub-section img {
   margin-block: 1rem;
 }
 main .main-content .content-section .sub-section .title {
+  text-align: left;
   font-size: 2.75rem;
   margin: 0;
 }
