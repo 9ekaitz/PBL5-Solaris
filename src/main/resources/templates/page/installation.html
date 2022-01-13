@@ -34,6 +34,7 @@
           </svg>
           <img
             th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=3e3e3e,707070,f9aa31&square=true'}"
+            th:alt="#{img.alt.installation}"
           />
         </a>
         <h2 class="title" th:text="${installation.name}">
