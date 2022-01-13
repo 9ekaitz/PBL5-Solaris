@@ -3,7 +3,6 @@ package eus.solaris.solaris.controller.api;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +17,12 @@ import eus.solaris.solaris.repository.DataEntryRepository;
 import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.service.multithreading.FormatterJSON;
 import eus.solaris.solaris.service.multithreading.Gatherer;
-import eus.solaris.solaris.service.multithreading.ThreadController;
-import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
-import eus.solaris.solaris.service.multithreading.modes.DayGroupMode;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 
 @RestController("/api")
 public class DataRESTController {
+
+    static final String NO_SUCH_ELEMENT_ERROR = "{error: \"Bad query, element with id provided not found\"}";
 
     @Autowired
     SolarPanelRepository solarPanelRepository;
@@ -47,7 +45,11 @@ public class DataRESTController {
 
     @GetMapping(path = "/api/{id}/grouped?={group}&start={start}&end={end}", produces = "application/json")
     public String grouped(@PathVariable("id") Long id, @PathVariable("group") String group) {
-        // TODO
+        try {
+            SolarPanel panel = solarPanelRepository.findById(id).get();
+        } catch (Exception NoSuchElementException) {
+            return NO_SUCH_ELEMENT_ERROR;
+        }
         return "";
     }
 

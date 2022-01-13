@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "dev")
+@ActiveProfiles(profiles = "ci")
 class FormatterJSONTest {
 
     String getOGJSON() {
