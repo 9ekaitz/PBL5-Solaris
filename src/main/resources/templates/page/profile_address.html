@@ -38,7 +38,7 @@
                     </div>
                     <div class="info">
                       <p class="name" th:text="${address.user.name} + ' ' + ${address.user.firstSurname} + ' ' + ${address.user.secondSurname}">Name</p>
-                      <p th:text="${address.address}">Address</p>
+                      <p th:text="${address.street}">Address</p>
                       <p th:text="${address.city} + ', ' + #{${address.province.i18n}} + ' ' + ${address.postcode}">City, Province, PostalCode</p>
                       <p th:text="#{${address.country.i18n}}">Contry</p> 
                       <p th:text="'Número de telefono: ' + ${address.number}">NT</p>

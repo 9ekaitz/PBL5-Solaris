@@ -9,6 +9,55 @@
 <body>
     <th:block>
         <div th:fragment="add_payment_method" class="profile-main">
+            <ul class="error">
+                <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
+              </ul>
+            <div class="profile-background">
+                <div>
+                    <h1 class="title" th:text="#{page.profile.address.add.title}">Dirección de envio</h1>
+                </div>
+                <form class="form" method="POST" th:action="(${paymentMethod} == null) ? @{/profile/payment-method/add} : @{'/profile/payment-method/edit/' + ${paymentMethod.id}}">
+                    <div class="field">
+                      <label for="cardNumber">Numero de la tarjeta</label>
+                      <div> 
+                          <input class="input-field" type="text" id="cardNumber" name="cardNumber" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardNumber}" placeholder="NUmero de tarjeta"/>
+                      </div>
+                    </div>
+                    <div class="field">
+                        <label for="cardHolderName">Nombre</label>
+                        <div> 
+                            <input class="input-field" type="text" id="cardHolderName" name="cardHolderName" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardHolderName}" placeholder="Nombre"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="securityCode">CVC</label>
+                        <div> 
+                            <input class="input-field" type="text" id="securityCode" name="securityCode" th:value="(${paymentMethod} == null) ? null : ${paymentMethod.securityCode}" placeholder="CVC"/>
+                        </div>
+                    </div>
+                    <div class="allWidth">
+                        <label for="city">Fecha de vencimiento</label>
+                        <div class="double">
+                            <div class="field">
+                                <div> 
+                                    <select name="expirationYear" id="expirationYear" class="select">
+                                        <option class="country-option" th:each="expirationYear : ${years}" th:value="${expirationYear}" th:text="${expirationYear}" th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationYear} == ${expirationYear})"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div>   
+                                    <select name="expirationMonth" id="expirationMonth" class="select">
+                                        <option class="country-option" th:each="expirationMonth : ${months}" th:value="${expirationMonth}" th:text="${expirationMonth}" th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationMonth} == ${expirationMonth})"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <input class="btn" type="submit" value="Edit password" th:value="#{page.profile.edit.save}">
+                </form> 
+            </div>
         </div>
     </th:block>
 </body>

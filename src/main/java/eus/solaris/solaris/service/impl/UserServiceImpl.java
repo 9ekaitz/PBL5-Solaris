@@ -4,12 +4,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Address;
+import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.repository.UserRepository;
 import eus.solaris.solaris.service.UserService;
@@ -68,16 +70,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<Address> getUserAddresses(Authentication authentication) {
+    public List<Address> getUserAddresses(Authentication authentication) {
         User user = findByUsername(authentication.getName());
+        List<Address> addresses = new ArrayList<>();
+
+        for(int i = 0; i < user.getAddresses().size(); i++){
+            Address address = user.getAddresses().toArray(new Address[user.getAddresses().size()])[i];
+            if(address.isEnabled()){
+                addresses.add(address);
+            }
+        }
+
+        user.setAddresses(addresses);
 
         return user.getAddresses();
     }
 
     @Override
-    public Object getUserPaymentMethods(Authentication authentication) {
+    public List<PaymentMethod> getUserPaymentMethods(Authentication authentication) {
         User user = findByUsername(authentication.getName());
+        List<PaymentMethod> paymentMethods = new ArrayList<>();
 
+        for(int i = 0; i < user.getPaymentMethods().size(); i++){
+            PaymentMethod paymentMethod = user.getPaymentMethods().toArray(new PaymentMethod[user.getPaymentMethods().size()])[i];
+            if(paymentMethod.isEnabled()){
+                paymentMethods.add(paymentMethod);
+            }
+        }
+
+        user.setPaymentMethods(paymentMethods);
+        
         return user.getPaymentMethods();
     }
 }

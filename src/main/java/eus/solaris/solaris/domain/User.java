@@ -1,6 +1,7 @@
 package eus.solaris.solaris.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -52,11 +53,11 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @OrderBy("default_address DESC")
-    private Set<Address> addresses;
+    private List<Address> addresses;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @OrderBy("default_method DESC")
-    private Set<PaymentMethod> paymentMethods;
+    @OrderBy("default_method ASC")
+    private List<PaymentMethod> paymentMethods;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;

@@ -6,4 +6,5 @@ public interface AddressService {
     public boolean save(Address address);
     public Address findById(Long id);
     public void delete(Address address);
+    public void disable(Address address);
 }

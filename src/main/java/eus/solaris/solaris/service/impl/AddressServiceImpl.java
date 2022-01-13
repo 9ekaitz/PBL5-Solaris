@@ -28,5 +28,11 @@ public class AddressServiceImpl implements AddressService {
         addressRepository.delete(address);
     }
 
+    @Override
+    public void disable(Address address) {
+        address.setEnabled(false);
+        addressRepository.save(address);        
+    }
+
 
 }

@@ -37,20 +37,20 @@
                       <hr class="helper-hr">
                     </div>
                     <div class="info">
-                      <p class="name" th:text="${paymentMethod.user.name} + ' ' + ${paymentMethod.user.firstSurname} + ' ' + ${paymentMethod.user.secondSurname}">Name</p>
-                      <p th:text="${paymentMethod.number}">Address</p>
-                      <p th:text="'Fecha de vencimiento: ' + ${paymentMethod.expireDate}">City, Province, PostalCode</p>
-                      <p th:text="'CVC: ' + ${paymentMethod.cvc}">Contry</p> 
+                      <p class="name" th:text="${paymentMethod.cardHolderName}">Name</p>
+                      <p th:text="'**** **** **** ' + ${#strings.substring(paymentMethod.cardNumber,12,16)}"></p>
+                      <p th:text="'Fecha de vencimiento: ' +  ${paymentMethod.expirationMonth} + '/' + ${paymentMethod.expirationYear}">City, Province, PostalCode</p>
+                      <p th:text="'CVC: ' + ${paymentMethod.securityCode}">Contry</p> 
                     </div>
                   </div>
                   <div class="address-edit-options">
-                    <form method="GET" th:action="@{'/profile/address/edit/' + ${paymentMethod.id}}">
+                    <form method="GET" th:action="@{'/profile/payment-method/edit/' + ${paymentMethod.id}}">
                       <input class="option" type="submit" value="Editar">
                     </form>
-                    <form method="POST" th:action="@{'/profile/address/delete/' + ${paymentMethod.id}}">
+                    <form method="POST" th:action="@{'/profile/payment-method/delete/' + ${paymentMethod.id}}">
                       <input class="option" type="submit" value="Borrar">
                     </form>
-                    <form method="POST" th:action="@{'/profile/address/edit/set-default/' + ${paymentMethod.id}}" th:if="${paymentMethod.defaultMethod == false}">
+                    <form method="POST" th:action="@{'/profile/payment-method/edit/set-default/' + ${paymentMethod.id}}" th:if="${paymentMethod.defaultMethod == false}">
                       <input class="option" type="submit" value="Definir como predeterminado">
                     </form>
                   </div>

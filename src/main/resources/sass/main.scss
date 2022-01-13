@@ -44,14 +44,14 @@ body {
         }
     }
 
+    .allWidth {
+        width: 100%;
+    }
+    
     .double{
         display: flex;
         gap: 1rem;
         width: 100%;
-
-        .field {
-            width: 50%;
-        }
     }
 
     .input-field {

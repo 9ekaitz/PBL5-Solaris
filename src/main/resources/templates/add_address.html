@@ -18,9 +18,9 @@
                 </div>
                 <form class="form" method="POST" th:action="(${address} == null) ? @{/profile/address/add} : @{'/profile/address/edit/' + ${address.id}}">
                     <div class="field">
-                      <label for="address">Dirección</label>
+                      <label for="street">Dirección</label>
                       <div> 
-                          <input class="input-field" type="text" id="address" name="address" th:value="(${address} == null) ? null : ${address.address}" placeholder="Dirección"/>
+                          <input class="input-field" type="text" id="street" name="street" th:value="(${address} == null) ? null : ${address.street}" placeholder="Dirección"/>
                       </div>
                     </div>
                     <div class="field">

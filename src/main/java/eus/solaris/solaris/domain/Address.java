@@ -33,17 +33,17 @@ public class Address {
   @Column(name = "postcode", nullable = false)
   private String postcode;
 
-  @Column(name = "address", nullable = false, length = 128)
-  private String address;
+  @Column(name = "street", nullable = false, length = 128)
+  private String street;
 
   @Column(name = "number", nullable = false, length = 9)
   private String number;
 
   @ManyToOne(fetch = FetchType.EAGER)
   private User user;
-  
-  @Column
-  private Boolean completed = false;
+
+  @Column(name = "enabled")
+  private boolean enabled = true;
 
   @Column
   private Boolean defaultAddress = false;

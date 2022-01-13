@@ -1,8 +1,5 @@
 package eus.solaris.solaris.domain;
 
-
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,16 +24,24 @@ public class PaymentMethod {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @Column(name = "number", nullable = false, length = 16)
-    private String number;
+    @Column(name = "card_holder_name")
+    private String cardHolderName;
 
-    @Column(name = "expire_date")
-    private Date expireDate;
+    @Column(name = "card_number", nullable = false, length = 16)
+    private String cardNumber;
 
-    @Column(name = "cvc", nullable = false, length = 3)
-    private String cvc;
+    @Column(name = "expire_date_month", nullable = false)
+    private Long expirationMonth;
+
+    @Column(name = "expire_date_year", nullable = false)
+    private Long expirationYear;
+
+    @Column(name = "security_code", nullable = false, length = 3)
+    private String securityCode;
 
     @Column(name = "default_method")
-    private Boolean defaultMethod;
+    private Boolean defaultMethod = false;
 
+    @Column(name = "enabled")
+    private boolean enabled = true;
 }

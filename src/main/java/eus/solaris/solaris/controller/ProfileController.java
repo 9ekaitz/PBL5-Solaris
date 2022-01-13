@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import eus.solaris.solaris.domain.Address;
+import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.UserAddressForm;
 import eus.solaris.solaris.dto.UserInformationEditForm;
+import eus.solaris.solaris.dto.UserPaymentMethodForm;
 import eus.solaris.solaris.service.AddressService;
 import eus.solaris.solaris.service.CountryService;
+import eus.solaris.solaris.service.PaymentMethodService;
 import eus.solaris.solaris.service.ProvinceService;
 import eus.solaris.solaris.service.UserService;
 
@@ -45,6 +48,9 @@ public class ProfileController {
 
     @Autowired
     AddressService addressService;
+
+    @Autowired
+    PaymentMethodService paymentMethodService;
 
     @GetMapping("/profile")
     public String profile(Model model, Authentication authentication) {
@@ -148,8 +154,7 @@ public class ProfileController {
         }
         else{
             Address address = new Address();
-            User user = userService.findByUsername(authentication.getName());
-            getAddressInformation(address, form, user);
+            getAddressInformation(address, form, authentication);
             Boolean resultSQL = addressService.save(address);
 
             if(resultSQL){
@@ -187,8 +192,7 @@ public class ProfileController {
         }
         else{
             Address address = addressService.findById(id);
-            User user = userService.findByUsername(authentication.getName());
-            getAddressInformation(address, form, user);
+            getAddressInformation(address, form, authentication);
             Boolean resultSQL = addressService.save(address);
 
             if(resultSQL){
@@ -225,15 +229,20 @@ public class ProfileController {
     public String profileAddressDelete(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         Address address = addressService.findById(id);
-        addressService.delete(address);
+        addressService.disable(address);
+
         if(address.getDefaultAddress()){
-            User user = userService.findByUsername(authentication.getName());
-            if(user.getAddresses().size() > 0){
-                Address newDefault = user.getAddresses().iterator().next();
+            address.setDefaultAddress(false);
+            addressService.save(address);
+
+            List<Address> addresses = userService.getUserAddresses(authentication);
+            if(addresses.size() > 0){
+                Address newDefault = addresses.iterator().next();
                 newDefault.setDefaultAddress(true);
                 addressService.save(newDefault);
             }
         }
+
         model.addAttribute("addresses", userService.getUserAddresses(authentication));
         redirectAttributes.addFlashAttribute("success", "alert.address.delete.success");
 
@@ -251,20 +260,174 @@ public class ProfileController {
     @GetMapping("/profile/payment-method/add")
     public String profilePaymentMethodAdd(Model model, Authentication authentication) {
 
+        List<Integer> years = new ArrayList<>();
+        List<Integer> months = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            months.add(i+1);
+        }
+        for (int i = 0; i < 30; i++) {
+            years.add(i+2021);
+        }
+        model.addAttribute("years", years);
+        model.addAttribute("months", months);
+
         return "page/profile_payment_method_edit";
     }
     
-    private void getAddressInformation(Address address, UserAddressForm form, User user) {
-        if(user.getAddresses().size() == 0){
+    @PostMapping("/profile/payment-method/add")
+    public String profilePaymentMethodAdd(@Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+
+        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute("errors", errors);
+            model.addAttribute("form", form);
+            List<Integer> years = new ArrayList<>();
+            List<Integer> months = new ArrayList<>();
+            for (int i = 0; i < 12; i++) {
+                months.add(i+1);
+            }
+            for (int i = 0; i < 30; i++) {
+                years.add(i+2021);
+            }
+            model.addAttribute("years", years);
+            model.addAttribute("months", months);
+
+            return "page/profile_payment_method_edit";
+        }
+        else{
+            PaymentMethod paymentMethod = new PaymentMethod();
+            getPaymentMethodInformation(paymentMethod, form, authentication);
+            Boolean resultSQL = paymentMethodService.save(paymentMethod);
+
+           if(resultSQL){
+               redirectAttributes.addFlashAttribute("success", "alert.payment_method.add.success");
+            }
+            else{
+                redirectAttributes.addFlashAttribute("error", "alert.payment_method.add.error");
+            }
+            return "redirect:/profile/payment-method";
+        }
+
+    }
+    
+    @GetMapping("/profile/payment-method/edit/{id}")
+    public String profilePaymentMethodEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
+        PaymentMethod paymentMethod = paymentMethodService.findById(id);
+        model.addAttribute("paymentMethod", paymentMethod);
+        List<Integer> years = new ArrayList<>();
+        List<Integer> months = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            months.add(i+1);
+        }
+        for (int i = 0; i < 30; i++) {
+            years.add(i+2021);
+        }
+        model.addAttribute("years", years);
+        model.addAttribute("months", months);
+
+        return "page/profile_payment_method_edit";
+    }
+    
+    @PostMapping("/profile/payment-method/edit/{id}")
+    public String profilePaymentMethodEdit(@PathVariable("id") Long id, @Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+
+        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute("errors", errors);
+            model.addAttribute("form", form);
+            List<Integer> years = new ArrayList<>();
+            List<Integer> months = new ArrayList<>();
+            for (int i = 0; i < 12; i++) {
+                months.add(i+1);
+            }
+            for (int i = 0; i < 30; i++) {
+                years.add(i+2021);
+            }
+            model.addAttribute("years", years);
+            model.addAttribute("months", months);
+
+            return "page/profile_payment_method_edit";
+        }
+        else{
+            PaymentMethod paymentMethod = paymentMethodService.findById(id);
+            getPaymentMethodInformation(paymentMethod, form, authentication);
+            Boolean resultSQL = paymentMethodService.save(paymentMethod);
+
+            if(resultSQL){
+                redirectAttributes.addFlashAttribute("success", "alert.payment_method.edit.success");
+            }
+            else{
+                redirectAttributes.addFlashAttribute("error", "alert.payment_method.edit.error");
+            }
+            return "redirect:/profile/payment-method";
+        }
+
+    }
+    
+    @PostMapping("/profile/payment-method/set-default/{id}")
+    public String profilePaymentMethodSetDefault(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+
+        PaymentMethod paymentMethod = paymentMethodService.findById(id);
+        paymentMethod.setDefaultMethod(true);
+        paymentMethodService.save(paymentMethod);
+
+        User user = userService.findByUsername(authentication.getName());
+        for (PaymentMethod pm : user.getPaymentMethods()) {
+            if(pm.getId() != id){
+                pm.setDefaultMethod(false);
+            }
+        }
+        userService.save(user);
+
+        redirectAttributes.addFlashAttribute("success", "alert.payment_method.edit.default.success");
+        return "redirect:/profile/payment-method";
+    }
+    
+    @PostMapping("/profile/payment-method/delete/{id}")
+    public String profilePaymentMethodDelete(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+
+        PaymentMethod paymentMethod = paymentMethodService.findById(id);
+        paymentMethodService.disable(paymentMethod);
+
+        if(paymentMethod.getDefaultMethod()){
+            paymentMethod.setDefaultMethod(false);
+            paymentMethodService.save(paymentMethod);
+
+            List<PaymentMethod> paymentMethods = userService.getUserPaymentMethods(authentication);
+            if(paymentMethods.size() > 0){
+                PaymentMethod newDefault = paymentMethods.iterator().next();
+                newDefault.setDefaultMethod(true);
+                paymentMethodService.save(newDefault);
+            }
+        }
+
+        redirectAttributes.addFlashAttribute("success", "alert.payment_method.delete.success");
+        return "redirect:/profile/payment-method";
+    }
+    
+    private void getPaymentMethodInformation(PaymentMethod paymentMethod, UserPaymentMethodForm form, Authentication authentication) {
+        if(userService.getUserPaymentMethods(authentication).size() == 0){
+            paymentMethod.setDefaultMethod(true);
+        }
+        paymentMethod.setUser(userService.findByUsername(authentication.getName()));
+        paymentMethod.setCardNumber(form.getCardNumber());
+        paymentMethod.setCardHolderName(form.getCardHolderName());
+        paymentMethod.setExpirationMonth(form.getExpirationMonth());
+        paymentMethod.setExpirationYear(form.getExpirationYear());
+        paymentMethod.setSecurityCode(form.getSecurityCode());
+    }
+
+    private void getAddressInformation(Address address, UserAddressForm form, Authentication authentication) {
+        if(userService.getUserAddresses(authentication).size() == 0){
             address.setDefaultAddress(true);
         }
-        address.setAddress(form.getAddress());
+        address.setStreet(form.getStreet());
         address.setCity(form.getCity());
         address.setCountry(countryService.findById(form.getCountryId()));
         address.setProvince(provinceService.findById(form.getProvinceId()));
         address.setPostcode(form.getPostcode());
         address.setNumber(form.getNumber());
-        address.setUser(user);
+        address.setUser(userService.findByUsername(authentication.getName()));
     }
     
 }

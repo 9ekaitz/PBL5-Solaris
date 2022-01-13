@@ -13,7 +13,7 @@ public class UserAddressForm {
     private Long id;
 
     @NotEmpty(message = "{page.profile.field.address.notEmpty}")
-    private String address;
+    private String street;
 
     private Long countryId;
 

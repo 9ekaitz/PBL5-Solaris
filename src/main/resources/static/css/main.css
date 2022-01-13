@@ -302,13 +302,13 @@ body {
 .form .field .select {
   width: 100%;
 }
+.form .allWidth {
+  width: 100%;
+}
 .form .double {
   display: flex;
   gap: 1rem;
   width: 100%;
-}
-.form .double .field {
-  width: 50%;
 }
 .form .input-field {
   width: 100%;
