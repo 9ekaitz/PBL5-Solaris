@@ -126,15 +126,20 @@ public class ProfileController {
         }
         else{
             boolean resultSQL = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), authentication);
-            if(Boolean.TRUE.equals(resultSQL)){
-                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.profile.success");
-            }
-            else{
-                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.profile.error");
-            }
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.profile.success", "alert.profile.error");
+
             return "redirect:/profile";
         }
 
+    }
+
+    private void addFlashAttribute(boolean resultSQL, RedirectAttributes redirectAttributes, String successMessage, String errorMessage) {
+        if(Boolean.TRUE.equals(resultSQL)){
+            redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, successMessage);
+        }
+        else{
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, errorMessage);
+        }
     }
 
     @GetMapping("/profile/address")
@@ -158,11 +163,8 @@ public class ProfileController {
     public String profileAddressAdd(@Validated @ModelAttribute UserAddressForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
-            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute(ERROR_FORM, errors);
-            model.addAttribute("form", form);
-            model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
-            model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+
+            profileAddressFormFailed(model, form, result);
 
             return PAGE_PROFILE_ADDRESS_EDIT;
         }
@@ -171,17 +173,13 @@ public class ProfileController {
             getAddressInformation(address, form, authentication);
             Boolean resultSQL = addressService.save(address);
 
-            if(Boolean.TRUE.equals(resultSQL)){
-                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.add.success");
-            }
-            else{
-                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.address.add.error");
-            }
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.address.add.success", "alert.address.add.error");
+
             return REDIRECT_PROFILE_ADDRESS;
         }
 
     }
-    
+
     @GetMapping("/profile/address/edit/{id}")
     public String profileAddressEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Address address = addressService.findById(id);
@@ -196,11 +194,7 @@ public class ProfileController {
     public String profileAddressEdit(@PathVariable("id") Long id, @Validated @ModelAttribute("address") UserAddressForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
-            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute(ERROR_FORM, errors);
-            model.addAttribute("form", form);
-            model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
-            model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+            profileAddressFormFailed(model, form, result);
 
             return PAGE_PROFILE_ADDRESS_EDIT;
         }
@@ -208,13 +202,9 @@ public class ProfileController {
             Address address = addressService.findById(id);
             getAddressInformation(address, form, authentication);
             Boolean resultSQL = addressService.save(address);
+            
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.address.edit.success", "alert.address.edit.error");
 
-            if(Boolean.TRUE.equals(resultSQL)){
-                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.edit.success");
-            }
-            else{
-                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.address.edit.error");
-            }
             return REDIRECT_PROFILE_ADDRESS;
         }
 
@@ -362,12 +352,8 @@ public class ProfileController {
             getPaymentMethodInformation(paymentMethod, form, authentication);
             Boolean resultSQL = paymentMethodService.save(paymentMethod);
 
-            if(Boolean.TRUE.equals(resultSQL)){
-                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.edit.success");
-            }
-            else{
-                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.payment_method.edit.error");
-            }
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.payment_method.edit.success", "alert.payment_method.edit.error");
+
             return REDIRECT_PROFILE_PAYMENT_METHOD;
         }
 
@@ -440,4 +426,11 @@ public class ProfileController {
         address.setUser(userService.findByUsername(authentication.getName()));
     }
     
+    private void profileAddressFormFailed(Model model, UserAddressForm form, BindingResult result) {
+        List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+        model.addAttribute(ERROR_FORM, errors);
+        model.addAttribute("form", form);
+        model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
+        model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+    }
 }
