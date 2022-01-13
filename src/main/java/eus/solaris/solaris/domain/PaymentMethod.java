@@ -1,5 +1,7 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +17,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "payment_method")
 @Getter @Setter
-public class PaymentMethod {
+public class PaymentMethod implements Serializable{
+
+    private static final long serialVersionUID = -8995643663615104937L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

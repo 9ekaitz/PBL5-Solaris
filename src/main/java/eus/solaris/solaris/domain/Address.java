@@ -1,5 +1,7 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +17,10 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class Address {
-  
+public class Address implements Serializable{
+
+  private static final long serialVersionUID = 918119632427824096L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
