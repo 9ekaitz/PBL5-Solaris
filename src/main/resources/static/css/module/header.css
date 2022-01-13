@@ -5,6 +5,7 @@ body {
 
 header .header-computer {
   display: none;
+  position: relative;
 }
 @media (min-width: 768px) {
   header .header-computer {
