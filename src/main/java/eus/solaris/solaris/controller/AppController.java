@@ -1,35 +1,38 @@
 package eus.solaris.solaris.controller;
 
-import org.modelmapper.ModelMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.dto.UserRegistrationDto;
+import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.service.LanguageService;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
 public class AppController {
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-
-	@Autowired
-	ModelMapper modelMapper;
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	MessageSource messageSource;
 
 	@Autowired
 	RoleService roleService;
@@ -39,7 +42,7 @@ public class AppController {
 
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
-		if(authentication != null) {
+		if (authentication != null) {
 			String name = authentication.getName();
 			User user = userService.findByUsername(name);
 			if (user != null)
@@ -51,7 +54,7 @@ public class AppController {
 
 	@GetMapping("/login")
 	public String login(Model model) {
-		if(checkLogedIn()) {
+		if (checkLogedIn()) {
 			return "redirect:/";
 		}
 		model.addAttribute("user", new User());
@@ -61,31 +64,45 @@ public class AppController {
 
 	@GetMapping("/register")
 	public String registerForm(Model model) {
-		if(checkLogedIn()) {
+		if (checkLogedIn()) {
 			return "redirect:/";
 		}
-		model.addAttribute("user", new UserRegistrationDto());
+		model.addAttribute("form", new UserRegistrationForm());
 
 		return "page/register";
 	}
 
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute("user") UserRegistrationDto dto, BindingResult result, Model model) {
-		User user = modelMapper.map(dto, User.class);
-		user.setRole(roleService.findByName("ROLE_ADMIN"));
-		user.setEnabled(true);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userService.save(user);
+	public String registerUser(@Validated @ModelAttribute("user") UserRegistrationForm form, BindingResult result,
+			Model model) {
+		if (result.hasErrors()
+				|| form.getUsername() != null
+						&& !form.getUsername().equals("")
+						&& userService.findByUsername(form.getUsername()) != null) {
+			Locale locale = LocaleContextHolder.getLocale();
+			List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+			errors.add(new ObjectError("username duplicated",
+					messageSource.getMessage("page.register.field.username.duplicated", null, locale)));
+			model.addAttribute("errors", errors);
+			model.addAttribute("form", form);
+			return "page/register";
+		}
+
+		if (checkLogedIn()) {
+			return "redirect:/";
+		}
+
+		userService.register(form);
 		return "page/login";
 	}
 
 	private boolean checkLogedIn() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return false;
-        }
- 
-        return true;
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return false;
+		}
+
+		return true;
 	}
 
 }
