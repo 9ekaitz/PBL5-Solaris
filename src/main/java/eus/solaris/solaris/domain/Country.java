@@ -1,5 +1,7 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "country")
 @Getter @Setter
-public class Country {
+public class Country implements Serializable{
+
+    private static final long serialVersionUID = -7312439926852854962L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
