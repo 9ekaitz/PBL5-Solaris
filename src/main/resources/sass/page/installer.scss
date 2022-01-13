@@ -1,5 +1,6 @@
 @import "../util/variables.scss";
-.current, .user-banner{
+.current,
+.user-banner {
   display: block;
 }
 
@@ -8,17 +9,16 @@
   padding: 0;
 }
 
-
 .installation-list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   overflow: auto;
   height: calc(100% - 4rem);
-  li+li {
+  li + li {
     margin-top: 1rem;
   }
-  .empty{
+  .empty {
     font-weight: lighter;
     text-align: center;
   }
@@ -32,7 +32,7 @@
     padding: 0.5rem;
     gap: 0.5rem;
     margin-right: 1rem;
-    .installation-details{
+    .installation-details {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -41,32 +41,31 @@
       width: 64px;
       border-radius: 8px;
     }
-    .name{
+    .name {
       font-weight: bold;
       margin: 0;
     }
     .info {
       font-weight: lighter;
-      margin:0;
+      margin: 0;
     }
     .button {
       background: $main-color;
       border-radius: 16px;
     }
-    .button:hover{
+    .button:hover {
       cursor: pointer;
     }
   }
 }
 
 @media (min-width: 768px) {
-
-  .installer-dashboard{
+  .installer-dashboard {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 2fr;
-  
-    .user-banner{
-      grid-column: span 2; 
+
+    .user-banner {
+      grid-column: span 2;
       background: $section-bg-color;
       padding: 1rem 2rem;
     }

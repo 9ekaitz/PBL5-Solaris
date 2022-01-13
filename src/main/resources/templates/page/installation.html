@@ -32,7 +32,9 @@
               d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
             />
           </svg>
-          <img th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=3e3e3e,707070,f9aa31&square=true'}" />
+          <img
+            th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=3e3e3e,707070,f9aa31&square=true'}"
+          />
         </a>
         <h2 class="title" th:text="${installation.name}">
           NOMBRE DE LA INSTALACION
@@ -66,20 +68,24 @@
               <ul class="article-list">
                 <li
                   th:each="article : ${installation.order.articles}"
-                  th:text="${article.article.name} + ', '+ ${article.amount}"
+                  th:text="${article.amount}+' '+${article.article.name}"
                 ></li>
               </ul>
             </li>
           </ul>
-          <form id="taskForm">
-            <label th:each="task : ${installation.tasks}"
+          <form id="taskForm" th:action="@{/install/edit}" method="post">
+            <label th:each="task, iterator : ${installation.tasks}"
               ><input
                 type="checkbox"
                 class="check"
                 th:checked="${task.completed}"
-                th:disabled="${task.completed}" />
-              <p class="text" th:text="${task.description}"></p
-            ></label>
+                value="true"
+                th:disabled="${task.completed}"
+                th:name="tasksId[__${iterator.index}__]"
+                th:value="${task.id}"
+              />
+              <p class="text" th:text="${task.description}"></p>
+            </label>
           </form>
           <div class="map">
             <iframe
@@ -97,6 +103,13 @@
           <input
             type="submit"
             form="taskForm"
+            th:formaction="@{'/install/save/'+${installation.id}}"
+            th:value="#{page.installation.save}"
+          />
+          <input
+            type="submit"
+            form="taskForm"
+            th:formaction="@{'/install/save/'+${installation.id}}"
             th:value="#{page.installation.sign}"
           />
         </div>

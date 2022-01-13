@@ -12,15 +12,16 @@ main {
   display: none;
   overflow: hidden;
   padding: 1rem 2rem;
-  .title{
+  .title {
     font-weight: normal;
     font-size: 1.5rem;
-    margin: 1rem 0; 
+    margin: 1rem 0;
   }
   .footer {
     display: flex;
     justify-content: flex-end;
-    margin: 1rem 0; 
+    margin: 1rem 0;
+    gap: 2.5rem;
   }
 }
 

@@ -2,204 +2,204 @@
 @import "logo-load";
 
 * {
-    font-family: $saira-font;
-    color: $text-color;
-    font-size: 16px;
+  font-family: $saira-font;
+  color: $text-color;
+  font-size: 16px;
 }
 
 body {
-    margin: 0;
-    width: 100%;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
 }
 
 .hide {
-    display: none !important;
+  display: none !important;
 }
 
 .row {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .field {
+    margin-block: 0.3rem;
+    width: 100%;
+  }
+
+  .input-field {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @mixin input-border {
+    outline: 1px solid $main-color;
+    border-color: $main-color;
+  }
+
+  label {
+    &:hover,
+    &:focus {
+      + .password {
+        @include input-border;
+      }
+    }
+  }
+
+  .password-toggle {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    border: 1px solid $text-color;
+    border-radius: $input-border;
+    margin-block: 0.5em 0;
 
-    .field {
-        margin-block: 0.3rem;
-        width: 100%;
+    &:focus-within,
+    &:hover {
+      @include input-border;
     }
 
-    .input-field {
-        width: 100%;
-        box-sizing: border-box;
+    input {
+      padding-right: 0;
+      border: none;
+      width: 90%;
+      box-sizing: border-box;
+      outline: none;
+      margin: 0;
+      &:focus {
+        border: none;
+      }
     }
 
-    @mixin input-border {
-        outline: 1px solid $main-color;
-        border-color: $main-color;
-    }
+    .show-password {
+      @include no-select;
+      width: 10%;
+      height: 100%;
+      padding: 0.25em;
 
-    label {
-        &:hover,
-        &:focus {
-            + .password {
-                @include input-border;
-            }
+      svg {
+        margin: auto;
+        fill: $element-off-color;
+      }
+
+      &:hover {
+        svg {
+          fill: $text-color;
         }
+        cursor: pointer;
+      }
     }
-
-    .password-toggle {
-        display: flex;
-        border: 1px solid $text-color;
-        border-radius: $input-border;
-        margin-block: 0.5em 0;
-
-        &:focus-within,
-        &:hover {
-            @include input-border;
-        }
-
-        input {
-            padding-right: 0;
-            border: none;
-            width: 90%;
-            box-sizing: border-box;
-            outline: none;
-            margin: 0;
-            &:focus {
-                border: none;
-            }
-        }
-
-        .show-password {
-            @include no-select;
-            width: 10%;
-            height: 100%;
-            padding: 0.25em;
-
-            svg {
-                margin: auto;
-                fill: $element-off-color;
-            }
-
-            &:hover {
-                svg {
-                    fill: $text-color;
-                }
-                cursor: pointer;
-            }
-        }
-    }
+  }
 }
 
 input {
-    display: block;
-    margin-block: 0.5rem 0;
-    border: 1px solid $text-color;
-    border-radius: $input-border;
-    padding: 0.2em;
-    height: 1.5em;
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid $text-color;
+  border-radius: $input-border;
+  padding: 0.2em;
+  height: 1.5em;
 
-    &:focus,
-    &:hover {
-        outline: 1px solid $main-color;
-        border-color: $main-color;
-    }
+  &:focus,
+  &:hover {
+    outline: 1px solid $main-color;
+    border-color: $main-color;
+  }
 }
 
 input[type="checkbox"] {
+  width: 1em;
+  height: 1em;
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-content: center;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+
+  &::before {
+    content: "";
     width: 1em;
     height: 1em;
-    -webkit-appearance: none;
-    appearance: none;
-    display: grid;
-    place-content: center;
-    transition: box-shadow 0.2s;
-    cursor: pointer;
-    
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    background-color: $section-bg-color;
+    transform: scale(0);
+    transition: transform 0.5s;
+  }
+
+  &:checked {
+    border-color: $main-color;
+    box-shadow: inset 0 0 0 2em $main-color;
+
     &::before {
-        content: "";
-        width: 1em;
-        height: 1em;
-        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-        background-color: $section-bg-color;
-        transform: scale(0);
-        transition: transform 0.5s;
+      transform: scale(0.7);
     }
-    
-    &:checked {
-        border-color: $main-color;
-        box-shadow: inset 0 0 0 2em $main-color;
-        
-        &::before {
-            transform: scale(0.7);
-        }
-    }
+  }
 }
 
-input[type="submit"], .btn {
-    font-size: 1em;
-    font-weight: bold;
-    border: none;
-    border-radius: $btn-border;
-    min-width: 10em;
-    min-height: 3em;
-    color: $text-color;
-    background-color: $main-color;
-    padding-inline: 2em;
+input[type="submit"],
+.btn {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: $btn-border;
+  min-width: 10em;
+  min-height: 3em;
+  color: $text-color;
+  background-color: $main-color;
+  padding-inline: 2em;
 
-    &:hover {
-        cursor: pointer;
-        background-color: $main-dark-color;
-    }
+  &:hover {
+    cursor: pointer;
+    background-color: $main-dark-color;
+  }
 
-    &.btn-big {
-        width: 18rem;
-        height: 4rem;
-        border-radius: 1.5 * $btn-border;
-    }
+  &.btn-big {
+    width: 18rem;
+    height: 4rem;
+    border-radius: 1.5 * $btn-border;
+  }
 }
 
 .section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
 
-    &.section-rounded {
-        border-radius: $section-border;
-    }
+  &.section-rounded {
+    border-radius: $section-border;
+  }
 }
 
 @media screen and (min-width: $medium-screen) {
-    .section {
-        border: 1px solid $border-color;
-    }
+  .section {
+    border: 1px solid $border-color;
+  }
 }
 
 .error {
-    color: $danger-color;
+  color: $danger-color;
 }
 
 ul.error {
-    * {
-        color: inherit;
-    }
-    
+  * {
+    color: inherit;
+  }
 }
 
 svg {
-    display: block;
+  display: block;
 }

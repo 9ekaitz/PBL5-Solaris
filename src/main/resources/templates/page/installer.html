@@ -53,7 +53,7 @@
         <div class="installation-list">
         <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedInstallations)}"></p>
         <th:block th:each="installation : ${completedInstallation}">
-            <a th:href="@{'/install/installation/'+${installation.id}}">
+            <a th:href="@{'/install/'+${installation.id}}">
               <div class="installation-details">
                 <img th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=f9aa31,FA8832,FACC32,FAEE32,E3FA32,C1FA32&square=true'}" />
                 <div>
@@ -61,7 +61,7 @@
                   <p class="info" th:text="${installation.description}"></p>
                 </div>
               </div>
-              <i class="button" th:href="@{'/install/'+${installation.id}}">
+              <i class="button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"

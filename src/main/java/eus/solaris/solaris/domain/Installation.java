@@ -1,6 +1,6 @@
 package eus.solaris.solaris.domain;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,7 +45,7 @@ public class Installation {
 
   @OneToMany(mappedBy = "installation", fetch = FetchType.LAZY)
   @OrderBy("id ASC")
-  private Set<Task> tasks;
+  private List<Task> tasks;
 
   @Version
   private Integer version;
