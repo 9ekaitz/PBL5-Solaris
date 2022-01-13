@@ -1,3 +1,4 @@
+@import "util/variables";
 @import "logo-load";
 
 * {
@@ -10,9 +11,9 @@ body {
     margin: 0;
     width: 100%;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
 }
 
 .hide {
@@ -43,6 +44,63 @@ body {
     .input-field {
         width: 100%;
         box-sizing: border-box;
+    }
+
+    @mixin input-border {
+        outline: 1px solid $main-color;
+        border-color: $main-color;
+    }
+
+    label {
+        &:hover,
+        &:focus {
+            + .password {
+                @include input-border;
+            }
+        }
+    }
+
+    .password-toggle {
+        display: flex;
+        border: 1px solid $text-color;
+        border-radius: $input-border;
+        margin-block: 0.5em 0;
+
+        &:focus-within,
+        &:hover {
+            @include input-border;
+        }
+
+        input {
+            padding-right: 0;
+            border: none;
+            width: 90%;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            &:focus {
+                border: none;
+            }
+        }
+
+        .show-password {
+            @include no-select;
+            width: 10%;
+            height: 100%;
+            padding: 0.25em;
+
+            svg {
+                margin: auto;
+                fill: $element-off-color;
+            }
+
+            &:hover {
+                svg {
+                    fill: $text-color;
+                }
+                cursor: pointer;
+            }
+        }
     }
 }
 
@@ -130,8 +188,16 @@ input[type="submit"], .btn {
         border: 1px solid $border-color;
     }
 }
+
 .error {
     color: $danger-color;
+}
+
+ul.error {
+    * {
+        color: inherit;
+    }
+    
 }
 
 svg {
