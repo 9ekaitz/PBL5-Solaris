@@ -411,6 +411,7 @@ public class ProfileController {
         }
 
         redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.delete.success");
+        
         return REDIRECT_PROFILE_PAYMENT_METHOD;
     }
     
