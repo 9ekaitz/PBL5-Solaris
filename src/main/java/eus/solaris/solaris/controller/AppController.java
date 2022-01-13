@@ -2,7 +2,6 @@ package eus.solaris.solaris.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.UserRegistrationDto;
@@ -76,12 +76,6 @@ public class AppController {
 		return "page/register";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping("/dashboard")
-	public String getAdminDashboard(Model model) {
-		return "page/dashboard";
-	}
-
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute("user") UserRegistrationDto dto, BindingResult result, Model model) {
 		User user = modelMapper.map(dto, User.class);
@@ -91,6 +85,14 @@ public class AppController {
 		userService.save(user);
 		return "page/login";
 	}
+
+	// TODO: Handle 404 error on springboot web
+	@GetMapping("/err")
+	public String errorHandler(Model model) {
+		return "errors/404";
+	}
+
+
 
 	private boolean checkLogedIn() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

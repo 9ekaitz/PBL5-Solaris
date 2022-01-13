@@ -8,6 +8,7 @@ $breadcrumbs-off-color: #4D4D4D;
 $element-off-color: #52525C;
 $search-bg-color: #282828;
 $danger-color: #DA3633;
+$danger-darken-color: darken($danger-color, 10%);
 $border-color: #C7C7C7;
 $extra-info-color: #F1F1F1;
 $dashboard-nav-color: #3e3e3e;

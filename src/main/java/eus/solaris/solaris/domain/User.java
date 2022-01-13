@@ -28,6 +28,9 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "username")
     private String username;
     
@@ -42,6 +45,9 @@ public class User implements Serializable {
     
     @Column(name = "second_surname")
     private String secondSurname;
+
+    @Column(name = "age")
+    private String age;
     
     @Column(name = "enabled")
     private Boolean enabled;

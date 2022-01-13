@@ -46,7 +46,7 @@ body {
     }
 }
 
-input {
+input, select {
     display: block;
     margin-block: 0.5rem 0;
     border: 1px solid $text-color;

@@ -34,6 +34,9 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Set<User> users;
 
+    @Column(name = "i18n", nullable = false, length = 64)
+    private String i18n;
+    
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Privilege> privileges;
     

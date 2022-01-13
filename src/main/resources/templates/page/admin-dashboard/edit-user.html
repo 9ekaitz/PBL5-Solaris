@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/edit-user.css}" />
+    <link rel="stylesheet" th:href="@{/css/page/dashboard.css}" />
+    <link rel="stylesheet" href="@{/css/main.css}">
+    <title>Administrador</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="admin-dashboard">
+        <div class="edit-account container">
+            <div class="title">
+                <h1>Editar usuario</h1>
+            </div>
+            <form th:action="@{'/dashboard/update-user/'+${userToEdit.id}}" method="post">
+                <div class="form-pair">
+                    <label for="name">Name:</label>
+                    <input type="text" placeholder="Name" name="name" th:value="${userToEdit.name}">
+                </div>
+                <div class="form-pair">
+                    <label for="firstSurname">First surname:</label>
+                    <input type="text" placeholder="First surname" name="firstSurname" th:value="${userToEdit.firstSurname}">
+                </div>
+                <div class="form-pair">
+                    <label for="secondSurname">Second surname:</label>
+                    <input type="text" placeholder="Second surname" name="secondSurname" th:value="${userToEdit.secondSurname}">
+                </div>
+                <div class="form-pair">
+                    <label for="age">Age:</label>
+                    <input type="text" placeholder="Age" name="age" th:value="${userToEdit.age}">
+                </div>
+                <div class="form-pair">
+                    <label for="email">Email:</label>
+                    <input type="text" placeholder="Email" name="email" th:value="${userToEdit.email}">
+                </div>
+                <div class="form-pair">
+                    <label for="roleId">Rol:</label><br>
+                    <select name="roleId" id="">
+                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="#{${role.i18n}}" th:selected="${userToEdit.role.id == role.id}">Null</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <input type="submit" value="Save"></input>
+                    <a class="red-button" th:href="@{'/dashboard/delete-user/'+${userToEdit.id}}"><span>Delete user</span></a>
+                    <a href="/dashboard" class="red-button">Cancel</a>
+                </div>
+            </form>
+        </div>
+        <div class="reset-account-password container">
+            <div class="title">
+                <h1>Cambiar contraseña</h1>
+            </div>
+            <form method="post" th:action="@{'/dashboard/update-user-password/'+${userToEdit.id}}">
+                <div class="form-pair">
+                    <label for="password">New password:</label>
+                    <input type="password" placeholder="Password" name="password">
+                </div>
+                <div class="form-pair">
+                    <label for="repeatpassword">Repeat the password:</label>
+                    <input type="password" placeholder="Password" name="repeatPassword">
+                </div>
+                <div class="button-group">
+                    <input type="submit" value="Change password">
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

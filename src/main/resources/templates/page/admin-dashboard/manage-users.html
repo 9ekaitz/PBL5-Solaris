@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/manage-users.css}" />
+    <link rel="stylesheet" th:href="@{/css/page/dashboard.css}" />
+    <link rel="stylesheet" href="@{/css/main.css}">
+    <title>Administrador</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="admin-dashboard">
+        <div class="manage-accounts container">
+            <div class="title-flex">
+                <h1 class="title">Administrar cuentas</h1>
+                <button>Crear cuenta</button>
+            </div>
+            <div class="accounts-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input class="float-left" type="checkbox" id="select-all-chechbox">
+                            </th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                            <th>Rol</th>
+                            <th></th>
+                            <th>
+                                <a id="delete-all-selected-users">
+                                    <svg class="float-right" style="width:24px;height:24px" viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z" />
+                                    </svg>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <th:block th:each="user : ${users}">
+                            <tr>
+                                <td>
+                                    <input class="float-left" type="checkbox" id="delete-user-">
+                                </td>
+                                <td th:text="${user.name} + ' ' + ${user.firstSurname} + ' ' + ${user.secondSurname}">
+                                    Null Null Null</td>
+                                <td th:text="${user.email}">null@null.null</td>
+                                <td th:text="${user.age}">Null</td>
+                                <td th:text="${user.role.name}">Null</td>
+                                <td>
+                                    <a th:href="@{'/dashboard/edit-user/'+${user.id}}">
+                                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                                        </svg>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/dashboard/delete-user/'+${user.id}}">
+                                        <svg class="float-right" style="width:24px;height:24px" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z" />
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
