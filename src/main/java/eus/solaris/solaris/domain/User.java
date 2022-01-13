@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -50,6 +51,7 @@ public class User implements Serializable {
     private String email;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("default_address ASC")
     private Set<Address> addresses;
     
     @ManyToOne(fetch = FetchType.EAGER)

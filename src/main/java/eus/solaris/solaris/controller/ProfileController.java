@@ -120,9 +120,6 @@ public class ProfileController {
     @GetMapping("/profile/address")
     public String profileAddress(Model model, Authentication authentication) {
 
-        for(int i = 0; i < userService.getUserAddresses(authentication).size(); i++){
-            model.addAttribute("address" + i, userService.getUserAddresses(authentication).toArray()[i]);
-        }
         model.addAttribute("addresses", userService.getUserAddresses(authentication));
 
         return "page/profile_address";
