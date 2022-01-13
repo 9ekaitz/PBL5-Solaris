@@ -4,5 +4,5 @@ public enum GroupMode {
     DAY,
     WEEK,
     MONTH,
-    YEAR
+    YEAR;
 }

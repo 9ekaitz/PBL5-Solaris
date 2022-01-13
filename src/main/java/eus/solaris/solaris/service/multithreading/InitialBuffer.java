@@ -30,15 +30,10 @@ public class InitialBuffer {
     public void add(LocalDate date, SolarPanel panel) {
         this.mutex.lock();
         try {
-            while (this.buffer.size() == 10) {
-                this.isFull.await();
-            }
             Map<LocalDate, SolarPanel> map = new HashMap<>();
             map.put(date, panel);
             this.buffer.add(map);
             this.isEmpty.signal();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
             this.mutex.unlock();
         }

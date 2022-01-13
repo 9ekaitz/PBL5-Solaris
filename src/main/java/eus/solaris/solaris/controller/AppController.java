@@ -62,6 +62,11 @@ public class AppController {
 		return "page/login";
 	}
 
+	@GetMapping("/apitest")
+	public String apitest() {
+		return "page/apitest";
+	}
+
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 		if (checkLogedIn()) {

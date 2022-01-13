@@ -7,7 +7,7 @@ import java.util.Map;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
-import eus.solaris.solaris.service.multithreading.modes.DayGroupMode;
+import eus.solaris.solaris.service.multithreading.modes.GroupMode;
 
 public class ThreadController implements ICompletionObserver {
 
@@ -35,10 +35,17 @@ public class ThreadController implements ICompletionObserver {
 
     private void insertDays(LocalDate startDate, LocalDate endDate, SolarPanel solarPanel) {
         LocalDate currentDate = startDate;
+
+        if (startDate.isEqual(endDate)) {
+            initialBuffer.add(startDate, solarPanel);
+        }
+
         while (currentDate.isBefore(endDate)) {
             initialBuffer.add(currentDate, solarPanel);
             currentDate = currentDate.plusDays(1);
+            System.out.println("Inserted day: " + currentDate);
         }
+        System.out.println("AD: ");
     }
 
     private Integer countDays(LocalDate startDate, LocalDate endDate) {
@@ -48,21 +55,26 @@ public class ThreadController implements ICompletionObserver {
             count++;
             currentDate = currentDate.plusDays(1);
         }
+
+        if (startDate.isEqual(endDate)) {
+            count = 1;
+        }
+
         return count;
     }
 
-    public Map<Instant, Double> prepareData(List<SolarPanel> solarPanels, DayGroupMode dayGroupMode,
+    public Map<Instant, Double> prepareData(List<SolarPanel> solarPanels, GroupMode groupMode,
             ConversionType conversionType) {
         for (SolarPanel solarPanel : solarPanels) {
             insertDays(startDate, endDate, solarPanel);
         }
 
-        for (int i = 0; i < threads; i++) {
+        for (int i = 0; i < threads / 2; i++) {
             new Thread(new Gatherer(initialBuffer, gatherBuffer)).start();
         }
 
-        for (int i = 0; i < threads; i++) {
-            new Thread(new DayGrouper(gatherBuffer, dataBuffer, dayGroupMode)).start();
+        for (int i = 0; i < threads / 2; i++) {
+            new Thread(new Grouper(gatherBuffer, dataBuffer, groupMode)).start();
         }
 
         synchronized (sync) {
@@ -70,17 +82,24 @@ public class ThreadController implements ICompletionObserver {
                 sync.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                System.exit(-1);
             }
         }
 
-        Map<Instant, Double> data = Processer.process(dataBuffer, conversionType);
+        Map<Instant, Double> dataMap = dataBuffer.getData();
+
+        if (groupMode == GroupMode.YEAR) {
+            dataMap = Grouper.groupByMonth(dataMap);
+        }
+
+        Map<Instant, Double> data = Processer.process(dataMap, conversionType);
         return data;
     }
 
     @Override
     public void complete() {
         synchronized (sync) {
-            sync.notify();
+            sync.notifyAll();
         }
     }
 

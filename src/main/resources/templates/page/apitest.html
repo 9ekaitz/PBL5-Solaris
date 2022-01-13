@@ -13,7 +13,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
       <script>
         const getJSON = async () => {
-          const response = await fetch("/api/test", {
+          const response = await fetch("/api/5/grouped?groupMode=DAY&start=2021-01-13&2021-01-13", {
             method: "GET",
           });
           const data = await response.json();

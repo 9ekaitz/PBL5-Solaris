@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.TreeMap;
 
+import eus.solaris.solaris.service.multithreading.conversions.ConversionNone;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionToCO2;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionToDollar;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionToEur;
@@ -25,8 +26,7 @@ public class Processer {
     }
 
     // Better -> use Map<ConversionType, IConversion>
-    public static Map<Instant, Double> process(DataBuffer dataBuffer, ConversionType conversionT) {
-        Map<Instant, Double> data = dataBuffer.getData();
+    public static Map<Instant, Double> process(Map<Instant, Double> data, ConversionType conversionT) {
         Map<Instant, Double> result;
         switch (conversionT) {
             case TO_EUR:
@@ -50,8 +50,10 @@ public class Processer {
             case TO_AVOIDED_MM_INCREASE:
                 result = applyConversion(data, new ConversionToMMInc());
                 break;
+            case NONE:
+                result = applyConversion(data, new ConversionNone());
             default:
-                result = data;
+                throw new IllegalArgumentException("Unknown conversion type: " + conversionT);
         }
         return result;
     }
