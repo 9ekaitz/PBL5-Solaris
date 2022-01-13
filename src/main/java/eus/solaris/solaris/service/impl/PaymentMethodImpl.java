@@ -20,7 +20,7 @@ public class PaymentMethodImpl implements PaymentMethodService{
 
     @Override
     public PaymentMethod findById(Long id) {
-        return paymentMethodRepository.findById(id).get();
+        return paymentMethodRepository.findById(id).orElse(null);
     }
 
     @Override

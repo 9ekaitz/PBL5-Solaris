@@ -212,7 +212,7 @@ public class ProfileController {
         User user = userService.findByUsername(authentication.getName());
         
         for (Address address2 : user.getAddresses()) {
-            if(address2.getId() == address.getId()){
+            if(address2.getId().equals(address.getId())){
                 address2.setDefaultAddress(true);
             }
             else{
@@ -373,7 +373,7 @@ public class ProfileController {
 
         User user = userService.findByUsername(authentication.getName());
         for (PaymentMethod pm : user.getPaymentMethods()) {
-            if(pm.getId() != id){
+            if(!pm.getId().equals(id)){
                 pm.setDefaultMethod(false);
             }
         }
