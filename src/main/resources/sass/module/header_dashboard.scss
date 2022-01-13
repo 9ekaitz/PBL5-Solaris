@@ -1,0 +1,83 @@
+@import "../util/variables";
+
+@media screen and (min-width: 768px){
+  body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+header{
+
+  @media screen and (min-width: 768px){
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+    .header-computer{
+        display: none;
+        position: relative;
+
+        @media screen and (min-width: 768px){
+          display: block;
+        }
+        .header-computer-left {
+          position: absolute;
+          top: 50%;
+          transform: translate(0%, -50%);
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        
+          .expand {
+            border: none;
+            border-radius: 0 16px 16px 0;
+            animation: none;
+            background: $dashboard-nav-color;
+            padding: 0;
+            margin-right: 2rem;
+            .logo {
+              fill: $bg-color;
+            }
+        
+            .logo:hover {
+              fill: $main-color;
+            }
+
+            .logo::after{
+              transform: rotate(180deg);
+            }
+          }
+          .expand:hover {
+            cursor: pointer;
+          }
+        
+          .profile {
+            border-radius: 1rem;
+            width: 2rem;
+            display: block;
+          }
+        }
+        .page-title {
+          font-weight: bold;
+          text-align: center;
+          flex-grow: 1;
+          height: 2rem;
+          line-height: 2rem;
+          padding: 0.8rem 0 0.8rem 0;
+          margin: auto 0 auto 0;
+        }
+    }
+
+    .header-mobile{
+
+        @media screen and (min-width: 768px){
+            display: none;
+        }
+    }
+}
+
+.rotate{
+  transform: rotate(180deg);
+}

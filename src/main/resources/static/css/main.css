@@ -263,16 +263,16 @@
 * {
   font-family: "Saira", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #000;
-  font-size: 24px;
+  font-size: 16px;
 }
 
 body {
   margin: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
 }
 
 .hide {
@@ -302,6 +302,51 @@ body {
 .form .input-field {
   width: 100%;
   box-sizing: border-box;
+}
+.form label:hover + .password, .form label:focus + .password {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.form .password-toggle {
+  display: flex;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  margin-block: 0.5em 0;
+}
+.form .password-toggle:focus-within, .form .password-toggle:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.form .password-toggle input {
+  padding-right: 0;
+  border: none;
+  width: 90%;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+}
+.form .password-toggle input:focus {
+  border: none;
+}
+.form .password-toggle .show-password {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 10%;
+  height: 100%;
+  padding: 0.25em;
+}
+.form .password-toggle .show-password svg {
+  margin: auto;
+  fill: #52525C;
+}
+.form .password-toggle .show-password:hover {
+  cursor: pointer;
+}
+.form .password-toggle .show-password:hover svg {
+  fill: #000;
 }
 
 input {
@@ -334,7 +379,7 @@ input[type=checkbox]::before {
   height: 1em;
   -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
           clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-  background-color: #fff;
+  background-color: #FFF;
   transform: scale(0);
   transition: transform 0.5s;
 }
@@ -379,11 +424,15 @@ input[type=submit].btn-big {
 
 @media screen and (min-width: 480px) {
   .section {
-    border: 1px solid #c7c7c7;
+    border: 1px solid #C7C7C7;
   }
 }
 .error {
-  color: #da3633;
+  color: #DA3633;
+}
+
+ul.error * {
+  color: inherit;
 }
 
 svg {

@@ -1,0 +1,63 @@
+@import "../util/variables";
+
+* {
+    font-size: 24px;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+
+    .submit-wrap {
+
+        margin-top: 1em;
+
+        input[type="submit"] {
+            font-size: 0.7rem;
+        }
+    }
+
+}
+
+h1 {
+    @include no-select;
+    text-align: center;
+    .logo {
+        @include no-drag;
+        font-size: inherit;
+        width: 5em;
+    }
+}
+
+.error {
+    font-size: 0.75rem;
+}
+
+.login-link {
+    text-decoration: none;
+    color: $main-color;
+    font-size: 0.7rem;
+    margin-top: 0.8rem;
+}
+
+.column {
+    width: 100%;
+}
+
+@media screen and (min-width: $very-large-screen) {
+    .column {
+        width: 50%;
+
+        &.column-left {
+            margin-right: 2rem;
+        }
+    }
+
+    .col-wrap {
+        display: flex;
+    }
+}

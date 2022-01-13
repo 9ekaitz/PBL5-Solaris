@@ -1,48 +1,44 @@
 package eus.solaris.solaris.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.dto.UserRegistrationDto;
-import eus.solaris.solaris.repository.SolarPanelRepository;
+import eus.solaris.solaris.form.UserRegistrationForm;
+import eus.solaris.solaris.service.LanguageService;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
-import eus.solaris.solaris.service.multithreading.ThreadController;
-import eus.solaris.solaris.util.SpringContextUtil;
 
 @Controller
 public class AppController {
 
 	@Autowired
-	PasswordEncoder passwordEncoder;
-
-	@Autowired
-	ModelMapper modelMapper;
-
-	@Autowired
 	UserService userService;
+
+	@Autowired
+	MessageSource messageSource;
 
 	@Autowired
 	RoleService roleService;
 
 	@Autowired
-	SolarPanelRepository solarPanelRepository;
+	LanguageService languageService;
 
 	@GetMapping("/")
 	public String index(Model model, Authentication authentication) {
@@ -52,6 +48,7 @@ public class AppController {
 			if (user != null)
 				model.addAttribute("user", user);
 		}
+
 		return "page/index";
 	}
 
@@ -70,18 +67,32 @@ public class AppController {
 		if (checkLogedIn()) {
 			return "redirect:/";
 		}
-		model.addAttribute("user", new UserRegistrationDto());
+		model.addAttribute("form", new UserRegistrationForm());
 
 		return "page/register";
 	}
 
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute("user") UserRegistrationDto dto, BindingResult result, Model model) {
-		User user = modelMapper.map(dto, User.class);
-		user.setRole(roleService.findByName("ROLE_ADMIN"));
-		user.setEnabled(true);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userService.save(user);
+	public String registerUser(@Validated @ModelAttribute("user") UserRegistrationForm form, BindingResult result,
+			Model model) {
+		if (result.hasErrors()
+				|| form.getUsername() != null
+						&& !form.getUsername().equals("")
+						&& userService.findByUsername(form.getUsername()) != null) {
+			Locale locale = LocaleContextHolder.getLocale();
+			List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+			errors.add(new ObjectError("username duplicated",
+					messageSource.getMessage("page.register.field.username.duplicated", null, locale)));
+			model.addAttribute("errors", errors);
+			model.addAttribute("form", form);
+			return "page/register";
+		}
+
+		if (checkLogedIn()) {
+			return "redirect:/";
+		}
+
+		userService.register(form);
 		return "page/login";
 	}
 
@@ -92,11 +103,6 @@ public class AppController {
 		}
 
 		return true;
-	}
-
-	@GetMapping("/apitest")
-	public String apiTest() {
-		return "page/apitest";
 	}
 
 }
