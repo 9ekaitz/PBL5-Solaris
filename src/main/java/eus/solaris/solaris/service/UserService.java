@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.UserRegistrationForm;
 
 public interface UserService {
     public User save(User user);
@@ -17,4 +18,5 @@ public interface UserService {
     public boolean editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication);
     public List<Address> getUserAddresses(Authentication authentication);
     public List<PaymentMethod> getUserPaymentMethods(Authentication authentication);
+    public void register(UserRegistrationForm userRegistrationForm);
 }

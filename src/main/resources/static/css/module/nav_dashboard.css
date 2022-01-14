@@ -1,0 +1,124 @@
+nav {
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+}
+@media screen and (min-width: 768px) {
+  nav {
+    grid-row: span 2;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  nav .expand {
+    width: 16rem;
+  }
+}
+
+.nav-mobile {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  background-color: #4D4D4D;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  width: 100%;
+  text-align: center;
+}
+.nav-mobile .nav-mobile-item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  gap: 0.5rem;
+}
+.nav-mobile .nav-mobile-item:hover .logo {
+  fill: #f9aa31;
+}
+.nav-mobile .nav-mobile-item:hover .text {
+  color: #f9aa31;
+}
+.nav-mobile .nav-mobile-item .logo {
+  fill: white;
+  width: 100%;
+  max-width: 1.5rem;
+}
+.nav-mobile .nav-mobile-item p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #FFF;
+}
+@media (min-width: 768px) {
+  .nav-mobile {
+    display: none;
+  }
+}
+
+hr {
+  margin: 0;
+  border: none;
+  border-top: 1px solid #707070;
+  width: 100%;
+}
+
+.nav-computer {
+  display: none;
+  background: #3e3e3e;
+}
+@media screen and (min-width: 768px) {
+  .nav-computer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+    transition: width 0.5s;
+    width: 3.6rem;
+  }
+  .nav-computer .nav-item {
+    display: flex;
+    align-items: center;
+    margin: 0.8rem;
+  }
+  .nav-computer .nav-item * {
+    display: inline-block;
+  }
+  .nav-computer .nav-item .logo {
+    fill: #C7C7C7;
+    max-width: 2rem;
+    max-height: 2rem;
+    min-width: 2rem;
+    min-height: 2rem;
+    width: 100%;
+  }
+  .nav-computer .nav-item .text {
+    color: #C7C7C7;
+    margin: 0 1rem 0 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .nav-computer .nav-item:hover {
+    cursor: pointer;
+  }
+  .nav-computer .current .logo, .nav-computer .nav-item:hover .logo {
+    fill: #f9aa31;
+  }
+  .nav-computer .current .text, .nav-computer .nav-item:hover .text {
+    color: #f9aa31;
+  }
+}
+.nav-computer .no-animation:hover {
+  cursor: initial;
+}
+.nav-computer .no-animation:hover .logo {
+  fill: none;
+}
+.nav-computer .no-animation:hover .text {
+  color: #C7C7C7;
+}
+.nav-computer h2 {
+  color: #C7C7C7;
+}/*# sourceMappingURL=nav_dashboard.css.map */

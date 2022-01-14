@@ -34,7 +34,7 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Set<User> users;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Privilege> privileges;
     
     @Version

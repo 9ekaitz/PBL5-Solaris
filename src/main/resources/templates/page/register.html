@@ -1,28 +1,107 @@
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{template}">
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{template}">
 <head>
-  <title>User Registration</title>
+  <link rel="stylesheet" th:href="@{/css/page/register.css}" href="/css/page/register.css">
+  <script th:src="@{/js/form.js}" src="/js/form.js"></script>
+  <title th:text="#{page.register.title}">User Registration</title>
 </head>
+
 <body>
   <div layout:fragment="content">
-    <h1>User registration</h1>
-    <form th:action="@{/register}" method="post" modelAttribute="user">
-      <div>
-        <label for="email">E-mail</label>
-        <input type="text" name="email" id="email" />
+    <div class="col">
+      <div class="row">
+        <div class="section section-rounded">
+          <h1 th:text="#{page.register.title}">User registration</h1>
+
+          <form class="form login-form" th:object="${form}" th:action="@{/register}" method="post">
+            <ul class="error">
+              <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
+            </ul>
+            <div class="col-wrap">
+              <div class="column column-left">
+                <div class="field">
+                  <label for="username" th:text="#{user.username}">Username</label>
+                  <input type="text" name="username" class="input-field" id="username" th:field="*{username}" />
+                </div>
+                <div class="field">
+                  <label for="email" th:text="#{user.email}">E-mail</label>
+                  <input type="text" name="email" class="input-field" id="email" th:field="*{email}" />
+                </div>
+                <div class="field">
+                  <label for="password" th:text="#{user.password}">Password</label>
+                  <div class="password-toggle">
+                    <input class="input-field" type="password" id="password" name="password" th:field="*{password}" />
+                    <div class="show-password">
+                      <svg class="password-icon-show" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M12 3C6.40848 3 1.71018 6.82432 0.378052 12C1.71018 17.1757 6.40848 21 12 21C17.5915 21 22.2898 17.1757 23.6219 12C22.2898 6.82432 17.5915 3 12 3ZM16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" />
+                      </svg>
+                      <svg class="hide password-icon-hide" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M12 3C17.5915 3 22.2898 6.82432 23.6219 12C22.2898 17.1757 17.5915 21 12 21C6.40848 21 1.71018 17.1757 0.378052 12C1.71018 6.82432 6.40848 3 12 3ZM12 19C7.52443 19 3.73132 16.0581 2.45723 12C3.73132 7.94186 7.52443 5 12 5C16.4756 5 20.2687 7.94186 21.5428 12C20.2687 16.0581 16.4756 19 12 19Z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="verifyPassword" th:text="#{page.register.field.verifyPassword}">Repeat password</label>
+                  <div class="password-toggle">
+                    <input class="input-field verify-password" type="password" name="verifyPassword"
+                      th:field="*{verifyPassword}" />
+                    <div class="show-password">
+                      <svg class="password-icon-show" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M12 3C6.40848 3 1.71018 6.82432 0.378052 12C1.71018 17.1757 6.40848 21 12 21C17.5915 21 22.2898 17.1757 23.6219 12C22.2898 6.82432 17.5915 3 12 3ZM16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" />
+                      </svg>
+                      <svg class="hide password-icon-hide" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M12 3C17.5915 3 22.2898 6.82432 23.6219 12C22.2898 17.1757 17.5915 21 12 21C6.40848 21 1.71018 17.1757 0.378052 12C1.71018 6.82432 6.40848 3 12 3ZM12 19C7.52443 19 3.73132 16.0581 2.45723 12C3.73132 7.94186 7.52443 5 12 5C16.4756 5 20.2687 7.94186 21.5428 12C20.2687 16.0581 16.4756 19 12 19Z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="column column-right">
+                <div class="field">
+                  <label for="name" th:text="#{user.name}">Name</label>
+                  <input type="text" name="name" class="input-field" id="name" th:field="*{name}" />
+                </div>
+                <div class="field">
+                  <label for="first-surname" th:text="#{user.firstSurname}">First Surname</label>
+                  <input type="text" name="firstSurname" class="input-field" id="first-surname"
+                    th:field="*{firstSurname}" />
+                </div>
+                <div class="field">
+                  <label for="second-surname" th:text="#{user.secondSurname}">Second Surname</label>
+                  <input type="text" name="secondSurname" class="input-field" id="second-surname"
+                    th:field="*{secondSurname}" />
+                </div>
+              </div>
+            </div>
+            <div class="submit-wrap">
+              <input type="submit" value="Register" />
+            </div>
+            <a class="login-link" href="/login" th:href="@{/login}"
+              th:text="#{page.register.login}">Already have an account? Sign in</a>
+          </form>
+        </div>
       </div>
-      <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" />
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" />
-      </div>
-      <div>
-        <input type="submit" value="Register" />
-      </div>
-    </form>
+    </div>
   </div>
+
 </body>
 
 </html>

@@ -1,5 +1,15 @@
 @import "../util/variables";
 
+* {
+    font-size: 24px;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .login-form {
     input[type="submit"] {
         font-size: 0.7rem;
@@ -20,64 +30,7 @@
         }
 
         label {
-          font-size: inherit;
-        }
-    }
-
-    @mixin input-border {
-        outline: 1px solid $main-color;
-        border-color: $main-color;
-    }
-
-    label {
-        &:hover,
-        &:focus {
-            + .password {
-                @include input-border;
-            }
-        }
-    }
-
-    .password {
-        display: flex;
-        border: 1px solid $text-color;
-        border-radius: $input-border;
-        margin-block: 0.5em 0;
-
-        &:focus-within,
-        &:hover {
-            @include input-border;
-        }
-
-        input {
-            padding-right: 0;
-            border: none;
-            width: 90%;
-            box-sizing: border-box;
-            outline: none;
-            margin: 0;
-            &:focus {
-                border: none;
-            }
-        }
-
-        #show-password {
-            @include no-select;
-            width: 10%;
-            height: 100%;
-            padding: 0.25em;
-
-            svg {
-                margin: auto;
-                fill: $element-off-color;
-            }
-
-            &:hover {
-                svg {
-                    fill: $text-color;
-                }
-                cursor: pointer;
-            }
+            font-size: inherit;
         }
     }
 

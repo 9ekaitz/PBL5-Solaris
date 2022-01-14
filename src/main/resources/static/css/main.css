@@ -314,6 +314,51 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
+.form label:hover + .password, .form label:focus + .password {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.form .password-toggle {
+  display: flex;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  margin-block: 0.5em 0;
+}
+.form .password-toggle:focus-within, .form .password-toggle:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.form .password-toggle input {
+  padding-right: 0;
+  border: none;
+  width: 90%;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+}
+.form .password-toggle input:focus {
+  border: none;
+}
+.form .password-toggle .show-password {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 10%;
+  height: 100%;
+  padding: 0.25em;
+}
+.form .password-toggle .show-password svg {
+  margin: auto;
+  fill: #52525C;
+}
+.form .password-toggle .show-password:hover {
+  cursor: pointer;
+}
+.form .password-toggle .show-password:hover svg {
+  fill: #000;
+}
 
 .select {
   display: block;
@@ -461,6 +506,10 @@ input[type=submit].delete-account:hover, input[type=submit].delete-account:focus
 }
 .error {
   color: #DA3633;
+}
+
+ul.error * {
+  color: inherit;
 }
 
 svg {

@@ -1,0 +1,72 @@
+@import "../util/variables.scss";
+.current, .user-banner{
+  display: block;
+}
+
+.user-banner {
+  background: $bg-color;
+  padding: 0;
+}
+
+
+.installation-list {
+  list-style: none;
+  padding-left: 0;
+  overflow: auto;
+  height: calc(100% - 4rem);
+  li+li {
+    margin-top: 1rem;
+  }
+  .empty{
+    font-weight: lighter;
+    text-align: center;
+  }
+  a {
+    display: flex;
+    text-decoration: none;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid $bg-color;
+    border-radius: 8px;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    .installation-details{
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    img {
+      width: 64px;
+      border-radius: 8px;
+    }
+    .name{
+      font-weight: bold;
+      margin: 0;
+    }
+    .info {
+      font-weight: lighter;
+      margin:0;
+    }
+    .button {
+      background: $main-color;
+      border-radius: 16px;
+    }
+    .button:hover{
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+
+  .installer-dashboard{
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 2fr;
+  
+    .user-banner{
+      grid-column: span 2; 
+      background: $section-bg-color;
+      padding: 1rem 2rem;
+    }
+  }
+}
