@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class Task implements Comparable<Task>{
+public class Task {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,17 +32,4 @@ public class Task implements Comparable<Task>{
 
   @Version
   private Integer version;
-
-  @Override
-  public int compareTo(Task arg0) {
-    return (int) (this.id - arg0.getId());
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (!(obj instanceof Task)) return false;
-    Task t = (Task) obj;
-    return t.id == this.id;
-  }
 }
