@@ -5,7 +5,6 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
-  user-drag: none;
   display: inline-flex;
   align-items: flex-end;
   font-size: 0.8rem;
@@ -96,7 +95,6 @@ h1 {
 }
 h1 .logo {
   -webkit-user-drag: none;
-  user-drag: none;
   font-size: inherit;
   width: 5em;
 }

@@ -3,6 +3,8 @@ package eus.solaris.solaris.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,7 +75,9 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/security")
-    public String profileSecurity() {
+    public String profileSecurity(Model model) {
+
+        model.addAttribute(FORM_FORM, new UserPasswordModificationForm());
 
         return "page/profile_security";
     }
