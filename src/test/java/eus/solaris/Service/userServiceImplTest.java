@@ -1,6 +1,7 @@
 package eus.solaris.Service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -98,7 +99,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void editPasswordTest(){
+    void editPasswordTestTrue(){
         Role role = createRole();
         User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
         User userChanged = new User(1L, "aritz.domaika", "passwordChanged", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
@@ -112,7 +113,23 @@ class UserServiceImplTest {
     
             assertEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "password", authentication));
         }
+    }
 
+    @Test
+    void editPasswordTestFalse(){
+        Role role = createRole();
+        User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        User userChanged = new User(1L, "aritz.domaika", "passwordChanged", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+
+        when(authentication.getName()).thenReturn("Aritz");
+        when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
+        try (MockedStatic<BCrypt> utilities = Mockito.mockStatic(BCrypt.class)) {
+            utilities.when(() -> BCrypt.checkpw("password", userToBeChange.getPassword())).thenReturn(false);
+            when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
+            when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
+    
+            assertNotEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "uwu", authentication));
+        }
     }
 
     @Test
