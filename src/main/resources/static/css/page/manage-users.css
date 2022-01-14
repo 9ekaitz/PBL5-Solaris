@@ -23,7 +23,7 @@ main {
   font-size: 1.5rem;
   margin: 0;
 }
-.manage-accounts .title-flex button {
+.manage-accounts .title-flex .button-a {
   display: block;
   margin-block: 0.5rem 0;
   margin-left: 2.5rem;
@@ -34,6 +34,8 @@ main {
   outline: 1px solid #f9aa31;
   background-color: #f9aa31;
   border-color: #f9aa31;
+  text-decoration: none;
+  padding-inline: 1.3em;
 }
 .manage-accounts .accounts-list {
   margin-top: 2rem;
@@ -64,6 +66,15 @@ main {
 .manage-accounts .accounts-list table tr td:nth-child(1), .manage-accounts .accounts-list table tr td:last-child() {
   width: 15px;
 }
+.manage-accounts .accounts-list .pages {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.manage-accounts .accounts-list .pages a {
+  margin-inline: 0.5rem;
+}
 
 @media (min-width: 768px) {
   main {
@@ -81,10 +92,7 @@ main {
     display: grid;
     padding: 1rem;
     gap: 1.5rem;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 2fr;
-  }
-  .admin-dashboard .manage-accounts {
-    grid-column: span 2;
+    grid-template-columns: 1fr;
+    grid-template-rows: 4fr 1fr;
   }
 }/*# sourceMappingURL=manage-users.css.map */
