@@ -12,8 +12,8 @@
     <main layout:fragment="content" class="admin-dashboard">
         <div class="manage-accounts container">
             <div class="title-flex">
-                <h1 class="title">Administrar cuentas</h1>
-                <button>Crear cuenta</button>
+                <h1 class="title" th:text="#{page.dashboard.manageaccount}">Administrar cuentas</h1>
+                <a class="button-a" th:href="@{/dashboard/create-user}" th:text="#{page.dashboard.createaccount}">Crear cuenta</a>
             </div>
             <div class="accounts-list">
                 <table>
@@ -22,10 +22,10 @@
                             <th>
                                 <input class="float-left" type="checkbox" id="select-all-chechbox">
                             </th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Age</th>
-                            <th>Rol</th>
+                            <th th:text="#{page.dashboard.account.name}">Name</th>
+                            <th th:text="#{page.dashboard.account.email}">Email</th>
+                            <th th:text="#{page.dashboard.account.username}">Username</th>
+                            <th th:text="#{page.dashboard.account.role}">Role</th>
                             <th></th>
                             <th>
                                 <a id="delete-all-selected-users">
@@ -41,12 +41,12 @@
                         <th:block th:each="user : ${users}">
                             <tr>
                                 <td>
-                                    <input class="float-left" type="checkbox" id="delete-user-">
+                                    <input class="float-left" type="checkbox" th:id="${'delete-user-' + user.id}">
                                 </td>
                                 <td th:text="${user.name} + ' ' + ${user.firstSurname} + ' ' + ${user.secondSurname}">
                                     Null Null Null</td>
                                 <td th:text="${user.email}">null@null.null</td>
-                                <td th:text="${user.age}">Null</td>
+                                <td th:text="${user.username}">Null</td>
                                 <td th:text="${user.role.name}">Null</td>
                                 <td>
                                     <a th:href="@{'/dashboard/edit-user/'+${user.id}}">
@@ -68,6 +68,13 @@
                         </th:block>
                     </tbody>
                 </table>
+                <div class="pages">
+                    <th:block th:each="i : ${#numbers.sequence( actualPage, actualPage+(actualPage==0 ? 3 : 2), 1 )}">
+                        <a th:if="${i gt 0 and i lt totalPages}" th:href="@{'/dashboard/manage-users/'+${i}}" th:text="${i}">null</a>
+                    </th:block>
+                    <span>...</span>
+                    <a th:href="@{'/dashboard/manage-users/'+${totalPages}}" th:text="${totalPages}">null</a>
+                </div>
             </div>
         </div>
     </main>
