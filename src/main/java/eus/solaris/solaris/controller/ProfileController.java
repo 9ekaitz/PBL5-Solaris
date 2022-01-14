@@ -21,9 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.dto.UserAddressForm;
-import eus.solaris.solaris.dto.UserInformationEditForm;
-import eus.solaris.solaris.dto.UserPaymentMethodForm;
+import eus.solaris.solaris.form.UserAddressForm;
+import eus.solaris.solaris.form.UserInformationEditForm;
+import eus.solaris.solaris.form.UserPasswordModificationForm;
+import eus.solaris.solaris.form.UserPaymentMethodForm;
 import eus.solaris.solaris.service.AddressService;
 import eus.solaris.solaris.service.CountryService;
 import eus.solaris.solaris.service.PaymentMethodService;
@@ -80,9 +81,9 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/security")
-    public String profileSecurity(Model model, Authentication authentication, RedirectAttributes redirectAttributes, String old_password_1, String old_password_2, String new_password) {
+    public String profileSecurity(Model model, Authentication authentication, RedirectAttributes redirectAttributes, UserPasswordModificationForm form) {
 
-        boolean resultSQL = userService.editPassword(new_password, old_password_1, authentication);
+        boolean resultSQL = userService.editPassword(form.getVerifyNewPasword(), form.getOldPassword(), authentication);
         addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
 
         return "redirect:/profile";

@@ -1,4 +1,4 @@
-package eus.solaris.solaris.dto;
+package eus.solaris.solaris.form;
 
 import javax.validation.constraints.Email;
 

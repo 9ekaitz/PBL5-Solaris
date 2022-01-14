@@ -56,7 +56,7 @@
         <div class="extra-options">
           <a class="logout-link" href="/logout" th:href="@{/logout}" th:text="#{page.profile.logout}">Cerrar sesión</a>
           <form class="form login-form" method="GET" th:action="@{/delete-account}">
-            <input class="btn delete-account" type="submit" value="Borrar cuenta" th:text="#{page.profile.deleteAccount}">
+            <input class="btn delete-account" type="submit" value="Borrar cuenta" th:value="#{page.profile.deleteAccount}">
           </form>
         </div>
       </div>
