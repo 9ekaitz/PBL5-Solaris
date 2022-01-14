@@ -20,7 +20,7 @@ import eus.solaris.solaris.repository.InstallationRepository;
 import eus.solaris.solaris.service.impl.InstallationServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class InstallationServiceImplTest {
+class InstallationServiceImplTest {
 
   @InjectMocks
   private InstallationServiceImpl installationServiceImpl;
