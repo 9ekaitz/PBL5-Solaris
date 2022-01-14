@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+// import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ import eus.solaris.solaris.service.ProvinceService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
-@PreAuthorize("hasRole('ROLE_USER')")
+// @PreAuthorize("hasRole('ROLE_USER')")
 public class ProfileController {
 
     static final String SUCCESS_ATTRIBUTE = "success";
