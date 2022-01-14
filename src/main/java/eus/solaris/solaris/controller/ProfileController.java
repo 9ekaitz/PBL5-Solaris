@@ -133,15 +133,6 @@ public class ProfileController {
 
     }
 
-    private void addFlashAttribute(boolean resultSQL, RedirectAttributes redirectAttributes, String successMessage, String errorMessage) {
-        if(Boolean.TRUE.equals(resultSQL)){
-            redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, successMessage);
-        }
-        else{
-            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, errorMessage);
-        }
-    }
-
     @GetMapping("/profile/address")
     public String profileAddress(Model model, Authentication authentication) {
 
@@ -277,19 +268,8 @@ public class ProfileController {
     public String profilePaymentMethodAdd(@Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
-            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute(ERROR_FORM, errors);
-            model.addAttribute("form", form);
-            List<Integer> years = new ArrayList<>();
-            List<Integer> months = new ArrayList<>();
-            for (int i = 0; i < 12; i++) {
-                months.add(i+1);
-            }
-            for (int i = 0; i < 30; i++) {
-                years.add(i+2021);
-            }
-            model.addAttribute(YEAR_ATTRIBUTE, years);
-            model.addAttribute(MONTH_ATTRIBUTE, months);
+
+            profilePaymentMethodFormFailed(model, form, result);
 
             return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
         }
@@ -331,19 +311,8 @@ public class ProfileController {
     public String profilePaymentMethodEdit(@PathVariable("id") Long id, @Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
-            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-            model.addAttribute(ERROR_FORM, errors);
-            model.addAttribute("form", form);
-            List<Integer> years = new ArrayList<>();
-            List<Integer> months = new ArrayList<>();
-            for (int i = 0; i < 12; i++) {
-                months.add(i+1);
-            }
-            for (int i = 0; i < 30; i++) {
-                years.add(i+2021);
-            }
-            model.addAttribute(YEAR_ATTRIBUTE, years);
-            model.addAttribute(MONTH_ATTRIBUTE, months);
+
+            profilePaymentMethodFormFailed(model, form, result);
 
             return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
         }
@@ -432,5 +401,30 @@ public class ProfileController {
         model.addAttribute("form", form);
         model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
         model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+    }
+
+    private void profilePaymentMethodFormFailed(Model model, UserPaymentMethodForm form, BindingResult result){
+        List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+        model.addAttribute(ERROR_FORM, errors);
+        model.addAttribute("form", form);
+        List<Integer> years = new ArrayList<>();
+        List<Integer> months = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            months.add(i+1);
+        }
+        for (int i = 0; i < 30; i++) {
+            years.add(i+2021);
+        }
+        model.addAttribute(YEAR_ATTRIBUTE, years);
+        model.addAttribute(MONTH_ATTRIBUTE, months);
+    }
+   
+    private void addFlashAttribute(boolean resultSQL, RedirectAttributes redirectAttributes, String successMessage, String errorMessage) {
+        if(Boolean.TRUE.equals(resultSQL)){
+            redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, successMessage);
+        }
+        else{
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, errorMessage);
+        }
     }
 }
