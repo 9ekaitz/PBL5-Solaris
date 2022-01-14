@@ -15,11 +15,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Version;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Data
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Installation {
   
   @Id
@@ -48,5 +54,6 @@ public class Installation {
   private List<Task> tasks;
 
   @Version
+  @EqualsAndHashCode.Exclude
   private Integer version;
 }
