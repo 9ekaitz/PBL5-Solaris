@@ -48,7 +48,7 @@
                       <input class="option" type="submit" value="Editar" th:value="#{page.profile.edit}">
                     </form>
                     <form method="POST" th:action="@{'/profile/payment-method/delete/' + ${paymentMethod.id}}">
-                      <input class="option" type="submit" value="Borrar" th:value="#{page.profile.edit}">
+                      <input class="option" type="submit" value="Borrar" th:value="#{page.profile.delete}">
                     </form>
                     <form method="POST" th:action="@{'/profile/payment-method/edit/set-default/' + ${paymentMethod.id}}" th:if="${paymentMethod.defaultMethod == false}">
                       <input class="option" type="submit" value="Definir como predeterminado" th:value="#{page.profile.default.set}">

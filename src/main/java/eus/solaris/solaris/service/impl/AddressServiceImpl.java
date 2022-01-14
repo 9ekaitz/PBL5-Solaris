@@ -14,8 +14,8 @@ public class AddressServiceImpl implements AddressService {
     private AddressRepository addressRepository;
 
     @Override
-    public boolean save(Address address) {
-        return addressRepository.save(address) != null;
+    public Address save(Address address) {
+        return addressRepository.save(address);
     }
 
     @Override
@@ -29,9 +29,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void disable(Address address) {
+    public Address disable(Address address) {
+        address.setDefaultAddress(false);
         address.setEnabled(false);
-        addressRepository.save(address);        
+        return addressRepository.save(address);        
     }
 
 

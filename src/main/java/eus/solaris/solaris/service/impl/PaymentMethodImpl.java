@@ -14,8 +14,8 @@ public class PaymentMethodImpl implements PaymentMethodService{
     PaymentMethodRepository paymentMethodRepository;
 
     @Override
-    public boolean save(PaymentMethod paymentMethod) {
-        return paymentMethodRepository.save(paymentMethod) != null;
+    public PaymentMethod save(PaymentMethod paymentMethod) {
+        return paymentMethodRepository.save(paymentMethod);
     }
 
     @Override
@@ -24,9 +24,10 @@ public class PaymentMethodImpl implements PaymentMethodService{
     }
 
     @Override
-    public void disable(PaymentMethod paymentMethod) {
+    public PaymentMethod disable(PaymentMethod paymentMethod) {
+        paymentMethod.setDefaultMethod(false);
         paymentMethod.setEnabled(false);
-        paymentMethodRepository.save(paymentMethod);        
+        return paymentMethodRepository.save(paymentMethod);        
     }
     
 }

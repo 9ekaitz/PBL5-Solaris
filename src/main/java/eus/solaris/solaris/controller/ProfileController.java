@@ -162,7 +162,8 @@ public class ProfileController {
         else{
             Address address = new Address();
             getAddressInformation(address, form, authentication);
-            Boolean resultSQL = addressService.save(address);
+            Address addressSQL = addressService.save(address);
+            Boolean resultSQL = addressSQL != null;
 
             addFlashAttribute(resultSQL, redirectAttributes, "alert.address.add.success", "alert.address.add.error");
 
@@ -191,7 +192,8 @@ public class ProfileController {
         else{
             Address address = addressService.findById(id);
             getAddressInformation(address, form, authentication);
-            Boolean resultSQL = addressService.save(address);
+            Address addressSQL = addressService.save(address);
+            Boolean resultSQL = addressSQL != null;
             
             addFlashAttribute(resultSQL, redirectAttributes, "alert.address.edit.success", "alert.address.edit.error");
 
@@ -208,9 +210,10 @@ public class ProfileController {
         for (Address address2 : user.getAddresses()) {
             address2.setDefaultAddress(address2.getId().equals(address.getId()));
         }
-        userService.save(user);
-
-        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.edit.default.success");
+        User userSQL = userService.save(user);
+        Boolean resultSQL = userSQL != null;
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.address.edit.default.success", "alert.address.edit.default.error");
+        
         return REDIRECT_PROFILE_ADDRESS;
     }
 
@@ -218,12 +221,10 @@ public class ProfileController {
     public String profileAddressDelete(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         Address address = addressService.findById(id);
-        addressService.disable(address);
+        boolean defaultAddress = address.getDefaultAddress();
+        Address disabledAddress = addressService.disable(address);
 
-        if(Boolean.TRUE.equals(address.getDefaultAddress())){
-            address.setDefaultAddress(false);
-            addressService.save(address);
-
+        if(Boolean.TRUE.equals(defaultAddress)){
             List<Address> addresses = userService.getUserAddresses(authentication);
             if(!addresses.isEmpty()){
                 Address newDefault = addresses.iterator().next();
@@ -233,7 +234,9 @@ public class ProfileController {
         }
 
         model.addAttribute("addresses", userService.getUserAddresses(authentication));
-        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.address.delete.success");
+
+        Boolean resultSQL = disabledAddress != null && Boolean.FALSE.equals(disabledAddress.isEnabled());
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.address.delete.success", "alert.address.delete.error");
 
         return REDIRECT_PROFILE_ADDRESS;
     }
@@ -266,7 +269,8 @@ public class ProfileController {
         else{
             PaymentMethod paymentMethod = new PaymentMethod();
             getPaymentMethodInformation(paymentMethod, form, authentication);
-            Boolean resultSQL = paymentMethodService.save(paymentMethod);
+            PaymentMethod paymentMethodSQL = paymentMethodService.save(paymentMethod);
+            Boolean resultSQL = paymentMethodSQL != null;
 
            if(Boolean.TRUE.equals(resultSQL)){
                redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.add.success");
@@ -300,7 +304,8 @@ public class ProfileController {
         else{
             PaymentMethod paymentMethod = paymentMethodService.findById(id);
             getPaymentMethodInformation(paymentMethod, form, authentication);
-            Boolean resultSQL = paymentMethodService.save(paymentMethod);
+            PaymentMethod paymentMethodSQL = paymentMethodService.save(paymentMethod);
+            Boolean resultSQL = paymentMethodSQL != null;
 
             addFlashAttribute(resultSQL, redirectAttributes, "alert.payment_method.edit.success", "alert.payment_method.edit.error");
 
@@ -313,18 +318,16 @@ public class ProfileController {
     public String profilePaymentMethodSetDefault(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
-        paymentMethod.setDefaultMethod(true);
-        paymentMethodService.save(paymentMethod);
-
         User user = userService.findByUsername(authentication.getName());
-        for (PaymentMethod pm : user.getPaymentMethods()) {
-            if(!pm.getId().equals(id)){
-                pm.setDefaultMethod(false);
-            }
-        }
-        userService.save(user);
 
-        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.edit.default.success");
+        for (PaymentMethod pm : user.getPaymentMethods()) {
+            pm.setDefaultMethod(pm.getId().equals(paymentMethod.getId()));
+        }
+
+        User userSQL = userService.save(user);
+        Boolean resultSQL = userSQL != null;
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.payment_method.edit.default.success", "alert.payment_method.edit.default.error");
+
         return REDIRECT_PROFILE_PAYMENT_METHOD;
     }
     
@@ -332,12 +335,10 @@ public class ProfileController {
     public String profilePaymentMethodDelete(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
-        paymentMethodService.disable(paymentMethod);
+        Boolean defaultPaymentMethod = paymentMethod.getDefaultMethod();
+        PaymentMethod disabledMethod =  paymentMethodService.disable(paymentMethod);
 
-        if(Boolean.TRUE.equals(paymentMethod.getDefaultMethod())){
-            paymentMethod.setDefaultMethod(false);
-            paymentMethodService.save(paymentMethod);
-
+        if(Boolean.TRUE.equals(defaultPaymentMethod)){
             List<PaymentMethod> paymentMethods = userService.getUserPaymentMethods(authentication);
             if(!paymentMethods.isEmpty()){
                 PaymentMethod newDefault = paymentMethods.iterator().next();
@@ -346,7 +347,8 @@ public class ProfileController {
             }
         }
 
-        redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.delete.success");
+        Boolean resultSQL = disabledMethod != null && Boolean.FALSE.equals(disabledMethod.isEnabled());
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.payment_method.delete.success", "alert.payment_method.delete.error");
 
         return REDIRECT_PROFILE_PAYMENT_METHOD;
     }

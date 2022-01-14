@@ -93,7 +93,7 @@ class UserServiceImplTest {
         User user2 = new User();
         user2.setEnabled(true);
 
-        when(userRepository.save(user1)).thenReturn(user1);
+        when(userRepository.save(user1)).thenReturn(user2);
         assertEquals(user2, userServiceImpl.disableUser(user2));
     }
 

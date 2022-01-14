@@ -4,10 +4,10 @@ import eus.solaris.solaris.domain.PaymentMethod;
 
 public interface PaymentMethodService {
 
-    public boolean save(PaymentMethod paymentMethod);
+    public PaymentMethod save(PaymentMethod paymentMethod);
 
     public PaymentMethod findById(Long id);
 
-    public void disable(PaymentMethod paymentMethod);
+    public PaymentMethod disable(PaymentMethod paymentMethod);
     
 }
