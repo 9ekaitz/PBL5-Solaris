@@ -35,7 +35,7 @@ import eus.solaris.solaris.service.impl.UserServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class userServiceImplTest {
+public class UserServiceImplTest {
 
     @InjectMocks    
     private UserServiceImpl userServiceImpl;
@@ -44,7 +44,7 @@ public class userServiceImplTest {
     private UserRepository userRepository;
 
     @Mock
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
     @Mock
     private ModelMapper modelMapper;
@@ -56,7 +56,7 @@ public class userServiceImplTest {
     private Authentication authentication;
 
     @Test
-    public void testRegister() {
+    protected void testRegister() {
         Role role = createRole();
         User user = createUser(role);
         UserRegistrationForm userRegistrationForm = createUserRegistrationForm();
@@ -68,7 +68,7 @@ public class userServiceImplTest {
     }
 
     @Test
-    public void testSave() {
+    protected void testSave() {
         User user = new User();
 
         when(userRepository.save(user)).thenReturn(user);
@@ -77,7 +77,7 @@ public class userServiceImplTest {
     }
 
     @Test
-    public void testFindByUsername(){
+    protected void testFindByUsername(){
         User user1 = new User();
         User user2 = new User();
         user1.setName("test");
@@ -88,7 +88,7 @@ public class userServiceImplTest {
     }
 
     @Test
-    public void testDisabledUser(){
+    protected void testDisabledUser(){
         User user1 = new User();
         user1.setEnabled(false);
         User user2 = new User();
@@ -99,7 +99,7 @@ public class userServiceImplTest {
     }
 
     @Test
-    public void editPasswordTest(){
+    protected editPasswordTest(){
         Role role = createRole();
         User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
         User userChanged = new User(1L, "aritz.domaika", "passwordChanged", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
@@ -117,7 +117,7 @@ public class userServiceImplTest {
     }
 
     @Test
-    public void editUserTest(){
+    protected void editUserTest(){
         Role role = createRole();
         User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
         User userChanged = new User(1L, "aritz.domaika", "password", "AritzCambiado", "domaikaCambiado", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
