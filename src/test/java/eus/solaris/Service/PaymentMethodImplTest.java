@@ -14,7 +14,7 @@ import eus.solaris.solaris.repository.PaymentMethodRepository;
 import eus.solaris.solaris.service.impl.PaymentMethodImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class PaymentMethodImplTest {
+class PaymentMethodImplTest {
 
     @InjectMocks
     private PaymentMethodImpl paymentMethodImpl;

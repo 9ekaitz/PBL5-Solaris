@@ -20,7 +20,7 @@ import eus.solaris.solaris.service.impl.CountryServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class CountryServiceImplTest {
+class CountryServiceImplTest {
 
     @InjectMocks
     private CountryServiceImpl countryServiceImpl;

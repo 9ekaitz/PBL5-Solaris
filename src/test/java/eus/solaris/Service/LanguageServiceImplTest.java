@@ -17,7 +17,7 @@ import eus.solaris.solaris.repository.LanguageRepository;
 import eus.solaris.solaris.service.impl.LanguageServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class LanguageServiceImplTest {
+class LanguageServiceImplTest {
     
     @InjectMocks
     private LanguageServiceImpl languageServiceImpl;

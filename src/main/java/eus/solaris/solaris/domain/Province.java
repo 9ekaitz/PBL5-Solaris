@@ -18,7 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "province")
-@Getter @Setter
+@Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

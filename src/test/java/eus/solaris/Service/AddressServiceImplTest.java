@@ -16,7 +16,7 @@ import eus.solaris.solaris.repository.AddressRepository;
 import eus.solaris.solaris.service.impl.AddressServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class AddressServiceImplTest {
+class AddressServiceImplTest {
 
     @InjectMocks
     private AddressServiceImpl addressServiceImpl;

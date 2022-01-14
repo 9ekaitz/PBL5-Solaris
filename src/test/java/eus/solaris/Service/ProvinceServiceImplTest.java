@@ -17,7 +17,7 @@ import eus.solaris.solaris.repository.ProvinceRepository;
 import eus.solaris.solaris.service.impl.ProvinceServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class ProvinceServiceImplTest {
+class ProvinceServiceImplTest {
 
     @InjectMocks
     private ProvinceServiceImpl provinceServiceImpl;
