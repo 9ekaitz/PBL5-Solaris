@@ -37,6 +37,7 @@ public class ProfileController {
     static final String SUCCESS_ATTRIBUTE = "success";
     static final String ERROR_ATTRIBUTE = "error";
     static final String ERROR_FORM = "errors";
+    static final String FORM_FORM = "form";
     static final String PROVINCE_ATTRIBUTE = "provinces";
     static final String COUNTRY_ATTRIBUTE = "countries";
     static final String YEAR_ATTRIBUTE = "years";
@@ -81,13 +82,8 @@ public class ProfileController {
     @PostMapping("/profile/security")
     public String profileSecurity(Model model, Authentication authentication, RedirectAttributes redirectAttributes, String old_password_1, String old_password_2, String new_password) {
 
-        boolean result = userService.editPassword(new_password, old_password_1, authentication);
-        if(result){
-            redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.password.success");
-        }
-        else{
-            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.password.error");
-        }
+        boolean resultSQL = userService.editPassword(new_password, old_password_1, authentication);
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
 
         return "redirect:/profile";
     }
@@ -120,7 +116,7 @@ public class ProfileController {
         if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute(ERROR_FORM, errors);
-            model.addAttribute("form", form);
+            model.addAttribute(FORM_FORM, form);
 
             return "page/profile_edit";
         }
@@ -144,8 +140,7 @@ public class ProfileController {
     @GetMapping("/profile/address/add")
     public String profileAddressAdd(Model model, Authentication authentication) {
 
-        model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
-        model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+        addProfileAddressAttributes(model);
 
         return PAGE_PROFILE_ADDRESS_EDIT;
     }
@@ -175,8 +170,7 @@ public class ProfileController {
     public String profileAddressEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Address address = addressService.findById(id);
         model.addAttribute("address", address);
-        model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
-        model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+        addProfileAddressAttributes(model);
 
         return PAGE_PROFILE_ADDRESS_EDIT;
     }
@@ -250,16 +244,7 @@ public class ProfileController {
     @GetMapping("/profile/payment-method/add")
     public String profilePaymentMethodAdd(Model model, Authentication authentication) {
 
-        List<Integer> years = new ArrayList<>();
-        List<Integer> months = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            months.add(i+1);
-        }
-        for (int i = 0; i < 30; i++) {
-            years.add(i+2021);
-        }
-        model.addAttribute(YEAR_ATTRIBUTE, years);
-        model.addAttribute(MONTH_ATTRIBUTE, months);
+        addProfilePaymentMethodAttributes(model);
 
         return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
     }
@@ -293,16 +278,7 @@ public class ProfileController {
     public String profilePaymentMethodEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
         model.addAttribute("paymentMethod", paymentMethod);
-        List<Integer> years = new ArrayList<>();
-        List<Integer> months = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            months.add(i+1);
-        }
-        for (int i = 0; i < 30; i++) {
-            years.add(i+2021);
-        }
-        model.addAttribute(YEAR_ATTRIBUTE, years);
-        model.addAttribute(MONTH_ATTRIBUTE, months);
+        addProfilePaymentMethodAttributes(model);
 
         return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
     }
@@ -398,15 +374,11 @@ public class ProfileController {
     private void profileAddressFormFailed(Model model, UserAddressForm form, BindingResult result) {
         List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
         model.addAttribute(ERROR_FORM, errors);
-        model.addAttribute("form", form);
-        model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
-        model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+        model.addAttribute(FORM_FORM, form);
+        addProfileAddressAttributes(model);
     }
 
-    private void profilePaymentMethodFormFailed(Model model, UserPaymentMethodForm form, BindingResult result){
-        List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
-        model.addAttribute(ERROR_FORM, errors);
-        model.addAttribute("form", form);
+    private void addProfilePaymentMethodAttributes(Model model){
         List<Integer> years = new ArrayList<>();
         List<Integer> months = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
@@ -418,6 +390,12 @@ public class ProfileController {
         model.addAttribute(YEAR_ATTRIBUTE, years);
         model.addAttribute(MONTH_ATTRIBUTE, months);
     }
+    private void profilePaymentMethodFormFailed(Model model, UserPaymentMethodForm form, BindingResult result){
+        List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+        model.addAttribute(ERROR_FORM, errors);
+        model.addAttribute(FORM_FORM, form);
+        addProfilePaymentMethodAttributes(model);
+    }
    
     private void addFlashAttribute(boolean resultSQL, RedirectAttributes redirectAttributes, String successMessage, String errorMessage) {
         if(Boolean.TRUE.equals(resultSQL)){
@@ -426,5 +404,10 @@ public class ProfileController {
         else{
             redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, errorMessage);
         }
+    }
+
+    private void addProfileAddressAttributes(Model model) {
+        model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
+        model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
     }
 }
