@@ -12,11 +12,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor 
 public class Address implements Serializable{
 
   private static final long serialVersionUID = 918119632427824096L;
@@ -53,5 +59,6 @@ public class Address implements Serializable{
   private Boolean defaultAddress = false;
 
   @Version
+  @lombok.EqualsAndHashCode.Exclude
   private Integer version;
 }

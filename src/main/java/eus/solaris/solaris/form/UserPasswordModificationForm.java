@@ -1,6 +1,5 @@
 package eus.solaris.solaris.form;
 
-import javax.validation.constraints.NotEmpty;
 
 import eus.solaris.solaris.validation.ValidFieldsMatch;
 import lombok.Getter;

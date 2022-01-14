@@ -35,12 +35,12 @@ public class UserServiceImpl implements UserService {
 	PasswordEncoder passwordEncoder;
 
     @Override
-    public void register(UserRegistrationForm userRegistrationForm) {
+    public User register(UserRegistrationForm userRegistrationForm) {
         User user = modelMapper.map(userRegistrationForm, User.class);
         user.setRole(roleService.findByName("ROLE_USER"));
         user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        save(user);
+        return save(user);
     }
 
     @Override
@@ -59,37 +59,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void disableUser(User user) {
+    public User disableUser(User user) {
         user.setEnabled(false);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
-    public boolean editPassword(String newPassword, String oldPassword, Authentication authentication) {
-        Boolean result = false;
+    public User editPassword(String newPassword, String oldPassword, Authentication authentication) {
         User user = findByUsername(authentication.getName());
 
         if(BCrypt.checkpw(oldPassword, user.getPassword())){
             user.setPassword(passwordEncoder.encode(newPassword));
-            save(user);
-            result = true;
+            user = save(user);
         }     
 
-        return result;
+        return user;
     }
 
     @Override
-    public boolean editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication) {
-        Boolean result = false;
+    public User editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication) {
         User user = findByUsername(authentication.getName());
         user.setEmail(email);
         user.setName(name);
         user.setFirstSurname(firstSurname);
         user.setSecondSurname(secondSurname);
         User returnedUser = save(user);
-        if(returnedUser != null) result = true;
 
-        return result;
+        return returnedUser;
     
     }
 

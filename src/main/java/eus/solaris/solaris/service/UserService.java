@@ -13,10 +13,10 @@ public interface UserService {
     public User save(User user);
     public User findByUsername(String username);
     public void deleteUser(Long id);
-    public void disableUser(User user);
-    public boolean editPassword(String newPassword, String oldPassword, Authentication authentication);
-    public boolean editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication);
+    public User disableUser(User user);
+    public User editPassword(String newPassword, String oldPassword, Authentication authentication);
+    public User editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication);
     public List<Address> getUserAddresses(Authentication authentication);
     public List<PaymentMethod> getUserPaymentMethods(Authentication authentication);
-    public void register(UserRegistrationForm userRegistrationForm);
+    public User register(UserRegistrationForm userRegistrationForm);
 }

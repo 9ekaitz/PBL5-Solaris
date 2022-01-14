@@ -69,34 +69,35 @@ public class ProfileController {
     PaymentMethodService paymentMethodService;
 
     @GetMapping("/profile")
-    public String profile(Model model, Authentication authentication) {
+    public String profile() {
 
         return "page/profile";
     }
 
     @GetMapping("/profile/security")
-    public String profileSecurity(Model model, Authentication authentication) {
+    public String profileSecurity() {
 
         return "page/profile_security";
     }
 
     @PostMapping("/profile/security")
-    public String profileSecurity(Model model, Authentication authentication, RedirectAttributes redirectAttributes, UserPasswordModificationForm form) {
+    public String profileSecurity(Authentication authentication, RedirectAttributes redirectAttributes, UserPasswordModificationForm form) {
 
-        boolean resultSQL = userService.editPassword(form.getVerifyNewPasword(), form.getOldPassword(), authentication);
+        User user = userService.editPassword(form.getVerifyNewPasword(), form.getOldPassword(), authentication);
+        boolean resultSQL = user.getPassword().equals(passwordEncoder.encode(form.getVerifyNewPasword()));
         addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
 
         return "redirect:/profile";
     }
 
     @GetMapping("/delete-account")
-    public String deleteForm(Model model, Authentication authentication) {
+    public String deleteForm() {
 
         return "page/delete_account";
     }
 
     @PostMapping("/delete-account")
-    public String deleteAccount(Model model, Authentication authentication) {
+    public String deleteAccount(Authentication authentication) {
 
         String name = authentication.getName();
         User user = userService.findByUsername(name);
@@ -106,7 +107,7 @@ public class ProfileController {
     }
     
     @GetMapping("/profile/edit")
-    public String profileEdit(Model model, Authentication authentication) {
+    public String profileEdit() {
 
         return "page/profile_edit";
     }
@@ -122,7 +123,8 @@ public class ProfileController {
             return "page/profile_edit";
         }
         else{
-            boolean resultSQL = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), authentication);
+            User user = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), authentication);
+            boolean resultSQL = user != null;
             addFlashAttribute(resultSQL, redirectAttributes, "alert.profile.success", "alert.profile.error");
 
             return "redirect:/profile";
@@ -139,7 +141,7 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/address/add")
-    public String profileAddressAdd(Model model, Authentication authentication) {
+    public String profileAddressAdd(Model model) {
 
         addProfileAddressAttributes(model);
 
