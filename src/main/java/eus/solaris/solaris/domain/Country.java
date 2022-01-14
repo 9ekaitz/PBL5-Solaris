@@ -8,13 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "country")
 @Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Country implements Serializable{
 
     private static final long serialVersionUID = -7312439926852854962L;
@@ -28,5 +35,8 @@ public class Country implements Serializable{
 
     @Column(name = "i18n", nullable = false, length = 64)
     private String i18n;
-    
+
+    @Version
+    @lombok.EqualsAndHashCode.Exclude
+    private Integer version;
 }
