@@ -390,6 +390,7 @@ public class ProfileController {
         model.addAttribute(YEAR_ATTRIBUTE, years);
         model.addAttribute(MONTH_ATTRIBUTE, months);
     }
+    
     private void profilePaymentMethodFormFailed(Model model, UserPaymentMethodForm form, BindingResult result){
         List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
         model.addAttribute(ERROR_FORM, errors);

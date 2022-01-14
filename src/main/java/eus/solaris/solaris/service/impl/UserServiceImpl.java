@@ -7,23 +7,41 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
+import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private RoleService roleService;
     
     @Autowired
     UserRepository userRepository;
 
     @Autowired
 	PasswordEncoder passwordEncoder;
+
+    @Override
+    public void register(UserRegistrationForm userRegistrationForm) {
+        User user = modelMapper.map(userRegistrationForm, User.class);
+        user.setRole(roleService.findByName("ROLE_USER"));
+        user.setEnabled(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        save(user);
+    }
 
     @Override
     public User save(User user) {
@@ -78,6 +96,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Address> getUserAddresses(Authentication authentication) {
         User user = findByUsername(authentication.getName());
+        System.out.println(user.getName());
         List<Address> addresses = new ArrayList<>();
 
         for(int i = 0; i < user.getAddresses().size(); i++){
