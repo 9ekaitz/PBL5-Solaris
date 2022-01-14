@@ -35,8 +35,7 @@ pipeline {
                                                 -Dsonar.sources=src/main/resources,src/main/java \
                                                 -Dsonar.tests=src/test \
                                                 -Dsonar.java.coveragePlugin=jacoco \
-                                                -Dsonar.dynamicAnalysis=reuseReports \
-                                                -Dsonar.jacoco.reportPath=target/jaococo.exec'
+                                                -Dsonar.dynamicAnalysis=reuseReports'
                         }
                     }
                 }
