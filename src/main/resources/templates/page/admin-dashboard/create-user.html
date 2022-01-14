@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/create-user.css}" />
+    <link rel="stylesheet" th:href="@{/css/page/dashboard.css}" />
+    <link rel="stylesheet" href="@{/css/main.css}">
+    <title>Administrador</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="admin-dashboard">
+        <div class="create-account container">
+            <div class="title-flex">
+                <h1 class="title" th:text="#{page.dashboard.createaccount}">Crear cuenta</h1>
+            </div>
+            <div class="create-account-form">
+                <form th:action="@{/dashboard/create-user}" method="post">
+                    <div class="form-pair">
+                        <label for="username">Username:</label>
+                        <input type="text" placeholder="Username" name="username">
+                    </div>
+                    <div class="form-pair">
+                        <label for="name">Name:</label>
+                        <input type="text" placeholder="Name" name="name">
+                    </div>
+                    <div class="form-pair">
+                        <label for="firstSurname">First surname:</label>
+                        <input type="text" placeholder="First surname" name="firstSurname">
+                    </div>
+                    <div class="form-pair">
+                        <label for="secondSurname">Second surname:</label>
+                        <input type="text" placeholder="Second surname" name="secondSurname">
+                    </div>
+                    <div class="form-pair">
+                        <label for="age">Age:</label>
+                        <input type="text" placeholder="Age" name="age">
+                    </div>
+                    <div class="form-pair">
+                        <label for="email">Email:</label>
+                        <input type="text" placeholder="Email" name="email">
+                    </div>
+                    <div class="form-pair">
+                        <label for="password">Password:</label>
+                        <input type="password" placeholder="Password" name="password">
+                    </div>
+                    <div class="form-pair">
+                        <label for="repeatpassword">Repeat the password:</label>
+                        <input type="password" placeholder="Password" name="repeatPassword">
+                    </div>
+                    <div class="form-pair">
+                        <label for="roleId">Rol:</label><br>
+                        <select name="roleId" id="">
+                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="#{${role.i18n}}">Null</option>
+                        </select>
+                    </div>
+                    <div class="button-group">
+                        <input type="submit" value="Save"></input>
+                        <a class="red-button" href="/dashboard/manage-users">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
