@@ -13,12 +13,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "role")
-@Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id
