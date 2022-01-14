@@ -16,6 +16,10 @@
             </div>
             <form th:action="@{'/dashboard/update-user/'+${userToEdit.id}}" method="post">
                 <div class="form-pair">
+                    <label for="username">Username:</label>
+                    <input type="text" placeholder="Username" name="username" th:value="${userToEdit.username}">
+                </div>
+                <div class="form-pair">
                     <label for="name">Name:</label>
                     <input type="text" placeholder="Name" name="name" th:value="${userToEdit.name}">
                 </div>
@@ -26,10 +30,6 @@
                 <div class="form-pair">
                     <label for="secondSurname">Second surname:</label>
                     <input type="text" placeholder="Second surname" name="secondSurname" th:value="${userToEdit.secondSurname}">
-                </div>
-                <div class="form-pair">
-                    <label for="age">Age:</label>
-                    <input type="text" placeholder="Age" name="age" th:value="${userToEdit.age}">
                 </div>
                 <div class="form-pair">
                     <label for="email">Email:</label>
@@ -44,7 +44,7 @@
                 <div class="button-group">
                     <input type="submit" value="Save"></input>
                     <a class="red-button" th:href="@{'/dashboard/delete-user/'+${userToEdit.id}}"><span>Delete user</span></a>
-                    <a href="/dashboard" class="red-button">Cancel</a>
+                    <a href="/dashboard/manage-users" class="red-button">Cancel</a>
                 </div>
             </form>
         </div>
