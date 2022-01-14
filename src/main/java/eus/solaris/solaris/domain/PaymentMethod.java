@@ -10,13 +10,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "payment_method")
 @Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentMethod implements Serializable{
 
     private static final long serialVersionUID = -8995643663615104937L;
@@ -48,4 +55,8 @@ public class PaymentMethod implements Serializable{
 
     @Column(name = "enabled")
     private boolean enabled = true;
+
+    @Version
+    @lombok.EqualsAndHashCode.Exclude
+    private Integer version;
 }

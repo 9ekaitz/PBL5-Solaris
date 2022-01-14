@@ -3,6 +3,9 @@ package eus.solaris.Service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +21,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 
+import eus.solaris.solaris.domain.Address;
+import eus.solaris.solaris.domain.Country;
+import eus.solaris.solaris.domain.PaymentMethod;
+import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.domain.Role;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserRegistrationForm;
@@ -120,22 +127,38 @@ class UserServiceImplTest {
         assertEquals(userChanged, userServiceImpl.editUser("AritzCambiado", "domaikaCambiado", "peirats", "aritz.domaika@gmail.com", authentication));
     }
 
-    // @Test
-    // public void getUserAddressesTest(){
-    //     Role role = createRole();
-    //     List<Address> addresses = new ArrayList<>();
-    //     List<Address> addressesEnable = new ArrayList<>();
+     @Test
+     void getUserAddressesTest(){
+        Role role = createRole();
+        User user = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        Address allAddresses[] = {
+            new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, true, true, 1),
+            new Address(2L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, false, false, 1)
+        };
 
-    //     User user = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", addresses, null, role, null, 1);
+        List<Address> enabledAddresses = Stream.of(allAddresses).filter(Address::isEnabled).collect(Collectors.toList());
+        user.setAddresses(Stream.of(allAddresses).collect(Collectors.toList()));
         
-    //     addresses.add(new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, true, true, 1));
-    //     addresses.add(new Address(2L, new Country(), new Province(), "Donostia", "01008", "Donostia Clemente Arraiz", "680728473", user, false, false, 1));
-        
-        
-    //     when(authentication.getName()).thenReturn("Aritz");
-    //     when(userRepository.findByUsername("Aritz")).thenReturn(user);
-    //     assertEquals(addressesEnable, userServiceImpl.getUserAddresses(authentication));
-    // }
+        when(authentication.getName()).thenReturn("Aritz");
+        when(userRepository.findByUsername("Aritz")).thenReturn(user);
+        assertEquals(enabledAddresses, userServiceImpl.getUserAddresses(authentication));
+    }
+
+    @Test
+    void getUserPaymentMethodsTest(){
+        Role role = createRole();
+        User user = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        PaymentMethod allPaymentMethods[] = {
+            new PaymentMethod(1L, user, "Aritz Domaika Peirats", "1111222233334444", 11L, 2025L, "111", true, true, 1),
+            new PaymentMethod(1L, user, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false, 1)
+        };
+        List<PaymentMethod> enabledPaymentMethods = Stream.of(allPaymentMethods).filter(PaymentMethod::isEnabled).collect(Collectors.toList());
+        user.setPaymentMethods(Stream.of(allPaymentMethods).collect(Collectors.toList()));
+
+        when(authentication.getName()).thenReturn("Aritz");
+        when(userRepository.findByUsername("Aritz")).thenReturn(user);
+        assertEquals(enabledPaymentMethods, userServiceImpl.getUserPaymentMethods(authentication));
+    }
 
     private UserRegistrationForm createUserRegistrationForm() {
         UserRegistrationForm userRegistrationForm = new UserRegistrationForm();
