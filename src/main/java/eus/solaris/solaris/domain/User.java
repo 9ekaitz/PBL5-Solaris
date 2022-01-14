@@ -45,9 +45,6 @@ public class User implements Serializable {
     
     @Column(name = "second_surname")
     private String secondSurname;
-
-    @Column(name = "age")
-    private String age;
     
     @Column(name = "enabled")
     private Boolean enabled;

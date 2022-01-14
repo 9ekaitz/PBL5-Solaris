@@ -3,16 +3,22 @@ package eus.solaris.solaris.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.form.UserProfileForm;
+import eus.solaris.solaris.form.UserProfileCreateForm;
+import eus.solaris.solaris.form.UserProfileUpdateForm;
 import eus.solaris.solaris.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
     
+    @Value("${solaris.pagination.pagesize}")
+	private Integer pagesize;
+
     @Autowired
     UserRepository userRepository;
 
@@ -45,17 +51,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void disable(User user) {
         user.setEnabled(false);
+        userRepository.save(user);
     }
 
     @Override
-    public void update(Long id, UserProfileForm upf) {
+    public void update(Long id, UserProfileUpdateForm upuf) {
         User user = this.findById(id);
-        user.setName(upf.getName());
-        user.setFirstSurname(upf.getFirstSurname());
-        user.setSecondSurname(upf.getSecondSurname());
-        user.setAge(upf.getAge());
-        user.setEmail(upf.getEmail());
-        user.setRole(roleService.findById(upf.getRoleId()));
+        user.setUsername(upuf.getUsername());
+        user.setName(upuf.getName());
+        user.setFirstSurname(upuf.getFirstSurname());
+        user.setSecondSurname(upuf.getSecondSurname());
+        user.setEmail(upuf.getEmail());
+        user.setRole(roleService.findById(upuf.getRoleId()));
         this.save(user);
     }
 
@@ -68,13 +75,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findManageableUsers() {
-        List<User> users = this.findAll();
-        for (User user : users) {
-            if (user.getRole().getName().equals("ROLE_USER") || 
-                user.getEnabled().equals(false)) {
-                users.remove(user);
-            }
-        }
-        return users;
+        return userRepository.findAllByRoleNameNotAndEnabled("ROLE_USER", true);
+    }
+
+    @Override
+    public PagedListHolder<User> getPagesFromUsersList(List<User> users) {
+        PagedListHolder<User> pages = new PagedListHolder<>(users);
+        pages.setPageSize(pagesize);
+        pages.setPage(0);
+        return pages;
+    }
+
+    @Override
+    public void create(UserProfileCreateForm upcf) {
+        User user = new User();
+        user.setUsername(upcf.getUsername());
+        user.setName(upcf.getName());
+        user.setFirstSurname(upcf.getFirstSurname());
+        user.setSecondSurname(upcf.getSecondSurname());
+        user.setEmail(upcf.getEmail());
+        user.setPassword(passwordEncoder.encode(upcf.getPassword()));
+        user.setRole(roleService.findById(upcf.getRoleId()));
+        user.setEnabled(true);
+        this.save(user);
     }
 }

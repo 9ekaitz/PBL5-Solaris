@@ -93,7 +93,6 @@ public class AppController {
 	}
 
 
-
 	private boolean checkLogedIn() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {

@@ -4,14 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class UserProfileForm {
-    
-    // private String username;
+public class UserProfileUpdateForm {
+    private String username;
     private String name;
     private String firstSurname;
     private String secondSurname;
-    private String age;
     private String email;
     private Long roleId;
-
 }
