@@ -1,13 +1,8 @@
 package eus.solaris.Service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,9 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 
-import eus.solaris.solaris.domain.Address;
-import eus.solaris.solaris.domain.Country;
-import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.domain.Role;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserRegistrationForm;
@@ -35,7 +27,7 @@ import eus.solaris.solaris.service.impl.UserServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class UserServiceImplTest {
+class UserServiceImplTest {
 
     @InjectMocks    
     private UserServiceImpl userServiceImpl;
@@ -56,7 +48,7 @@ public class UserServiceImplTest {
     private Authentication authentication;
 
     @Test
-    protected void testRegister() {
+    void testRegister() {
         Role role = createRole();
         User user = createUser(role);
         UserRegistrationForm userRegistrationForm = createUserRegistrationForm();
@@ -68,7 +60,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    protected void testSave() {
+    void testSave() {
         User user = new User();
 
         when(userRepository.save(user)).thenReturn(user);
@@ -77,7 +69,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    protected void testFindByUsername(){
+    void testFindByUsername(){
         User user1 = new User();
         User user2 = new User();
         user1.setName("test");
@@ -88,7 +80,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    protected void testDisabledUser(){
+    void testDisabledUser(){
         User user1 = new User();
         user1.setEnabled(false);
         User user2 = new User();
@@ -99,7 +91,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    protected editPasswordTest(){
+    void editPasswordTest(){
         Role role = createRole();
         User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
         User userChanged = new User(1L, "aritz.domaika", "passwordChanged", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
@@ -117,7 +109,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    protected void editUserTest(){
+    void editUserTest(){
         Role role = createRole();
         User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
         User userChanged = new User(1L, "aritz.domaika", "password", "AritzCambiado", "domaikaCambiado", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);

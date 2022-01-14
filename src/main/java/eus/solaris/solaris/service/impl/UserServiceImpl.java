@@ -83,16 +83,12 @@ public class UserServiceImpl implements UserService {
         user.setName(name);
         user.setFirstSurname(firstSurname);
         user.setSecondSurname(secondSurname);
-        User returnedUser = save(user);
-
-        return returnedUser;
-    
+        return save(user);    
     }
 
     @Override
     public List<Address> getUserAddresses(Authentication authentication) {
         User user = findByUsername(authentication.getName());
-        System.out.println(user.getName());
         List<Address> addresses = new ArrayList<>();
 
         for(int i = 0; i < user.getAddresses().size(); i++){
