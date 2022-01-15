@@ -9,11 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Data
+@Setter
+@AllArgsConstructor
 public class Task {
   
   @Id
@@ -31,5 +35,6 @@ public class Task {
   private Installation installation;
 
   @Version
+  @EqualsAndHashCode.Exclude
   private Integer version;
 }
