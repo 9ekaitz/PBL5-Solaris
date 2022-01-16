@@ -4,7 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ class AppControllerTest {
 
   private User user;
 
-  @Before
+  @BeforeEach
   void loadUser(){
     String username = "testy";
     user = new User(1L, "testy", "tetsy@email.com", "testy123", "Testy", "Tasty", "Tester", true, null, null, 1);

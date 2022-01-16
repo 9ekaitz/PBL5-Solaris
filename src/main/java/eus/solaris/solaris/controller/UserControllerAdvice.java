@@ -19,7 +19,8 @@ public class UserControllerAdvice {
     public User addUserToModel(){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       User user = null;
-      if (auth != null) user = userService.findByUsername(auth.getName());
+      String test = auth.getName();
+      if (auth != null) user = userService.findByUsername(test);
       return user;
     }
     
