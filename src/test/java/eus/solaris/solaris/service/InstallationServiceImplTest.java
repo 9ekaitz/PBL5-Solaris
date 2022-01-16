@@ -1,7 +1,7 @@
 package eus.solaris.solaris.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +35,9 @@ class InstallationServiceImplTest {
 
     Optional<Installation> op = Optional.of(installation);
 
-    when(installationRepository.findById(1L)).thenReturn(op);
+    when(installationRepository.findById(id)).thenReturn(op);
     assertEquals(installation, installationServiceImpl.findById(id));
+    verify(installationRepository, times(1)).findById(id);
   }
 
   @Test
@@ -52,11 +53,12 @@ class InstallationServiceImplTest {
         new Installation(4L, "Install_Name 4", "Install_Desc 4", false, null, user, null, 1),
         new Installation(5L, "Install_Name 5", "Install_Desc 5", true, null, user, null, 1) };
 
-    List<Installation> lst = Stream.of(installations[0], installations[1], installations[4]).collect(Collectors.toList());
-    
+    List<Installation> lst = Stream.of(installations[0], installations[1], installations[4])
+        .collect(Collectors.toList());
+
     when(installationRepository.findByInstallerAndCompletedOrderByOrderId(user, completed))
         .thenReturn(Stream.of(installations[0], installations[1], installations[4]).collect(Collectors.toList()));
-
     assertEquals(lst, installationServiceImpl.findByInstallerAndCompleted(user, completed));
+    verify(installationRepository, times(1)).findByInstallerAndCompletedOrderByOrderId(user, completed);
   }
 }

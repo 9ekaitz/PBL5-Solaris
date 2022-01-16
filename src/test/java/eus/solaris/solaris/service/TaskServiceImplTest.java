@@ -1,6 +1,8 @@
 package eus.solaris.solaris.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -31,8 +33,9 @@ class TaskServiceImplTest {
 
     Optional<Task> op = Optional.of(task);
 
-    when(taskRepository.findById(1L)).thenReturn(op);
+    when(taskRepository.findById(id)).thenReturn(op);
     assertEquals(task, taskServiceImpl.findById(id));
+    verify(taskRepository, times(1)).findById(id);
   }
 
   @Test
@@ -42,6 +45,7 @@ class TaskServiceImplTest {
 
     when(taskRepository.save(completedTask)).thenReturn(completedTask);
     assertEquals(completedTask, taskServiceImpl.markCompleted(task));
+    verify(taskRepository, times(1)).save(completedTask);
   }
 
 }
