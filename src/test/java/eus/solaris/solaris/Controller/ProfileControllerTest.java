@@ -91,12 +91,11 @@ class ProfileControllerTest {
             .collect(Collectors.toSet()), 1);
 
         List<Address> addresses = Stream
-        .of(new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", null, true, true, 1))
+        .of(new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, true, true, 1))
         .collect(Collectors.toList());
 
         List<PaymentMethod> paymentMethods = Stream
         .of(new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1)).collect(Collectors.toList());
-
 
         basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses, paymentMethods, ROLE_USER, null, 1);
         when(userServiceImpl.findByUsername(username)).thenReturn(basicUser);
@@ -110,6 +109,13 @@ class ProfileControllerTest {
             .andExpect(status().isOk())
             .andExpect(view().name("page/profile"))
             .andExpect(model().attribute("user", basicUser));
+    }
+
+    @Test
+    void getProfileNotLoggedTest() throws Exception{        
+
+        mockMvc.perform(get("https://localhost/profile"))
+            .andExpect(status().is3xxRedirection());
     }
 
     @Test
@@ -249,9 +255,9 @@ class ProfileControllerTest {
 
     private Privilege createUserLoggedPrivilege() {
         Privilege privilege = new Privilege();
-        privilege.setId(2L);
-        privilege.setCode("LOGGED_USER_VIEW");
-        privilege.setI18n("logged.user.view");
+        privilege.setId(1L);
+        privilege.setCode("USER_LOGGED_VIEW");
+        privilege.setI18n("user.logged.view");
         privilege.setEnabled(true);
         privilege.setVersion(1);
         return privilege;

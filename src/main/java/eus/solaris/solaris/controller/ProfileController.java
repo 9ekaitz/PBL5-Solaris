@@ -32,7 +32,7 @@ import eus.solaris.solaris.service.ProvinceService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
-// @PreAuthorize("hasAuthority('USER_LOGGED_VIEW')")
+@PreAuthorize("hasAuthority('USER_LOGGED_VIEW')")
 public class ProfileController {
 
     static final String SUCCESS_ATTRIBUTE = "success";

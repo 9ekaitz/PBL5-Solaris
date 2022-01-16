@@ -60,8 +60,8 @@ public class SpringWebAuxTestConfig {
     private Privilege createLoggedPrivilege() {
         Privilege privilege = new Privilege();
         privilege.setId(2L);
-        privilege.setCode("LOGGED_USER_VIEW");
-        privilege.setI18n("logged.user.view");
+        privilege.setCode("USER_LOGGED_VIEW");
+        privilege.setI18n("user.logged.view");
         privilege.setEnabled(true);
         privilege.setVersion(1);
         return privilege;
