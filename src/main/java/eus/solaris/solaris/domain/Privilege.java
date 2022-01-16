@@ -12,15 +12,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "privilege")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
 public class Privilege {
 
     @Id
@@ -40,6 +37,7 @@ public class Privilege {
     private Set<Role> roles;
 
     @Version
+    @lombok.EqualsAndHashCode.Exclude
     private Integer version;
 
 }

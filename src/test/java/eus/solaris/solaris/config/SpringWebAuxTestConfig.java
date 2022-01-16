@@ -16,12 +16,14 @@ import eus.solaris.solaris.security.CustomUserDetails;
 @TestConfiguration
 public class SpringWebAuxTestConfig {
 
+    Privilege privilegeUser = createLoggedPrivilege();
+
     Role ROLE_ADMIN = new Role(1L, "ROLE_ADMIN", true, null, Stream
-            .of(new Privilege(1L, "AUTH_INSTALL_VIEW", "auth.install.view", true, null, 1))
+            .of(privilegeUser)
             .collect(Collectors.toSet()), 1);
 
     Role ROLE_USER = new Role(2L, "ROLE_USER", true, null, Stream
-            .of(new Privilege(2L, "USER_LOGGED_VIEW", "user.logged.view", true, null, 1))
+            .of(privilegeUser)
             .collect(Collectors.toSet()), 1);
 
     User basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, null, null, ROLE_USER, null, 1);
@@ -53,5 +55,15 @@ public class SpringWebAuxTestConfig {
             }
         };
         return userDetailsService;
+    }
+
+    private Privilege createLoggedPrivilege() {
+        Privilege privilege = new Privilege();
+        privilege.setId(2L);
+        privilege.setCode("LOGGED_USER_VIEW");
+        privilege.setI18n("logged.user.view");
+        privilege.setEnabled(true);
+        privilege.setVersion(1);
+        return privilege;
     }
 }

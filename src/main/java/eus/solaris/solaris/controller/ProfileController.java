@@ -32,7 +32,7 @@ import eus.solaris.solaris.service.ProvinceService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
-@PreAuthorize("hasAuthority('USER_LOGGED_VIEW')")
+// @PreAuthorize("hasAuthority('USER_LOGGED_VIEW')")
 public class ProfileController {
 
     static final String SUCCESS_ATTRIBUTE = "success";
@@ -92,7 +92,7 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/delete-account")
+    @GetMapping("/profile/delete-account")
     public String deleteForm() {
 
         return "page/delete_account";
@@ -175,10 +175,16 @@ public class ProfileController {
     @GetMapping("/profile/address/edit/{id}")
     public String profileAddressEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Address address = addressService.findById(id);
-        model.addAttribute("address", address);
-        addProfileAddressAttributes(model);
+        if(address.getUser() != userService.findByUsername(authentication.getName())){
+            return REDIRECT_PROFILE_ADDRESS;
+        }
+        else{
+            model.addAttribute("address", address);
+            addProfileAddressAttributes(model);
 
-        return PAGE_PROFILE_ADDRESS_EDIT;
+            return PAGE_PROFILE_ADDRESS_EDIT;
+        }
+
     }
 
     @PostMapping("/profile/address/edit/{id}")
@@ -286,10 +292,15 @@ public class ProfileController {
     @GetMapping("/profile/payment-method/edit/{id}")
     public String profilePaymentMethodEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
-        model.addAttribute("paymentMethod", paymentMethod);
-        addProfilePaymentMethodAttributes(model);
+        if(paymentMethod.getUser() != userService.findByUsername(authentication.getName())){
+            return REDIRECT_PROFILE_PAYMENT_METHOD;
+        }
+        else{
+            model.addAttribute("paymentMethod", paymentMethod);
+            addProfilePaymentMethodAttributes(model);
 
-        return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
+            return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
+        }
     }
     
     @PostMapping("/profile/payment-method/edit/{id}")

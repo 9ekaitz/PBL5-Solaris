@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,6 +24,7 @@ import eus.solaris.solaris.controller.ProfileController;
 import eus.solaris.solaris.controller.UserControllerAdvice;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.Country;
+import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Privilege;
 import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.domain.Role;
@@ -78,20 +81,26 @@ class ProfileControllerTest {
     SecurityContextHolder securityContextHolder;
 
     User basicUser;
+    Authentication authentication;
 
     @BeforeEach
     void loadUser(){
         String username = "testyUser";
+        Privilege privilege = createUserLoggedPrivilege();
+
         Role ROLE_USER = new Role(1L, "ROLE_USER", true, null,  Stream
-            .of(new Privilege(2L, "LOGGED_USER_VIEW", "logged.user.view", true, null, 1))
+            .of(privilege)
             .collect(Collectors.toSet()), 1);
 
         List<Address> addresses = Stream
         .of(new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", null, true, true, 1))
         .collect(Collectors.toList());
 
+        List<PaymentMethod> paymentMethods = Stream
+        .of(new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1)).collect(Collectors.toList());
 
-        basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses, null, ROLE_USER, null, 1);
+
+        basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses, paymentMethods, ROLE_USER, null, 1);
         when(userServiceImpl.findByUsername(username)).thenReturn(basicUser);
     }
 
@@ -139,11 +148,13 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void getProfileAddressTest() throws Exception {
+
+        when(userServiceImpl.getUserAddresses(authentication)).thenReturn(basicUser.getAddresses());
    
         mockMvc.perform(get("https://localhost/profile/address"))
             .andExpect(status().isOk())
             .andExpect(view().name("page/profile_address"))
-            .andExpect(model().attribute("addresses", basicUser.getAddresses()))
+            .andExpect(model().attributeExists("addresses"))
             .andExpect(model().attribute("user", basicUser));
     }
 
@@ -186,6 +197,68 @@ class ProfileControllerTest {
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/profile/address"));
     }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void getProfilePaymentMethodTest() throws Exception {
+
+        when(userServiceImpl.getUserPaymentMethods(authentication)).thenReturn(basicUser.getPaymentMethods());
+
+        mockMvc.perform(get("https://localhost/profile/payment-method"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("page/profile_payment_method"))
+            .andExpect(model().attributeExists("paymentMethods"))
+            .andExpect(model().attribute("user", basicUser));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void getProfilePaymentMethodAddTest() throws Exception{
+                    
+        mockMvc.perform(get("https://localhost/profile/payment-method/add"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("page/profile_payment_method_edit"))
+            .andExpect(model().attributeExists("years"))
+            .andExpect(model().attributeExists("months"))
+            .andExpect(model().attribute("user", basicUser));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void getProfilePaymentMethodEditTestSuccess() throws Exception {
+        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+        when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
+                            
+        mockMvc.perform(get("https://localhost/profile/payment-method/edit/1"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("page/profile_payment_method_edit"))
+            .andExpect(model().attributeExists("years"))
+            .andExpect(model().attributeExists("months"))
+            .andExpect(model().attribute("paymentMethod", paymentMethod))
+            .andExpect(model().attribute("user", basicUser));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void getProfilePaymentMethodEditTestError() throws Exception {
+        PaymentMethod paymentMethod = new PaymentMethod(1L, null, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+        when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
+                            
+        mockMvc.perform(get("https://localhost/profile/payment-method/edit/1"))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(view().name("redirect:/profile/payment-method"));
+    }
+
+    private Privilege createUserLoggedPrivilege() {
+        Privilege privilege = new Privilege();
+        privilege.setId(2L);
+        privilege.setCode("LOGGED_USER_VIEW");
+        privilege.setI18n("logged.user.view");
+        privilege.setEnabled(true);
+        privilege.setVersion(1);
+        return privilege;
+    }
+
 
 
 }
