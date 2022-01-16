@@ -14,7 +14,7 @@ import eus.solaris.solaris.domain.SolarPanel;
 public class InitialBuffer {
     private Lock mutex;
 
-    private List<Map<LocalDate, SolarPanel>> buffer;
+    private List<Map<LocalDate, List<SolarPanel>>> buffer;
     private Condition isEmpty, isFull;
 
     Integer maxCount;
@@ -27,10 +27,10 @@ public class InitialBuffer {
         this.maxCount = maxCount;
     }
 
-    public void add(LocalDate date, SolarPanel panel) {
+    public void add(LocalDate date, List<SolarPanel> panel) {
         this.mutex.lock();
         try {
-            Map<LocalDate, SolarPanel> map = new HashMap<>();
+            Map<LocalDate, List<SolarPanel>> map = new HashMap<>();
             map.put(date, panel);
             this.buffer.add(map);
             this.isEmpty.signal();
@@ -39,7 +39,7 @@ public class InitialBuffer {
         }
     }
 
-    public Map<LocalDate, SolarPanel> get() {
+    public Map<LocalDate, List<SolarPanel>> get() {
         this.mutex.lock();
         try {
             if (maxCount == 0) {
@@ -52,7 +52,7 @@ public class InitialBuffer {
                     return null;
                 }
             }
-            Map<LocalDate, SolarPanel> data = this.buffer.get(0);
+            Map<LocalDate, List<SolarPanel>> data = this.buffer.get(0);
             this.buffer.remove(0);
             this.isFull.signal();
             this.maxCount--;

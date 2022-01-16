@@ -33,19 +33,17 @@ public class ThreadController implements ICompletionObserver {
         this.sync = new Object();
     }
 
-    private void insertDays(LocalDate startDate, LocalDate endDate, SolarPanel solarPanel) {
+    private void insertDays(LocalDate startDate, LocalDate endDate, List<SolarPanel> solarPanels) {
         LocalDate currentDate = startDate;
 
         if (startDate.isEqual(endDate)) {
-            initialBuffer.add(startDate, solarPanel);
+            initialBuffer.add(startDate, solarPanels);
         }
 
         while (currentDate.isBefore(endDate)) {
-            initialBuffer.add(currentDate, solarPanel);
+            initialBuffer.add(currentDate, solarPanels);
             currentDate = currentDate.plusDays(1);
-            System.out.println("Inserted day: " + currentDate);
         }
-        System.out.println("AD: ");
     }
 
     private Integer countDays(LocalDate startDate, LocalDate endDate) {
@@ -65,9 +63,7 @@ public class ThreadController implements ICompletionObserver {
 
     public Map<Instant, Double> prepareData(List<SolarPanel> solarPanels, GroupMode groupMode,
             ConversionType conversionType) {
-        for (SolarPanel solarPanel : solarPanels) {
-            insertDays(startDate, endDate, solarPanel);
-        }
+        insertDays(startDate, endDate, solarPanels);
 
         for (int i = 0; i < threads / 2; i++) {
             new Thread(new Gatherer(initialBuffer, gatherBuffer)).start();
@@ -87,6 +83,10 @@ public class ThreadController implements ICompletionObserver {
         }
 
         Map<Instant, Double> dataMap = dataBuffer.getData();
+
+        if (solarPanels.size() > 1) {
+            dataMap = Processer.groupPanels(dataMap);
+        }
 
         if (groupMode == GroupMode.YEAR) {
             dataMap = Grouper.groupByMonth(dataMap);

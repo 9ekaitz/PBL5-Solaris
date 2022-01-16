@@ -43,23 +43,23 @@ public class Gatherer implements Runnable {
     @Override
     public void run() {
         while (true) {
-            Map<LocalDate, SolarPanel> map = initialBuffer.get();
+            Map<LocalDate, List<SolarPanel>> map = initialBuffer.get();
             if (map == null) {
                 System.out.println("[DEBUG] Gather thread " + Thread.currentThread().getName() + " terminated: EOL.");
                 break;
             }
 
-            Entry<LocalDate, SolarPanel> entry = map.entrySet().iterator().next();
+            Entry<LocalDate, List<SolarPanel>> entry = map.entrySet().iterator().next();
             LocalDate day = entry.getKey();
-            SolarPanel solarPanel = entry.getValue();
+            List<SolarPanel> solarPanels = entry.getValue();
 
-            System.out.println("[DEBUG] Gathering data for " + day + " for " + solarPanel.getId());
+            System.out.println("[DEBUG] Gathering data for " + day + ".");
 
-            List<SolarPanelDataEntry> dataEntries = dataEntryRepository.findBySolarPanelAndLocalDate(solarPanel, day);
+            List<SolarPanelDataEntry> dataEntries = dataEntryRepository.findBySolarPanelsAndLocalDate(solarPanels, day);
 
             Map<LocalDate, Map<Instant, Double>> dataMap = processData(dataEntries, day);
 
-            System.out.println("[DEBUG] Gathered data for " + day + " for " + solarPanel.getId());
+            System.out.println("[DEBUG] Gathered data for " + day + ".");
 
             gatherBuffer.add(dataMap);
         }
