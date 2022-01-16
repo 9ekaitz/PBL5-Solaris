@@ -79,12 +79,6 @@ public class ProfileControllerTest {
     @Mock
     UserPasswordModificationForm userPasswordModificationForm;
 
-    // @Before
-    // void loadUser(){
-    //   String username = "adminUser";
-    //   when(userServiceImpl.findByUsername(username)).thenReturn(userDetailsServiceImpl.loadUserByUsername(username));
-    // }
-
     @Test
     @WithMockUser(username = "aritz")
     void getProfileTest() throws Exception{
