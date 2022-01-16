@@ -1,4 +1,4 @@
-package eus.solaris.Service;
+package eus.solaris.solaris.Service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -101,8 +101,8 @@ class UserServiceImplTest {
     @Test
     void editPasswordTestTrue(){
         Role role = createRole();
-        User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
-        User userChanged = new User(1L, "aritz.domaika", "passwordChanged", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        User userToBeChange = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        User userChanged = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "passwordChanged", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
 
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
@@ -118,8 +118,8 @@ class UserServiceImplTest {
     @Test
     void editPasswordTestFalse(){
         Role role = createRole();
-        User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
-        User userChanged = new User(1L, "aritz.domaika", "passwordChanged", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        User userToBeChange = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        User userChanged = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "passwordChanged", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
 
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
@@ -135,8 +135,8 @@ class UserServiceImplTest {
     @Test
     void editUserTest(){
         Role role = createRole();
-        User userToBeChange = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
-        User userChanged = new User(1L, "aritz.domaika", "password", "AritzCambiado", "domaikaCambiado", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        User userToBeChange = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        User userChanged = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "AritzCambiado", "domaikaCambiado", "peirats", true, null, null, role, null, 1);
 
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
@@ -147,7 +147,7 @@ class UserServiceImplTest {
      @Test
      void getUserAddressesTest(){
         Role role = createRole();
-        User user = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        User user = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
         Address allAddresses[] = {
             new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, true, true, 1),
             new Address(2L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, false, false, 1)
@@ -164,7 +164,7 @@ class UserServiceImplTest {
     @Test
     void getUserPaymentMethodsTest(){
         Role role = createRole();
-        User user = new User(1L, "aritz.domaika", "password", "Aritz", "domaika", "peirats", true, "aritz.domaika@gmail.com", null, null, role, null, 1);
+        User user = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
         PaymentMethod allPaymentMethods[] = {
             new PaymentMethod(1L, user, "Aritz Domaika Peirats", "1111222233334444", 11L, 2025L, "111", true, true, 1),
             new PaymentMethod(1L, user, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false, 1)

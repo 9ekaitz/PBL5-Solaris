@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import eus.solaris.solaris.service.ProvinceService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
+@PreAuthorize("hasAuthority('LOGGED_USER_VIEW')")
 public class ProfileController {
 
     static final String SUCCESS_ATTRIBUTE = "success";
@@ -90,13 +92,13 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/delete-account")
+    @GetMapping("/profile/delete-account")
     public String deleteForm() {
 
         return "page/delete_account";
     }
 
-    @PostMapping("/delete-account")
+    @PostMapping("/profile/delete-account")
     public String deleteAccount(Authentication authentication) {
 
         String name = authentication.getName();
@@ -173,10 +175,16 @@ public class ProfileController {
     @GetMapping("/profile/address/edit/{id}")
     public String profileAddressEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         Address address = addressService.findById(id);
-        model.addAttribute("address", address);
-        addProfileAddressAttributes(model);
+        
+        if(address.getUser() == userService.findByUsername(authentication.getName())){
+            model.addAttribute("address", address);
+            addProfileAddressAttributes(model);
 
-        return PAGE_PROFILE_ADDRESS_EDIT;
+            return PAGE_PROFILE_ADDRESS_EDIT;
+        }
+        else{
+            return "redirect:/profile/address";
+        }
     }
 
     @PostMapping("/profile/address/edit/{id}")

@@ -1,4 +1,4 @@
-package eus.solaris.Service;
+package eus.solaris.solaris.Service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;

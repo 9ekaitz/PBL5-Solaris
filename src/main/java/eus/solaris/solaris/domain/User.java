@@ -39,6 +39,9 @@ public class User implements Serializable {
     @Column(name = "username", unique = true)
     private String username;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "password")
     private String password;
     
@@ -53,9 +56,6 @@ public class User implements Serializable {
     
     @Column(name = "enabled")
     private Boolean enabled;
-
-    @Column(name = "email")
-    private String email;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @OrderBy("default_address DESC")
