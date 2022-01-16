@@ -98,7 +98,7 @@ public class ProfileController {
         return "page/delete_account";
     }
 
-    @PostMapping("/delete-account")
+    @PostMapping("/profile/delete-account")
     public String deleteAccount(Authentication authentication) {
 
         String name = authentication.getName();
