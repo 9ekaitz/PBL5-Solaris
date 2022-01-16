@@ -79,32 +79,6 @@ public class ProfileControllerTest {
     @Mock
     UserPasswordModificationForm userPasswordModificationForm;
 
-    @Test
-    @WithMockUser(username = "aritz")
-    void getProfileTest() throws Exception{
-        Role role = createRole();
-        User user = new User(1L, "aritz", "password", "aritz", "domaika", "peirats", true, "aritz.domaika@alumni.mondragon.edu", null, null, role, null, 1);
-        when(userServiceImpl.findByUsername("aritz")).thenReturn(user);
-        mockMvc.perform(get("https://localhost/profile"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("page/profile"));
-    }
 
-    @Test
-    void getProfileSecurityTest() throws Exception{
-        mockMvc.perform(get("https://localhost/profile/security"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("page/profile_security"))
-            .andExpect(model().attributeExists("form"));
-    }
-    
-    private Role createRole() {
-        Role role = new Role();
-        role.setId(2L);
-        role.setName("ROLE_USER");
-        role.setEnabled(true);
-        role.setVersion(0);
-        return role;
-    }
 
 }
