@@ -58,7 +58,7 @@ class AppControllerTest {
   
   @Test
   @WithMockUser("testy")
-  public void returnIndexPage() {
+  void returnIndexPage() {
     try {
       mvc.perform(get("https://localhost/"))
           .andExpect(status().isOk())
@@ -70,7 +70,7 @@ class AppControllerTest {
   }
 
   @Test
-  public void returnIndexPageWithOutBeenLogedIn() {
+  void returnIndexPageWithOutBeenLogedIn() {
     try {
       mvc.perform(get("https://localhost/"))
           .andExpect(status().isOk())

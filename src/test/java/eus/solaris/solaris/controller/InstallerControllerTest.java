@@ -32,7 +32,7 @@ import eus.solaris.solaris.service.impl.UserServiceImpl;
 @Import(SpringWebAuxTestConfig.class)
 @ExtendWith(SpringExtension.class)
 @WebMvcTest({ InstallerController.class, UserControllerAdvice.class })
-public class InstallerControllerTest {
+class InstallerControllerTest {
 
   @Autowired
   MockMvc mvc;
@@ -57,8 +57,9 @@ public class InstallerControllerTest {
 
   private User user;
   private String username;
+
   @BeforeEach
-  public void setup(){
+  void setup(){
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null) {
       username = authentication.getName();
@@ -68,7 +69,7 @@ public class InstallerControllerTest {
   }
 
   @Test
-  public void accessToInstallPageWithoutCredentials() {
+  void accessToInstallPageWithoutCredentials() {
     try {
       mvc.perform(get("https://localhost/install")).andExpect(status().isFound());
     } catch (Exception e) {
@@ -78,7 +79,7 @@ public class InstallerControllerTest {
 
   @Test
   @WithUserDetails(value = "testyUser")
-  public void accessToInstallPageWithWrongCredentials() {
+  void accessToInstallPageWithWrongCredentials() {
     try {
       mvc.perform(get("https://localhost/install")).andExpect(status().isForbidden());
     } catch (Exception e) {
@@ -88,7 +89,7 @@ public class InstallerControllerTest {
 
   @Test
   @WithUserDetails(value = "testyAdmin")
-  public void accessToInstallPageWithCredentials() {
+  void accessToInstallPageWithCredentials() {
     try {
       mvc.perform(get("https://localhost/install"))
           .andExpect(status().isOk())

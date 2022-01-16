@@ -39,7 +39,7 @@ class TaskServiceImplTest {
   }
 
   @Test
-  public void markCompletedTest() {
+  void markCompletedTest() {
     Task completedTask = new Task(1L, "Task_Desc 1", true, null, 1);
     Task task = new Task(1L, "Task_Desc 1", false, null, 1);
 
