@@ -74,7 +74,7 @@ public class InstallerController {
 
   private boolean filter(HttpServletResponse response, Installation installation, User user) {
     boolean authorized = false;
-    if (user.getRole().getName().equals("ROLE_ADMIN")) authorized = true;
+    if (user != null && user.getRole().getName().equals("ROLE_ADMIN")) authorized = true;
     else if(installation.getInstaller() == user) authorized = true;
     
     return authorized;
