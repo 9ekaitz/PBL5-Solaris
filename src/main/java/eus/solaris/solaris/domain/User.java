@@ -18,6 +18,7 @@ import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +29,7 @@ import lombok.Setter;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor 
+@EqualsAndHashCode(callSuper = false)
 public class User implements Serializable {
     
     private static final long serialVersionUID = -8446982019565427240L;
