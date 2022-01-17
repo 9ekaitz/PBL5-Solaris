@@ -320,6 +320,8 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressAddTestSuccess() throws Exception {
+
+        System.out.println("uwu");
         String street = "Pintor Clemente Arraiz 9 3C";
         Long countryId = 1L;
         String city = "Madrid";
