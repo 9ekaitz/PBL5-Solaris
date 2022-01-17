@@ -14,7 +14,7 @@ import eus.solaris.solaris.repository.RoleRepository;
 import eus.solaris.solaris.service.impl.RoleServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class RoleServiceImplTest {
+class RoleServiceImplTest {
 
     @InjectMocks
     private RoleServiceImpl roleServiceImpl;
