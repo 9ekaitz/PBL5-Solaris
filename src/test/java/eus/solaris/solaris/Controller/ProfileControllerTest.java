@@ -292,18 +292,18 @@ class ProfileControllerTest {
 
     }
 
-    @Test
-    @WithUserDetails(value="testyUser")
-    void getProfileAddressTest() throws Exception {
+    // @Test
+    // @WithUserDetails(value="testyUser")
+    // void getProfileAddressTest() throws Exception {
 
-        when(userServiceImpl.getUserAddresses(basicUser)).thenReturn(basicUser.getAddresses());
+    //     when(userServiceImpl.getUserAddresses(basicUser)).thenReturn(basicUser.getAddresses());
    
-        mockMvc.perform(get("https://localhost/profile/address"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("page/profile_address"))
-            .andExpect(model().attributeExists("addresses"))
-            .andExpect(model().attribute("user", basicUser));
-    }
+    //     mockMvc.perform(get("https://localhost/profile/address"))
+    //         .andExpect(status().isOk())
+    //         .andExpect(view().name("page/profile_address"))
+    //         .andExpect(model().attributeExists("addresses"))
+    //         .andExpect(model().attribute("user", basicUser));
+    // }
 
     @Test
     @WithUserDetails(value="testyUser")
