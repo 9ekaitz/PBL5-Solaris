@@ -18,14 +18,14 @@ import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Generated
 public class Installation {
   
   @Id

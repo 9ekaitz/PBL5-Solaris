@@ -16,13 +16,15 @@ import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "role")
 @Data
-@Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Generated
 public class Role {
 
     @Id
@@ -39,6 +41,7 @@ public class Role {
     private Set<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Set<Privilege> privileges;
     
     @Version

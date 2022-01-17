@@ -47,5 +47,4 @@ class TaskServiceImplTest {
     assertEquals(completedTask, taskServiceImpl.markCompleted(task));
     verify(taskRepository, times(1)).save(completedTask);
   }
-
 }

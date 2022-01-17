@@ -15,13 +15,15 @@ import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "privilege")
 @Data
-@Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Generated
 public class Privilege {
 
     @Id
@@ -38,6 +40,7 @@ public class Privilege {
     private Boolean enabled;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<Role> roles;
 
     @Version

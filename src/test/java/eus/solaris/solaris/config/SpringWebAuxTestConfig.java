@@ -18,15 +18,20 @@ import eus.solaris.solaris.security.CustomUserDetails;
 public class SpringWebAuxTestConfig {
 
     Role ROLE_ADMIN = new Role(1L, "ROLE_ADMIN", true, null, Stream
-            .of(new Privilege(1L, "AUTH_INSTALL_VIEW", "auth.install.view", true, null, 1))
+            .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1))
+            .collect(Collectors.toSet()), 1);
+
+    Role ROLE_TECHNICIAN = new Role(1L, "ROLE_TECHNICIAN", true, null, Stream
+            .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1), new Privilege(2L, "AUTH_INSTALL_WRITE", "auth.install.write", true, null, 1))
             .collect(Collectors.toSet()), 1);
 
     Role ROLE_USER = new Role(1L, "ROLE_USER", true, null, Collections.emptySet(), 1);
 
-    User basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, ROLE_USER, null, 1);
+    User basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, ROLE_USER, null,
+            1);
 
     User technicianUser = new User(2L, "testyTechnician", "testy@foo", "foo123", "Testy", "Tester", "Technician", true,
-            null, null, 1);
+            ROLE_TECHNICIAN, null, 1);
 
     User supervisorUser = new User(3L, "testySupervisor", "testy@foo", "foo123", "Testy", "Tester", "Supervisor", true,
             null, null, 1);
@@ -41,12 +46,22 @@ public class SpringWebAuxTestConfig {
             @Override
             public UserDetails loadUserByUsername(String username) {
                 CustomUserDetails userDetails;
-                switch (username){
-                    case "testyAdmin": userDetails = new CustomUserDetails(adminUser); break;
-                    case "testySupervisor": userDetails = new CustomUserDetails(supervisorUser); break;
-                    case "testyTechnician": userDetails = new CustomUserDetails(technicianUser); break;
-                    case "testyUser": userDetails = new CustomUserDetails(basicUser); break;
-                    default: userDetails = new CustomUserDetails(basicUser); break;
+                switch (username) {
+                    case "testyAdmin":
+                        userDetails = new CustomUserDetails(adminUser);
+                        break;
+                    case "testySupervisor":
+                        userDetails = new CustomUserDetails(supervisorUser);
+                        break;
+                    case "testyTechnician":
+                        userDetails = new CustomUserDetails(technicianUser);
+                        break;
+                    case "testyUser":
+                        userDetails = new CustomUserDetails(basicUser);
+                        break;
+                    default:
+                        userDetails = new CustomUserDetails(basicUser);
+                        break;
                 }
                 return userDetails;
             }

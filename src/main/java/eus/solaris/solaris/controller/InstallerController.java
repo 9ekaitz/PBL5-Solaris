@@ -3,7 +3,10 @@ package eus.solaris.solaris.controller;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.User;
@@ -29,7 +33,7 @@ public class InstallerController {
   @Autowired
   TaskService taskService;
 
-  @PreAuthorize("hasAuthority('AUTH_INSTALL_VIEW')")
+  @PreAuthorize("hasAuthority('AUTH_INSTALL_READ')")
   @GetMapping
   public String showInstallerPage(Model model) {
     User user = (User) model.getAttribute("user");
@@ -43,19 +47,36 @@ public class InstallerController {
     return "page/installer";
   }
 
+  @PreAuthorize("hasAuthority('AUTH_INSTALL_READ')")
   @GetMapping(value = "/{id}")
-  public String showTask(@PathVariable(value = "id") Long id, Model model) {
-    model.addAttribute("installation", installationService.findById(id));
+  public String showTask(@PathVariable(value = "id") Long id, Model model, HttpServletResponse response) {
+
+    Installation installation = installationService.findById(id);
+
+    if (!filter(response, installation, (User) model.getAttribute("user"))) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+
+    model.addAttribute("installation", installation);
 
     return "page/installation";
   }
 
-  @PostMapping(value = "/save/{id}")
-  public String saveTask(@PathVariable(value = "id") Long id, @ModelAttribute TaskForm form, Model model) {
+  @PreAuthorize("hasAuthority('AUTH_INSTALL_WRITE')")
+  @PostMapping(value = "/{id}/save")
+  public String saveTask(@PathVariable(value = "id") Long id, @ModelAttribute TaskForm form, Model model, HttpServletResponse response) {
+    if (!filter(response, installationService.findById(id), (User) model.getAttribute("user"))) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+
     if (form.getTasksId() != null) form.getTasksId().stream()
                                                     .filter(Objects::nonNull)
                                                     .forEach(i -> taskService.markCompleted(taskService.findById(i)));
     model.addAttribute("installation", installationService.findById(id));
     return "redirect:/install/" + id;
+  }
+
+  private boolean filter(HttpServletResponse response, Installation installation, User user) {
+    boolean authorized = false;
+    if (user.getRole().getName().equals("ROLE_ADMIN")) authorized = true;
+    else if(installation.getInstaller() == user) authorized = true;
+    
+    return authorized;
   }
 }
