@@ -3,19 +3,20 @@ package eus.solaris.solaris.Controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eus.solaris.solaris.config.SpringWebAuxTestConfig;
 import eus.solaris.solaris.controller.ProfileController;
@@ -38,7 +39,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -75,11 +75,9 @@ class ProfileControllerTest {
     @Autowired
     UserDetailsService userDetailsService;
 
-    @Mock
-    SecurityContextHolder securityContextHolder;
-
-    User basicUser;
     Authentication authentication;
+    User basicUser;
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     void loadUser(){
@@ -91,15 +89,18 @@ class ProfileControllerTest {
             .collect(Collectors.toSet()), 1);
 
         List<Address> addresses = Stream
-        .of(new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, true, true, 1))
+        .of(new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, true, true, 1),
+            new Address(2L, null, null, null, null, null, null, basicUser, true, false, 1))
         .collect(Collectors.toList());
 
         List<PaymentMethod> paymentMethods = Stream
         .of(new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1)).collect(Collectors.toList());
 
         basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses, paymentMethods, ROLE_USER, null, 1);
+
         when(userServiceImpl.findByUsername(username)).thenReturn(basicUser);
     }
+
 
     @Test
     @WithUserDetails(value="testyUser")
@@ -131,12 +132,83 @@ class ProfileControllerTest {
 
     @Test
     @WithUserDetails(value="testyUser")
+    void postProfileSecurityTestTrue() throws Exception {
+        String oldPassword = "foo123";
+        String verifyNewPasword = "bar123";
+        User basicUserModify = new User(1L, "testyUser", "testy@foo", "bar123", "Testy", "Tester", "User", true, null, null, null, null, 1);
+
+        when(userServiceImpl.editPassword(verifyNewPasword, oldPassword, basicUser)).thenReturn(basicUserModify);
+        when(passwordEncoder.encode(verifyNewPasword)).thenReturn(verifyNewPasword);
+
+        mockMvc.perform(post("https://localhost/profile/security")
+        .with(csrf())
+        .param("oldPassword", oldPassword)
+        .param("verifyNewPasword", verifyNewPasword))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileSecurityTestFalse() throws Exception {
+        String oldPassword = "foo123";
+        String verifyNewPasword = "bar123";
+
+        when(userServiceImpl.editPassword(verifyNewPasword, oldPassword, basicUser)).thenReturn(basicUser);
+        when(passwordEncoder.encode(verifyNewPasword)).thenReturn(verifyNewPasword);
+
+        mockMvc.perform(post("https://localhost/profile/security")
+        .with(csrf())
+        .param("oldPassword", oldPassword)
+        .param("verifyNewPasword", verifyNewPasword))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("error"))
+        .andExpect(view().name("redirect:/profile"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
     void getProfileDeleteAccountTest() throws Exception{
-            
+
         mockMvc.perform(get("https://localhost/profile/delete-account"))
             .andExpect(status().isOk())
             .andExpect(view().name("page/delete_account"))
             .andExpect(model().attribute("user", basicUser));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileDeleteAccountTestSuccess() throws Exception {
+
+        User basicUserModify = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", false, null, null, null, null, 1);
+
+        when(userServiceImpl.disableUser(basicUser)).thenReturn(basicUserModify);
+
+        mockMvc.perform(post("https://localhost/profile/delete-account")
+        .with(csrf()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/logout"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileDeleteAccountTestError() throws Exception {
+
+        User basicUserModify = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, null, null, null, null, 1);
+
+        when(userServiceImpl.disableUser(basicUser)).thenReturn(basicUserModify);
+
+        mockMvc.perform(post("https://localhost/profile/delete-account")
+        .with(csrf()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("error"))
+        .andExpect(view().name("redirect:/logout"));
 
     }
 
@@ -151,9 +223,80 @@ class ProfileControllerTest {
 
     @Test
     @WithUserDetails(value="testyUser")
+    void postProfileEditTestSuccess() throws Exception {
+        String name = "testyUser";
+        String firstSurname = "testy";
+        String secondSurname = "tester";
+        String email = "testy@foo.com";
+
+        User basicUserModify = new User(1L, "testyUser", "testy@foo.com", "foo123", "testyUser", "testy", "tester", true, null, null, null, null, 1);
+
+        when(userServiceImpl.editUser(name, firstSurname, secondSurname, email, basicUser)).thenReturn(basicUserModify);
+
+        mockMvc.perform(post("https://localhost/profile/edit")
+        .with(csrf())
+        .param("name", name)
+        .param("firstSurname", firstSurname)
+        .param("secondSurname", secondSurname)
+        .param("email", email))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileEditTestError() throws Exception {
+        String name = "testyUser";
+        String firstSurname = "testy";
+        String secondSurname = "tester";
+        String email = "testy@foo.com";
+
+        when(userServiceImpl.editUser(name, firstSurname, secondSurname, email, basicUser)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost/profile/edit")
+        .with(csrf())
+        .param("name", name)
+        .param("firstSurname", firstSurname)
+        .param("secondSurname", secondSurname)
+        .param("email", email))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("error"))
+        .andExpect(view().name("redirect:/profile"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileEditTestFormFailed() throws Exception {
+        String name = "testyUser";
+        String firstSurname = "testy";
+        String secondSurname = "tester";
+        String email = "testy";
+
+        User basicUserModify = new User(1L, "testyUser", "testy", "foo123", "testyUser", "testy", "tester", true, null, null, null, null, 1);
+
+        when(userServiceImpl.editUser(name, firstSurname, secondSurname, email, basicUser)).thenReturn(basicUserModify);
+
+        mockMvc.perform(post("https://localhost/profile/edit")
+        .with(csrf())
+        .param("name", name)
+        .param("firstSurname", firstSurname)
+        .param("secondSurname", secondSurname)
+        .param("email", email))
+        .andExpect(status().isOk())
+        .andExpect(model().attributeExists("errors"))
+        .andExpect(model().attributeExists("form"))
+        .andExpect(view().name("page/profile_edit"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
     void getProfileAddressTest() throws Exception {
 
-        when(userServiceImpl.getUserAddresses(authentication)).thenReturn(basicUser.getAddresses());
+        when(userServiceImpl.getUserAddresses(basicUser)).thenReturn(basicUser.getAddresses());
    
         mockMvc.perform(get("https://localhost/profile/address"))
             .andExpect(status().isOk())
@@ -172,6 +315,103 @@ class ProfileControllerTest {
             .andExpect(model().attributeExists("provinces"))
             .andExpect(model().attributeExists("countries"))
             .andExpect(model().attribute("user", basicUser));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileAddressAddTestSuccess() throws Exception {
+        String street = "Pintor Clemente Arraiz 9 3C";
+        Long countryId = 1L;
+        String city = "Madrid";
+        String postcode = "01008";
+        Long provinceId = 1L;
+        String number = "680728473";
+        Country country = new Country(countryId, "SPAIN", "spain", 1);
+        Province province = new Province(provinceId, "ALAVA", "alava", 1);
+        Address address = new Address(null, country, province, city, postcode, street, number, basicUser, true, true, null);
+        Address addressChanged = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
+
+        when(countryServiceImpl.findById(countryId)).thenReturn(country);
+        when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
+        when(addressServiceImpl.save(address)).thenReturn(addressChanged);
+
+        mockMvc.perform(post("https://localhost/profile/address/add")
+        .with(csrf())
+        .param("street", street)
+        .param("countryId", countryId.toString())
+        .param("city", city)
+        .param("postcode", postcode)
+        .param("provinceId", provinceId.toString())
+        .param("number", number))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/address"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileAddressAddTestError() throws Exception {
+        String street = "Pintor Clemente Arraiz 9 3C";
+        Long countryId = 1L;
+        String city = "Madrid";
+        String postcode = "01008";
+        Long provinceId = 1L;
+        String number = "680728473";
+        Country country = new Country(countryId, "SPAIN", "spain", 1);
+        Province province = new Province(provinceId, "ALAVA", "alava", 1);
+        Address address = new Address(null, country, province, city, postcode, street, number, basicUser, true, true, null);
+
+        when(countryServiceImpl.findById(countryId)).thenReturn(country);
+        when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
+        when(addressServiceImpl.save(address)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost/profile/address/add")
+        .with(csrf())
+        .param("street", street)
+        .param("countryId", countryId.toString())
+        .param("city", city)
+        .param("postcode", postcode)
+        .param("provinceId", provinceId.toString())
+        .param("number", number))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("error"))
+        .andExpect(view().name("redirect:/profile/address"));
+
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileAddressAddTestFormError() throws Exception {
+        String street = "Pintor Clemente Arraiz 9 3C";
+        Long countryId = 1L;
+        String city = "Madrid";
+        String postcode = "018";
+        Long provinceId = 1L;
+        String number = "6807284";
+        Country country = new Country(countryId, "SPAIN", "spain", 1);
+        Province province = new Province(provinceId, "ALAVA", "alava", 1);
+        Address address = new Address(null, country, province, city, postcode, street, number, basicUser, true, true, null);
+
+        when(countryServiceImpl.findById(countryId)).thenReturn(country);
+        when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
+        when(addressServiceImpl.save(address)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost/profile/address/add")
+        .with(csrf())
+        .param("street", street)
+        .param("countryId", countryId.toString())
+        .param("city", city)
+        .param("postcode", postcode)
+        .param("provinceId", provinceId.toString())
+        .param("number", number))
+        .andExpect(status().isOk())
+        .andExpect(model().attributeExists("errors"))
+        .andExpect(model().attributeExists("form"))
+        .andExpect(model().attributeExists("provinces"))
+        .andExpect(model().attributeExists("countries"))
+        .andExpect(view().name("page/profile_address_edit"));
+
     }
 
     @Test
@@ -204,9 +444,125 @@ class ProfileControllerTest {
 
     @Test
     @WithUserDetails(value="testyUser")
+    void postProfileAddressEditTestSuccess() throws Exception {
+        String street = "Pintor Clemente Arraiz 9 3C";
+        String steet2 = "Street 2";
+        Long countryId = 1L;
+        String city = "Madrid";
+        String postcode = "01008";
+        Long provinceId = 1L;
+        String number = "680728473";
+        Country country = new Country(countryId, "SPAIN", "spain", 1);
+        Province province = new Province(provinceId, "ALAVA", "alava", 1);
+        Address address = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
+        Address addressChanged = new Address(1L, country, province, city, postcode, steet2, number, basicUser, true, true, 1);
+
+        when(addressServiceImpl.findById(1L)).thenReturn(address);
+        when(countryServiceImpl.findById(countryId)).thenReturn(country);
+        when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
+        when(addressServiceImpl.save(address)).thenReturn(addressChanged);
+
+        mockMvc.perform(post("https://localhost/profile/address/edit/1")
+        .with(csrf())
+        .param("street", steet2)
+        .param("countryId", countryId.toString())
+        .param("city", city)
+        .param("postcode", postcode)
+        .param("provinceId", provinceId.toString())
+        .param("number", number))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/address"));
+    }
+    
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileAddressEditTestError() throws Exception {
+        String street = "Pintor Clemente Arraiz 9 3C";
+        String steet2 = "Street 2";
+        Long countryId = 1L;
+        String city = "Madrid";
+        String postcode = "01008";
+        Long provinceId = 1L;
+        String number = "680728473";
+        Country country = new Country(countryId, "SPAIN", "spain", 1);
+        Province province = new Province(provinceId, "ALAVA", "alava", 1);
+        Address address = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
+
+        when(addressServiceImpl.findById(1L)).thenReturn(address);
+        when(countryServiceImpl.findById(countryId)).thenReturn(country);
+        when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
+        when(addressServiceImpl.save(address)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost/profile/address/edit/1")
+        .with(csrf())
+        .param("street", steet2)
+        .param("countryId", countryId.toString())
+        .param("city", city)
+        .param("postcode", postcode)
+        .param("provinceId", provinceId.toString())
+        .param("number", number))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("error"))
+        .andExpect(view().name("redirect:/profile/address"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileAddressEditTestFormError() throws Exception {
+        String street = "Pintor Clemente Arraiz 9 3C";
+        String steet2 = "Street 2";
+        Long countryId = 1L;
+        String city = "Madrid";
+        String postcode = "01008";
+        String postcode2 = "0";
+        Long provinceId = 1L;
+        String number = "680728473";
+        Country country = new Country(countryId, "SPAIN", "spain", 1);
+        Province province = new Province(provinceId, "ALAVA", "alava", 1);
+        Address address = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
+
+        when(addressServiceImpl.findById(1L)).thenReturn(address);
+        when(countryServiceImpl.findById(countryId)).thenReturn(country);
+        when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
+        when(addressServiceImpl.save(address)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost/profile/address/edit/1")
+        .with(csrf())
+        .param("street", steet2)
+        .param("countryId", countryId.toString())
+        .param("city", city)
+        .param("postcode", postcode2)
+        .param("provinceId", provinceId.toString())
+        .param("number", number))
+        .andExpect(status().isOk())
+        .andExpect(model().attributeExists("errors"))
+        .andExpect(model().attributeExists("form"))
+        .andExpect(model().attributeExists("provinces"))
+        .andExpect(model().attributeExists("countries"))
+        .andExpect(view().name("page/profile_address_edit"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postprofileAddressEditSetDefault() throws Exception {
+        Address address = new Address(2L, null, null, null, null, null, null, basicUser, true, false, 1);
+
+        when(addressServiceImpl.findById(2L)).thenReturn(address);
+        when(addressServiceImpl.save(address)).thenReturn(address);
+        when(userServiceImpl.save(basicUser)).thenReturn(basicUser);
+
+        mockMvc.perform(post("https://localhost/profile/address/edit/set-default/2")
+        .with(csrf()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/address"));
+    }
+    @Test
+    @WithUserDetails(value="testyUser")
     void getProfilePaymentMethodTest() throws Exception {
 
-        when(userServiceImpl.getUserPaymentMethods(authentication)).thenReturn(basicUser.getPaymentMethods());
+        when(userServiceImpl.getUserPaymentMethods(basicUser)).thenReturn(basicUser.getPaymentMethods());
 
         mockMvc.perform(get("https://localhost/profile/payment-method"))
             .andExpect(status().isOk())

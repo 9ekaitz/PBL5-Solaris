@@ -83,9 +83,9 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/security")
-    public String profileSecurity(Authentication authentication, RedirectAttributes redirectAttributes, UserPasswordModificationForm form) {
+    public String profileSecurity(Model model, RedirectAttributes redirectAttributes, UserPasswordModificationForm form) {
 
-        User user = userService.editPassword(form.getVerifyNewPasword(), form.getOldPassword(), authentication);
+        User user = userService.editPassword(form.getVerifyNewPasword(), form.getOldPassword(), (User) model.getAttribute("user"));
         boolean resultSQL = user.getPassword().equals(passwordEncoder.encode(form.getVerifyNewPasword()));
         addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
 
@@ -99,11 +99,12 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/delete-account")
-    public String deleteAccount(Authentication authentication) {
+    public String deleteAccount(Model model, RedirectAttributes redirectAttributes) {
 
-        String name = authentication.getName();
-        User user = userService.findByUsername(name);
-        userService.disableUser(user);
+        User user = (User) model.getAttribute("user");
+        User changedUser = userService.disableUser(user);
+        Boolean resultSQL = changedUser.getEnabled() == false;
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.delete.success", "alert.delete.error");
 
         return "redirect:/logout";
     }
@@ -115,9 +116,9 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/edit")
-    public String profileEdit(@Validated @ModelAttribute UserInformationEditForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String profileEdit(@Validated @ModelAttribute UserInformationEditForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
-        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+        if(result.hasErrors() && (User) model.getAttribute("user") != null){
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute(ERROR_FORM, errors);
             model.addAttribute(FORM_FORM, form);
@@ -125,7 +126,7 @@ public class ProfileController {
             return "page/profile_edit";
         }
         else{
-            User user = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), authentication);
+            User user = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), (User) model.getAttribute("user"));
             boolean resultSQL = user != null;
             addFlashAttribute(resultSQL, redirectAttributes, "alert.profile.success", "alert.profile.error");
 
@@ -137,7 +138,7 @@ public class ProfileController {
     @GetMapping("/profile/address")
     public String profileAddress(Model model, Authentication authentication) {
 
-        model.addAttribute("addresses", userService.getUserAddresses(authentication));
+        model.addAttribute("addresses", userService.getUserAddresses((User)model.getAttribute("user")));
 
         return "page/profile_address";
     }
@@ -151,9 +152,9 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/address/add")
-    public String profileAddressAdd(@Validated @ModelAttribute UserAddressForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String profileAddressAdd(@Validated @ModelAttribute UserAddressForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
-        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+        if(result.hasErrors() && (User)model.getAttribute("user") != null){
 
             profileAddressFormFailed(model, form, result);
 
@@ -161,7 +162,7 @@ public class ProfileController {
         }
         else{
             Address address = new Address();
-            getAddressInformation(address, form, authentication);
+            getAddressInformation(address, form, model);
             Address addressSQL = addressService.save(address);
             Boolean resultSQL = addressSQL != null;
 
@@ -173,9 +174,9 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/address/edit/{id}")
-    public String profileAddressEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
+    public String profileAddressEdit(@PathVariable("id") Long id, Model model) {
         Address address = addressService.findById(id);
-        if(address.getUser() != userService.findByUsername(authentication.getName())){
+        if(address.getUser() != (User) model.getAttribute("user")){
             return REDIRECT_PROFILE_ADDRESS;
         }
         else{
@@ -190,14 +191,14 @@ public class ProfileController {
     @PostMapping("/profile/address/edit/{id}")
     public String profileAddressEdit(@PathVariable("id") Long id, @Validated @ModelAttribute("address") UserAddressForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
-        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+        if(result.hasErrors() && (User)model.getAttribute("user") != null){
             profileAddressFormFailed(model, form, result);
 
             return PAGE_PROFILE_ADDRESS_EDIT;
         }
         else{
             Address address = addressService.findById(id);
-            getAddressInformation(address, form, authentication);
+            getAddressInformation(address, form, model);
             Address addressSQL = addressService.save(address);
             Boolean resultSQL = addressSQL != null;
             
@@ -209,9 +210,9 @@ public class ProfileController {
     }
     
     @PostMapping("profile/address/edit/set-default/{id}")
-    public String profileAddressEditSetDefault(@PathVariable("id") Long id, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String profileAddressEditSetDefault(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Address address = addressService.findById(id);
-        User user = userService.findByUsername(authentication.getName());
+        User user = (User) model.getAttribute("user");
         
         for (Address address2 : user.getAddresses()) {
             address2.setDefaultAddress(address2.getId().equals(address.getId()));
@@ -231,7 +232,7 @@ public class ProfileController {
         Address disabledAddress = addressService.disable(address);
 
         if(Boolean.TRUE.equals(defaultAddress)){
-            List<Address> addresses = userService.getUserAddresses(authentication);
+            List<Address> addresses = userService.getUserAddresses((User)model.getAttribute("user"));
             if(!addresses.isEmpty()){
                 Address newDefault = addresses.iterator().next();
                 newDefault.setDefaultAddress(true);
@@ -239,7 +240,7 @@ public class ProfileController {
             }
         }
 
-        model.addAttribute("addresses", userService.getUserAddresses(authentication));
+        model.addAttribute("addresses", userService.getUserAddresses((User)model.getAttribute("user")));
 
         Boolean resultSQL = disabledAddress != null && Boolean.FALSE.equals(disabledAddress.isEnabled());
         addFlashAttribute(resultSQL, redirectAttributes, "alert.address.delete.success", "alert.address.delete.error");
@@ -250,7 +251,7 @@ public class ProfileController {
     @GetMapping("/profile/payment-method")
     public String profilePaymentMethod(Model model, Authentication authentication) {
 
-        model.addAttribute("paymentMethods", userService.getUserPaymentMethods(authentication));
+        model.addAttribute("paymentMethods", userService.getUserPaymentMethods((User)model.getAttribute("user")));
 
         return "page/profile_payment_method";
     }
@@ -266,7 +267,7 @@ public class ProfileController {
     @PostMapping("/profile/payment-method/add")
     public String profilePaymentMethodAdd(@Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
-        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+        if(result.hasErrors() && (User)model.getAttribute("user") != null){
 
             profilePaymentMethodFormFailed(model, form, result);
 
@@ -274,7 +275,7 @@ public class ProfileController {
         }
         else{
             PaymentMethod paymentMethod = new PaymentMethod();
-            getPaymentMethodInformation(paymentMethod, form, authentication);
+            getPaymentMethodInformation(paymentMethod, form, model);
             PaymentMethod paymentMethodSQL = paymentMethodService.save(paymentMethod);
             Boolean resultSQL = paymentMethodSQL != null;
 
@@ -306,7 +307,7 @@ public class ProfileController {
     @PostMapping("/profile/payment-method/edit/{id}")
     public String profilePaymentMethodEdit(@PathVariable("id") Long id, @Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
-        if(result.hasErrors() && userService.findByUsername(authentication.getName()) != null){
+        if(result.hasErrors() && (User)model.getAttribute("user") != null){
 
             profilePaymentMethodFormFailed(model, form, result);
 
@@ -314,7 +315,7 @@ public class ProfileController {
         }
         else{
             PaymentMethod paymentMethod = paymentMethodService.findById(id);
-            getPaymentMethodInformation(paymentMethod, form, authentication);
+            getPaymentMethodInformation(paymentMethod, form, model);
             PaymentMethod paymentMethodSQL = paymentMethodService.save(paymentMethod);
             Boolean resultSQL = paymentMethodSQL != null;
 
@@ -350,7 +351,7 @@ public class ProfileController {
         PaymentMethod disabledMethod =  paymentMethodService.disable(paymentMethod);
 
         if(Boolean.TRUE.equals(defaultPaymentMethod)){
-            List<PaymentMethod> paymentMethods = userService.getUserPaymentMethods(authentication);
+            List<PaymentMethod> paymentMethods = userService.getUserPaymentMethods((User)model.getAttribute("user"));
             if(!paymentMethods.isEmpty()){
                 PaymentMethod newDefault = paymentMethods.iterator().next();
                 newDefault.setDefaultMethod(true);
@@ -364,11 +365,11 @@ public class ProfileController {
         return REDIRECT_PROFILE_PAYMENT_METHOD;
     }
     
-    private void getPaymentMethodInformation(PaymentMethod paymentMethod, UserPaymentMethodForm form, Authentication authentication) {
-        if(userService.getUserPaymentMethods(authentication).isEmpty()){
+    private void getPaymentMethodInformation(PaymentMethod paymentMethod, UserPaymentMethodForm form, Model model) {
+        if(userService.getUserPaymentMethods((User)model.getAttribute("user")).isEmpty()){
             paymentMethod.setDefaultMethod(true);
         }
-        paymentMethod.setUser(userService.findByUsername(authentication.getName()));
+        paymentMethod.setUser((User)model.getAttribute("user"));
         paymentMethod.setCardNumber(form.getCardNumber());
         paymentMethod.setCardHolderName(form.getCardHolderName());
         paymentMethod.setExpirationMonth(form.getExpirationMonth());
@@ -376,8 +377,8 @@ public class ProfileController {
         paymentMethod.setSecurityCode(form.getSecurityCode());
     }
 
-    private void getAddressInformation(Address address, UserAddressForm form, Authentication authentication) {
-        if(userService.getUserAddresses(authentication).isEmpty()){
+    private void getAddressInformation(Address address, UserAddressForm form, Model model) {
+        if(userService.getUserAddresses((User)model.getAttribute("user")).isEmpty()){
             address.setDefaultAddress(true);
         }
         address.setStreet(form.getStreet());
@@ -386,7 +387,7 @@ public class ProfileController {
         address.setProvince(provinceService.findById(form.getProvinceId()));
         address.setPostcode(form.getPostcode());
         address.setNumber(form.getNumber());
-        address.setUser(userService.findByUsername(authentication.getName()));
+        address.setUser((User) model.getAttribute("user"));
     }
     
     private void profileAddressFormFailed(Model model, UserAddressForm form, BindingResult result) {

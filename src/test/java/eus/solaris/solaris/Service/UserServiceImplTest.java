@@ -111,7 +111,7 @@ class UserServiceImplTest {
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
             when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
     
-            assertEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "password", authentication));
+            assertEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "password", userToBeChange));
         }
     }
 
@@ -128,7 +128,7 @@ class UserServiceImplTest {
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
             when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
     
-            assertNotEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "uwu", authentication));
+            assertNotEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "uwu", userToBeChange));
         }
     }
 
@@ -141,7 +141,7 @@ class UserServiceImplTest {
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
         when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
-        assertEquals(userChanged, userServiceImpl.editUser("AritzCambiado", "domaikaCambiado", "peirats", "aritz.domaika@gmail.com", authentication));
+        assertEquals(userChanged, userServiceImpl.editUser("AritzCambiado", "domaikaCambiado", "peirats", "aritz.domaika@gmail.com", userToBeChange));
     }
 
      @Test
@@ -156,9 +156,7 @@ class UserServiceImplTest {
         List<Address> enabledAddresses = Stream.of(allAddresses).filter(Address::isEnabled).collect(Collectors.toList());
         user.setAddresses(Stream.of(allAddresses).collect(Collectors.toList()));
         
-        when(authentication.getName()).thenReturn("Aritz");
-        when(userRepository.findByUsername("Aritz")).thenReturn(user);
-        assertEquals(enabledAddresses, userServiceImpl.getUserAddresses(authentication));
+        assertEquals(enabledAddresses, userServiceImpl.getUserAddresses(user));
     }
 
     @Test
@@ -174,7 +172,7 @@ class UserServiceImplTest {
 
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(user);
-        assertEquals(enabledPaymentMethods, userServiceImpl.getUserPaymentMethods(authentication));
+        assertEquals(enabledPaymentMethods, userServiceImpl.getUserPaymentMethods(user));
     }
 
     private UserRegistrationForm createUserRegistrationForm() {

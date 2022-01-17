@@ -1,6 +1,5 @@
 package eus.solaris.solaris.service.impl;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -65,8 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editPassword(String newPassword, String oldPassword, Authentication authentication) {
-        User user = findByUsername(authentication.getName());
+    public User editPassword(String newPassword, String oldPassword, User user) {
 
         if(BCrypt.checkpw(oldPassword, user.getPassword())){
             user.setPassword(passwordEncoder.encode(newPassword));
@@ -80,8 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUser(String name, String firstSurname, String secondSurname, String email, Authentication authentication) {
-        User user = findByUsername(authentication.getName());
+    public User editUser(String name, String firstSurname, String secondSurname, String email, User user) {
         user.setEmail(email);
         user.setName(name);
         user.setFirstSurname(firstSurname);
@@ -90,8 +87,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Address> getUserAddresses(Authentication authentication) {
-        User user = findByUsername(authentication.getName());
+    public List<Address> getUserAddresses(User user) {
         List<Address> addresses = new ArrayList<>();
 
         for(int i = 0; i < user.getAddresses().size(); i++){
@@ -107,8 +103,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<PaymentMethod> getUserPaymentMethods(Authentication authentication) {
-        User user = findByUsername(authentication.getName());
+    public List<PaymentMethod> getUserPaymentMethods(User user) {
         List<PaymentMethod> paymentMethods = new ArrayList<>();
 
         for(int i = 0; i < user.getPaymentMethods().size(); i++){
