@@ -20,7 +20,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
