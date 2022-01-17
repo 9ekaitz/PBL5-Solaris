@@ -29,7 +29,6 @@ import lombok.Setter;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor 
-@EqualsAndHashCode(callSuper = false)
 public class User implements Serializable {
     
     private static final long serialVersionUID = -8446982019565427240L;

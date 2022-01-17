@@ -13,3 +13,7 @@ spring:
     properties:
       hibernate:
         default-schema: solaris
+
+lombok:
+  config.stopBubbling: true
+  lombok.addLombokGeneratedAnnotation: true
