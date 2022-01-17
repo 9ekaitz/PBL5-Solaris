@@ -1,7 +1,5 @@
 package eus.solaris.solaris.service.multithreading.conversions;
 
-import java.util.Map;
-
 public class ConversionToEUR implements IConversion {
 
     // private static final String URL =

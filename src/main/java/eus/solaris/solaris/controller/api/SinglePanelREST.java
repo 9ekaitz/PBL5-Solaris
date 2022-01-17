@@ -12,25 +12,27 @@ import java.util.Optional;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
 import eus.solaris.solaris.dto.SolarPanelDataDTO;
 import eus.solaris.solaris.repository.DataEntryRepository;
 import eus.solaris.solaris.repository.SolarPanelRepository;
+import eus.solaris.solaris.service.UserService;
 import eus.solaris.solaris.service.multithreading.FormatterJSON;
 import eus.solaris.solaris.service.multithreading.Gatherer;
 import eus.solaris.solaris.service.multithreading.ThreadController;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
-import eus.solaris.solaris.service.multithreading.modes.GroupMode;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 
-@RestController("/api/panel")
-public class SinglePanelREST {
+@RestController()
+@RequestMapping("/api/panel")
+public class SinglePanelREST implements HandlerInterceptor {
 
-    private static final Integer THREADS = 12;
+    private static final Integer THREADS = 6;
 
     @Autowired
     SolarPanelRepository solarPanelRepository;
@@ -38,9 +40,12 @@ public class SinglePanelREST {
     @Autowired
     DataEntryRepository dataEntryRepository;
 
-    @GetMapping(path = "/api/panel/{id}/real-time", produces = "application/json")
-    public String realTime(@PathVariable("id") Long id) {
-        SolarPanel panel = solarPanelRepository.findById(id).get();
+    @Autowired
+    UserService userService;
+
+    @GetMapping(path = "/real-time", produces = "application/json")
+    public String realTime(SolarPanelDataDTO dto) {
+        SolarPanel panel = solarPanelRepository.findById(dto.getId()).get();
         Instant startOfDay = LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC);
         Instant now = Instant.now();
         List<SolarPanelDataEntry> entries = dataEntryRepository.findBySolarPanelAndTimestampBetween(panel, startOfDay,
@@ -52,14 +57,14 @@ public class SinglePanelREST {
         return fj.getJSON().toString();
     }
 
-    @GetMapping(path = "/api/panel/{id}/grouped", produces = "application/json")
-    public String grouped(@PathVariable("id") Long id, SolarPanelDataDTO dto) {
-        Optional<SolarPanel> panel = solarPanelRepository.findById(id);
+    @GetMapping(path = "/grouped", produces = "application/json")
+    public String grouped(SolarPanelDataDTO dto) {
+        Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");
         }
         SolarPanel p = panel.get();
-        ThreadController tc = new ThreadController(6, dto.getStart(), dto.getEnd());
+        ThreadController tc = new ThreadController(THREADS, dto.getStart(), dto.getEnd());
         List<SolarPanel> panels = new ArrayList<>();
         panels.add(p);
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), ConversionType.NONE);
@@ -69,9 +74,9 @@ public class SinglePanelREST {
         return fj.getJSON().toString();
     }
 
-    @GetMapping(path = "/api/panel/{id}/general-data", produces = "application/json")
-    public String generalData(@PathVariable("id") Long id) {
-        Optional<SolarPanel> panel = solarPanelRepository.findById(id);
+    @GetMapping(path = "/general-data", produces = "application/json")
+    public String generalData(SolarPanelDataDTO dto) {
+        Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");
         }

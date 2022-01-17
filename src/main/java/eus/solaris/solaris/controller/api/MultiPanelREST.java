@@ -12,9 +12,8 @@ import java.util.TreeMap;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import eus.solaris.solaris.domain.SolarPanel;
@@ -30,8 +29,8 @@ import eus.solaris.solaris.service.multithreading.Processer;
 import eus.solaris.solaris.service.multithreading.ThreadController;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 
-@RestController("/api/user-panel")
-@CacheConfig(cacheNames = "MultiPanelRESTCache")
+@RestController()
+@RequestMapping("/api/user-panel")
 public class MultiPanelREST {
 
     private static final Integer THREADS = 12;
@@ -45,9 +44,9 @@ public class MultiPanelREST {
     @Autowired
     DataEntryRepository dataEntryRepository;
 
-    @GetMapping(path = "/api/panel-user/{id}/real-time", produces = "application/json")
-    public String realTimeUser(@PathVariable("id") Long id) {
-        Optional<User> user = userRepository.findById(id);
+    @GetMapping(path = "/real-time", produces = "application/json")
+    public String realTimeUser(SolarPanelDataDTO dto) {
+        Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException("User not found");
         }
@@ -67,9 +66,9 @@ public class MultiPanelREST {
         return fj.getJSON().toString();
     }
 
-    @GetMapping(path = "/api/panel-user/{id}/grouped", produces = "application/json")
-    public String grouped(@PathVariable("id") Long id, SolarPanelDataDTO dto) {
-        Optional<User> user = userRepository.findById(id);
+    @GetMapping(path = "/grouped", produces = "application/json")
+    public String grouped(SolarPanelDataDTO dto) {
+        Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException("User not found");
         }
@@ -82,9 +81,9 @@ public class MultiPanelREST {
         return fj.getJSON().toString();
     }
 
-    @GetMapping(path = "/api/panel-user/{id}/general-data", produces = "application/json")
-    public String generalData(@PathVariable("id") Long id) {
-        Optional<User> user = userRepository.findById(id);
+    @GetMapping(path = "/general-data", produces = "application/json")
+    public String generalData(SolarPanelDataDTO dto) {
+        Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException("User not found");
         }

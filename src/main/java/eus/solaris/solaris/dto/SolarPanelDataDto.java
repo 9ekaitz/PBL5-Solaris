@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 public class SolarPanelDataDTO {
 
+    private Long id;
     private GroupMode groupMode;
     private ConversionType conversionType;
 

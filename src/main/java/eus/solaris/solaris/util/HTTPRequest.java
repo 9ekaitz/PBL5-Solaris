@@ -47,8 +47,6 @@ public class HTTPRequest {
             con.setRequestProperty(entry.getKey(), entry.getValue());
         }
 
-        int status = con.getResponseCode();
-
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
