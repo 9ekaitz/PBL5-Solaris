@@ -12,12 +12,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "privilege")
 @Getter @Setter
+@Generated
 public class Privilege {
 
     @Id

@@ -14,12 +14,14 @@ import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor 
+@Generated
 public class Address implements Serializable{
 
   private static final long serialVersionUID = 918119632427824096L;
