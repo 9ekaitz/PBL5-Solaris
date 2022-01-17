@@ -103,7 +103,7 @@ public class ProfileController {
 
         User user = (User) model.getAttribute("user");
         User changedUser = userService.disableUser(user);
-        Boolean resultSQL = changedUser.getEnabled();
+        Boolean resultSQL = Boolean.FALSE.equals(changedUser.getEnabled());
         addFlashAttribute(resultSQL, redirectAttributes, "alert.delete.success", "alert.delete.error");
 
         return "redirect:/logout";
