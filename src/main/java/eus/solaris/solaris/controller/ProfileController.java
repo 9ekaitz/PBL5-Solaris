@@ -213,13 +213,19 @@ public class ProfileController {
     public String profileAddressEditSetDefault(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Address address = addressService.findById(id);
         User user = (User) model.getAttribute("user");
-        
-        for (Address address2 : user.getAddresses()) {
-            address2.setDefaultAddress(address2.getId().equals(address.getId()));
+
+        if(user != null){
+            for (Address address2 : user.getAddresses()) {
+                address2.setDefaultAddress(address2.getId().equals(address.getId()));
+            }
+            User userSQL = userService.save(user);
+            Boolean resultSQL = userSQL != null;
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.address.edit.default.success", "alert.address.edit.default.error");
         }
-        User userSQL = userService.save(user);
-        Boolean resultSQL = userSQL != null;
-        addFlashAttribute(resultSQL, redirectAttributes, "alert.address.edit.default.success", "alert.address.edit.default.error");
+        else{
+            return "redirect:/";
+        }
+        
         
         return REDIRECT_PROFILE_ADDRESS;
     }
@@ -239,8 +245,6 @@ public class ProfileController {
                 addressService.save(newDefault);
             }
         }
-
-        model.addAttribute("addresses", userService.getUserAddresses((User)model.getAttribute("user")));
 
         Boolean resultSQL = disabledAddress != null && Boolean.FALSE.equals(disabledAddress.isEnabled());
         addFlashAttribute(resultSQL, redirectAttributes, "alert.address.delete.success", "alert.address.delete.error");
@@ -265,9 +269,9 @@ public class ProfileController {
     }
     
     @PostMapping("/profile/payment-method/add")
-    public String profilePaymentMethodAdd(@Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String profilePaymentMethodAdd(@Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
-        if(result.hasErrors() && (User)model.getAttribute("user") != null){
+        if(result.hasErrors() && (User) model.getAttribute("user") != null){
 
             profilePaymentMethodFormFailed(model, form, result);
 
@@ -279,12 +283,8 @@ public class ProfileController {
             PaymentMethod paymentMethodSQL = paymentMethodService.save(paymentMethod);
             Boolean resultSQL = paymentMethodSQL != null;
 
-           if(Boolean.TRUE.equals(resultSQL)){
-               redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.payment_method.add.success");
-            }
-            else{
-                redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, "alert.payment_method.add.error");
-            }
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.payment_method.add.success", "alert.payment_method.add.error");
+
             return REDIRECT_PROFILE_PAYMENT_METHOD;
         }
 

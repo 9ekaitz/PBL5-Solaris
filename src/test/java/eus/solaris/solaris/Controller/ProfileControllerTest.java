@@ -94,7 +94,8 @@ class ProfileControllerTest {
         .collect(Collectors.toList());
 
         List<PaymentMethod> paymentMethods = Stream
-        .of(new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1)).collect(Collectors.toList());
+        .of(new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1),
+            new PaymentMethod(2L, basicUser, "Aritz Peirats Domaika", "5555666677778888", 2L, 2024L, "1", false, true, 1)).collect(Collectors.toList());
 
         basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses, paymentMethods, ROLE_USER, null, 1);
 
@@ -300,9 +301,8 @@ class ProfileControllerTest {
    
     //     mockMvc.perform(get("https://localhost/profile/address"))
     //         .andExpect(status().isOk())
-    //         .andExpect(view().name("page/profile_address"))
     //         .andExpect(model().attributeExists("addresses"))
-    //         .andExpect(model().attribute("user", basicUser));
+    //         .andExpect(view().name("page/profile_address"));
     // }
 
     @Test
@@ -321,7 +321,6 @@ class ProfileControllerTest {
     @WithUserDetails(value="testyUser")
     void postProfileAddressAddTestSuccess() throws Exception {
 
-        System.out.println("uwu");
         String street = "Pintor Clemente Arraiz 9 3C";
         Long countryId = 1L;
         String city = "Madrid";
@@ -547,7 +546,7 @@ class ProfileControllerTest {
 
     @Test
     @WithUserDetails(value="testyUser")
-    void postprofileAddressEditSetDefault() throws Exception {
+    void postProfileAddressEditSetDefault() throws Exception {
         Address address = new Address(2L, null, null, null, null, null, null, basicUser, true, false, 1);
 
         when(addressServiceImpl.findById(2L)).thenReturn(address);
@@ -560,6 +559,29 @@ class ProfileControllerTest {
         .andExpect(flash().attributeExists("success"))
         .andExpect(view().name("redirect:/profile/address"));
     }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfileDeleteAddress() throws Exception {
+        Address address = new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, true, true, 1);
+        Address addressDisabled = new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, false, false, 1);
+
+        List<Address> addresses = Stream
+        .of(new Address(2L, null, null, null, null, null, null, basicUser, true, false, 1))
+        .collect(Collectors.toList());
+
+        when(addressServiceImpl.findById(1L)).thenReturn(address);
+        when(addressServiceImpl.disable(address)).thenReturn(addressDisabled);
+        when(userServiceImpl.getUserAddresses(basicUser)).thenReturn(addresses);
+
+        mockMvc.perform(post("https://localhost/profile/address/delete/1")
+        .with(csrf()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/address"));
+        
+    }
+    
     @Test
     @WithUserDetails(value="testyUser")
     void getProfilePaymentMethodTest() throws Exception {
@@ -587,6 +609,83 @@ class ProfileControllerTest {
 
     @Test
     @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodAddTestSuccess() throws Exception {
+        String cardNumber = "1111222233334444";
+        String cardHolderName = "Aritz Domaika Peirats";
+        String securityCode = "111";
+        Long expirationYear = 2023L;
+        Long expirationMonth = 5L;
+        PaymentMethod paymentMethod = new PaymentMethod(null, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, null);
+        PaymentMethod paymentMethodSaved = new PaymentMethod(1L, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, 1);
+
+        when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(paymentMethodSaved);
+
+        mockMvc.perform(post("https://localhost/profile/payment-method/add")
+        .with(csrf())
+        .param("cardNumber", cardNumber)
+        .param("cardHolderName", cardHolderName)
+        .param("securityCode", securityCode)
+        .param("expirationYear", expirationYear.toString())
+        .param("expirationMonth", expirationMonth.toString()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/payment-method"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodAddTestError() throws Exception {
+        String cardNumber = "1111222233334444";
+        String cardHolderName = "Aritz Domaika Peirats";
+        String securityCode = "111";
+        Long expirationYear = 2023L;
+        Long expirationMonth = 5L;
+        PaymentMethod paymentMethod = new PaymentMethod(null, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, null);
+
+        when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost/profile/payment-method/add")
+        .with(csrf())
+        .param("cardNumber", cardNumber)
+        .param("cardHolderName", cardHolderName)
+        .param("securityCode", securityCode)
+        .param("expirationYear", expirationYear.toString())
+        .param("expirationMonth", expirationMonth.toString()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("error"))
+        .andExpect(view().name("redirect:/profile/payment-method"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodAddTestFormError() throws Exception {
+        String cardNumber = "111122223333";
+        String cardHolderName = "Aritz Domaika Peirats";
+        String securityCode = "111";
+        Long expirationYear = 2023L;
+        Long expirationMonth = 5L;
+        PaymentMethod paymentMethod = new PaymentMethod(null, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, null);
+
+        when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost/profile/payment-method/add")
+        .with(csrf())
+        .param("cardNumber", cardNumber)
+        .param("cardHolderName", cardHolderName)
+        .param("securityCode", securityCode)
+        .param("expirationYear", expirationYear.toString())
+        .param("expirationMonth", expirationMonth.toString()))
+        .andExpect(status().isOk())
+        .andExpect(model().attributeExists("errors"))
+        .andExpect(model().attributeExists("form"))
+        .andExpect(model().attributeExists("years"))
+        .andExpect(model().attributeExists("months"))
+        .andExpect(view().name("page/profile_payment_method_edit"));
+    }
+
+
+    @Test
+    @WithUserDetails(value="testyUser")
     void getProfilePaymentMethodEditTestSuccess() throws Exception {
         PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
         when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
@@ -611,6 +710,118 @@ class ProfileControllerTest {
             .andExpect(view().name("redirect:/profile/payment-method"));
     }
 
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodEditTestSuccess() throws Exception {
+        String cardNumber = "1111222233334444";
+        String cardHolderName = "Aritz Domaika Peirats";
+        String securityCode = "111";
+        Long expirationYear = 2023L;
+        Long expirationMonth = 5L;  
+        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+        PaymentMethod paymentMethod2 = new PaymentMethod(1L, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, 1);
+
+        when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
+        when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(paymentMethod2);
+
+        mockMvc.perform(post("https://localhost//profile/payment-method/edit/1")
+        .with(csrf())
+        .param("cardNumber", cardNumber)
+        .param("cardHolderName", cardHolderName)
+        .param("securityCode", securityCode)
+        .param("expirationYear", expirationYear.toString())
+        .param("expirationMonth", expirationMonth.toString()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/payment-method"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodEditTestError() throws Exception {
+        String cardNumber = "1111222233334444";
+        String cardHolderName = "Aritz Domaika Peirats";
+        String securityCode = "111";
+        Long expirationYear = 2023L;
+        Long expirationMonth = 5L;  
+        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+
+        when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
+        when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(null);
+
+        mockMvc.perform(post("https://localhost//profile/payment-method/edit/1")
+        .with(csrf())
+        .param("cardNumber", cardNumber)
+        .param("cardHolderName", cardHolderName)
+        .param("securityCode", securityCode)
+        .param("expirationYear", expirationYear.toString())
+        .param("expirationMonth", expirationMonth.toString()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("error"))
+        .andExpect(view().name("redirect:/profile/payment-method"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodEditTestFormError() throws Exception {
+        String cardNumber = "111122223333";
+        String cardHolderName = "Aritz Domaika Peirats";
+        String securityCode = "111";
+        Long expirationYear = 2023L;
+        Long expirationMonth = 5L;  
+
+        mockMvc.perform(post("https://localhost//profile/payment-method/edit/1")
+        .with(csrf())
+        .param("cardNumber", cardNumber)
+        .param("cardHolderName", cardHolderName)
+        .param("securityCode", securityCode)
+        .param("expirationYear", expirationYear.toString())
+        .param("expirationMonth", expirationMonth.toString()))
+        .andExpect(status().isOk())
+        .andExpect(model().attributeExists("errors"))
+        .andExpect(model().attributeExists("form"))
+        .andExpect(model().attributeExists("years"))
+        .andExpect(model().attributeExists("months"))
+        .andExpect(view().name("page/profile_payment_method_edit"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodSetDefaultTest() throws Exception {
+
+        when(paymentMethodServiceImpl.findById(2L)).thenReturn(basicUser.getPaymentMethods().get(1));
+        when(userServiceImpl.save(basicUser)).thenReturn(basicUser);
+
+        mockMvc.perform(post("https://localhost/profile/payment-method/set-default/2")
+        .with(csrf()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/payment-method"));
+    }
+
+    @Test
+    @WithUserDetails(value="testyUser")
+    void postProfilePaymentMethodDelete() throws Exception {
+        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+        PaymentMethod paymentMethodDisabled = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false, 1);
+
+        List<PaymentMethod> paymentMethods = Stream
+            .of(new PaymentMethod(2L, basicUser, "Aritz Peirats Domaika", "5555666677778888", 2L, 2024L, "1", false, true, 1))
+            .collect(Collectors.toList());
+
+        when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
+        when(paymentMethodServiceImpl.disable(paymentMethod)).thenReturn(paymentMethodDisabled);
+        when(userServiceImpl.getUserPaymentMethods(basicUser)).thenReturn(paymentMethods);
+
+        mockMvc.perform(post("https://localhost/profile/payment-method/delete/1")
+        .with(csrf()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(flash().attributeExists("success"))
+        .andExpect(view().name("redirect:/profile/payment-method"));
+
+        
+    }
+    
     private Privilege createUserLoggedPrivilege() {
         Privilege privilege = new Privilege();
         privilege.setId(1L);
