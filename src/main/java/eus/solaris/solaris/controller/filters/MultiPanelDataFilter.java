@@ -34,7 +34,14 @@ public class MultiPanelDataFilter implements HandlerInterceptor {
 
         User user = userService.findByUsername(authentication.getName());
 
-        Long userId = Long.valueOf(request.getParameter("id"));
+        Long userId = -1L;
+
+        try {
+            userId = Long.valueOf(request.getParameter("id"));
+        } catch (Exception e) {
+            response.setStatus(400);
+            return false;
+        }
 
         if (user.getId() == userId) {
             response.setStatus(403);

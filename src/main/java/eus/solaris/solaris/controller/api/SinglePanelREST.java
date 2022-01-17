@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,7 @@ import eus.solaris.solaris.service.multithreading.Gatherer;
 import eus.solaris.solaris.service.multithreading.ThreadController;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
+import javassist.tools.web.BadHttpRequest;
 
 @RestController()
 @RequestMapping("/api/panel")
@@ -44,8 +47,13 @@ public class SinglePanelREST implements HandlerInterceptor {
     UserService userService;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTime(SolarPanelDataDTO dto) {
-        SolarPanel panel = solarPanelRepository.findById(dto.getId()).get();
+    public String realTime(SolarPanelDataDTO dto, HttpServletResponse res) throws BadHttpRequest {
+        Long panelId = dto.getId();
+        if (panelId == null) {
+            res.setStatus(400);
+            throw new BadHttpRequest();
+        }
+        SolarPanel panel = solarPanelRepository.findById(panelId).get();
         Instant startOfDay = LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC);
         Instant now = Instant.now();
         List<SolarPanelDataEntry> entries = dataEntryRepository.findBySolarPanelAndTimestampBetween(panel, startOfDay,

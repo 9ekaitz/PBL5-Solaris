@@ -39,11 +39,17 @@ public class SinglePanelDataFilter implements HandlerInterceptor {
             return false;
         }
 
+        Optional<SolarPanel> panel = Optional.empty();
         User user = userService.findByUsername(authentication.getName());
 
-        Long panelid = Long.valueOf(request.getParameter("id"));
+        try {
+            Long panelid = Long.valueOf(request.getParameter("id"));
 
-        Optional<SolarPanel> panel = solarPanelRepository.findById(panelid);
+            panel = solarPanelRepository.findById(panelid);
+
+        } catch (Exception e) {
+            response.setStatus(400);
+        }
 
         if (!panel.isPresent()) {
             response.setStatus(404);
