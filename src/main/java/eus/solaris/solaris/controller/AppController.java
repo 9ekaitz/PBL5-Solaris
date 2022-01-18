@@ -46,12 +46,12 @@ public class AppController {
 			String name = authentication.getName();
 			User user = userService.findByUsername(name);
 			if (user != null)
-			model.addAttribute("user", user);
+				model.addAttribute("user", user);
 		}
 
 		return "page/index";
 	}
-	
+
 	@GetMapping("/login")
 	public String login(Model model) {
 		if (checkLogedIn()) {
@@ -61,7 +61,7 @@ public class AppController {
 
 		return "page/login";
 	}
-	
+
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 		if (checkLogedIn()) {

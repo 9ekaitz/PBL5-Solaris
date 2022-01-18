@@ -12,20 +12,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
-public class CartProduct {
+@Getter
+@Setter
+public class ProductDescription {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Long id; 
 
     @ManyToOne(optional = false)
-    private Product product;
+    private Language language;
 
     @Column(nullable = false)
-    private Integer quantity;
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
 
     @Version
     private Integer version;
 
+
 }
+

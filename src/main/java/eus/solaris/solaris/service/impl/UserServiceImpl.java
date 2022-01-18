@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
+import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
 
 @Service
@@ -26,8 +27,8 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     @Override

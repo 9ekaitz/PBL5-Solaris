@@ -1,21 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{public_template}">
+
 <head>
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/module/header.css}">
-    <link rel="stylesheet" th:href="@{/css/module/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/module/nav.css}">
-    <link rel="stylesheet" th:href="@{/css/page/index.css}">
-    <script th:src="@{/js/header.js}"></script>
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+    <script th:src="@{/js/shopping-cart.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/shop.css}" href="/css/shop.css">
 </head>
+6
+
 <body>
-    <header th:insert="header :: header"></header>
     <main layout:fragment="content">
-        <p>Changing contents</p>
+        <div class="shop-grid">
+            <div class="shop-wrap">
+                <section class="shop-content" layout:fragment="shop-content">
+                    <p>Changing contents</p>
+                </section>
+                <div id="cart-toggle-ext" class="btn cart-toggle">
+                    <img th:src="@{/images/shopping-cart.svg}">
+                </div>
+            </div>
+            <section id="shopping-cart">
+                <span id="cart-toggle-int" class="cart-toggle">&times;</span>
+                <h2 class="shopping-cart-title" th:text="page.shop.shopping-cart">Shopping Cart</h2>
+                <div class="product-list">
+                </div>
+            </section>
+        </div>
     </main>
-    <footer th:insert="footer :: footer"></footer>
-    <hr>
-    <nav th:insert="nav :: nav"></nav>
 </body>

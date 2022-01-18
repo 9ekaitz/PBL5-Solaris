@@ -8,18 +8,14 @@ import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.CartProduct;
 import eus.solaris.solaris.domain.Product;
-import eus.solaris.solaris.domain.ShopCart;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.repository.CartProductRepository;
 import eus.solaris.solaris.repository.ProductRepository;
-import eus.solaris.solaris.repository.ShopCartRepository;
 import eus.solaris.solaris.service.ShopService;
+import eus.solaris.solaris.service.UserService;
 
 @Service
 public class ShopServiceImpl implements ShopService {
-
-    @Autowired
-    ShopCartRepository shopCartRepository;
 
     @Autowired
     ProductRepository productRepository;
@@ -27,14 +23,11 @@ public class ShopServiceImpl implements ShopService {
     @Autowired
     CartProductRepository cartProductRepository;
 
-    @Override
-    public ShopCart save(ShopCart cart) {
-        return shopCartRepository.save(cart);
-    }
+    @Autowired
+    UserService userService;
 
     @Override
-    public ShopCart cartAddProduct(User user, Long productId, Integer quantity) {
-        ShopCart cart = getCartByUser(user);
+    public User cartAddProduct(User user, Long productId, Integer quantity) {
         Product product = productRepository.getById(productId);
 
         CartProduct cartProduct = new CartProduct();
@@ -42,53 +35,38 @@ public class ShopServiceImpl implements ShopService {
         cartProduct.setQuantity(quantity);
 
         cartProductRepository.save(cartProduct);
-        cart.getProducts().add(cartProduct);
-        return save(cart);
+        user.getShopCart().add(cartProduct);
+        return userService.save(user);
     }
 
     @Override
-    public ShopCart cartRemoveProduct(User user, Long productId) {
-        ShopCart cart = getCartByUser(user);
-        List<CartProduct> products = cart.getProducts();
+    public User cartRemoveProduct(User user, Long productId) {
+        List<CartProduct> products = user.getShopCart();
         for (CartProduct p : products) {
             if (p.getProduct().getId() == productId) {
                 products.remove(p);
                 break;
             }
         }
-        return save(cart);
+        return userService.save(user);
     }
     
     @Override
-    public ShopCart cartUpdateProduct(User user, Long productId, Integer quantity) {
-        ShopCart cart = getCartByUser(user);
-        List<CartProduct> products = cart.getProducts();
+    public User cartUpdateProduct(User user, Long productId, Integer quantity) {
+        List<CartProduct> products = user.getShopCart();
         for (CartProduct p : products) {
             if (p.getProduct().getId() == productId) {
                 p.setQuantity(quantity);
                 break;
             }
         }
-        return save(cart);
+        return userService.save(user);
     }
     
     @Override
-    public ShopCart getCartByUser(User user) {
-        ShopCart cart = shopCartRepository.findByUser(user);
-        if(cart == null) {
-            cart = new ShopCart();
-            cart.setUser(user);
-            cart.setProducts(new ArrayList<CartProduct>());
-            save(cart);
-        }
-        return cart;
-    }
-    
-    @Override
-    public ShopCart emptyCart(User user) {
-        ShopCart cart = getCartByUser(user);
-        cart.setProducts(new ArrayList<CartProduct>());
-        return save(cart);
+    public User emptyCart(User user) {
+        user.setShopCart(new ArrayList<CartProduct>());
+        return userService.save(user);
     }
 
 }
