@@ -1,8 +1,6 @@
-main hr {
-  border: none;
-  display: none;
-}
+main hr,
 main .helper {
+  border: none;
   display: none;
 }
 main .main-content {
@@ -13,7 +11,7 @@ main .main-content {
 main .main-content .content-section {
   display: block;
   font-size: 1rem;
-  padding: 0rem 1rem 0rem 1rem;
+  padding: 0 1rem;
   margin-block: 1rem;
 }
 main .main-content .content-section.main .title {
@@ -23,25 +21,16 @@ main .main-content .content-section.main .subtitle {
   font-size: 1.5rem;
 }
 main .main-content .content-section.phases {
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   display: block;
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 1rem;
 }
 main .main-content .content-section.phases p {
-  text-align: center;
-  justify-content: center;
   padding: 0;
 }
-main .main-content .content-section.phases p.info {
-  padding: 0.5rem 0 0 0;
-  font-size: 1rem;
-}
 main .main-content .content-section.phases p.number {
-  margin: auto;
   width: 30px;
   line-height: 30px;
-  border-radius: 50%;
-  text-align: center;
   font-size: 1rem;
   border: 1px solid black;
 }
@@ -76,7 +65,7 @@ main .main-content .content-section .sub-section .subtitle {
     margin: 0;
     padding: 0;
     border: 0;
-    border-top: 1px solid #C7C7C7;
+    border-top: 1px solid #c7c7c7;
   }
   main .main-content {
     padding: 7.5rem 0rem 5rem 0rem;
@@ -86,22 +75,20 @@ main .main-content .content-section .sub-section .subtitle {
     display: flex;
     gap: 5rem;
     margin-block: 0;
-    padding: 0rem 10rem 0rem 10rem;
+    padding: 0 10rem;
     font-size: 1.5rem;
   }
   main .main-content .content-section.main .title {
     font-size: 3.5rem;
   }
   main .main-content .content-section.main .subtitle {
-    font-size: 1.5rem;
     font-weight: lighter;
     text-align: justify;
   }
   main .main-content .content-section.phases {
-    background-color: #F1F1F1;
     display: flex;
     justify-content: space-between;
-    padding: 2rem 10rem 2rem 10rem;
+    padding: 2rem 10rem;
   }
   main .main-content .content-section.phases .text {
     text-align: center;
@@ -109,7 +96,7 @@ main .main-content .content-section .sub-section .subtitle {
     padding: 0;
   }
   main .main-content .content-section.phases .text.info {
-    padding: 0.5rem 0 0 0;
+    padding-top: 0.5rem;
     font-size: 1rem;
   }
   main .main-content .content-section.phases .text.number {

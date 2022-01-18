@@ -1,162 +1,155 @@
 @import "../util/variables";
 
-main{
+main {
+  hr,
+  .helper {
+    border: none;
+    display: none;
+  }
 
-    hr, .helper{
-        border: none;
-        display: none;
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0rem 1rem 0rem;
+
+    .content-section {
+      display: block;
+      font-size: 1rem;
+      padding: 0 1rem;
+      margin-block: 1rem;
+
+      &.main {
+        .title {
+          font-size: 3rem;
+        }
+
+        .subtitle {
+          font-size: 1.5rem;
+        }
+      }
+
+      &.phases {
+        background-color: $extra-info-color;
+        display: block;
+        padding: 1rem;
+
+        p {
+          padding: 0;
+          &.number {
+            width: 30px;
+            line-height: 30px;
+            font-size: 1rem;
+            border: 1px solid black;
+          }
+        }
+      }
+
+      .sub-section {
+        width: 100%;
+
+        img {
+          max-width: 100%;
+          margin-block: 1rem;
+        }
+
+        .title {
+          font-size: 2.75rem;
+          margin: 0;
+        }
+
+        .subtitle {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .helper {
+      display: block;
+      margin: 0;
+      padding: 0.5rem 0 0.5rem 10rem;
+      font-size: 1rem;
+
+      a {
+        color: $main-color;
+        font-weight: bold;
+        text-decoration: none;
+      }
     }
 
-    .main-content{
+    hr {
+      display: block;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-top: 1px solid $border-color;
+    }
+
+    .main-content {
+      padding: 7.5rem 0rem 5rem 0rem;
+      gap: 10rem;
+
+      .content-section {
         display: flex;
-        flex-direction: column;
-        padding: 1rem 0rem 1rem 0rem;
+        gap: 5rem;
+        margin-block: 0;
+        padding: 0 10rem;
+        font-size: 1.5rem;
 
-        .content-section{
-            display: block;
-            font-size: 1rem;
-            padding: 0 1rem;
-            margin-block: 1rem;
+        &.main {
+          .title {
+            font-size: 3.5rem;
+          }
 
-            &.main{
-                .title{
-                    font-size: 3rem;
-                }
-
-                .subtitle{
-                    font-size: 1.5rem;
-                }
-            }
-
-            
-            &.phases{
-                background-color: $extra-info-color;
-                display: block;
-                padding: 1rem;                
-    
-                p{
-                    padding: 0;
-                    &.number{
-                        width: 30px;
-                        line-height: 30px;
-                        font-size: 1rem;
-                        border: 1px solid black;
-                    }
-                }
-    
-            }
-
-            .sub-section{
-                width: 100%;
-
-                img{
-                    max-width: 100%;
-                    margin-block: 1rem;
-                }
-
-                .title{
-                    font-size: 2.75rem;
-                    margin: 0;
-                }
-
-                .subtitle{
-                    font-size: 1.5rem;
-                }
-
-            }
-        }
-    }
-
-
-    @media (min-width: 768px){
-        .helper{
-            display: block;
-            margin: 0;
-            padding: 0.5rem 0 0.5rem 10rem;
-            font-size: 1rem;
-
-            a{
-                color: $main-color;
-                font-weight: bold;
-                text-decoration: none;
-            }
+          .subtitle {
+            font-weight: lighter;
+            text-align: justify;
+          }
         }
 
-        hr{
-            display: block;
-            margin: 0;
+        &.phases {
+          display: flex;
+          justify-content: space-between;
+          padding: 2rem 10rem;
+
+          .text {
+            text-align: center;
+            justify-content: center;
             padding: 0;
-            border: 0;
-            border-top: 1px solid $border-color;
-        }
-
-        .main-content{
-            padding: 7.5rem 0rem 5rem 0rem;
-            gap: 10rem;
-
-            .content-section{   
-                display: flex;
-                gap: 5rem;
-                margin-block: 0;
-                padding: 0 10rem;
-                font-size: 1.5rem;
-
-                &.main{
-
-                    .title{
-                        font-size: 3.5rem;
-                    }
-
-                    .subtitle{
-                        font-weight: lighter;
-                        text-align: justify;
-                    }
-                }
-
-                &.phases{
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 2rem 10rem;
-        
-                    .text{
-                        text-align: center;
-                        justify-content: center;
-                        padding: 0;
-                        &.info{
-                            padding-top: 0.5rem;
-                            font-size: 1rem;
-                        }
-                        &.number{
-                            margin: auto;
-                            width: 70px;
-                            line-height: 70px;
-                            border-radius: 50%;
-                            text-align: center;
-                            font-size: 2rem;
-                            border: 1px solid black;
-                        }
-                    }
-        
-                }
-
-                &.unit{
-                    .sub-section{
-                        width: 100%;
-        
-                        .title{
-                            font-size: 2rem;
-                            margin: 0;
-                        }
-        
-                        .subtitle{
-                            font-size: 1.25rem;
-                            font-weight: lighter;
-                            text-align: justify;
-                        }
-        
-                    }
-                }
+            &.info {
+              padding-top: 0.5rem;
+              font-size: 1rem;
             }
+            &.number {
+              margin: auto;
+              width: 70px;
+              line-height: 70px;
+              border-radius: 50%;
+              text-align: center;
+              font-size: 2rem;
+              border: 1px solid black;
+            }
+          }
         }
+
+        &.unit {
+          .sub-section {
+            width: 100%;
+
+            .title {
+              font-size: 2rem;
+              margin: 0;
+            }
+
+            .subtitle {
+              font-size: 1.25rem;
+              font-weight: lighter;
+              text-align: justify;
+            }
+          }
+        }
+      }
     }
+  }
 }

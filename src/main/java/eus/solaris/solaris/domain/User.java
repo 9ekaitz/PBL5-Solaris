@@ -14,12 +14,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "`user`")
-@Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Generated
 public class User implements Serializable {
     
     private static final long serialVersionUID = -8446982019565427240L;
@@ -56,6 +62,7 @@ public class User implements Serializable {
     private Set<SolarPanel> solarPanels;
 
     @Version
+    @EqualsAndHashCode.Exclude
     private Integer version;
     
 }
