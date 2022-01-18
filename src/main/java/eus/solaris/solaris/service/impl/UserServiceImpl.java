@@ -89,32 +89,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Address> getUserAddresses(User user) {
-        List<Address> addresses = new ArrayList<>();
 
-        for(int i = 0; i < user.getAddresses().size(); i++){
-            Address address = user.getAddresses().toArray(new Address[user.getAddresses().size()])[i];
-            if(address.isEnabled()){
-                addresses.add(address);
-            }
-        }
-
-        user.setAddresses(addresses);
+        user.setAddresses(userRepository.findAddressByUserId(user.getId()));
 
         return user.getAddresses();
     }
 
     @Override
     public List<PaymentMethod> getUserPaymentMethods(User user) {
-        List<PaymentMethod> paymentMethods = new ArrayList<>();
 
-        for(int i = 0; i < user.getPaymentMethods().size(); i++){
-            PaymentMethod paymentMethod = user.getPaymentMethods().toArray(new PaymentMethod[user.getPaymentMethods().size()])[i];
-            if(paymentMethod.isEnabled()){
-                paymentMethods.add(paymentMethod);
-            }
-        }
-
-        user.setPaymentMethods(paymentMethods);
+        user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
         
         return user.getPaymentMethods();
     }
