@@ -1,4 +1,4 @@
-package eus.solaris.solaris.Controller;
+package eus.solaris.solaris.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +19,6 @@ import java.util.stream.Stream;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eus.solaris.solaris.config.SpringWebAuxTestConfig;
-import eus.solaris.solaris.controller.ProfileController;
-import eus.solaris.solaris.controller.UserControllerAdvice;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.Country;
 import eus.solaris.solaris.domain.PaymentMethod;
@@ -719,8 +717,6 @@ class ProfileControllerTest {
         mockMvc.perform(get("https://localhost/profile/payment-method/add"))
             .andExpect(status().isOk())
             .andExpect(view().name("page/profile_payment_method_edit"))
-            .andExpect(model().attributeExists("years"))
-            .andExpect(model().attributeExists("months"))
             .andExpect(model().attribute("user", basicUser));
     }
 
@@ -828,8 +824,6 @@ class ProfileControllerTest {
         .andExpect(status().isOk())
         .andExpect(model().attributeExists("errors"))
         .andExpect(model().attributeExists("form"))
-        .andExpect(model().attributeExists("years"))
-        .andExpect(model().attributeExists("months"))
         .andExpect(view().name("page/profile_payment_method_edit"));
     }
 
@@ -848,8 +842,6 @@ class ProfileControllerTest {
         mockMvc.perform(get("https://localhost/profile/payment-method/edit/1"))
             .andExpect(status().isOk())
             .andExpect(view().name("page/profile_payment_method_edit"))
-            .andExpect(model().attributeExists("years"))
-            .andExpect(model().attributeExists("months"))
             .andExpect(model().attribute("paymentMethod", paymentMethod))
             .andExpect(model().attribute("user", basicUser));
     }
@@ -947,8 +939,6 @@ class ProfileControllerTest {
         .andExpect(status().isOk())
         .andExpect(model().attributeExists("errors"))
         .andExpect(model().attributeExists("form"))
-        .andExpect(model().attributeExists("years"))
-        .andExpect(model().attributeExists("months"))
         .andExpect(view().name("page/profile_payment_method_edit"));
     }
 

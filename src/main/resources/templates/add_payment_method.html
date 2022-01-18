@@ -41,14 +41,14 @@
                             <div class="field">
                                 <div> 
                                     <select name="expirationYear" id="expirationYear" class="select">
-                                        <option class="country-option" th:each="expirationYear : ${years}" th:value="${expirationYear}" th:text="${expirationYear}" th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationYear} == ${expirationYear})"></option>
+                                        <option class="country-option"  th:each="expirationYear : ${#numbers.sequence(2021, 2050)}" th:value="${expirationYear}" th:text="${expirationYear}" th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationYear} == ${expirationYear})"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="field">
                                 <div>   
                                     <select name="expirationMonth" id="expirationMonth" class="select">
-                                        <option class="country-option" th:each="expirationMonth : ${months}" th:value="${expirationMonth}" th:text="${expirationMonth}" th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationMonth} == ${expirationMonth})"></option>
+                                        <option class="country-option"  th:each="expirationMonth : ${#numbers.sequence(1, 12)}" th:value="${expirationMonth}" th:text="${expirationMonth}" th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationMonth} == ${expirationMonth})"></option>
                                     </select>
                                 </div>
                             </div>

@@ -1,6 +1,5 @@
 package eus.solaris.solaris.service.impl;
 
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<Country> findAll() {
         List<Country> countries = countryRepository.findAll();
-        countries.sort(Comparator.comparing(Country::getI18n));
         return countries;
     }
 

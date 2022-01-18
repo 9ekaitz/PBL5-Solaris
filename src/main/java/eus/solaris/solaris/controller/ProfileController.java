@@ -265,8 +265,6 @@ public class ProfileController {
     @GetMapping("/payment-method/add")
     public String profilePaymentMethodAdd(Model model, Authentication authentication) {
 
-        addProfilePaymentMethodAttributes(model);
-
         return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
     }
     
@@ -300,7 +298,6 @@ public class ProfileController {
         }
         else{
             model.addAttribute("paymentMethod", paymentMethod);
-            addProfilePaymentMethodAttributes(model);
 
             return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
         }
@@ -398,25 +395,11 @@ public class ProfileController {
         model.addAttribute(FORM_FORM, form);
         addProfileAddressAttributes(model);
     }
-
-    private void addProfilePaymentMethodAttributes(Model model){
-        List<Integer> years = new ArrayList<>();
-        List<Integer> months = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            months.add(i+1);
-        }
-        for (int i = 0; i < 30; i++) {
-            years.add(i+2021);
-        }
-        model.addAttribute(YEAR_ATTRIBUTE, years);
-        model.addAttribute(MONTH_ATTRIBUTE, months);
-    }
     
     private void profilePaymentMethodFormFailed(Model model, UserPaymentMethodForm form, BindingResult result){
         List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
         model.addAttribute(ERROR_FORM, errors);
         model.addAttribute(FORM_FORM, form);
-        addProfilePaymentMethodAttributes(model);
     }
    
     private void addFlashAttribute(boolean resultSQL, RedirectAttributes redirectAttributes, String successMessage, String errorMessage) {

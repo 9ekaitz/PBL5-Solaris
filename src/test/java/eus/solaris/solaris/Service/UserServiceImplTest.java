@@ -1,4 +1,4 @@
-package eus.solaris.solaris.Service;
+package eus.solaris.solaris.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -31,7 +31,6 @@ import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
-import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.impl.UserServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
@@ -156,7 +155,7 @@ class UserServiceImplTest {
         };
 
         List<Address> enabledAddresses = Stream.of(allAddresses).filter(Address::isEnabled).collect(Collectors.toList());
-        user.setAddresses(Stream.of(allAddresses).collect(Collectors.toList()));
+        when(userRepository.findAddressByUserId(1L)).thenReturn(enabledAddresses);
         
         assertEquals(enabledAddresses, userServiceImpl.getUserAddresses(user));
     }
@@ -170,7 +169,7 @@ class UserServiceImplTest {
             new PaymentMethod(1L, user, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false, 1)
         };
         List<PaymentMethod> enabledPaymentMethods = Stream.of(allPaymentMethods).filter(PaymentMethod::isEnabled).collect(Collectors.toList());
-        user.setPaymentMethods(Stream.of(allPaymentMethods).collect(Collectors.toList()));
+        when(userRepository.findPaymentMethodByUserId(1L)).thenReturn(enabledPaymentMethods);
 
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(user);
