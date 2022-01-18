@@ -6,7 +6,7 @@ main {
 }
 
 .container {
-  background: #FFF;
+  background: #fff;
   display: none;
   overflow: hidden;
   padding: 1rem 2rem;
@@ -14,6 +14,13 @@ main {
 .container .title {
   font-weight: normal;
   font-size: 1.5rem;
+  margin: 1rem 0;
+}
+.container .footer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem 0;
+  gap: 2.5rem;
 }
 
 @media (min-width: 768px) {

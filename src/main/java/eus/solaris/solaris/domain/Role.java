@@ -15,6 +15,7 @@ import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 
@@ -40,9 +41,11 @@ public class Role {
     private Set<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Set<Privilege> privileges;
     
     @Version
+    @EqualsAndHashCode.Exclude
     private Integer version;
 
 }
