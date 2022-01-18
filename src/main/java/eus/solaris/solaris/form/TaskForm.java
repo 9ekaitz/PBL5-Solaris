@@ -10,6 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TaskForm {
-    List<Long> tasksId;
-    MultipartFile sign;    
+    private List<Long> tasksId;
+    private MultipartFile sign;    
 }
