@@ -1,6 +1,7 @@
 package eus.solaris.solaris.controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class InstallerController {
 
     List<Installation> pendingInstallations = installationService.findByInstallerAndCompleted(user, false);
     List<Installation> completedInstallations = installationService.findByInstallerAndCompleted(user, true);
-
+    System.out.println(Locale.ENGLISH.getLanguage());
     model.addAttribute("pendingInstallations", pendingInstallations);
     model.addAttribute("completedInstallations", completedInstallations);
 

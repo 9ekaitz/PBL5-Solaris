@@ -8,11 +8,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter @Setter
+@Data
 public class OrderProduct {
   
   @EmbeddedId
@@ -26,11 +26,12 @@ public class OrderProduct {
   @ManyToOne
   @MapsId("product_id")
   @JoinColumn(name="product_id")
-  Article article;
+  Product product;
 
   @Column
   private Integer amount;
 
   @Version
+  @EqualsAndHashCode.Exclude
   private Integer version;
 }

@@ -40,7 +40,7 @@ public class Order {
   
   @OneToMany(mappedBy = "order")
   @OrderBy("id ASC")
-  Set<OrderArticle> articles;
+  Set<OrderProduct> products;
 
   @ManyToOne
   private Address address;

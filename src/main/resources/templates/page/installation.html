@@ -65,12 +65,18 @@
               <p th:text="${installation.order.creationTime}"></p>
             </li>
             <li>
-              <h3 class="subtitle" th:text="#{page.installation.articles}"></h3>
-              <ul class="article-list">
-                <li
-                  th:each="article : ${installation.order.articles}"
-                  th:text="${article.amount}+' '+${article.article.name}"
-                ></li>
+              <h3 class="subtitle" th:text="#{page.installation.products}"></h3>
+              <ul class="product-list">
+                <th:block th:each="products : ${installation.order.products}">
+                  <th:block
+                    th:each="description : ${products.product.descriptions}"
+                  >
+                    <li
+                      th:if="${description.language.code} == #{locale}"
+                      th:text="${products.amount}+' '+${description.name}"
+                    ></li>
+                  </th:block>
+                </th:block>
               </ul>
             </li>
           </ul>

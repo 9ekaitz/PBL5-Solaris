@@ -12,12 +12,12 @@ import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Task {
   
   @Id
