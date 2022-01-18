@@ -1,6 +1,6 @@
 .container {
-  display: grid;
   grid-template-rows: auto auto 1fr auto;
+  display: none;
 }
 .container .header-mobile {
   width: -webkit-fit-content;
@@ -107,4 +107,12 @@
   .container .details .map iframe {
     border: 1px solid #c7c7c7;
   }
+}
+.container #sign {
+  width: 100%;
+  height: 100%;
+}
+
+.current {
+  display: grid;
 }/*# sourceMappingURL=installation.css.map */

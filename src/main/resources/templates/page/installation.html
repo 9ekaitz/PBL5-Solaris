@@ -16,7 +16,7 @@
       th:text="#{header.title.overview}"
     ></h2>
     <main layout:fragment="content" class="installer-dashboard">
-      <div class="container current">
+      <div class="container ">
         <a th:href="@{/install}" class="header-mobile">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,6 +110,12 @@
             th:formaction="@{'/install/save/'+${installation.id}}"
             th:value="#{page.installation.sign}"
           />
+        </div>
+      </div>
+      <div class="container current">
+        <h2 class="title" th:text="${installation.name}"></h2>
+        <div class="details">
+          <canvas id="sign"></canvas>
         </div>
       </div>
     </main>
