@@ -25,6 +25,8 @@ import eus.solaris.solaris.service.TaskService;
 @RequestMapping("/install")
 public class InstallerController {
 
+  private static final String ROLE_ADMIN = "ROLE_ADMIN";
+
   @Autowired
   InstallationService installationService;
 
@@ -38,7 +40,6 @@ public class InstallerController {
 
     List<Installation> pendingInstallations = installationService.findByInstallerAndCompleted(user, false);
     List<Installation> completedInstallations = installationService.findByInstallerAndCompleted(user, true);
-
     model.addAttribute("pendingInstallations", pendingInstallations);
     model.addAttribute("completedInstallations", completedInstallations);
 
@@ -75,7 +76,7 @@ public class InstallerController {
 
   private boolean filter(Installation installation, User user) {
     boolean authorized = false;
-    if (user != null && user.getRole().getName().equals("ROLE_ADMIN") || installation.getInstaller() == user)
+    if (user != null && user.getRole().getName().equals(ROLE_ADMIN) || installation.getInstaller() == user)
       authorized = true;
 
     return authorized;

@@ -70,7 +70,7 @@ class AppControllerTest {
   }
 
   @Test
-  void returnIndexPageWithOutBeenLogedIn() {
+  void returnIndexPageWithOutBeingLogedIn() {
     try {
       mvc.perform(get("https://localhost/"))
           .andExpect(status().isOk())
