@@ -6,6 +6,7 @@
 >
   <head>
     <link rel="stylesheet" th:href="@{/css/page/installation.css}" />
+    <script th:src="@{/js/sign.js}"></script>
     <title>Instalador</title>
   </head>
 
@@ -16,7 +17,7 @@
       th:text="#{header.title.overview}"
     ></h2>
     <main layout:fragment="content" class="installer-dashboard">
-      <div class="container ">
+      <div class="container">
         <a th:href="@{/install}" class="header-mobile">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +41,7 @@
         <h2 class="title" th:text="${installation.name}">
           NOMBRE DE LA INSTALACION
         </h2>
-        <div class="details">
+        <!-- <div class="details">
           <ul>
             <li>
               <h3
@@ -96,6 +97,9 @@
               th:src="@{'https://maps.google.com/maps?width=500&amp;height=500&amp;hl=es&amp;q='+${installation.order.address.street}+${installation.order.address.city}+'+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'}"
             ></iframe>
           </div>
+        </div> -->
+        <div class="details sign current">
+          <canvas id="sign"></canvas>
         </div>
         <div class="footer">
           <input
@@ -110,12 +114,6 @@
             th:formaction="@{'/install/save/'+${installation.id}}"
             th:value="#{page.installation.sign}"
           />
-        </div>
-      </div>
-      <div class="container current">
-        <h2 class="title" th:text="${installation.name}"></h2>
-        <div class="details">
-          <canvas id="sign"></canvas>
         </div>
       </div>
     </main>

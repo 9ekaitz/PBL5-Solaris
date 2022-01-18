@@ -2,7 +2,8 @@
 
 .container {
   grid-template-rows: auto auto 1fr auto;
-  display: none;
+  display: grid;
+  height: calc(100% - 2rem);
   .header-mobile {
     width: fit-content;
     position: relative;
@@ -29,6 +30,7 @@
   .details {
     overflow: auto;
     position: relative;
+    display: none;
 
     h3 + * {
       font-weight: lighter;
@@ -52,7 +54,12 @@
       display: none;
     }
   }
-
+  .sign {
+    overflow: hidden;
+  }
+  .current {
+    display: block;
+  }  
   ul {
     list-style: none;
     li {
@@ -78,6 +85,7 @@
   }
 
   @media screen and (min-width: $large-screen) {
+    height: auto;
     .header-mobile {
       display: none;
     }
@@ -94,6 +102,9 @@
       form {
         padding-left: 3rem;
       }
+    }
+    .sign {
+      border: none;
     }
   }
   @media screen and (min-width: $very-large-screen) {
@@ -113,11 +124,10 @@
   }
 
   #sign {
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
+    border: 1px solid $border-color;
   }
 }
 
-.current {
-  display: grid;
-}

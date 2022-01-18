@@ -1,6 +1,7 @@
 .container {
   grid-template-rows: auto auto 1fr auto;
-  display: none;
+  display: grid;
+  height: calc(100% - 2rem);
 }
 .container .header-mobile {
   width: -webkit-fit-content;
@@ -31,6 +32,7 @@
 .container .details {
   overflow: auto;
   position: relative;
+  display: none;
 }
 .container .details h3 + * {
   font-weight: lighter;
@@ -55,6 +57,12 @@
 .container .details .map {
   display: none;
 }
+.container .sign {
+  overflow: hidden;
+}
+.container .current {
+  display: block;
+}
 .container ul {
   list-style: none;
 }
@@ -78,6 +86,7 @@
 }
 @media screen and (min-width: 768px) {
   .container {
+    height: auto;
     grid-template-rows: auto 1fr auto;
     padding: 2rem 4rem;
   }
@@ -94,6 +103,9 @@
 .container .details form {
     padding-left: 3rem;
   }
+  .container .sign {
+    border: none;
+  }
 }
 @media screen and (min-width: 900px) {
   .container .details .map {
@@ -109,10 +121,8 @@
   }
 }
 .container #sign {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
-}
-
-.current {
-  display: grid;
+  border: 1px solid #c7c7c7;
 }/*# sourceMappingURL=installation.css.map */
