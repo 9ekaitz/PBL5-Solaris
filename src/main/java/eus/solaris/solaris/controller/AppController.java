@@ -78,7 +78,7 @@ public class AppController {
 	}
 
 	@PostMapping("/register")
-	public String registerUser(@Validated @ModelAttribute("user") UserRegistrationForm form, BindingResult result,
+	public String registerUser(@Validated @ModelAttribute UserRegistrationForm form, BindingResult result,
 			Model model) {
 		if (result.hasErrors()
 				|| form.getUsername() != null
