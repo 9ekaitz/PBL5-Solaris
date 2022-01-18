@@ -16,18 +16,18 @@
                 <a class="button-a" th:href="@{/dashboard/create-user}" th:text="#{page.dashboard.createaccount}">Crear cuenta</a>
             </div>
             <div class="accounts-list">
-                <table>
+                <table >
                     <thead>
                         <tr>
-                            <th>
+                            <th id="select-all-checkbox-th">
                                 <input class="float-left" type="checkbox" id="select-all-chechbox">
                             </th>
-                            <th th:text="#{page.dashboard.account.name}">Name</th>
-                            <th th:text="#{page.dashboard.account.email}">Email</th>
-                            <th th:text="#{page.dashboard.account.username}">Username</th>
-                            <th th:text="#{page.dashboard.account.role}">Role</th>
-                            <th></th>
-                            <th>
+                            <th id="account-name-th" th:text="#{page.dashboard.account.name}">Name</th>
+                            <th id="account-username-th" th:text="#{page.dashboard.account.username}">Username</th>
+                            <th id="account-email-th" th:text="#{page.dashboard.account.email}">Email</th>
+                            <th id="account-role-th" th:text="#{page.dashboard.account.role}">Role</th>
+                            <th id="edit-account-th"></th>
+                            <th id="delete-all-user-button-th">
                                 <a id="delete-all-selected-users">
                                     <svg class="float-right" style="width:24px;height:24px" viewBox="0 0 24 24">
                                         <path fill="currentColor"
