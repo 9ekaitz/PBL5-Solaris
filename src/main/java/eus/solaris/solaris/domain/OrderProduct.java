@@ -13,10 +13,10 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class OrderArticle {
+public class OrderProduct {
   
   @EmbeddedId
-  OrderArticleKey id;
+  OrderProductKey id;
 
   @ManyToOne
   @MapsId("orderId")
@@ -24,8 +24,8 @@ public class OrderArticle {
   Order order;
 
   @ManyToOne
-  @MapsId("articleId")
-  @JoinColumn(name="article_id")
+  @MapsId("product_id")
+  @JoinColumn(name="product_id")
   Article article;
 
   @Column

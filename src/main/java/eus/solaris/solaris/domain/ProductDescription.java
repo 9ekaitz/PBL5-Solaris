@@ -1,14 +1,11 @@
 package eus.solaris.solaris.domain;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import lombok.Data;
@@ -16,22 +13,26 @@ import lombok.EqualsAndHashCode;
 import lombok.Generated;
 
 @Entity
-@Table(name = "product")
 @Data
 @Generated
-public class Product {
-
+public class ProductDescription {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; 
 
-    @OneToMany
-    private Set<ProductDescription> descriptions;
+    @ManyToOne(optional = false)
+    private Language language;
 
     @Column(nullable = false)
-    private String imagePath;
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
 
     @Version
-    @EqualsAndHashCode.Exclude  
+    @EqualsAndHashCode.Exclude
     private Integer version;
+
+
 }
