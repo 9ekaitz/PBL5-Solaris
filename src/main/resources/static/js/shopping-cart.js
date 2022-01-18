@@ -15,6 +15,7 @@ window.addEventListener("DOMContentLoaded", loadShop);
 
 const toggleShoppingCart = () => {
     document.getElementById("shopping-cart").classList.toggle("hide");
+    document.getElementById("cart-toggle-ext").classList.toggle("hide");
 }
 
 const loadShoppingCart = async () => {
@@ -24,10 +25,12 @@ const loadShoppingCart = async () => {
             CSRF_HEADER: CSRF_TOKEN
         }
     });
-
     return await res.json();
 }
 
-const showShoppingCart = (cart) => {
+const showShoppingCart = cart => {
     console.log("🔥🔥🔥🔥🔥", cart);
+    cart.forEach(product => {
+
+    });
 }

@@ -391,7 +391,8 @@ input[type=checkbox]:checked::before {
   transform: scale(0.7);
 }
 
-input[type=submit] {
+input[type=submit],
+button {
   font-size: 1em;
   font-weight: bold;
   border: none;
@@ -402,11 +403,14 @@ input[type=submit] {
   background-color: #f9aa31;
   padding-inline: 2em;
 }
-input[type=submit]:hover, input[type=submit]:focus {
+input[type=submit]:hover, input[type=submit]:focus,
+button:hover,
+button:focus {
   cursor: pointer;
   background-color: #f09407;
 }
-input[type=submit].btn-big {
+input[type=submit].btn-big,
+button.btn-big {
   width: 18rem;
   height: 4rem;
   border-radius: 0.3rem;

@@ -1,85 +1,115 @@
 @import "util/variables.scss";
 
 .shop-grid {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 
-  .shop-wrap {
-    flex-grow: 1;
-    height: 100%;
-  }
+    .shop-wrap {
+        flex-grow: 1;
+        height: 100%;
+    }
 
-  .shop-content {
-    text-align: center;
-  }
+    .shop-content {
+        text-align: center;
+    }
 }
 
 @media screen and (min-width: $medium-screen) {
-  .shop-grid {
-    flex-direction: row;
-  }
-
-  #shopping-cart {
-    position: fixed;
-    height: 100%;
-    width: 30%;
-    right: 0;
-    transition: width 0.2s;
-    background-color: #fff;
-
-    .product-list {
-      overflow-y: scroll;
-    }
-    border-left: 1px solid $border-color;
-
-    &.hide {
-        display: block;
-        width: 0;
+    .shop-grid {
+        flex-direction: row;
     }
 
-    .shopping-cart-title {
-        text-align: center;
-        font-size: 2em;
+    #shopping-cart {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        height: 100%;
+        width: 30%;
+        right: 0;
+        transition: width 0.2s;
+        background-color: #fff;
+
+        .product-list {
+            overflow-y: auto;
+        }
+        border-left: 1px solid $border-color;
+
+        &.hide {
+            display: block;
+            width: 0;
+            border: none;
+        }
+
+        .shopping-cart-title {
+            text-align: center;
+            font-size: 2em;
+        }
     }
-  }
 }
 
-.cart-toggle {
-
+.cart-toggle:hover {
+    cursor: pointer;
 }
 
 #cart-toggle-ext {
-  @include no-select;
-  @include no-drag;
-  display: grid;
-  place-content: center;
-  padding: 0.2rem;
-  width: 4rem;
-  height: 4rem;
-  border: none;
-  border-radius: 50%;
-  color: $text-color;
-  background-color: $main-color;
-  overflow: hidden;
+    @include no-select;
+    @include no-drag;
+    display: grid;
+    place-content: center;
+    padding: 0.2rem;
+    width: 4rem;
+    height: 4rem;
+    border: none;
+    border-radius: 50%;
+    color: $text-color;
+    background-color: $main-color;
+    overflow: hidden;
 
-  position: fixed;
-  bottom: 6rem;
-  right: 4rem;
+    position: fixed;
+    bottom: 6rem;
+    right: 4rem;
 
-  z-index: 1;
+    z-index: 1;
 
-  img {
-    width: 3rem;
-    height: 3rem;
-  }
+    &:hover {
+        background-color: $main-dark-color;
+    }
 
-  &:hover {
-    cursor: pointer;
-    background-color: $main-dark-color;
-  }
+    &.hide {
+        display: none;
+    }
+
+    img {
+        width: 3rem;
+        height: 3rem;
+    }
 }
 
 #cart-toggle-int {
-    color: $danger-color;
+    margin: 0.2em;
+    background-color: $danger-color;
     font-size: 2em;
+    border-radius: $btn-border;
+    width: min-content;
+    padding: 0.2em;
+    display: grid;
+    place-content: center;
+}
+
+.total {
+    text-align: right;
+    p {
+        margin: 0.4em 1em;
+        font-size: 2em;
+        font-weight: bold;
+    }
+}
+
+.checkout {
+    text-align: center;
+    margin-bottom: 2em;
+
+    button {
+        margin: auto;
+    }
 }
