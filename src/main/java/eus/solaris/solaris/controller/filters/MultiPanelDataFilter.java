@@ -43,7 +43,7 @@ public class MultiPanelDataFilter implements HandlerInterceptor {
             return false;
         }
 
-        if (user.getId() == userId) {
+        if (user.getId().equals(userId)) {
             response.setStatus(403);
             return false;
         }

@@ -47,11 +47,10 @@ public class DataBuffer {
             this.isFull.signal();
             return data;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            return null;
         } finally {
             this.mutex.unlock();
         }
-        return null;
     }
 
     public Boolean isEmpty() {

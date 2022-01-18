@@ -58,11 +58,10 @@ public class InitialBuffer {
             this.maxCount--;
             return data;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            return null;
         } finally {
             this.mutex.unlock();
         }
-        return null;
     }
 
     public Boolean isEmpty() {

@@ -53,7 +53,12 @@ public class SinglePanelREST implements HandlerInterceptor {
             res.setStatus(400);
             throw new BadHttpRequest();
         }
-        SolarPanel panel = solarPanelRepository.findById(panelId).get();
+        Optional<SolarPanel> oppanel = solarPanelRepository.findById(panelId);
+        if (!oppanel.isPresent()) {
+            res.setStatus(404);
+            throw new NoSuchElementException();
+        }
+        SolarPanel panel = oppanel.get();
         Instant startOfDay = LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC);
         Instant now = Instant.now();
         List<SolarPanelDataEntry> entries = dataEntryRepository.findBySolarPanelAndTimestampBetween(panel, startOfDay,
