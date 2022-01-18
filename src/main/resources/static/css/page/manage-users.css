@@ -74,6 +74,18 @@ main {
 }
 .manage-accounts .accounts-list .pages a {
   margin-inline: 0.5rem;
+  padding: 0.3em;
+  text-decoration: none;
+  background-color: #E5E5E5;
+  border-radius: 3em;
+}
+.manage-accounts .accounts-list .pages .selected {
+  background-color: #f9aa31;
+  color: white;
+}
+.manage-accounts .accounts-list .pages .not-selected {
+  background-color: #E5E5E5;
+  color: black;
 }
 
 @media (min-width: 768px) {

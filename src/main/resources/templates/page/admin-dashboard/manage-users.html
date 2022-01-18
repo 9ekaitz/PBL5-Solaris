@@ -69,11 +69,13 @@
                     </tbody>
                 </table>
                 <div class="pages">
-                    <th:block th:each="i : ${#numbers.sequence( actualPage, actualPage+(actualPage==0 ? 3 : 2), 1 )}">
-                        <a th:if="${i gt 0 and i lt totalPages}" th:href="@{'/dashboard/manage-users/'+${i}}" th:text="${i}">null</a>
+                    <th:block th:with="iterations=${actualPage}">
+                        <th:block th:each="i : ${#numbers.sequence( actualPage, iterations+3, 1 )}">
+                            <a th:if="${i gt 0 and i lt totalPages}" th:classappend="${i eq actualPage + 1} ? selected : notselected" th:href="@{'/dashboard/manage-users/'+${i}}" th:text="${i}">null</a>
+                        </th:block>
                     </th:block>
-                    <span>...</span>
-                    <a th:href="@{'/dashboard/manage-users/'+${totalPages}}" th:text="${totalPages}">null</a>
+                    <span th:if="${totalPages gt 3}">...</span>
+                    <a th:href="@{'/dashboard/manage-users/'+${totalPages}}" th:classappend="${totalPages eq actualPage + 1} ? selected : notselected" th:text="${totalPages}">null</a>
                 </div>
             </div>
         </div>

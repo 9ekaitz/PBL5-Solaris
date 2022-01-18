@@ -78,6 +78,18 @@ main {
       margin-bottom: 2rem;
       a {
         margin-inline: 0.5rem;
+        padding: 0.3em;
+        text-decoration: none;
+        background-color: $bg-color;
+        border-radius: 3em;
+      }
+      .selected {
+        background-color: $main-color;
+        color: white;
+      }
+      .not-selected {
+        background-color: $bg-color;
+        color: black;
       }
     }
   }

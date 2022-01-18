@@ -41,6 +41,7 @@ public class AdminController {
         model.addAttribute("page_title", "GENERAL");
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
+        model.addAttribute("actualPage", 0);
         model.addAttribute("users", pagedListHolder.getPageList());
         model.addAttribute("totalPages", pagedListHolder.getPageCount());
         return "page/admin-dashboard/manage-users";
