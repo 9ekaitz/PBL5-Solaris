@@ -7,10 +7,12 @@ import org.springframework.beans.support.PagedListHolder;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
+import eus.solaris.solaris.form.UserRegistrationForm;
 
 public interface UserService {
     public void save(User user);
     public User findByUsername(String username);
+    public void register(UserRegistrationForm userRegistrationForm);
     public List<User> findAll();
     public User findById(Long id);
     public void update(Long id, UserProfileUpdateForm upuf);
