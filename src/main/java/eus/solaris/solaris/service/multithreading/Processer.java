@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 import eus.solaris.solaris.service.multithreading.conversions.ConversionNone;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionToCO2;
-import eus.solaris.solaris.service.multithreading.conversions.ConversionToEUR;
+import eus.solaris.solaris.service.multithreading.conversions.ConversionToEUEUR;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionToGBP;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionToNMInc;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionToTempC;
@@ -31,7 +31,7 @@ public class Processer {
         Map<Instant, Double> result;
         switch (conversionT) {
             case TO_EUR:
-                result = applyConversion(data, new ConversionToEUR());
+                result = applyConversion(data, new ConversionToEUEUR());
                 break;
             case TO_DOLLAR:
                 result = applyConversion(data, new ConversionToUSD());

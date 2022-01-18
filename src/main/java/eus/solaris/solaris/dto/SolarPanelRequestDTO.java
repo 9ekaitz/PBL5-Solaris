@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SolarPanelDataDTO {
+public class SolarPanelRequestDTODTO {
 
     private Long id;
     private GroupMode groupMode;

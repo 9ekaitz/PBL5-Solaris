@@ -27,7 +27,7 @@ public class ConversionToEURTest {
         expected.add(0.0);
         expected.add(0.0);
 
-        IConversion conversion = new ConversionToEUR();
+        IConversion conversion = new ConversionToEUEUR();
 
         List<Double> actual = new ArrayList<>();
         for (Double target : targets) {

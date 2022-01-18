@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.dto.SolarPanelDataDTO;
+import eus.solaris.solaris.dto.SolarPanelRequestDTO;
 import eus.solaris.solaris.repository.DataEntryRepository;
 import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.repository.UserRepository;
@@ -45,7 +45,7 @@ public class MultiPanelREST {
     DataEntryRepository dataEntryRepository;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTimeUser(SolarPanelDataDTO dto) {
+    public String realTimeUser(SolarPanelRequestDTO dto) {
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException("User not found");
@@ -67,7 +67,7 @@ public class MultiPanelREST {
     }
 
     @GetMapping(path = "/grouped", produces = "application/json")
-    public String grouped(SolarPanelDataDTO dto) {
+    public String grouped(SolarPanelRequestDTO dto) {
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException("User not found");
@@ -82,7 +82,7 @@ public class MultiPanelREST {
     }
 
     @GetMapping(path = "/general-data", produces = "application/json")
-    public String generalData(SolarPanelDataDTO dto) {
+    public String generalData(SolarPanelRequestDTO dto) {
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException("User not found");

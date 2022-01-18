@@ -20,7 +20,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
-import eus.solaris.solaris.dto.SolarPanelDataDTO;
+import eus.solaris.solaris.dto.SolarPanelRequestDTO;
 import eus.solaris.solaris.repository.DataEntryRepository;
 import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.service.UserService;
@@ -47,7 +47,7 @@ public class SinglePanelREST implements HandlerInterceptor {
     UserService userService;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTime(SolarPanelDataDTO dto, HttpServletResponse res) throws BadHttpRequest {
+    public String realTime(SolarPanelRequestDTO dto, HttpServletResponse res) throws BadHttpRequest {
         Long panelId = dto.getId();
         if (panelId == null) {
             res.setStatus(400);
@@ -66,7 +66,7 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     @GetMapping(path = "/grouped", produces = "application/json")
-    public String grouped(SolarPanelDataDTO dto) {
+    public String grouped(SolarPanelRequestDTO dto) {
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");
@@ -83,7 +83,7 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     @GetMapping(path = "/general-data", produces = "application/json")
-    public String generalData(SolarPanelDataDTO dto) {
+    public String generalData(SolarPanelRequestDTO dto) {
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");

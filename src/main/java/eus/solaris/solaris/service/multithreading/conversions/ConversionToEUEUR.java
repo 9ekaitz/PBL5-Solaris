@@ -1,6 +1,6 @@
 package eus.solaris.solaris.service.multithreading.conversions;
 
-public class ConversionToEUR implements IConversion {
+public class ConversionToEUEURUR implements IConversion {
 
     private static final Double AVERAGE_FACTOR = 0.2533;
 
