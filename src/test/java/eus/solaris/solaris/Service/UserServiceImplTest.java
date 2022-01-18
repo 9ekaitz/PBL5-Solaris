@@ -28,6 +28,7 @@ import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.domain.Role;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
 import eus.solaris.solaris.service.RoleService;
@@ -134,6 +135,7 @@ class UserServiceImplTest {
 
     @Test
     void editUserTest(){
+        UserInformationEditForm userInformationEditForm = new UserInformationEditForm("AritzCambiado", "domaikaCambiado", "peirats", "aritz.domaika@gmail.com");
         Role role = createRole();
         User userToBeChange = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
         User userChanged = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "AritzCambiado", "domaikaCambiado", "peirats", true,  null, null, role, null, 1);
@@ -141,7 +143,7 @@ class UserServiceImplTest {
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
         when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
-        assertEquals(userChanged, userServiceImpl.editUser("AritzCambiado", "domaikaCambiado", "peirats", "aritz.domaika@gmail.com", userToBeChange));
+        assertEquals(userChanged, userServiceImpl.editUser(userInformationEditForm, userToBeChange));
     }
 
      @Test

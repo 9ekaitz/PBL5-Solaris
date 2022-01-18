@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import eus.solaris.solaris.domain.Address;
@@ -32,6 +33,7 @@ import eus.solaris.solaris.service.ProvinceService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
+@RequestMapping("/profile")
 @PreAuthorize("hasAuthority('USER_LOGGED_VIEW')")
 public class ProfileController {
 
@@ -68,13 +70,13 @@ public class ProfileController {
     @Autowired
     PaymentMethodService paymentMethodService;
 
-    @GetMapping("/profile")
+    @GetMapping("")
     public String profile() {
 
         return "page/profile";
     }
 
-    @GetMapping("/profile/security")
+    @GetMapping("/security")
     public String profileSecurity(Model model) {
 
         model.addAttribute(FORM_FORM, new UserPasswordModificationForm());
@@ -82,7 +84,7 @@ public class ProfileController {
         return "page/profile_security";
     }
 
-    @PostMapping("/profile/security")
+    @PostMapping("/security")
     public String profileSecurity(Model model, RedirectAttributes redirectAttributes, UserPasswordModificationForm form) {
 
         User user = userService.editPassword(form.getVerifyNewPasword(), form.getOldPassword(), (User) model.getAttribute("user"));
@@ -92,13 +94,13 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/profile/delete-account")
+    @GetMapping("/delete-account")
     public String deleteForm() {
 
         return "page/delete_account";
     }
 
-    @PostMapping("/profile/delete-account")
+    @PostMapping("/delete-account")
     public String deleteAccount(Model model, RedirectAttributes redirectAttributes) {
 
         User user = (User) model.getAttribute("user");
@@ -109,13 +111,13 @@ public class ProfileController {
         return "redirect:/logout";
     }
     
-    @GetMapping("/profile/edit")
+    @GetMapping("/edit")
     public String profileEdit() {
 
         return "page/profile_edit";
     }
 
-    @PostMapping("/profile/edit")
+    @PostMapping("/edit")
     public String profileEdit(@Validated @ModelAttribute UserInformationEditForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && (User) model.getAttribute("user") != null){
@@ -126,7 +128,7 @@ public class ProfileController {
             return "page/profile_edit";
         }
         else{
-            User user = userService.editUser(form.getName(), form.getFirstSurname(), form.getSecondSurname(), form.getEmail(), (User) model.getAttribute("user"));
+            User user = userService.editUser(form, (User) model.getAttribute("user"));
             boolean resultSQL = user != null;
             addFlashAttribute(resultSQL, redirectAttributes, "alert.profile.success", "alert.profile.error");
 
@@ -135,7 +137,7 @@ public class ProfileController {
 
     }
 
-    @GetMapping("/profile/address")
+    @GetMapping("/address")
     public String profileAddress(Model model, Authentication authentication) {
 
         model.addAttribute("addresses", userService.getUserAddresses((User)model.getAttribute("user")));
@@ -143,7 +145,7 @@ public class ProfileController {
         return "page/profile_address";
     }
 
-    @GetMapping("/profile/address/add")
+    @GetMapping("/address/add")
     public String profileAddressAdd(Model model) {
 
         addProfileAddressAttributes(model);
@@ -151,7 +153,7 @@ public class ProfileController {
         return PAGE_PROFILE_ADDRESS_EDIT;
     }
 
-    @PostMapping("/profile/address/add")
+    @PostMapping("/address/add")
     public String profileAddressAdd(@Validated @ModelAttribute UserAddressForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && (User)model.getAttribute("user") != null){
@@ -173,7 +175,7 @@ public class ProfileController {
 
     }
 
-    @GetMapping("/profile/address/edit/{id}")
+    @GetMapping("/address/edit/{id}")
     public String profileAddressEdit(@PathVariable("id") Long id, Model model) {
         Address address = addressService.findById(id);
         if(address.getUser() != (User) model.getAttribute("user")){
@@ -188,7 +190,7 @@ public class ProfileController {
 
     }
 
-    @PostMapping("/profile/address/edit/{id}")
+    @PostMapping("/address/edit/{id}")
     public String profileAddressEdit(@PathVariable("id") Long id, @Validated @ModelAttribute("address") UserAddressForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && (User)model.getAttribute("user") != null){
@@ -209,7 +211,7 @@ public class ProfileController {
 
     }
     
-    @PostMapping("profile/address/edit/set-default/{id}")
+    @PostMapping("address/edit/set-default/{id}")
     public String profileAddressEditSetDefault(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Address address = addressService.findById(id);
         User user = (User) model.getAttribute("user");
@@ -230,7 +232,7 @@ public class ProfileController {
         return REDIRECT_PROFILE_ADDRESS;
     }
 
-    @PostMapping("/profile/address/delete/{id}")
+    @PostMapping("/address/delete/{id}")
     public String profileAddressDelete(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         Address address = addressService.findById(id);
@@ -252,7 +254,7 @@ public class ProfileController {
         return REDIRECT_PROFILE_ADDRESS;
     }
     
-    @GetMapping("/profile/payment-method")
+    @GetMapping("/payment-method")
     public String profilePaymentMethod(Model model, Authentication authentication) {
 
         model.addAttribute("paymentMethods", userService.getUserPaymentMethods((User)model.getAttribute("user")));
@@ -260,7 +262,7 @@ public class ProfileController {
         return "page/profile_payment_method";
     }
 
-    @GetMapping("/profile/payment-method/add")
+    @GetMapping("/payment-method/add")
     public String profilePaymentMethodAdd(Model model, Authentication authentication) {
 
         addProfilePaymentMethodAttributes(model);
@@ -268,7 +270,7 @@ public class ProfileController {
         return PAGE_PROFILE_PAYMENT_METHOD_EDIT;
     }
     
-    @PostMapping("/profile/payment-method/add")
+    @PostMapping("/payment-method/add")
     public String profilePaymentMethodAdd(@Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && (User) model.getAttribute("user") != null){
@@ -290,7 +292,7 @@ public class ProfileController {
 
     }
     
-    @GetMapping("/profile/payment-method/edit/{id}")
+    @GetMapping("/payment-method/edit/{id}")
     public String profilePaymentMethodEdit(@PathVariable("id") Long id, Model model, Authentication authentication) {
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
         if(paymentMethod.getUser() != userService.findByUsername(authentication.getName())){
@@ -304,7 +306,7 @@ public class ProfileController {
         }
     }
     
-    @PostMapping("/profile/payment-method/edit/{id}")
+    @PostMapping("/payment-method/edit/{id}")
     public String profilePaymentMethodEdit(@PathVariable("id") Long id, @Validated @ModelAttribute UserPaymentMethodForm form, BindingResult result, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         if(result.hasErrors() && (User)model.getAttribute("user") != null){
@@ -326,7 +328,7 @@ public class ProfileController {
 
     }
     
-    @PostMapping("/profile/payment-method/set-default/{id}")
+    @PostMapping("/payment-method/set-default/{id}")
     public String profilePaymentMethodSetDefault(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         PaymentMethod paymentMethod = paymentMethodService.findById(id);
@@ -343,7 +345,7 @@ public class ProfileController {
         return REDIRECT_PROFILE_PAYMENT_METHOD;
     }
     
-    @PostMapping("/profile/payment-method/delete/{id}")
+    @PostMapping("/payment-method/delete/{id}")
     public String profilePaymentMethodDelete(@PathVariable("id") Long id, Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         PaymentMethod paymentMethod = paymentMethodService.findById(id);

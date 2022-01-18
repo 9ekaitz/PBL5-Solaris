@@ -58,7 +58,7 @@
             }
         }
 
-        #show-password-1, #show-password-2, #show-password-3 {
+        .show-password {
             @include no-select;
             width: 10%;
             height: 100%;

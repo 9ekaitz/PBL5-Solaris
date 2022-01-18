@@ -8,7 +8,7 @@ import eus.solaris.solaris.repository.PaymentMethodRepository;
 import eus.solaris.solaris.service.PaymentMethodService;
 
 @Service
-public class PaymentMethodImpl implements PaymentMethodService{
+public class PaymentMethodServiceImpl implements PaymentMethodService{
 
     @Autowired
     PaymentMethodRepository paymentMethodRepository;

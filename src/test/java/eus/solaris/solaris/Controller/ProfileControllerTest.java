@@ -28,10 +28,11 @@ import eus.solaris.solaris.domain.Privilege;
 import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.domain.Role;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.service.impl.AddressServiceImpl;
 import eus.solaris.solaris.service.impl.CountryServiceImpl;
 import eus.solaris.solaris.service.impl.LanguageServiceImpl;
-import eus.solaris.solaris.service.impl.PaymentMethodImpl;
+import eus.solaris.solaris.service.impl.PaymentMethodServiceImpl;
 import eus.solaris.solaris.service.impl.ProvinceServiceImpl;
 import eus.solaris.solaris.service.impl.UserServiceImpl;
 
@@ -67,7 +68,7 @@ class ProfileControllerTest {
     AddressServiceImpl addressServiceImpl;
 
     @MockBean
-    PaymentMethodImpl paymentMethodServiceImpl;
+    PaymentMethodServiceImpl paymentMethodServiceImpl;
 
     @MockBean
     LanguageServiceImpl languageServiceImpl;
@@ -97,9 +98,14 @@ class ProfileControllerTest {
         .of(new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1),
             new PaymentMethod(2L, basicUser, "Aritz Peirats Domaika", "5555666677778888", 2L, 2024L, "1", false, true, 1)).collect(Collectors.toList());
 
-        basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses, paymentMethods, ROLE_USER, null, 1);
+        basicUser = createUser(addresses, paymentMethods, ROLE_USER);
 
         when(userServiceImpl.findByUsername(username)).thenReturn(basicUser);
+    }
+
+
+    private User createUser(List<Address> addresses, List<PaymentMethod> paymentMethods, Role ROLE_USER) {
+        return new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses, paymentMethods, ROLE_USER, null, 1);
     }
 
 
@@ -134,9 +140,10 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileSecurityTestTrue() throws Exception {
-        String oldPassword = "foo123";
-        String verifyNewPasword = "bar123";
-        User basicUserModify = new User(1L, "testyUser", "testy@foo", "bar123", "Testy", "Tester", "User", true, null, null, null, null, 1);
+        String oldPassword = createOldPassword();
+        String verifyNewPasword = createVerifyNewPassword();
+        User basicUserModify = createUser(null, null, null);
+        basicUserModify.setPassword(verifyNewPasword);
 
         when(userServiceImpl.editPassword(verifyNewPasword, oldPassword, basicUser)).thenReturn(basicUserModify);
         when(passwordEncoder.encode(verifyNewPasword)).thenReturn(verifyNewPasword);
@@ -151,11 +158,21 @@ class ProfileControllerTest {
 
     }
 
+    private String createVerifyNewPassword() {
+        return "bar123";
+    }
+
+
+    private String createOldPassword() {
+        return "foo123";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileSecurityTestFalse() throws Exception {
-        String oldPassword = "foo123";
-        String verifyNewPasword = "bar123";
+        String oldPassword = createOldPassword();
+        String verifyNewPasword = createVerifyNewPassword();
 
         when(userServiceImpl.editPassword(verifyNewPasword, oldPassword, basicUser)).thenReturn(basicUser);
         when(passwordEncoder.encode(verifyNewPasword)).thenReturn(verifyNewPasword);
@@ -184,8 +201,8 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileDeleteAccountTestSuccess() throws Exception {
-
-        User basicUserModify = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", false, null, null, null, null, 1);
+        User basicUserModify = createUser(null, null, null);
+        basicUserModify.setEnabled(false);
 
         when(userServiceImpl.disableUser(basicUser)).thenReturn(basicUserModify);
 
@@ -201,7 +218,7 @@ class ProfileControllerTest {
     @WithUserDetails(value="testyUser")
     void postProfileDeleteAccountTestError() throws Exception {
 
-        User basicUserModify = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, null, null, null, null, 1);
+        User basicUserModify = createUser(null, null, null);
 
         when(userServiceImpl.disableUser(basicUser)).thenReturn(basicUserModify);
 
@@ -225,14 +242,18 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileEditTestSuccess() throws Exception {
-        String name = "testyUser";
-        String firstSurname = "testy";
-        String secondSurname = "tester";
-        String email = "testy@foo.com";
+        String name = createUsersName();
+        String firstSurname = createUsersFirstSurname();
+        String secondSurname = createUsersSecondSurname();
+        String email = createUsersEmail();
+        UserInformationEditForm userInformationEditForm = new UserInformationEditForm(name, firstSurname, secondSurname, email);
+        User basicUserModify = createUser(null, null, null);
+        basicUserModify.setName(name);
+        basicUserModify.setFirstSurname(firstSurname);
+        basicUserModify.setSecondSurname(secondSurname);
+        basicUserModify.setEmail(email);
 
-        User basicUserModify = new User(1L, "testyUser", "testy@foo.com", "foo123", "testyUser", "testy", "tester", true, null, null, null, null, 1);
-
-        when(userServiceImpl.editUser(name, firstSurname, secondSurname, email, basicUser)).thenReturn(basicUserModify);
+        when(userServiceImpl.editUser(userInformationEditForm, basicUser)).thenReturn(basicUserModify);
 
         mockMvc.perform(post("https://localhost/profile/edit")
         .with(csrf())
@@ -241,20 +262,40 @@ class ProfileControllerTest {
         .param("secondSurname", secondSurname)
         .param("email", email))
         .andExpect(status().is3xxRedirection())
-        .andExpect(flash().attributeExists("success"))
         .andExpect(view().name("redirect:/profile"));
 
     }
 
+    private String createUsersEmail() {
+        return "testy@foo.com";
+    }
+
+
+    private String createUsersSecondSurname() {
+        return "tester";
+    }
+
+
+    private String createUsersFirstSurname() {
+        return "testy";
+    }
+
+
+    private String createUsersName() {
+        return "testyUser";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileEditTestError() throws Exception {
-        String name = "testyUser";
-        String firstSurname = "testy";
-        String secondSurname = "tester";
-        String email = "testy@foo.com";
+        String name = createUsersName();
+        String firstSurname = createUsersFirstSurname();
+        String secondSurname = createUsersSecondSurname();
+        String email = createUsersEmail();
+        UserInformationEditForm userInformationEditForm = new UserInformationEditForm(name, firstSurname, secondSurname, email);
 
-        when(userServiceImpl.editUser(name, firstSurname, secondSurname, email, basicUser)).thenReturn(null);
+        when(userServiceImpl.editUser(userInformationEditForm, basicUser)).thenReturn(null);
 
         mockMvc.perform(post("https://localhost/profile/edit")
         .with(csrf())
@@ -271,14 +312,16 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileEditTestFormFailed() throws Exception {
-        String name = "testyUser";
-        String firstSurname = "testy";
-        String secondSurname = "tester";
-        String email = "testy";
+        String name = createUsersName();
+        String firstSurname = createUsersFirstSurname();
+        String secondSurname = createUsersSecondSurname();
+        String email = createUsersName();
+        UserInformationEditForm userInformationEditForm = new UserInformationEditForm(name, firstSurname, secondSurname, email);
 
         User basicUserModify = new User(1L, "testyUser", "testy", "foo123", "testyUser", "testy", "tester", true, null, null, null, null, 1);
 
-        when(userServiceImpl.editUser(name, firstSurname, secondSurname, email, basicUser)).thenReturn(basicUserModify);
+        when(userServiceImpl.editUser(userInformationEditForm, basicUser)).thenReturn(basicUserModify);
+
 
         mockMvc.perform(post("https://localhost/profile/edit")
         .with(csrf())
@@ -320,17 +363,19 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressAddTestSuccess() throws Exception {
+        String street = createAddressStreet();
+        Long countryId = createAddressCountryId();
+        String city = createAddressCity();
+        String postcode = createAddressPostcode();
+        Long provinceId = createAddressProvinceId();
+        String number = createAddressNumber();
+        Country country = createCountry(countryId);
+        Province province = createProvince(provinceId);
 
-        String street = "Pintor Clemente Arraiz 9 3C";
-        Long countryId = 1L;
-        String city = "Madrid";
-        String postcode = "01008";
-        Long provinceId = 1L;
-        String number = "680728473";
-        Country country = new Country(countryId, "SPAIN", "spain", 1);
-        Province province = new Province(provinceId, "ALAVA", "alava", 1);
-        Address address = new Address(null, country, province, city, postcode, street, number, basicUser, true, true, null);
-        Address addressChanged = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
+        Address address = createAddress(street, country, city, postcode, province, number);
+        Address addressChanged = createAddress(street, country, city, postcode, province, number);
+        addressChanged.setId(1L);
+        addressChanged.setVersion(1);
 
         when(countryServiceImpl.findById(countryId)).thenReturn(country);
         when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
@@ -350,18 +395,64 @@ class ProfileControllerTest {
 
     }
 
+    private Address createAddress(String street, Country country, String city, String postcode, Province province, String number) {
+        return new Address(null, country, province, city, postcode, street, number, basicUser, true, true, null);
+    }
+
+
+    private Province createProvince(Long provinceId) {
+        return new Province(provinceId, "ALAVA", "alava", 1);
+    }
+
+
+    private Country createCountry(Long countryId) {
+        return  new Country(countryId, "SPAIN", "spain", 1);
+    }
+
+
+    private String createAddressNumber() {
+        return "680728473";
+    }
+
+
+    private Long createAddressProvinceId() {
+        return 1L;
+    }
+
+
+    private String createAddressPostcode() {
+        return "01008";
+    }
+
+
+    private String createAddressCity() {
+        return "Madrid";
+    }
+
+
+    private Long createAddressCountryId() {
+        return 1L;
+    }
+
+
+    private String createAddressStreet() {
+        return "Pintor Clemente Arraiz 9 3C";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressAddTestError() throws Exception {
-        String street = "Pintor Clemente Arraiz 9 3C";
-        Long countryId = 1L;
-        String city = "Madrid";
-        String postcode = "01008";
-        Long provinceId = 1L;
-        String number = "680728473";
-        Country country = new Country(countryId, "SPAIN", "spain", 1);
-        Province province = new Province(provinceId, "ALAVA", "alava", 1);
-        Address address = new Address(null, country, province, city, postcode, street, number, basicUser, true, true, null);
+        String street = createAddressStreet();
+        Long countryId = createAddressCountryId();
+        String city = createAddressCity();
+        String postcode = createAddressPostcode();
+        Long provinceId = createAddressProvinceId();
+        String number = createAddressNumber();
+        Country country = createCountry(countryId);
+        Province province = createProvince(provinceId);
+
+        Address address = createAddress(street, country, city, postcode, province, number);
 
         when(countryServiceImpl.findById(countryId)).thenReturn(country);
         when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
@@ -384,15 +475,16 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressAddTestFormError() throws Exception {
-        String street = "Pintor Clemente Arraiz 9 3C";
-        Long countryId = 1L;
-        String city = "Madrid";
-        String postcode = "018";
-        Long provinceId = 1L;
-        String number = "6807284";
-        Country country = new Country(countryId, "SPAIN", "spain", 1);
-        Province province = new Province(provinceId, "ALAVA", "alava", 1);
-        Address address = new Address(null, country, province, city, postcode, street, number, basicUser, true, true, null);
+        String street = createAddressStreet();
+        Long countryId = createAddressCountryId();
+        String city = createAddressCity();
+        String postcode = createWrongAddressPostcode();
+        Long provinceId = createAddressProvinceId();
+        String number = createAddressNumber();
+        Country country = createCountry(countryId);
+        Province province = createProvince(provinceId);
+
+        Address address = createAddress(street, country, city, postcode, province, number);
 
         when(countryServiceImpl.findById(countryId)).thenReturn(country);
         when(provinceServiceImpl.findById(provinceId)).thenReturn(province);
@@ -415,11 +507,16 @@ class ProfileControllerTest {
 
     }
 
+    private String createWrongAddressPostcode() {
+        return "1";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void getProfileAddressEditTestSuccess() throws Exception{
+        Address address = createNotCompleteAddress();
 
-        Address address = new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, true, true, 1);
         when(addressServiceImpl.findById(1L)).thenReturn(address);
                             
         mockMvc.perform(get("https://localhost/profile/address/edit/1"))
@@ -431,11 +528,17 @@ class ProfileControllerTest {
             .andExpect(model().attribute("user", basicUser));
     }
 
+    private Address createNotCompleteAddress() {
+        return new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, true, true, 1);
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void getProfileAddressEditTestError() throws Exception{
+        Address address = createNotCompleteAddress();
+        address.setUser(null);
 
-        Address address = new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", null, true, true, 1);
         when(addressServiceImpl.findById(1L)).thenReturn(address);
                             
         mockMvc.perform(get("https://localhost/profile/address/edit/1"))
@@ -446,17 +549,18 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressEditTestSuccess() throws Exception {
-        String street = "Pintor Clemente Arraiz 9 3C";
-        String steet2 = "Street 2";
-        Long countryId = 1L;
-        String city = "Madrid";
-        String postcode = "01008";
-        Long provinceId = 1L;
-        String number = "680728473";
-        Country country = new Country(countryId, "SPAIN", "spain", 1);
-        Province province = new Province(provinceId, "ALAVA", "alava", 1);
-        Address address = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
-        Address addressChanged = new Address(1L, country, province, city, postcode, steet2, number, basicUser, true, true, 1);
+        String street = createAddressStreet();
+        String street2 = createAddressStreet2();
+        Long countryId = createAddressCountryId();
+        String city = createAddressCity();
+        String postcode = createAddressPostcode();
+        Long provinceId = createAddressProvinceId();
+        String number = createAddressNumber();
+        Country country = createCountry(countryId);
+        Province province = createProvince(provinceId);
+
+        Address address = createAddress(street, country, city, postcode, province, number);
+        Address addressChanged = createAddress(street2, country, city, postcode, province, number);
 
         when(addressServiceImpl.findById(1L)).thenReturn(address);
         when(countryServiceImpl.findById(countryId)).thenReturn(country);
@@ -465,7 +569,7 @@ class ProfileControllerTest {
 
         mockMvc.perform(post("https://localhost/profile/address/edit/1")
         .with(csrf())
-        .param("street", steet2)
+        .param("street", street2)
         .param("countryId", countryId.toString())
         .param("city", city)
         .param("postcode", postcode)
@@ -476,19 +580,25 @@ class ProfileControllerTest {
         .andExpect(view().name("redirect:/profile/address"));
     }
     
+    private String createAddressStreet2() {
+        return "street 2";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressEditTestError() throws Exception {
-        String street = "Pintor Clemente Arraiz 9 3C";
-        String steet2 = "Street 2";
-        Long countryId = 1L;
-        String city = "Madrid";
-        String postcode = "01008";
-        Long provinceId = 1L;
-        String number = "680728473";
-        Country country = new Country(countryId, "SPAIN", "spain", 1);
-        Province province = new Province(provinceId, "ALAVA", "alava", 1);
-        Address address = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
+        String street = createAddressStreet();
+        String street2 = createAddressStreet2();
+        Long countryId = createAddressCountryId();
+        String city = createAddressCity();
+        String postcode = createAddressPostcode();
+        Long provinceId = createAddressProvinceId();
+        String number = createAddressNumber();
+        Country country = createCountry(countryId);
+        Province province = createProvince(provinceId);
+
+        Address address = createAddress(street, country, city, postcode, province, number);
 
         when(addressServiceImpl.findById(1L)).thenReturn(address);
         when(countryServiceImpl.findById(countryId)).thenReturn(country);
@@ -497,7 +607,7 @@ class ProfileControllerTest {
 
         mockMvc.perform(post("https://localhost/profile/address/edit/1")
         .with(csrf())
-        .param("street", steet2)
+        .param("street", street2)
         .param("countryId", countryId.toString())
         .param("city", city)
         .param("postcode", postcode)
@@ -511,17 +621,17 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressEditTestFormError() throws Exception {
-        String street = "Pintor Clemente Arraiz 9 3C";
-        String steet2 = "Street 2";
-        Long countryId = 1L;
-        String city = "Madrid";
-        String postcode = "01008";
-        String postcode2 = "0";
-        Long provinceId = 1L;
-        String number = "680728473";
-        Country country = new Country(countryId, "SPAIN", "spain", 1);
-        Province province = new Province(provinceId, "ALAVA", "alava", 1);
-        Address address = new Address(1L, country, province, city, postcode, street, number, basicUser, true, true, 1);
+        String street = createAddressStreet();
+        String street2 = createAddressStreet2();
+        Long countryId = createAddressCountryId();
+        String city = createAddressCity();
+        String postcode = createWrongAddressPostcode();
+        Long provinceId = createAddressProvinceId();
+        String number = createAddressNumber();
+        Country country = createCountry(countryId);
+        Province province = createProvince(provinceId);
+
+        Address address = createAddress(street, country, city, postcode, province, number);
 
         when(addressServiceImpl.findById(1L)).thenReturn(address);
         when(countryServiceImpl.findById(countryId)).thenReturn(country);
@@ -530,10 +640,10 @@ class ProfileControllerTest {
 
         mockMvc.perform(post("https://localhost/profile/address/edit/1")
         .with(csrf())
-        .param("street", steet2)
+        .param("street", street2)
         .param("countryId", countryId.toString())
         .param("city", city)
-        .param("postcode", postcode2)
+        .param("postcode", postcode)
         .param("provinceId", provinceId.toString())
         .param("number", number))
         .andExpect(status().isOk())
@@ -547,7 +657,7 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileAddressEditSetDefault() throws Exception {
-        Address address = new Address(2L, null, null, null, null, null, null, basicUser, true, false, 1);
+        Address address = createAddressNotDefault();
 
         when(addressServiceImpl.findById(2L)).thenReturn(address);
         when(addressServiceImpl.save(address)).thenReturn(address);
@@ -560,11 +670,18 @@ class ProfileControllerTest {
         .andExpect(view().name("redirect:/profile/address"));
     }
 
+    private Address createAddressNotDefault() {
+        return new Address(2L, null, null, null, null, null, null, basicUser, true, false, 1);
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void postProfileDeleteAddress() throws Exception {
-        Address address = new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, true, true, 1);
-        Address addressDisabled = new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", basicUser, false, false, 1);
+        Address address = createNotCompleteAddress();
+        Address addressDisabled = createNotCompleteAddress();
+        addressDisabled.setEnabled(false);
+        addressDisabled.setDefaultAddress(false);
 
         List<Address> addresses = Stream
         .of(new Address(2L, null, null, null, null, null, null, basicUser, true, false, 1))
@@ -610,13 +727,15 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfilePaymentMethodAddTestSuccess() throws Exception {
-        String cardNumber = "1111222233334444";
-        String cardHolderName = "Aritz Domaika Peirats";
-        String securityCode = "111";
-        Long expirationYear = 2023L;
-        Long expirationMonth = 5L;
-        PaymentMethod paymentMethod = new PaymentMethod(null, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, null);
-        PaymentMethod paymentMethodSaved = new PaymentMethod(1L, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, 1);
+        String cardNumber = createPaymentCardNumber();
+        String cardHolderName = createPaymentCardHolderName();
+        String securityCode = createPaymentSecurityCode();
+        Long expirationYear = createPaymentExpirationYear();
+        Long expirationMonth = createPaymentExpirationMonth();
+        PaymentMethod paymentMethod = createPaymentMethod(cardNumber, cardHolderName, securityCode, expirationYear, expirationMonth);
+        PaymentMethod paymentMethodSaved = createPaymentMethod(cardNumber, cardHolderName, securityCode, expirationYear, expirationMonth);
+        paymentMethodSaved.setId(1L);
+        paymentMethodSaved.setVersion(1);
 
         when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(paymentMethodSaved);
 
@@ -632,15 +751,46 @@ class ProfileControllerTest {
         .andExpect(view().name("redirect:/profile/payment-method"));
     }
 
+    private PaymentMethod createPaymentMethod(String cardNumber, String cardHolderName, String securityCode,
+            Long expirationYear, Long expirationMonth) {
+        return new PaymentMethod(null, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, null);
+    }
+
+
+    private Long createPaymentExpirationMonth() {
+        return 5L;
+    }
+
+
+    private Long createPaymentExpirationYear() {
+        return 2023L;
+    }
+
+
+    private String createPaymentSecurityCode() {
+        return "111";
+    }
+
+
+    private String createPaymentCardHolderName() {
+        return "Aritz Domaika Peirats";
+    }
+
+
+    private String createPaymentCardNumber() {
+        return "1111222233334444";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void postProfilePaymentMethodAddTestError() throws Exception {
-        String cardNumber = "1111222233334444";
-        String cardHolderName = "Aritz Domaika Peirats";
-        String securityCode = "111";
-        Long expirationYear = 2023L;
-        Long expirationMonth = 5L;
-        PaymentMethod paymentMethod = new PaymentMethod(null, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, null);
+        String cardNumber = createPaymentCardNumber();
+        String cardHolderName = createPaymentCardHolderName();
+        String securityCode = createPaymentSecurityCode();
+        Long expirationYear = createPaymentExpirationYear();
+        Long expirationMonth = createPaymentExpirationMonth();
+        PaymentMethod paymentMethod = createPaymentMethod(cardNumber, cardHolderName, securityCode, expirationYear, expirationMonth);
 
         when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(null);
 
@@ -659,12 +809,12 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfilePaymentMethodAddTestFormError() throws Exception {
-        String cardNumber = "111122223333";
-        String cardHolderName = "Aritz Domaika Peirats";
-        String securityCode = "111";
-        Long expirationYear = 2023L;
-        Long expirationMonth = 5L;
-        PaymentMethod paymentMethod = new PaymentMethod(null, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, null);
+        String cardNumber = createWrongPaymentCardNumber();
+        String cardHolderName = createPaymentCardHolderName();
+        String securityCode = createPaymentSecurityCode();
+        Long expirationYear = createPaymentExpirationYear();
+        Long expirationMonth = createPaymentExpirationMonth();
+        PaymentMethod paymentMethod = createPaymentMethod(cardNumber, cardHolderName, securityCode, expirationYear, expirationMonth);
 
         when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(null);
 
@@ -684,10 +834,15 @@ class ProfileControllerTest {
     }
 
 
+    private String createWrongPaymentCardNumber() {
+        return "1";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void getProfilePaymentMethodEditTestSuccess() throws Exception {
-        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+        PaymentMethod paymentMethod = getPaymentMethod();
         when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
                             
         mockMvc.perform(get("https://localhost/profile/payment-method/edit/1"))
@@ -699,10 +854,16 @@ class ProfileControllerTest {
             .andExpect(model().attribute("user", basicUser));
     }
 
+    private PaymentMethod getPaymentMethod() {
+        return  new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void getProfilePaymentMethodEditTestError() throws Exception {
-        PaymentMethod paymentMethod = new PaymentMethod(1L, null, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+        PaymentMethod paymentMethod = getPaymentMethod();
+        paymentMethod.setUser(null);
         when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
                             
         mockMvc.perform(get("https://localhost/profile/payment-method/edit/1"))
@@ -713,13 +874,14 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfilePaymentMethodEditTestSuccess() throws Exception {
-        String cardNumber = "1111222233334444";
-        String cardHolderName = "Aritz Domaika Peirats";
-        String securityCode = "111";
-        Long expirationYear = 2023L;
-        Long expirationMonth = 5L;  
-        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
-        PaymentMethod paymentMethod2 = new PaymentMethod(1L, basicUser, cardHolderName, cardNumber, expirationMonth, expirationYear, securityCode, true, true, 1);
+        String cardNumber = createPaymentCardNumber();
+        String cardHolderName = createPaymentCardHolderName();
+        String securityCode = createPaymentSecurityCode();
+        String securityCode2 = createPaymentSecurityCode2();
+        Long expirationYear = createPaymentExpirationYear();
+        Long expirationMonth = createPaymentExpirationMonth();
+        PaymentMethod paymentMethod = createPaymentMethod(cardNumber, cardHolderName, securityCode, expirationYear, expirationMonth);
+        PaymentMethod paymentMethod2 = createPaymentMethod(cardNumber, cardHolderName, securityCode2, expirationYear, expirationMonth);
 
         when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
         when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(paymentMethod2);
@@ -736,15 +898,20 @@ class ProfileControllerTest {
         .andExpect(view().name("redirect:/profile/payment-method"));
     }
 
+    private String createPaymentSecurityCode2() {
+        return "987";
+    }
+
+
     @Test
     @WithUserDetails(value="testyUser")
     void postProfilePaymentMethodEditTestError() throws Exception {
-        String cardNumber = "1111222233334444";
-        String cardHolderName = "Aritz Domaika Peirats";
-        String securityCode = "111";
-        Long expirationYear = 2023L;
-        Long expirationMonth = 5L;  
-        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
+        String cardNumber = createPaymentCardNumber();
+        String cardHolderName = createPaymentCardHolderName();
+        String securityCode = createPaymentSecurityCode();
+        Long expirationYear = createPaymentExpirationYear();
+        Long expirationMonth = createPaymentExpirationMonth();
+        PaymentMethod paymentMethod = createPaymentMethod(cardNumber, cardHolderName, securityCode, expirationYear, expirationMonth);
 
         when(paymentMethodServiceImpl.findById(1L)).thenReturn(paymentMethod);
         when(paymentMethodServiceImpl.save(paymentMethod)).thenReturn(null);
@@ -764,11 +931,11 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfilePaymentMethodEditTestFormError() throws Exception {
-        String cardNumber = "111122223333";
-        String cardHolderName = "Aritz Domaika Peirats";
-        String securityCode = "111";
-        Long expirationYear = 2023L;
-        Long expirationMonth = 5L;  
+        String cardNumber = createWrongPaymentCardNumber();
+        String cardHolderName = createPaymentCardHolderName();
+        String securityCode = createPaymentSecurityCode();
+        Long expirationYear = createPaymentExpirationYear();
+        Long expirationMonth = createPaymentExpirationMonth();
 
         mockMvc.perform(post("https://localhost//profile/payment-method/edit/1")
         .with(csrf())
@@ -802,8 +969,10 @@ class ProfileControllerTest {
     @Test
     @WithUserDetails(value="testyUser")
     void postProfilePaymentMethodDelete() throws Exception {
-        PaymentMethod paymentMethod = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", true, true, 1);
-        PaymentMethod paymentMethodDisabled = new PaymentMethod(1L, basicUser, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false, 1);
+        PaymentMethod paymentMethod = getPaymentMethod();
+        PaymentMethod paymentMethodDisabled = getPaymentMethod();
+        paymentMethodDisabled.setEnabled(false);
+        paymentMethodDisabled.setDefaultMethod(false);
 
         List<PaymentMethod> paymentMethods = Stream
             .of(new PaymentMethod(2L, basicUser, "Aritz Peirats Domaika", "5555666677778888", 2L, 2024L, "1", false, true, 1))

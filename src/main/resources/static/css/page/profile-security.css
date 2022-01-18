@@ -43,7 +43,7 @@
 .password-form .password input:focus {
   border: none;
 }
-.password-form .password #show-password-1, .password-form .password #show-password-2, .password-form .password #show-password-3 {
+.password-form .password .show-password {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -53,14 +53,14 @@
   height: 100%;
   padding: 0.25em;
 }
-.password-form .password #show-password-1 svg, .password-form .password #show-password-2 svg, .password-form .password #show-password-3 svg {
+.password-form .password .show-password svg {
   margin: auto;
   fill: #52525C;
 }
-.password-form .password #show-password-1:hover, .password-form .password #show-password-2:hover, .password-form .password #show-password-3:hover {
+.password-form .password .show-password:hover {
   cursor: pointer;
 }
-.password-form .password #show-password-1:hover svg, .password-form .password #show-password-2:hover svg, .password-form .password #show-password-3:hover svg {
+.password-form .password .show-password:hover svg {
   fill: #000;
 }
 .password-form .submit-wrap {

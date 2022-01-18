@@ -6,14 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
+  <link rel="stylesheet" th:href="@{/css/page/profile.css}">
+  <link rel="stylesheet" th:href="@{/css/page/profile-address.css}">
 </head>
 
 <main layout:fragment="content" class="profile">
   <div>
     <div class="helper">
       <p class="a">
-        <a href="/profile" class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
-        <a href="/profile/address" class="helper-page selected" th:text="#{helper.profile.payment_methods}">Métodos de pago</a>
+        <a href="/profile" th:href="@{/profile}" class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
+        <a href="/profile/payment-method" th:href="@{/profile/payment-method}" class="helper-page selected" th:text="#{helper.profile.payment_methods}">Métodos de pago</a>
       </p>
     </div>
     <hr class="helper-hr">

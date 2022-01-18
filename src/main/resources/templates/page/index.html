@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{index_template}">
 
 <head>
   <meta charset="UTF-8">
@@ -12,7 +12,7 @@
   <main layout:fragment="content">
     <div class="helper">
       <p class="a">
-        <a href="/" class="helper-page selected" th:text="#{helper.index}">Inicio</a>
+        <a href="/" th:href="@{/}" class="helper-page selected" th:text="#{helper.index}">Inicio</a>
       </p>    
     </div>
     <hr class="helper-hr">

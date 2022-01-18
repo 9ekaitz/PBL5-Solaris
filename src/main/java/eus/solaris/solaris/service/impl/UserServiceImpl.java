@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
 import eus.solaris.solaris.service.RoleService;
@@ -78,11 +79,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUser(String name, String firstSurname, String secondSurname, String email, User user) {
-        user.setEmail(email);
-        user.setName(name);
-        user.setFirstSurname(firstSurname);
-        user.setSecondSurname(secondSurname);
+    public User editUser(UserInformationEditForm form, User user) {
+        user.setEmail(form.getEmail());
+        user.setName(form.getName());
+        user.setFirstSurname(form.getFirstSurname());
+        user.setSecondSurname(form.getSecondSurname());
         return save(user);    
     }
 

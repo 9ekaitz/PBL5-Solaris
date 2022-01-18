@@ -5,6 +5,7 @@ import java.util.List;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 
 public interface UserService {
@@ -13,8 +14,8 @@ public interface UserService {
     public void deleteUser(Long id);
     public User disableUser(User user);
     public User editPassword(String newPassword, String oldPassword, User user);
-    public User editUser(String name, String firstSurname, String secondSurname, String email, User user);
     public List<Address> getUserAddresses(User user);
     public List<PaymentMethod> getUserPaymentMethods(User user);
     public User register(UserRegistrationForm userRegistrationForm);
+    public User editUser(UserInformationEditForm form, User attribute);
 }
