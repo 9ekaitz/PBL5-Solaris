@@ -27,13 +27,13 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "username", unique = true)
+    private String username;
     
     @Column(name = "email")
     private String email;
 
-    @Column(name = "username")
-    private String username;
-    
     @Column(name = "password")
     private String password;
     
@@ -55,9 +55,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<SolarPanel> solarPanels;
 
-    @OneToMany(mappedBy = "installer", fetch = FetchType.LAZY)
-    private Set<Task> tasks;
-    
     @Version
     private Integer version;
 }

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Task {
+public class Installation {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +25,18 @@ public class Task {
   @Column
   private String name;
 
+  @Column
+  private String description;
+
+  @Column
+  private Boolean completed = false;
+
   @OneToOne
   @JoinColumn(name = "order_id", nullable = false)
   private Order order;
 
   @ManyToOne
-  @JoinColumn(name = "responsible", nullable = false)
+  @JoinColumn(name = "installer", nullable = false)
   private User installer;
 
   @Version

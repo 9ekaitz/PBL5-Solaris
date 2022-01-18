@@ -7,6 +7,9 @@ nav {
   @media screen and (min-width: 768px) {
     grid-row: span 2;
     width: fit-content;
+    .expand {
+      width: 16rem;
+    }
   }
 }
 
@@ -17,9 +20,9 @@ nav {
   background-color: $breadcrumbs-off-color;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
 
-  width: calc(100% - 0rem);
+  width: 100%;
   text-align: center;
 
   .nav-mobile-item {
@@ -34,9 +37,12 @@ nav {
     gap: 0.5rem;
 
     &:hover {
-      filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
-        brightness(175%) contrast(95%);
-        cursor: pointer;
+      .logo {
+        fill: $main-color;
+      }
+      .text {
+        color: $main-color;
+      }
     }
     .logo {
       fill: white;
@@ -71,6 +77,7 @@ hr {
     flex-direction: column;
     height: 100%;
     transition: width 0.5s;
+    width: 3.6rem;
 
     .nav-item {
       display: flex;
@@ -80,12 +87,6 @@ hr {
         display: inline-block;
       }
 
-      &:hover{
-        filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
-          brightness(175%) contrast(95%);
-          cursor: pointer;
-      }
-      
       .logo {
         fill: $border-color;
         max-width: 2rem;
@@ -100,19 +101,34 @@ hr {
         overflow: hidden;
         white-space: nowrap;
       }
+
+      &:hover{
+        cursor: pointer;
+      }
     }
-    .no-animation:hover{
-      filter: none;
+
+    .current, .nav-item:hover {
+      .logo {
+        fill: $main-color;
+      }
+      .text {
+        color: $main-color;
+      }
+    }
+
+    }
+    .no-animation:hover {
+      .logo{
+        fill: none;
+      }
+      .text {
+        color: $border-color;
+      }
       cursor: initial;
-    }
-    .current{
-      filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg)
-        brightness(175%) contrast(95%);
     }
 
     h2 {
       color: $border-color;
     }
-  }
-  background-color: $dashboard-nav-color;
+  background: $dashboard-nav-color;
 }

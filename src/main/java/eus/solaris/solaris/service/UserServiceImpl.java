@@ -2,6 +2,7 @@ package eus.solaris.solaris.service;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
@@ -11,22 +12,26 @@ import org.springframework.stereotype.Service;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
+import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-    
+
     @Value("${solaris.pagination.pagesize}")
 	private Integer pagesize;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RoleService roleService;
+    private ModelMapper modelMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleService roleService;
     
     @Override
     public void save(User user) {
@@ -98,5 +103,13 @@ public class UserServiceImpl implements UserService {
         user.setRole(roleService.findById(upcf.getRoleId()));
         user.setEnabled(true);
         this.save(user);
+    }
+
+    public void register(UserRegistrationForm userRegistrationForm) {
+        User user = modelMapper.map(userRegistrationForm, User.class);
+        user.setRole(roleService.findByName("ROLE_USER"));
+        user.setEnabled(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        save(user);
     }
 }

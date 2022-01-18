@@ -37,7 +37,7 @@ public class Role {
     @Column(name = "i18n", nullable = false, length = 64)
     private String i18n;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Privilege> privileges;
     
     @Version

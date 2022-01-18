@@ -18,7 +18,7 @@ public class Order {
   private Long id;
 
   @OneToOne(mappedBy = "order", fetch = FetchType.LAZY)
-  private Task task;
+  private Installation installation;
 
   @Version
   private Integer version;

@@ -1,0 +1,58 @@
+* {
+  font-size: 24px;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form .submit-wrap {
+  margin-top: 1em;
+}
+.login-form .submit-wrap input[type=submit] {
+  font-size: 0.7rem;
+}
+
+h1 {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+}
+h1 .logo {
+  -webkit-user-drag: none;
+  font-size: inherit;
+  width: 5em;
+}
+
+.error {
+  font-size: 0.75rem;
+}
+
+.login-link {
+  text-decoration: none;
+  color: #f9aa31;
+  font-size: 0.7rem;
+  margin-top: 0.8rem;
+}
+
+.column {
+  width: 100%;
+}
+
+@media screen and (min-width: 900px) {
+  .column {
+    width: 50%;
+  }
+  .column.column-left {
+    margin-right: 2rem;
+  }
+
+  .col-wrap {
+    display: flex;
+  }
+}/*# sourceMappingURL=register.css.map */
