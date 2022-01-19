@@ -1,15 +1,17 @@
 $main-color: #f9aa31;
 $main-dark-color: darken($main-color, 10%);
 $text-color: #000;
-$text-light-color: #fff;
-$bg-color: #e5e5e5;
-$section-bg-color: #fff;
-$breadcrumbs-off-color: #4d4d4d;
-$element-off-color: #52525c;
+$text-light-color: #FFF;
+$bg-color: #F1F1F1;
+$section-bg-color: #FFF;
+$breadcrumbs-off-color: #4D4D4D;
+$element-off-color: #52525C;
 $search-bg-color: #282828;
-$danger-color: #da3633;
-$border-color: #c7c7c7;
-$extra-info-color: #f1f1f1;
+$danger-color: #DA3633;
+$danger-dark-color: darken($danger-color, 10%);
+$success-color: #5CB85C;
+$border-color: #C7C7C7;
+$extra-info-color: #F1F1F1;
 $dashboard-nav-color: #3e3e3e;
 $dashboard-nav-alt-color: #707070;
 

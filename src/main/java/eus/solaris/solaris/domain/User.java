@@ -1,6 +1,7 @@
 package eus.solaris.solaris.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,20 +12,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Generated;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "`user`")
+@Getter @Setter
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor 
 @Generated
 public class User implements Serializable {
     
@@ -36,7 +40,7 @@ public class User implements Serializable {
     
     @Column(name = "username", unique = true)
     private String username;
-    
+
     @Column(name = "email")
     private String email;
 
@@ -54,6 +58,14 @@ public class User implements Serializable {
     
     @Column(name = "enabled")
     private Boolean enabled;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("default_address DESC")
+    private List<Address> addresses;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("default_method ASC")
+    private List<PaymentMethod> paymentMethods;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
@@ -62,7 +74,7 @@ public class User implements Serializable {
     private Set<SolarPanel> solarPanels;
 
     @Version
-    @EqualsAndHashCode.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private Integer version;
     
 }

@@ -44,7 +44,7 @@ public class Privilege {
     private Set<Role> roles;
 
     @Version
-    @EqualsAndHashCode.Exclude
+    @lombok.EqualsAndHashCode.Exclude
     private Integer version;
 
 }

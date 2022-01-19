@@ -56,7 +56,7 @@
               <div class="address">
                 <p th:text="${installation.order.address.street}"></p>
                 <p
-                  th:text="${installation.order.address.city}+', '+${installation.order.address.province}+', '+${installation.order.address.country}"
+                  th:text="${installation.order.address.city}+', '+ #{${installation.order.address.province.i18n}}+', '+ #{${installation.order.address.country.i18n}}"
                 ></p>
               </div>
             </li>

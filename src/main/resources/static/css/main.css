@@ -299,6 +299,17 @@ body {
   margin-block: 0.3rem;
   width: 100%;
 }
+.form .field .select {
+  width: 100%;
+}
+.form .allWidth {
+  width: 100%;
+}
+.form .double {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
 .form .input-field {
   width: 100%;
   box-sizing: border-box;
@@ -347,6 +358,14 @@ body {
 }
 .form .password-toggle .show-password:hover svg {
   fill: #000;
+}
+
+.select {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  height: 1.5em;
 }
 
 input {
@@ -414,6 +433,13 @@ input[type=submit].btn-big,
   height: 4rem;
   border-radius: 0.3rem;
 }
+input[type=submit].delete-account {
+  background-color: #DA3633;
+  color: #FFF;
+}
+input[type=submit].delete-account:hover, input[type=submit].delete-account:focus {
+  background-color: #b92421;
+}
 
 .section {
   display: flex;
@@ -425,6 +451,57 @@ input[type=submit].btn-big,
   border-radius: 0.2rem;
 }
 
+.helper {
+  display: none;
+}
+
+.helper-hr {
+  border: none;
+  display: none;
+}
+
+.alert {
+  width: 100%;
+  border: 1px solid #C7C7C7;
+  text-align: center;
+  padding-block: 1rem;
+  margin-bottom: 0.5rem;
+}
+.alert.alert-danger {
+  background-color: #b92421;
+  color: #FFF;
+}
+.alert.alert-success {
+  background-color: #5CB85C;
+  color: #FFF;
+}
+
+@media (min-width: 768px) {
+  .helper {
+    display: block;
+    margin: 0;
+    padding: 0.5rem 0 0.5rem 10rem;
+    font-size: 1rem;
+  }
+  .helper .a {
+    margin: 0;
+  }
+  .helper .a .helper-page {
+    text-decoration: none;
+  }
+  .helper .a .helper-page.selected {
+    font-weight: bold;
+    color: #f9aa31;
+  }
+
+  .helper-hr {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid #C7C7C7 !important;
+  }
+}
 @media screen and (min-width: 480px) {
   .section {
     border: 1px solid #c7c7c7;
