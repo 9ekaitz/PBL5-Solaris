@@ -101,8 +101,9 @@ class UserServiceImplTest {
     @Test
     void editPasswordTestTrue(){
         Role role = createRole();
-        User userToBeChange = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
-        User userChanged = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "passwordChanged", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        User userToBeChange = createUser2(role);
+        User userChanged = createUser2(role);
+        userChanged.setPassword("passwordChanged");
 
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
@@ -115,11 +116,16 @@ class UserServiceImplTest {
         }
     }
 
+    private User createUser2(Role role) {
+        return new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+    }
+
     @Test
     void editPasswordTestFalse(){
         Role role = createRole();
-        User userToBeChange = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
-        User userChanged = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "passwordChanged", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        User userToBeChange = createUser2(role);
+        User userChanged = createUser2(role);
+        userChanged.setPassword("passwordChanged");
 
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
@@ -136,9 +142,11 @@ class UserServiceImplTest {
     void editUserTest(){
         UserInformationEditForm userInformationEditForm = new UserInformationEditForm("AritzCambiado", "domaikaCambiado", "peirats", "aritz.domaika@gmail.com");
         Role role = createRole();
-        User userToBeChange = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
-        User userChanged = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "AritzCambiado", "domaikaCambiado", "peirats", true,  null, null, role, null, 1);
-
+        User userToBeChange = createUser2(role);
+        User userChanged = createUser2(role);
+        userChanged.setName("AritzCambiado");
+        userChanged.setFirstSurname("domaikaCambiado");
+        
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
         when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
@@ -148,7 +156,7 @@ class UserServiceImplTest {
      @Test
      void getUserAddressesTest(){
         Role role = createRole();
-        User user = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        User user = createUser2(role);
         Address allAddresses[] = {
             new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, true, true, 1),
             new Address(2L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, false, false, 1)
@@ -163,7 +171,7 @@ class UserServiceImplTest {
     @Test
     void getUserPaymentMethodsTest(){
         Role role = createRole();
-        User user = new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        User user = createUser2(role);
         PaymentMethod allPaymentMethods[] = {
             new PaymentMethod(1L, user, "Aritz Domaika Peirats", "1111222233334444", 11L, 2025L, "111", true, true, 1),
             new PaymentMethod(1L, user, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false, 1)
