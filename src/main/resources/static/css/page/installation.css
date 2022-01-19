@@ -51,7 +51,7 @@
   font-weight: lighter;
   font-size: 1.1rem;
 }
-.container .details .article-list {
+.container .details .product-list {
   list-style: circle;
 }
 .container .details .map {
@@ -84,6 +84,13 @@
 .container label .text {
   font-size: 1.3rem;
 }
+.container .footer .btn {
+  display: block;
+  margin-block: 0.5rem 0;
+  border-radius: 0.2rem;
+  padding: 0.2em;
+  height: 1.5em;
+}
 @media screen and (min-width: 768px) {
   .container {
     height: auto;
@@ -103,7 +110,7 @@
 .container .details form {
     padding-left: 3rem;
   }
-  .container .sign {
+  .container #sign-container {
     border: none;
   }
 }
@@ -125,4 +132,8 @@
   width: 100%;
   height: 100%;
   border: 1px solid #c7c7c7;
+}
+
+.hide {
+  display: none;
 }/*# sourceMappingURL=installation.css.map */

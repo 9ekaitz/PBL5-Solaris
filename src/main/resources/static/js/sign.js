@@ -1,14 +1,25 @@
+const CSRF_TOKEN = document.querySelector("meta[name='_csrf']").content;
+const CSRF_HEADER = document.querySelector("meta[name='_csrf_header']").content;
+
+var canvas_container;
+var task_container;
 var canvas;
 var ctx;
-window.addEventListener("DOMContentLoaded", function () {
-  canvas = document.querySelector('#sign');
 
-  ctx = canvas.getContext('2d');
-  resize(); // Resizes the canvas once the window loads
-  document.addEventListener('mousedown', startPainting);
-  document.addEventListener('mouseup', stopPainting);
-  document.addEventListener('mousemove', sketch);
-  window.addEventListener('resize', resize);
+window.addEventListener("DOMContentLoaded", function () {
+  canvas = document.getElementById('sign');
+  canvas_container = document.getElementById('canvas-container');
+  task_container = document.getElementById('task-container');
+
+  document.getElementById("sign-btn").addEventListener("click", showCanvas);
+  document.getElementById("send-btn").addEventListener("click", uploadFile);
+
+  ctx = canvas.getContext("2d");
+
+  document.addEventListener("mousedown", startPainting);
+  document.addEventListener("mouseup", stopPainting);
+  document.addEventListener("mousemove", sketch);
+  window.addEventListener("resize", resize);
 });
 
 function resize() {
@@ -35,19 +46,54 @@ function stopPainting() {
 
 function sketch(event) {
   if (!paint) return;
+
   ctx.beginPath();
-
   ctx.lineWidth = 3;
-
   ctx.lineCap = 'round';
-
   ctx.strokeStyle = 'black';
-
   ctx.moveTo(coord.x, coord.y);
 
   getPosition(event);
 
   ctx.lineTo(coord.x, coord.y);
-
   ctx.stroke();
+}
+
+function showCanvas() {
+  let exit;
+  document.querySelectorAll("form .check").forEach(function (item) {
+    if (!item.checked) {
+      document.getElementById("sign-error").classList.remove("hide");
+      exit = true;
+      return
+    }
+  })
+  if (exit) return;
+
+  task_container.classList.remove("current");
+  canvas_container.classList.add("current");
+  document.getElementById("sign-btn").classList.add("hide");
+  document.getElementById("save-btn").classList.add("hide");
+  document.getElementById("send-btn").classList.remove("hide");
+  resize();
+}
+
+function uploadFile() {
+  canvas.toBlob(function (blob) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/install/2/save', true);
+    xhr.setRequestHeader('x-csrf-token', CSRF_TOKEN)
+
+    var formData = new FormData(document.getElementById("taskForm"));
+    formData.append('sign', blob, 'sing.jpg');
+
+    // action after uploading happens
+    xhr.onload = function (e) {
+      console.log("File uploading completed!");
+    };
+
+    // do the uploading
+    console.log("File uploading started!");
+    xhr.send(formData);
+  }, 'image/jpeg', 0.95);
 }

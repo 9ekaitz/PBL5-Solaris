@@ -104,12 +104,12 @@ class InstallerControllerTest {
   @WithUserDetails(value = "testyTechnician")
   void accessToDashboardWithCredentials() {
     List<Installation> pending = Stream
-        .of(new Installation(1L, "pending_install 1", "Install_Desc 1", true, null, null, null,
+        .of(new Installation(1L, "pending_install 1", "Install_Desc 1", true, null, null, null, null,
             1))
         .collect(Collectors.toList());
 
     List<Installation> completed = Stream
-        .of(new Installation(2L, "completed_install 1", "Install_Desc 1", true, null, null,
+        .of(new Installation(2L, "completed_install 1", "Install_Desc 1", true, null, null, null,
             null, 1))
         .collect(Collectors.toList());
 
@@ -147,6 +147,7 @@ class InstallerControllerTest {
     Long requestID = 1L;
 
     Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, null, null,
+        null,
         1);
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 
@@ -164,6 +165,7 @@ class InstallerControllerTest {
     Long requestID = 1L;
 
     Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, user, null,
+        null,
         1);
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 
@@ -181,6 +183,7 @@ class InstallerControllerTest {
     User testUser = new User();
     testUser.setId(10L);
     Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser,
+        null,
         null, 1);
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 
@@ -209,7 +212,7 @@ class InstallerControllerTest {
   void postToInstallPageWithCredentialsAndOneNullParameter() {
     Long requestID = 1L;
 
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, user, null,
+    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, user, null, null,
         1);
 
     Task task1 = new Task(1L, "description", false, installation, 0);
@@ -250,7 +253,7 @@ class InstallerControllerTest {
     User testUser = new User();
     testUser.setId(10L);
 
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser,
+    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser, null,
         null, 1);
 
     when(installationServiceImpl.findById(requestID)).thenReturn(installation);
@@ -272,7 +275,7 @@ class InstallerControllerTest {
     Long requestID = 1L;
     User testUser = new User();
     testUser.setId(10L);
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser,
+    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser, null,
         null, 1);
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 

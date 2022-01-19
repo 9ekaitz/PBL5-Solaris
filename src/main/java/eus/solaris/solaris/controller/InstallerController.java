@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import eus.solaris.solaris.domain.Installation;
+import eus.solaris.solaris.domain.Task;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.TaskForm;
 import eus.solaris.solaris.service.InstallationService;
@@ -52,7 +53,7 @@ public class InstallerController {
 
     Installation installation = installationService.findById(id);
 
-    if (!filter( installation, (User) model.getAttribute("user")))
+    if (!filter(installation, (User) model.getAttribute("user")))
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
     model.addAttribute("installation", installation);
@@ -63,15 +64,17 @@ public class InstallerController {
   @PreAuthorize("hasAuthority('AUTH_INSTALL_WRITE')")
   @PostMapping(value = "/{id}/save")
   public String saveTask(@PathVariable(value = "id") Long id, @ModelAttribute TaskForm form, Model model) {
-    if (!filter(installationService.findById(id), (User) model.getAttribute("user")))
+    Installation installation = installationService.findById(id);
+    if (!filter(installation, (User) model.getAttribute("user")))
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
     if (form.getTasksId() != null)
       form.getTasksId().stream()
           .filter(Objects::nonNull)
           .forEach(i -> taskService.markCompleted(taskService.findById(i)));
-    model.addAttribute("installation", installationService.findById(id));
-    return "redirect:/install/" + id;
+
+    model.addAttribute("installation", installation);
+    return "redirect:/install";
   }
 
   private boolean filter(Installation installation, User user) {
@@ -80,5 +83,15 @@ public class InstallerController {
       authorized = true;
 
     return authorized;
+  }
+
+  private boolean checkTaskCompleted(Installation installation) {
+    boolean completed = true;
+    for (Task task : installation.getTasks()) {
+      if (!task.getCompleted())
+        completed = false;
+    }
+
+    return completed;
   }
 }

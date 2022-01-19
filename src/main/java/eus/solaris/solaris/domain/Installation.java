@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import java.sql.Blob;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -52,6 +53,10 @@ public class Installation {
   @OneToMany(mappedBy = "installation", fetch = FetchType.LAZY)
   @OrderBy("id ASC")
   private List<Task> tasks;
+
+  @Column
+  @EqualsAndHashCode.Exclude
+  private Blob sign;
 
   @Version
   @EqualsAndHashCode.Exclude
