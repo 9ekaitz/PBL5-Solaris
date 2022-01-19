@@ -33,7 +33,7 @@ public class Privilege {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "privileges")
     private Set<Role> roles;
 
     @Version

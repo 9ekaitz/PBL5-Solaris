@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,27 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "material")
+    private String material;
+
+    @Column(name = "product_type")
+    private String productType;
+
+    @Column(name = "color")
+    private String color;
+
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
     private SolarPanelModel solarPanelModel;
     

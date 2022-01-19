@@ -46,4 +46,7 @@ solaris:
     remember-me:
       key: ENC(kpXkc5glu8o9LUfpVIZgEs7i+egWhzDJOI214DzobKOqRbIJkqnCWxX427eTPVUrs2/MtkYoMRXd0GmJx8MLaw==)
   pagination:
-    pagesize: 10
+    users:
+      pagesize: 10
+    products:
+      pagesize: 8

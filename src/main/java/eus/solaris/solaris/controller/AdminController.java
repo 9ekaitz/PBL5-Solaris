@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.PasswordUpdateForm;
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
+import eus.solaris.solaris.service.ProductService;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
 
@@ -30,15 +32,18 @@ public class AdminController {
     UserService userService;
 
     @Autowired
+    ProductService productService;
+
+    @Autowired
     RoleService roleService;
 
     @Autowired
     ModelMapper modelMapper;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping("/manage-users")
     public String manageUser(Authentication authentication, Model model) {
-        model.addAttribute("page_title", "GENERAL");
+        model.addAttribute("page_title", "USERS");
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
         model.addAttribute("actualPage", 0);
@@ -47,7 +52,7 @@ public class AdminController {
         return "page/admin-dashboard/manage-users";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping("/manage-users/{page}")
     public String manageUserPageHandler(Authentication authentication, @PathVariable int page, Model model) {
         List<User> users = userService.findManageableUsers();
@@ -59,7 +64,7 @@ public class AdminController {
         return "page/admin-dashboard/manage-users";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping(value = "/edit-user/{id}")
     public String editUser(@PathVariable(value = "id") Long id, Model model) {
         User user = userService.findById(id);
@@ -68,14 +73,14 @@ public class AdminController {
         return "page/admin-dashboard/edit-user";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/update-user/{id}")
     public String updateUser(@PathVariable(value = "id") Long id, @ModelAttribute UserProfileUpdateForm upuf, BindingResult result, Model model) {
         userService.update(id, upuf);
         return "redirect:/dashboard/manage-users";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/update-user-password/{id}")
     public String updateUserPassword(@PathVariable(value = "id") Long id, @ModelAttribute PasswordUpdateForm puf, BindingResult result, Model model) {
         if (checkPasswords(puf.getPassword(), puf.getRepeatPassword())) {
@@ -88,7 +93,7 @@ public class AdminController {
         return "redirect:/dashboard/manage-users";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping(value = "/delete-user/{id}")
     public String deleteUser(@PathVariable(value = "id") Long id, Model model) {
         User user = userService.findById(id);
@@ -96,14 +101,14 @@ public class AdminController {
         return "redirect:/dashboard/manage-users";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping(value = "/create-user")
     public String showCreateUserPage(Model model) {
         model.addAttribute("roles", roleService.findAll());
         return "page/admin-dashboard/create-user";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/create-user")
     public String createUser(@ModelAttribute UserProfileCreateForm upcf, BindingResult result, Model model) {
         if (checkPasswords(upcf.getPassword(), upcf.getRepeatPassword())) {
@@ -114,6 +119,18 @@ public class AdminController {
             return "/dashboard/create-user";
         }
         return "redirect:/dashboard/manage-users";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @GetMapping(value = "/manage-products")
+    public String showManageProductsPage(Model model) {
+        model.addAttribute("page_title", "PRODUCTS");
+        List<Product> products = productService.findAll();
+        PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
+        model.addAttribute("actualPage", 0);
+        model.addAttribute("products", pagedListHolder.getPageList());
+        model.addAttribute("totalPages", pagedListHolder.getPageCount());
+        return "page/admin-dashboard/manage-products";
     }
 
     public boolean checkPasswords(String psw1, String psw2) {

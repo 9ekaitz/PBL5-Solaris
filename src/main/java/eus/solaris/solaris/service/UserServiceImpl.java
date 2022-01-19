@@ -18,7 +18,7 @@ import eus.solaris.solaris.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Value("${solaris.pagination.pagesize}")
+    @Value("${solaris.pagination.users.pagesize}")
 	private Integer pagesize;
 
     @Autowired
