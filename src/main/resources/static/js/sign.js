@@ -74,26 +74,26 @@ function showCanvas() {
   canvas_container.classList.add("current");
   document.getElementById("sign-btn").classList.add("hide");
   document.getElementById("save-btn").classList.add("hide");
+  document.querySelector(".error").classList.add("hide");
   document.getElementById("send-btn").classList.remove("hide");
   resize();
 }
 
 function uploadFile() {
   canvas.toBlob(function (blob) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('POST', '/install/2/save', true);
     xhr.setRequestHeader('x-csrf-token', CSRF_TOKEN)
 
-    var formData = new FormData(document.getElementById("taskForm"));
-    formData.append('sign', blob, 'sing.jpg');
+    let formData = new FormData(document.getElementById("taskForm"));
+    formData.append('sign', blob, crypto.randomUUID()+'.jpg');
 
     // action after uploading happens
     xhr.onload = function (e) {
-      console.log("File uploading completed!");
+      xhr.getResponseHeader
+      window.location.replace("http://www.w3schools.com");
     };
 
-    // do the uploading
-    console.log("File uploading started!");
     xhr.send(formData);
   }, 'image/jpeg', 0.95);
 }
