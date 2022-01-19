@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{index_template}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" th:href="@{/css/page/profile.css}">
+  <link rel="stylesheet" th:href="@{/css/page/profile-address.css}">
+</head>
+
+<main layout:fragment="content" class="profile">
+  <div>
+    <div class="helper">
+      <p class="a">
+        <a href="/profile" th:href="@{/profile}" class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
+        <a href="/profile/payment-method" th:href="@{/profile/payment-method}" class="helper-page selected" th:text="#{helper.profile.payment_methods}">Métodos de pago</a>
+      </p>
+    </div>
+    <hr class="helper-hr">
+    <section class="profile-main address">
+      <div class="alert alert-success" role="alert" th:text="#{${success}}" th:if="${success}"></div>
+      <div class="alert alert-danger" role="alert" th:text="#{${error}}" th:if="${error}"></div>
+      <div class="profile-background">
+        <div>
+          <h1 class="title" th:text="#{page.profile.payment_method.edit.title}">Edit user</h1>
+        </div>
+        <div class="options">
+            <a href="/profile/payment-method/add" th:href="@{/profile/payment-method/add}" class="add-address address-section">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>            
+                <p class="add" th:text="#{page.profile.payment_method.add.title}">Agregar dirección</p>
+            </a>
+            <th:block th:if="${paymentMethods != null}">
+              <div th:each="paymentMethod : ${paymentMethods}" class="address-info">
+                  <div class="block">
+                    <div th:if="${paymentMethod.defaultMethod == true}" class="default">
+                      <p class="text" th:text="#{page.profile.default.title}">Predeterminado</p>
+                      <hr class="helper-hr">
+                    </div>
+                    <div class="info">
+                      <p class="name" th:text="${paymentMethod.cardHolderName}">Nombre</p>
+                      <p th:text="'**** **** **** ' + ${#strings.substring(paymentMethod.cardNumber,12,16)}">Numero de cuenta</p>
+                      <p th:text="#{page.profile.payment_method.edit.expirationDate} + ': ' +  ${paymentMethod.expirationMonth} + '/' + ${paymentMethod.expirationYear}">Fecha de vencimiento</p>
+                      <p th:text="#{page.profile.payment_method.edit.cvc} + ': ' + ${paymentMethod.securityCode}">CVC</p> 
+                    </div>
+                  </div>
+                  <div class="address-edit-options">
+                    <form method="GET" th:action="@{'/profile/payment-method/edit/' + ${paymentMethod.id}}">
+                      <input class="option" type="submit" value="Editar" th:value="#{page.profile.edit}">
+                    </form>
+                    <form method="POST" th:action="@{'/profile/payment-method/delete/' + ${paymentMethod.id}}">
+                      <input class="option" type="submit" value="Borrar" th:value="#{page.profile.delete}">
+                    </form>
+                    <form method="POST" th:action="@{'/profile/payment-method/edit/set-default/' + ${paymentMethod.id}}" th:if="${paymentMethod.defaultMethod == false}">
+                      <input class="option" type="submit" value="Definir como predeterminado" th:value="#{page.profile.default.set}">
+                    </form>
+                  </div>
+              </div>
+            </th:block>        
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

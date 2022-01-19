@@ -36,10 +36,24 @@ body {
   flex-direction: column;
   align-items: center;
 
-  .field {
-    margin-block: 0.3rem;
-    width: 100%;
-  }
+    .field {
+        margin-block: 0.3rem;
+        width: 100%;
+
+        .select{
+            width: 100%;
+        }
+    }
+
+    .allWidth {
+        width: 100%;
+    }
+    
+    .double{
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+    }
 
   .input-field {
     width: 100%;
@@ -104,6 +118,14 @@ body {
   }
 }
 
+.select{
+    display: block;
+    margin-block: 0.5rem 0;
+    border: 1px solid $text-color;
+    border-radius: $input-border;
+    height: 1.5em;
+}
+
 input {
   display: block;
   margin-block: 0.5rem 0;
@@ -149,6 +171,21 @@ input[type="checkbox"] {
   }
 }
 
+    &.btn-big {
+        width: 18rem;
+        height: 4rem;
+        border-radius: 1.5 * $btn-border;
+    }
+
+    &.delete-account{
+        background-color: $danger-color;
+        color: $text-light-color;
+
+        &:hover,
+        &:focus{
+            background-color: $danger-dark-color;
+        }
+    }
 input[type="submit"],
 .btn {
   font-size: 1em;
@@ -187,6 +224,65 @@ input[type="submit"],
   &.section-rounded {
     border-radius: $section-border;
   }
+}
+
+.helper{
+    display: none;
+}
+
+
+.helper-hr{
+    border: none;
+    display: none;
+}
+
+.alert{
+    width: 100%;
+    border: 1px solid $border-color;
+    text-align: center;
+    padding-block: 1rem;
+    margin-bottom: 0.5rem;
+
+    &.alert-danger{
+        background-color: $danger-dark-color;
+        color: $text-light-color;
+    }
+
+    &.alert-success{
+        background-color: $success-color;
+        color: $text-light-color;
+    }
+
+}
+
+@media (min-width: $large-screen){
+    .helper{
+        display: block;
+        margin: 0;
+        padding: 0.5rem 0 0.5rem 10rem;
+        font-size: 1rem;
+
+        .a{
+            margin: 0;
+
+            .helper-page{
+                text-decoration: none;
+
+                &.selected{
+                    font-weight: bold;
+                    color: $main-color;
+                }
+            }
+        }
+    }
+
+    .helper-hr{
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-top: 1px solid $border-color !important;
+    }
 }
 
 @media screen and (min-width: $medium-screen) {

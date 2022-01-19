@@ -1,0 +1,19 @@
+@import "../util/variables";    
+
+.delete-card-main{
+    background-color: $bg-color;
+    padding: 2rem;
+
+    .delete-card{
+        background-color: $section-bg-color;
+        border: 1px solid $border-color;
+        padding-inline: 2rem;
+        padding-block: 1.5rem;
+
+        .card-title{
+            margin: 0 0 1.5rem 0;
+            font-size: 1.5rem;
+        }
+
+    }
+}
