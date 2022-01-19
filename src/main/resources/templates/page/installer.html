@@ -10,25 +10,41 @@
   </head>
 
   <body>
-    <h2 class="page-title" layout:fragment="title" th:text="#{header.title.overview}"></h2>
+    <h2
+      class="page-title"
+      layout:fragment="title"
+      th:text="#{header.title.overview}"
+    ></h2>
     <main layout:fragment="content" class="installer-dashboard">
       <div class="user-banner container">
-        <h1 class="title" th:text="#{page.installer.welcome } +' '+ ${user.name}"><span> Max Verstapen</span></h1>
+        <h1
+          class="title"
+          th:text="#{page.installer.welcome } +' '+ ${user.name}"
+        >
+          <span> Max Verstapen</span>
+        </h1>
       </div>
       <div class="available-installations container current">
         <h2 class="title" th:text="#{page.installer.installations}"></h2>
         <div class="installation-list">
-          <p class="empty" th:text="#{page.installer.installations-empty}" th:if="${#lists.isEmpty(pendingInstallations)}"></p>
+          <p
+            class="empty"
+            th:text="#{page.installer.installations-empty}"
+            th:if="${#lists.isEmpty(pendingInstallations)}"
+          ></p>
           <th:block th:each="installation : ${pendingInstallations}">
-            <a th:href="@{'/install/installation/'+${installation.id}}">
+            <a th:href="@{'/install/'+${installation.id}}">
               <div class="installation-details">
-                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
+                <img
+                  th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=3e3e3e,707070,f9aa31&square=true'}"
+                  th:alt="#{img.alt.installation}"
+                />
                 <div>
                   <p class="name" th:text="${installation.name}"></p>
                   <p class="info" th:text="${installation.description}"></p>
                 </div>
               </div>
-              <i class="button" th:href="@{'/install/installation/'+${installation.id}}">
+              <i class="button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -49,19 +65,29 @@
         </div>
       </div>
       <div class="completed-installations container">
-        <h2 class="title" th:text="#{page.installer.finished-installations}"></h2>
+        <h2
+          class="title"
+          th:text="#{page.installer.finished-installations}"
+        ></h2>
         <div class="installation-list">
-        <p class="empty" th:text="#{page.installer.finished-installations-empty}" th:if="${#lists.isEmpty(completedInstallations)}"></p>
-        <th:block th:each="installation : ${completedInstallation}">
-            <a>
+          <p
+            class="empty"
+            th:text="#{page.installer.finished-installations-empty}"
+            th:if="${#lists.isEmpty(completedInstallations)}"
+          ></p>
+          <th:block th:each="installation : ${completedInstallation}">
+            <a th:href="@{'/install/'+${installation.id}}">
               <div class="installation-details">
-                <img th:src="@{/images/user.png}" th:alt="#{img.alt.installation}"/>
+                <img
+                  th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=f9aa31,FA8832,FACC32,FAEE32,E3FA32,C1FA32&square=true'}"
+                  th:alt="#{img.alt.installation}"
+                />
                 <div>
                   <p class="name" th:text="${installation.name}"></p>
                   <p class="info" th:text="${installation.description}"></p>
                 </div>
               </div>
-              <i class="button" th:href="@{'/install/installation/'+${installation.id}}">
+              <i class="button">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"

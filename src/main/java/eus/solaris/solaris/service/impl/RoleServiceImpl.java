@@ -1,10 +1,11 @@
-package eus.solaris.solaris.service;
+package eus.solaris.solaris.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Role;
 import eus.solaris.solaris.repository.RoleRepository;
+import eus.solaris.solaris.service.RoleService;
 
 @Service
 public class RoleServiceImpl implements RoleService {

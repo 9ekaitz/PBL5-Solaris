@@ -15,7 +15,7 @@ body {
 }
 .header-mobile .header-mobile-top .logo {
   max-width: 1.5rem;
-  fill: #FFF;
+  fill: #fff;
 }
 .header-mobile .header-mobile-top .logo:hover {
   cursor: pointer;
@@ -37,8 +37,8 @@ body {
   background-color: transparent;
   border: none;
   font-size: 0.75rem;
-  color: #FFF;
-  border-bottom: 1px solid #FFF;
+  color: #fff;
+  border-bottom: 1px solid #fff;
   width: 100%;
 }
 .header-mobile .header-mobile-search form input[type=text]:focus {
@@ -63,7 +63,7 @@ body {
 }
 .header-mobile .header-mobile-lang .lang {
   font-size: 0.75rem;
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
 }
 .header-mobile .header-mobile-lang .lang:hover {
@@ -154,7 +154,7 @@ header .header-computer .header-computer-lang .lang {
   font-size: 1rem;
 }
 @media (min-width: 768px) {
-  header {
+  header .header-computer {
     display: block;
   }
 }/*# sourceMappingURL=header.css.map */

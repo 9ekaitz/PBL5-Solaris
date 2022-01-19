@@ -1,4 +1,4 @@
-package eus.solaris.solaris.service;
+package eus.solaris.solaris.service.impl;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
+import eus.solaris.solaris.service.RoleService;
+import eus.solaris.solaris.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
