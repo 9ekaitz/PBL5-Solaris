@@ -16,8 +16,8 @@
   <div>
     <div class="helper">
       <p class="a">
-        <a href="/profile" class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
-        <a href="/profile/security" class="helper-page selected" th:text="#{helper.profile.security}">Seguridad</a>
+        <a href="/profile"  th:href="@{/profile}"  class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
+        <a href="/profile/security"  th:href="@{/profile/security}" class="helper-page selected" th:text="#{helper.profile.security}">Seguridad</a>
       </p>
     </div>
     <hr class="helper-hr">
