@@ -14,8 +14,8 @@ import eus.solaris.solaris.repository.ImageRepository;
 @Repository
 public class ImageRepositoryImpl implements ImageRepository{
 
-    public String PATH_PRODUCTS = "products/";
-    public String PATH_SIGNATURES = "signatures/";
+    private static final String PATH_PRODUCTS = "products/";
+    private static final String PATH_SIGNATURES = "signatures/";
 
     @Override
     public String save(MultipartFile file) throws Exception {
@@ -24,8 +24,7 @@ public class ImageRepositoryImpl implements ImageRepository{
         convFile.createNewFile();
         try (FileOutputStream out = new FileOutputStream(convFile)){
             out.write(file.getBytes());
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
         return convFile.getAbsolutePath();
     } 
 

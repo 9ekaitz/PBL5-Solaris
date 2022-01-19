@@ -87,8 +87,7 @@ public class InstallerController {
         installation.setCompleted(true);
         installationService.save(installation);
         redirect = INSTALL_REDIRECT;
-      } catch (Exception e) {
-      }
+      } catch (Exception e) {}
     }
     
     return redirect;
@@ -106,7 +105,7 @@ public class InstallerController {
     boolean completed = true;
     if (installation.getTasks() != null) {
       for (Task task : installation.getTasks()) {
-        if (!task.getCompleted())
+        if (Boolean.FALSE.equals(task.getCompleted()))
           completed = false;
       }
     }

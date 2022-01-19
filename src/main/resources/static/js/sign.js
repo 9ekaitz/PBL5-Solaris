@@ -65,7 +65,6 @@ function showCanvas() {
     if (!item.checked) {
       document.getElementById("sign-error").classList.remove("hide");
       exit = true;
-      return
     }
   })
   if (exit) return;
@@ -80,23 +79,21 @@ function showCanvas() {
 }
 
 function uploadFile() {
-canvas.toBlob(function(blob) {
-      let xhr = new XMLHttpRequest();
+  canvas.toBlob(function (blob) {
+    let xhr = new XMLHttpRequest();
     let form = document.getElementById("taskForm")
     xhr.open('POST', form.action, true);
     xhr.setRequestHeader('x-csrf-token', CSRF_TOKEN);
-    const dataObj = {
-      data: canvas.toDataURL("image/png")
-    }
+
     let data = new FormData(form);
-    data.append('sign', blob, crypto.randomUUID()+'.jpg');
+    data.append('sign', blob, crypto.randomUUID() + '.jpg');
 
     xhr.onload = function (e) {
       let location = xhr.responseURL;
       window.location.replace(location);
     };
-    
+
     xhr.send(data);
-});
+  });
 
 }
