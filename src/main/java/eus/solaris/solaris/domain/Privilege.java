@@ -40,7 +40,7 @@ public class Privilege {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "privileges")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Role> roles;
