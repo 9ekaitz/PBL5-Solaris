@@ -80,20 +80,23 @@ function showCanvas() {
 }
 
 function uploadFile() {
-  canvas.toBlob(function (blob) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/install/2/save', true);
-    xhr.setRequestHeader('x-csrf-token', CSRF_TOKEN)
+canvas.toBlob(function(blob) {
+      let xhr = new XMLHttpRequest();
+    let form = document.getElementById("taskForm")
+    xhr.open('POST', form.action, true);
+    xhr.setRequestHeader('x-csrf-token', CSRF_TOKEN);
+    const dataObj = {
+      data: canvas.toDataURL("image/png")
+    }
+    let data = new FormData(form);
+    data.append('sign', blob, crypto.randomUUID()+'.jpg');
 
-    let formData = new FormData(document.getElementById("taskForm"));
-    formData.append('sign', blob, crypto.randomUUID()+'.jpg');
-
-    // action after uploading happens
     xhr.onload = function (e) {
-      xhr.getResponseHeader
-      window.location.replace("http://www.w3schools.com");
+      let location = xhr.responseURL;
+      window.location.replace(location);
     };
+    
+    xhr.send(data);
+});
 
-    xhr.send(formData);
-  }, 'image/jpeg', 0.95);
 }

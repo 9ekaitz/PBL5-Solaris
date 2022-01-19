@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.Task;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.TaskForm;
+import eus.solaris.solaris.repository.ImageRepository;
 import eus.solaris.solaris.service.InstallationService;
 import eus.solaris.solaris.service.TaskService;
 
@@ -27,12 +29,16 @@ import eus.solaris.solaris.service.TaskService;
 public class InstallerController {
 
   private static final String ROLE_ADMIN = "ROLE_ADMIN";
+  private static final String INSTALL_REDIRECT = "redirect:/install";
 
   @Autowired
   InstallationService installationService;
 
   @Autowired
   TaskService taskService;
+
+  @Autowired
+  ImageRepository imageRepository;
 
   @PreAuthorize("hasAuthority('AUTH_INSTALL_READ')")
   @GetMapping
@@ -62,8 +68,10 @@ public class InstallerController {
   }
 
   @PreAuthorize("hasAuthority('AUTH_INSTALL_WRITE')")
-  @PostMapping(value = "/{id}/save")
+  @PostMapping(value = "/{id}/save", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
   public String saveTask(@PathVariable(value = "id") Long id, @ModelAttribute TaskForm form, Model model) {
+    String redirect = INSTALL_REDIRECT+"/"+id;
+
     Installation installation = installationService.findById(id);
     if (!filter(installation, (User) model.getAttribute("user")))
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
@@ -73,8 +81,18 @@ public class InstallerController {
           .filter(Objects::nonNull)
           .forEach(i -> taskService.markCompleted(taskService.findById(i)));
 
+    installation = installationService.findById(id);
+    if (checkTaskCompleted(installation)) {
+      try {
+        installation.setSign(imageRepository.save(form.getSign()));
+        installationService.save(installation);
+        redirect = INSTALL_REDIRECT;
+      } catch (Exception e) {
+      }
+    }
+
     model.addAttribute("installation", installation);
-    return "redirect:/install";
+    return redirect;
   }
 
   private boolean filter(Installation installation, User user) {

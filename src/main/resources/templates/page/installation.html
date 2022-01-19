@@ -83,7 +83,7 @@
               </ul>
             </li>
           </ul>
-          <form id="taskForm" th:action="@{/install/edit}" method="post" enctype="multipart/form-data"> 
+          <form id="taskForm" th:action="@{'/install/'+${installation.id}+'/save'}" method="post" enctype="multipart/form-data"> 
             <label th:each="task, iterator : ${installation.tasks}"
               ><input
                 type="checkbox"
@@ -111,10 +111,9 @@
         </div>
         <div class="footer">
           <span id="sign-error" class="error hide" th:text="#{page.installation.error.sign}"></span>
-          <input id="save-btn"
+          <div><input id="save-btn"
             type="submit"
             form="taskForm"
-            th:formaction="@{'/install/'+${installation.id}+'/save'}"
             th:value="#{page.installation.save}"
           />
           <button class="btn"
@@ -124,7 +123,7 @@
           <button class="btn hide"
             id="send-btn"
             th:text="#{page.installation.send}"
-          ></button>
+          ></button></div>
         </div>
       </div>
     </main>

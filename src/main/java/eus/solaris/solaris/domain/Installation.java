@@ -1,6 +1,5 @@
 package eus.solaris.solaris.domain;
 
-import java.sql.Blob;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -56,7 +55,7 @@ public class Installation {
 
   @Column
   @EqualsAndHashCode.Exclude
-  private Blob sign;
+  private String sign;
 
   @Version
   @EqualsAndHashCode.Exclude
