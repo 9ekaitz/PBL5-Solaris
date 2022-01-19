@@ -12,16 +12,15 @@ import eus.solaris.solaris.service.UserService;
 @ControllerAdvice
 public class UserControllerAdvice {
 
-    @Autowired
-    UserService userService;
+  @Autowired
+  UserService userService;
 
-    @ModelAttribute("user")
-    public User addUserToModel() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = null;
-        if (auth != null)
-            user = userService.findByUsername(auth.getName());
-        return user;
-    }
+  @ModelAttribute("user")
+  public User addUserToModel() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    User user = null;
+    if (auth != null) user = userService.findByUsername(auth.getName());
+    return user;
+  }
 
 }

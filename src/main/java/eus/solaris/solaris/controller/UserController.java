@@ -25,7 +25,6 @@ public class UserController {
     public String get(@RequestParam String name, Model model) {
         User user = userRepository.findByUsername(name);
         model.addAttribute("user", user);
-        System.out.println("get user 4");
         return "user";
     }
 

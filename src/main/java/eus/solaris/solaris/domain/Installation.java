@@ -1,21 +1,31 @@
 package eus.solaris.solaris.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Generated
 public class Installation {
   
   @Id
@@ -39,6 +49,11 @@ public class Installation {
   @JoinColumn(name = "installer", nullable = false)
   private User installer;
 
+  @OneToMany(mappedBy = "installation", fetch = FetchType.LAZY)
+  @OrderBy("id ASC")
+  private List<Task> tasks;
+
   @Version
+  @EqualsAndHashCode.Exclude
   private Integer version;
 }

@@ -13,13 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Generated;
+import lombok.ToString;
 
 @Entity
 @Table(name = "solar_panel")
-@Getter
-@Setter
+@Data
+@Generated
 public class SolarPanel {
 
     @Id
@@ -35,6 +37,7 @@ public class SolarPanel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -42,5 +45,6 @@ public class SolarPanel {
     private Provincia provincia;
 
     @Version
+    @EqualsAndHashCode.Exclude
     private Integer version;
 }

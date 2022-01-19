@@ -1,32 +1,39 @@
 package eus.solaris.solaris.domain;
 
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Generated;
 
 @Entity
 @Table(name = "product")
-@Getter @Setter
+@Data
+@Generated
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @ManyToOne
-    private SolarPanelModel solarPanelModel;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
-    
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    private Set<ProductDescription> descriptions;
+
+    @Column(nullable = false)
+    private String imagePath;
+
     @Version
+    @EqualsAndHashCode.Exclude
     private Integer version;
 }

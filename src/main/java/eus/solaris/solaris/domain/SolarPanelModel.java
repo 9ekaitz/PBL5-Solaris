@@ -12,13 +12,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Generated;
+import lombok.ToString;
 
 @Entity
 @Table(name = "solar_panel_model")
-@Getter
-@Setter
+@Data
+@Generated
 public class SolarPanelModel {
 
     @Id
@@ -47,8 +49,11 @@ public class SolarPanelModel {
     private Double price;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<SolarPanel> solarPanel;
 
     @Version
+    @EqualsAndHashCode.Exclude
     private Integer version;
 }
