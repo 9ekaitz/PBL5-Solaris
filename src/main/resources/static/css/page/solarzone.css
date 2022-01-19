@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+}
+.container .panel {
+  border: 2px solid #C7C7C7;
+}
+@media screen and (min-width: 480px) {
+  .container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .container #banner {
+    grid-column: span 3;
+  }
+  .container #main-panel {
+    grid-column: span 3;
+  }
+  .container #medium-panel {
+    grid-column: span 2;
+  }
+}/*# sourceMappingURL=solarzone.css.map */

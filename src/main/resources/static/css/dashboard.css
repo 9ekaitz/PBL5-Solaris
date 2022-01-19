@@ -6,10 +6,11 @@ main {
 }
 
 .container {
-  background: #fff;
+  background: #FFF;
   display: none;
   overflow: hidden;
   padding: 1rem 2rem;
+  height: calc(100% - 2rem);
 }
 .container .title {
   font-weight: normal;
@@ -19,6 +20,7 @@ main {
 .container .footer {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin: 1rem 0;
   gap: 2.5rem;
 }

@@ -12,6 +12,7 @@ main {
   display: none;
   overflow: hidden;
   padding: 1rem 2rem;
+  height: calc(100% - 2rem);
   .title {
     font-weight: normal;
     font-size: 1.5rem;
@@ -20,6 +21,7 @@ main {
   .footer {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     margin: 1rem 0;
     gap: 2.5rem;
   }

@@ -1,0 +1,28 @@
+@import "../util/variables";
+
+.container {
+  display: flex;
+
+  .panel {
+    border: 2px solid $border-color;
+  }
+
+  @media screen and (min-width: $medium-screen) {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    #banner {
+      grid-column: span 3;
+    }
+    #main-panel {
+      grid-column: span 3;
+    }
+    #small-panel {
+
+    }
+    #medium-panel {
+      grid-column: span 2;
+    }
+  }
+}
