@@ -75,7 +75,7 @@
             th:text="#{page.installer.finished-installations-empty}"
             th:if="${#lists.isEmpty(completedInstallations)}"
           ></p>
-          <th:block th:each="installation : ${completedInstallation}">
+          <th:block th:each="installation : ${completedInstallations}">
             <a th:href="@{'/install/'+${installation.id}}">
               <div class="installation-details">
                 <img

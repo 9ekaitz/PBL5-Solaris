@@ -47,10 +47,12 @@ public class Installation {
 
   @ManyToOne
   @JoinColumn(name = "installer", nullable = false)
+  @EqualsAndHashCode.Exclude
   private User installer;
 
   @OneToMany(mappedBy = "installation", fetch = FetchType.LAZY)
   @OrderBy("id ASC")
+  @EqualsAndHashCode.Exclude
   private List<Task> tasks;
 
   @Column

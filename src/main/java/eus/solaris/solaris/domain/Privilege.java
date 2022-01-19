@@ -17,6 +17,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "privilege")
@@ -41,6 +42,7 @@ public class Privilege {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Role> roles;
 
     @Version

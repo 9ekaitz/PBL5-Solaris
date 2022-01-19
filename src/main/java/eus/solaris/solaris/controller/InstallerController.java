@@ -70,7 +70,7 @@ public class InstallerController {
   @PreAuthorize("hasAuthority('AUTH_INSTALL_WRITE')")
   @PostMapping(value = "/{id}/save", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
   public String saveTask(@PathVariable(value = "id") Long id, @ModelAttribute TaskForm form, Model model) {
-    String redirect = INSTALL_REDIRECT+"/"+id;
+    String redirect = INSTALL_REDIRECT + "/" + id;
 
     Installation installation = installationService.findById(id);
     if (!filter(installation, (User) model.getAttribute("user")))
@@ -81,17 +81,16 @@ public class InstallerController {
           .filter(Objects::nonNull)
           .forEach(i -> taskService.markCompleted(taskService.findById(i)));
 
-    installation = installationService.findById(id);
     if (checkTaskCompleted(installation)) {
       try {
         installation.setSign(imageRepository.save(form.getSign()));
+        installation.setCompleted(true);
         installationService.save(installation);
         redirect = INSTALL_REDIRECT;
       } catch (Exception e) {
       }
     }
-
-    model.addAttribute("installation", installation);
+    
     return redirect;
   }
 
@@ -105,9 +104,11 @@ public class InstallerController {
 
   private boolean checkTaskCompleted(Installation installation) {
     boolean completed = true;
-    for (Task task : installation.getTasks()) {
-      if (!task.getCompleted())
-        completed = false;
+    if (installation.getTasks() != null) {
+      for (Task task : installation.getTasks()) {
+        if (!task.getCompleted())
+          completed = false;
+      }
     }
 
     return completed;

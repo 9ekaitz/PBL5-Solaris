@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -34,6 +35,8 @@ public class Task {
 
   @ManyToOne
   @JoinColumn(name = "installation", nullable = false)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Installation installation;
 
   @Version

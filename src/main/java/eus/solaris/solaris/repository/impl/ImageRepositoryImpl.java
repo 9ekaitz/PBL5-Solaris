@@ -16,7 +16,6 @@ public class ImageRepositoryImpl implements ImageRepository{
 
     public String PATH_PRODUCTS = "products/";
     public String PATH_SIGNATURES = "signatures/";
-    private String UPLOADS_DIR = "file:uploads/";
 
     @Override
     public String save(MultipartFile file) throws Exception {

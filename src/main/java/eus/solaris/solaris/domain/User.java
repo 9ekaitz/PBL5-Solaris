@@ -56,9 +56,11 @@ public class User implements Serializable {
     private Boolean enabled;
     
     @ManyToOne(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Role role;
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<SolarPanel> solarPanels;
 
     @Version
