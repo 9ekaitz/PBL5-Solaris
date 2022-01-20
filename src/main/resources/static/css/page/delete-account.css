@@ -1,0 +1,14 @@
+.delete-card-main {
+  background-color: #F1F1F1;
+  padding: 2rem;
+}
+.delete-card-main .delete-card {
+  background-color: #FFF;
+  border: 1px solid #C7C7C7;
+  padding-inline: 2rem;
+  padding-block: 1.5rem;
+}
+.delete-card-main .delete-card .card-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+}/*# sourceMappingURL=delete-account.css.map */

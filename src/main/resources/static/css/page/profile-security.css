@@ -1,0 +1,110 @@
+.password-form .remember-me {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  display: inline-flex;
+  align-items: flex-end;
+  font-size: 0.8rem;
+  margin-top: 0;
+}
+.password-form .remember-me input {
+  margin-right: 0.6em;
+  width: 1em;
+  height: 1em;
+}
+.password-form .remember-me label {
+  font-size: inherit;
+}
+.password-form label:hover + .password, .password-form label:focus + .password {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.password-form .password {
+  display: flex;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  margin-block: 0.5em 0;
+}
+.password-form .password:focus-within, .password-form .password:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+.password-form .password input {
+  padding-right: 0;
+  border: none;
+  width: 90%;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+}
+.password-form .password input:focus {
+  border: none;
+}
+.password-form .password .show-password {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 10%;
+  height: 100%;
+  padding: 0.25em;
+}
+.password-form .password .show-password svg {
+  margin: auto;
+  fill: #52525C;
+}
+.password-form .password .show-password:hover {
+  cursor: pointer;
+}
+.password-form .password .show-password:hover svg {
+  fill: #000;
+}
+.password-form .submit-wrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.password-reset,
+.register-link {
+  text-decoration: none;
+  color: #f9aa31;
+  font-size: 0.7rem;
+}
+
+.register-link {
+  font-weight: bold;
+}
+
+.password-reset {
+  margin-top: 0.8rem;
+}
+
+h1 {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+}
+h1 .logo {
+  -webkit-user-drag: none;
+  font-size: inherit;
+  width: 5em;
+}
+
+.error {
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .profile-main.security {
+    padding: 2rem 20rem;
+  }
+}/*# sourceMappingURL=profile-security.css.map */
