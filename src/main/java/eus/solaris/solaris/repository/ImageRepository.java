@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ImageRepository {
     
     public String save(MultipartFile file) throws Exception;
+    public String save(byte[] bytes, String name) throws Exception;
     public FileSystemResource findInFileSystem(String location);
 
 }

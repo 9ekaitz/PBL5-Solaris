@@ -12,21 +12,36 @@ import eus.solaris.solaris.exception.FileNotFoundException;
 import eus.solaris.solaris.repository.ImageRepository;
 
 @Repository
-public class ImageRepositoryImpl implements ImageRepository{
+public class ImageRepositoryImpl implements ImageRepository {
 
-    private static final String PATH_PRODUCTS = "products/";
     private static final String PATH_SIGNATURES = "signatures/";
+    private static final String PATH_PROFILES = "profiles/";
 
     @Override
     public String save(MultipartFile file) throws Exception {
-        File convFile = new File(PATH_SIGNATURES + file.getOriginalFilename() );
+        File convFile = new File(PATH_SIGNATURES + file.getOriginalFilename());
         convFile.getParentFile().mkdirs();
-        convFile.createNewFile();
-        try (FileOutputStream out = new FileOutputStream(convFile)){
-            out.write(file.getBytes());
-        } catch (Exception e) {}
+        if (convFile.createNewFile()) {
+            try (FileOutputStream out = new FileOutputStream(convFile)) {
+                out.write(file.getBytes());
+            } catch (Exception e) {
+            }
+        }
         return convFile.getAbsolutePath();
-    } 
+    }
+
+    @Override
+    public String save(byte[] bytes, String name) throws Exception {
+        File convFile = new File(PATH_PROFILES + name);
+        convFile.getParentFile().mkdirs();
+        if (convFile.createNewFile()) {
+            try (FileOutputStream out = new FileOutputStream(convFile)) {
+                out.write(bytes);
+            } catch (Exception e) {
+            }
+        }
+        return convFile.getAbsolutePath();
+    }
 
     @Override
     public FileSystemResource findInFileSystem(String location) {
