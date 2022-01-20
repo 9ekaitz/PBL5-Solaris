@@ -10,5 +10,5 @@ import eus.solaris.solaris.domain.User;
 
 @Repository
 public interface InstallationRepository extends JpaRepository<Installation, Long>{
-  public List<Installation> findByInstallerAndCompleted(User user, Boolean completed);
+  public List<Installation> findByInstallerAndCompletedOrderByOrderId(User user, Boolean completed);
 }

@@ -12,12 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "solar_panel_model")
 @Getter @Setter
+@Generated
 public class SolarPanelModel {
 
     @Id

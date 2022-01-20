@@ -13,16 +13,21 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "`user`")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Generated
 public class User implements Serializable {
 
     private static final long serialVersionUID = -8446982019565427240L;
@@ -52,6 +57,14 @@ public class User implements Serializable {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("default_address DESC")
+    private List<Address> addresses;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OrderBy("default_method ASC")
+    private List<PaymentMethod> paymentMethods;
+    
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
@@ -62,6 +75,7 @@ public class User implements Serializable {
     private List<CartProduct> shopCart;
 
     @Version
+    @lombok.EqualsAndHashCode.Exclude
     private Integer version;
 
 }

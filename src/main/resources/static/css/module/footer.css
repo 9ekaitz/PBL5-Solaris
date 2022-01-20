@@ -1,5 +1,5 @@
 footer {
-  background-color: #4D4D4D;
+  background-color: #4d4d4d;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,14 +10,14 @@ footer .footer-icons {
   gap: 0.5rem;
 }
 footer .footer-icons .link .icon {
-  fill: #FFF;
+  fill: #fff;
 }
 footer .footer-icons .link .icon:hover {
   fill: #f9aa31;
 }
 footer .copyright {
   margin: 0.1rem;
-  color: #FFF;
+  color: #fff;
   font-weight: lighter;
   font-size: 0.75rem;
 }
