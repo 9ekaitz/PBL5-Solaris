@@ -48,6 +48,7 @@ public class DataBuffer {
             this.isFull.signal();
             return data;
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             return null;
         } finally {
             this.mutex.unlock();

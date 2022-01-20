@@ -61,6 +61,7 @@ public class GatherBuffer {
             this.maxCount--;
             return data;
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             return null;
         } finally {
             this.mutex.unlock();
