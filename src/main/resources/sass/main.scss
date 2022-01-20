@@ -10,10 +10,11 @@
 body {
   margin: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  // min-height: -webkit-fill-available;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto auto;
 }
 
 .hide {
@@ -48,7 +49,7 @@ body {
     .allWidth {
         width: 100%;
     }
-    
+
     .double{
         display: flex;
         gap: 1rem;
@@ -169,23 +170,24 @@ input[type="checkbox"] {
       transform: scale(0.7);
     }
   }
+  &.btn-big {
+    width: 18rem;
+    height: 4rem;
+    border-radius: 1.5 * $btn-border;
 }
 
-    &.btn-big {
-        width: 18rem;
-        height: 4rem;
-        border-radius: 1.5 * $btn-border;
-    }
+&.delete-account{
+    background-color: $danger-color;
+    color: $text-light-color;
 
-    &.delete-account{
-        background-color: $danger-color;
-        color: $text-light-color;
-
-        &:hover,
-        &:focus{
-            background-color: $danger-dark-color;
-        }
+    &:hover,
+    &:focus{
+        background-color: $danger-dark-color;
     }
+}
+}
+
+
 input[type="submit"],
 .btn {
   font-size: 1em;
