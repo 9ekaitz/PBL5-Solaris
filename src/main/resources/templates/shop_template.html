@@ -17,7 +17,7 @@
                 <section class="shop-content" layout:fragment="shop-content">
                     <p>Changing contents</p>
                 </section>
-                <div id="cart-toggle-ext" class="btn cart-toggle">
+                <div id="cart-toggle-ext" class="cart-toggle">
                     <img th:src="@{/images/shopping-cart.svg}" src="/images/shopping-cart.svg"
                         th:alt="#{page.shop.cart.open}" alt="Open shopping cart">
                 </div>
@@ -130,7 +130,7 @@
                         <p id="cart-total">1900€</p>
                     </div>
                     <div class="checkout">
-                        <button th:text="#{page.shop.checkout}">Checkout</button>
+                        <button class="btn" th:text="#{page.shop.checkout}">Checkout</button>
                     </div>
                 </div>
             </section>

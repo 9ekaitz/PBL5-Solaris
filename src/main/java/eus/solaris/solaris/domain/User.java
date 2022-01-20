@@ -72,7 +72,7 @@ public class User implements Serializable {
     private Set<SolarPanel> solarPanels;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<CartProduct> shopCart;
+    private List<CartProduct> shoppingCart;
 
     @Version
     @lombok.EqualsAndHashCode.Exclude

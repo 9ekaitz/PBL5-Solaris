@@ -24,12 +24,11 @@ public class ShopController {
 
 	@GetMapping("/cart")
 	public String cart(Model model, Authentication authentication) {
-		if (authentication == null)
-			return "page/login";
-		User user = userService.findByUsername(authentication.getName());
+		User user = (User) model.getAttribute("user");
 		if (user == null) {
 			return "redirect:/shop";
 		}
+		user.getShoppingCart();
 		return "page/shop-cart";
 	}
 }

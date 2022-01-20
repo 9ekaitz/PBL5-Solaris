@@ -27,7 +27,7 @@
                         </th:block>
                     </th:block>
             </th:block>
-            <div class="product-list__empty" th:if="${#lists.isEmpty($user.shoppingCart)}">
+            <div class="product-list__empty" th:if="${#lists.isEmpty(user.shoppingCart)}">
                 <p th:text="#{page.shop.cart.empty}">Your cart is empty. <a th:text="#{page.shop.cart.back}"
                         th:href="@{/shop}" href="/shop">Search the
                         shop</a></p>

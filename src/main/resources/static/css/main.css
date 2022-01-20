@@ -422,8 +422,7 @@ input[type=checkbox].delete-account:hover, input[type=checkbox].delete-account:f
   background-color: #b92421;
 }
 
-input[type=submit],
-.btn {
+input[type=submit] {
   font-size: 1em;
   font-weight: bold;
   border: none;
@@ -434,13 +433,11 @@ input[type=submit],
   background-color: #f9aa31;
   padding-inline: 2em;
 }
-input[type=submit]:hover,
-.btn:hover {
+input[type=submit]:hover {
   cursor: pointer;
   background-color: #f09407;
 }
-input[type=submit].btn-big,
-.btn.btn-big {
+input[type=submit].btn-big {
   width: 18rem;
   height: 4rem;
   border-radius: 0.3rem;

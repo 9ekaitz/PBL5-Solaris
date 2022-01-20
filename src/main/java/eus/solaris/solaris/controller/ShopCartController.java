@@ -53,8 +53,8 @@ public class ShopCartController {
     @GetMapping
     public ShopCartOutputDto get() {
         User user = getCurrentUser();
-        if (user.getShopCart() == null) {
-            user.setShopCart(new ArrayList<>());
+        if (user.getShoppingCart() == null) {
+            user.setShoppingCart(new ArrayList<>());
             userService.save(user);
         }
         // Product product = productRepository.getById(1L);
@@ -62,7 +62,7 @@ public class ShopCartController {
         // cartProduct.setProduct(product);
         // cartProduct.setQuantity(3);
         // cartProductRepository.save(cartProduct);
-        // user.getShopCart().add(cartProduct);
+        // user.getShoppingCart().add(cartProduct);
         // userService.save(user);
         return cartToOutputDto(user);
     }
@@ -105,7 +105,7 @@ public class ShopCartController {
 
     private ShopCartOutputDto cartToOutputDto(User user) {
         ShopCartOutputDto output = new ShopCartOutputDto();
-        output.setProducts(user.getShopCart().stream().map(this::cartProductToDto).collect(Collectors.toList()));
+        output.setProducts(user.getShoppingCart().stream().map(this::cartProductToDto).collect(Collectors.toList()));
         output.setTotalPrice(output.getProducts().stream().mapToDouble(p -> p.getTotalPrice()).sum());
         return output;
     }
