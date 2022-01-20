@@ -1,10 +1,10 @@
 const CSRF_TOKEN = document.querySelector("meta[name='_csrf']").content;
 const CSRF_HEADER = document.querySelector("meta[name='_csrf_header']").content;
 
-var canvas_container;
-var task_container;
-var canvas;
-var ctx;
+let canvas_container;
+let task_container;
+let canvas;
+let ctx;
 
 window.addEventListener("DOMContentLoaded", function () {
   canvas = document.getElementById('sign');
@@ -87,10 +87,16 @@ function uploadFile() {
 
     let data = new FormData(form);
     data.append('sign', blob, crypto.randomUUID() + '.jpg');
+    data.append('signed', true);
 
     xhr.onload = function (e) {
       let location = xhr.responseURL;
-      window.location.replace(location);
+      document.querySelector("html").innerHTML = xhr.response;
+      window.document.dispatchEvent(new Event("DOMContentLoaded", {
+        bubbles: true,
+        cancelable: true
+      }));
+      window.history.pushState("", "", '/install');
     };
 
     xhr.send(data);

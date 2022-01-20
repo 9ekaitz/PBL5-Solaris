@@ -44,7 +44,7 @@
           NOMBRE DE LA INSTALACION
         </h2>
         <div id="task-container" class="details current">
-          <ul>
+          <ul class="details-list">
             <li>
               <h3
                 class="subtitle"
@@ -83,7 +83,7 @@
               </ul>
             </li>
           </ul>
-          <form id="taskForm" th:action="@{'/install/'+${installation.id}+'/save'}" method="post" enctype="multipart/form-data"> 
+          <form id="taskForm" class="products-list" th:action="@{'/install/'+${installation.id}+'/save'}" method="post" enctype="multipart/form-data"> 
             <label th:each="task, iterator : ${installation.tasks}"
               ><input
                 type="checkbox"
@@ -111,7 +111,7 @@
         </div>
         <div class="footer">
           <span id="sign-error" class="error hide" th:text="#{page.installation.error.sign}"></span>
-          <div><input id="save-btn"
+          <div class="btn-container"><input id="save-btn"
             type="submit"
             form="taskForm"
             th:value="#{page.installation.save}"

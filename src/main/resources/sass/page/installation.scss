@@ -67,8 +67,8 @@
     }
   }
 
-  ul,
-  form {
+  .details-list,
+  .products-list {
     padding-left: 1rem;
   }
 
@@ -86,7 +86,7 @@
 
   .footer {
     flex-wrap: wrap;
-    & > div{
+    .btn-container {
       display: flex;
       gap: 2rem;
     }
@@ -108,12 +108,12 @@
     .details {
       border: 1px solid $border-color;
 
-      h3 + * {
+      .subtitle + * {
         padding-left: 2rem;
       }
 
-      ul,
-      form {
+      .details-list,
+      .products-list {
         padding-left: 3rem;
       }
     }

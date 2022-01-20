@@ -69,8 +69,8 @@
 .container ul li {
   font-size: 1.1rem;
 }
-.container ul,
-.container form {
+.container .details-list,
+.container .products-list {
   padding-left: 1rem;
 }
 .container label {
@@ -87,7 +87,7 @@
 .container .footer {
   flex-wrap: wrap;
 }
-.container .footer > div {
+.container .footer .btn-container {
   display: flex;
   gap: 2rem;
 }
@@ -109,11 +109,11 @@
   .container .details {
     border: 1px solid #C7C7C7;
   }
-  .container .details h3 + * {
+  .container .details .subtitle + * {
     padding-left: 2rem;
   }
-  .container .details ul,
-.container .details form {
+  .container .details .details-list,
+.container .details .products-list {
     padding-left: 3rem;
   }
   .container #sign-container {

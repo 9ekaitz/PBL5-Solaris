@@ -1,31 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
-<body>
-  <th:block th:fragment="header">
-    <div class="header-computer">
-      <div class="header-computer-left">
-        <button id="nav-expand" class="expand">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24"
-            height="24" viewBox="0 0 24 24" class="logo" th:alt="#{img.alt.expand}">
-            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-          </svg>
-        </button>
-        <div th:if="${user != null}" class="profile-container">
-          <img src="https://source.boringavatars.com/beam/32/Marfria%20MiDtfhell?colors=f9aa31,FA8832,FACC32,FAEE32,E3FA32,C1FA32" />
+  <body>
+    <th:block th:fragment="header">
+      <div class="header-computer">
+        <div class="header-computer-left">
+          <button id="nav-expand" class="expand">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="1.1"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              class="logo"
+              th:alt="#{img.alt.expand}"
+            >
+              <path
+                d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+              />
+            </svg>
+          </button>
+          <div th:if="${user != null}" class="profile-container">
+            <img
+              src="https://source.boringavatars.com/beam/32/Marfria%20MiDtfhell?colors=f9aa31,FA8832,FACC32,FAEE32,E3FA32,C1FA32"
+            />
+          </div>
+          <div th:unless="${user != null}" class="profile-container">
+            <img
+              class="profile"
+              th:alt="#{img.alt.user-profile}"
+              th:src="@{/images/moraito_pocco.png}"
+            />
+          </div>
+          <h2 th:text="${user.name +' ' + user.firstSurname}"></h2>
         </div>
-        <div th:unless="${user != null}" class="profile-container">
-          <img class="profile" th:alt="#{img.alt.user-profile}" th:src="@{/images/moraito_pocco.png}" >
-        </div>
-        <h2 th:text="${user.name +' ' + user.firstSurname}"></h2>
+        <h2 class="page-title" layout:fragment="title">page_title</h2>
       </div>
-      <h2 class="page-title" layout:fragment="title">page_title</h2>
-    </div>
-  </th:block>
-</body>
+      <div class="alert alert-success" role="alert" th:if="${success}">
+        <span class="message" th:text="#{${success}}"></span>
+        <a class="close"
+          ><svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+            />
+          </svg>
+        </a>
+      </div>
+      <div class="alert alert-danger" role="alert" th:if="${error}">
+        <span class="message" th:text="#{${error}}"></span>
+        <a class="close"
+          ><svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+            />
+          </svg>
+        </a>
+      </div>
+    </th:block>
+  </body>
+</html>

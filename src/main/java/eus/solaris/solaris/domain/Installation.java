@@ -57,7 +57,7 @@ public class Installation {
 
   @Column
   @EqualsAndHashCode.Exclude
-  private String sign;
+  private String signature;
 
   @Version
   @EqualsAndHashCode.Exclude
