@@ -13,6 +13,9 @@ import java.util.Map;
 
 public class HTTPRequest {
 
+    private HTTPRequest() {
+    }
+
     private static String getParamsString(Map<String, String> params)
             throws UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
@@ -31,7 +34,7 @@ public class HTTPRequest {
     }
 
     public static String getRequest(String urlS, Map<String, String> params, Map<String, String> headers)
-            throws MalformedURLException, IOException {
+            throws IOException {
         URL url = new URL(urlS);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -50,7 +53,7 @@ public class HTTPRequest {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer content = new StringBuffer();
+        StringBuilder content = new StringBuilder();
 
         while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);

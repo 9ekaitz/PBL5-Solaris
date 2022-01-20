@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class ConversionToGBPTest {
+class ConversionToGBPTest {
 
     @Test
-    public void test() {
+    void test() {
         List<Double> targets = new ArrayList<>();
         targets.add(8347.0);
         targets.add(200.0);

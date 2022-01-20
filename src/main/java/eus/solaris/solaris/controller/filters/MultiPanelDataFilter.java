@@ -18,7 +18,6 @@ public class MultiPanelDataFilter implements HandlerInterceptor {
 
     public MultiPanelDataFilter() {
         this.userService = SpringContextUtil.getBean(UserService.class);
-        ;
     }
 
     @Override

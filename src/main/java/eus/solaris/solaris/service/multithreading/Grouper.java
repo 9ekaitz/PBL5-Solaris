@@ -31,9 +31,7 @@ public class Grouper implements Runnable {
             kWmin += power;
         }
 
-        Double kWh = kWmin / 60;
-
-        return kWh;
+        return kWmin / 60;
     }
 
     public static Map<Instant, Double> groupByMonth(Map<Instant, Double> dataMap) {

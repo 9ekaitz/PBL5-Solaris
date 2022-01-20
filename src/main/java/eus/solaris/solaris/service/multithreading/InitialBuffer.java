@@ -15,7 +15,8 @@ public class InitialBuffer {
     private Lock mutex;
 
     private List<Map<LocalDate, List<SolarPanel>>> buffer;
-    private Condition isEmpty, isFull;
+    private Condition isEmpty;
+    private Condition isFull;
 
     Integer maxCount;
 
@@ -46,7 +47,7 @@ public class InitialBuffer {
                 isEmpty.signal();
                 return null;
             }
-            while (this.buffer.size() == 0) {
+            while (this.buffer.isEmpty()) {
                 this.isEmpty.await();
                 if (maxCount == 0) {
                     return null;
@@ -67,7 +68,7 @@ public class InitialBuffer {
     public Boolean isEmpty() {
         this.mutex.lock();
         try {
-            return this.buffer.size() == 0;
+            return this.buffer.isEmpty();
         } finally {
             this.mutex.unlock();
         }

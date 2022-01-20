@@ -23,9 +23,7 @@ public class SinglePanelDataFilter implements HandlerInterceptor {
 
     public SinglePanelDataFilter() {
         this.userService = SpringContextUtil.getBean(UserService.class);
-        ;
         this.solarPanelRepository = SpringContextUtil.getBean(SolarPanelRepository.class);
-        ;
     }
 
     @Override

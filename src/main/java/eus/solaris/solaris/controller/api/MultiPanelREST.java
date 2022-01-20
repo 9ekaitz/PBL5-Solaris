@@ -34,6 +34,7 @@ import eus.solaris.solaris.service.multithreading.modes.Kind;
 public class MultiPanelREST {
 
     private static final Integer THREADS = 12;
+    private static final String ERROR_USER_NOT_FOUND = "User not found";
 
     @Autowired
     SolarPanelRepository solarPanelRepository;
@@ -48,7 +49,7 @@ public class MultiPanelREST {
     public String realTimeUser(SolarPanelRequestDTO dto) {
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
-            throw new NoSuchElementException("User not found");
+            throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
         }
         List<SolarPanel> panels = solarPanelRepository.findByUser(user.get());
         Instant startOfDay = LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC);
@@ -70,7 +71,7 @@ public class MultiPanelREST {
     public String grouped(SolarPanelRequestDTO dto) {
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
-            throw new NoSuchElementException("User not found");
+            throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
         }
         List<SolarPanel> panels = solarPanelRepository.findByUser(user.get());
         ThreadController tc = new ThreadController(THREADS, dto.getStart(), dto.getEnd());
@@ -85,7 +86,7 @@ public class MultiPanelREST {
     public String generalData(SolarPanelRequestDTO dto) {
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
-            throw new NoSuchElementException("User not found");
+            throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
         }
         List<SolarPanel> panels = solarPanelRepository.findByUser(user.get());
 

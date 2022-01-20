@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -13,7 +14,8 @@ public class GatherBuffer {
     private Lock mutex;
 
     private List<Map<LocalDate, Map<Instant, Double>>> buffer;
-    private Condition isEmpty, isFull;
+    private Condition isEmpty;
+    private Condition isFull;
 
     ICompletionObserver observer;
 
@@ -28,10 +30,10 @@ public class GatherBuffer {
         this.observer = observer;
     }
 
-    public void add(Map<LocalDate, Map<Instant, Double>> data) {
+    public void add(Map<LocalDate, Map<Instant, Double>> dataMap) {
         this.mutex.lock();
         try {
-            this.buffer.add(data);
+            this.buffer.add(dataMap);
             this.isEmpty.signal();
         } finally {
             this.mutex.unlock();
@@ -46,7 +48,7 @@ public class GatherBuffer {
                 isEmpty.signal();
                 return null;
             }
-            while (this.buffer.size() == 0) {
+            while (this.buffer.isEmpty()) {
                 this.isEmpty.await();
                 if (maxCount == 0) {
                     observer.complete();
@@ -68,21 +70,9 @@ public class GatherBuffer {
     public Boolean isEmpty() {
         this.mutex.lock();
         try {
-            return this.buffer.size() == 0;
+            return this.buffer.isEmpty();
         } finally {
             this.mutex.unlock();
         }
     }
-
-    public void print() {
-        buffer.forEach(action -> {
-            action.forEach((key, value) -> {
-                System.out.println(key);
-                value.forEach((k, v) -> {
-                    System.out.println(k + " " + v);
-                });
-            });
-        });
-    }
-
 }

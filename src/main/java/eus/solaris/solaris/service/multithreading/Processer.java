@@ -18,11 +18,12 @@ import eus.solaris.solaris.service.multithreading.conversions.IConversion;
 
 public class Processer {
 
+    private Processer() {
+    }
+
     private static Map<Instant, Double> applyConversion(Map<Instant, Double> data, IConversion convsersion) {
         Map<Instant, Double> result = new TreeMap<>();
-        data.forEach((k, v) -> {
-            result.put(k, convsersion.apply(v));
-        });
+        data.forEach((k, v) -> result.put(k, convsersion.apply(v)));
         return result;
     }
 

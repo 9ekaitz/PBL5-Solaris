@@ -18,6 +18,8 @@ public class ThreadController implements ICompletionObserver {
     LocalDate startDate;
     LocalDate endDate;
 
+    Boolean doContinue;
+
     Object sync;
 
     Integer threads;
@@ -31,6 +33,7 @@ public class ThreadController implements ICompletionObserver {
         this.startDate = startDate;
         this.endDate = endDate;
         this.sync = new Object();
+        doContinue = false;
     }
 
     private void insertDays(LocalDate startDate, LocalDate endDate, List<SolarPanel> solarPanels) {
@@ -75,9 +78,10 @@ public class ThreadController implements ICompletionObserver {
 
         synchronized (sync) {
             try {
-                sync.wait();
+                while (!doContinue) {
+                    sync.wait();
+                }
             } catch (InterruptedException e) {
-                e.printStackTrace();
                 System.exit(-1);
             }
         }
@@ -91,14 +95,13 @@ public class ThreadController implements ICompletionObserver {
         if (groupMode == GroupMode.YEAR) {
             dataMap = Grouper.groupByMonth(dataMap);
         }
-
-        Map<Instant, Double> data = Processer.process(dataMap, conversionType);
-        return data;
+        return Processer.process(dataMap, conversionType);
     }
 
     @Override
     public void complete() {
         synchronized (sync) {
+            doContinue = true;
             sync.notifyAll();
         }
     }

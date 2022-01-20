@@ -16,7 +16,8 @@ public class DataBuffer {
 
     private List<Entry<Instant, Double>> buffer;
 
-    private Condition isEmpty, isFull;
+    private Condition isEmpty;
+    private Condition isFull;
 
     public DataBuffer() {
         this.mutex = new ReentrantLock();
@@ -39,7 +40,7 @@ public class DataBuffer {
     public Entry<Instant, Double> get() {
         this.mutex.lock();
         try {
-            while (this.buffer.size() == 0) {
+            while (this.buffer.isEmpty()) {
                 this.isEmpty.await();
             }
             Entry<Instant, Double> data = this.buffer.get(0);
@@ -56,7 +57,7 @@ public class DataBuffer {
     public Boolean isEmpty() {
         this.mutex.lock();
         try {
-            return this.buffer.size() == 0;
+            return this.buffer.isEmpty();
         } finally {
             this.mutex.unlock();
         }
