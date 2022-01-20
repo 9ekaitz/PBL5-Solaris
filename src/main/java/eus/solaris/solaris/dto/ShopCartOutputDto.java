@@ -10,6 +10,6 @@ public class ShopCartOutputDto {
     
     List<ProductDto> products;
 
-    Long totalPrice;
+    Double totalPrice;
 
 }

@@ -28,6 +28,9 @@ public class Product {
     private Set<ProductDescription> descriptions;
 
     @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
     private String imagePath;
 
     @Version

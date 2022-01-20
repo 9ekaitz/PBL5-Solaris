@@ -57,6 +57,7 @@ public class ShopServiceImpl implements ShopService {
         for (CartProduct p : products) {
             if (p.getProduct().getId() == productId) {
                 p.setQuantity(quantity);
+                cartProductRepository.save(p);
                 break;
             }
         }

@@ -1,10 +1,12 @@
 package eus.solaris.solaris.controller;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import eus.solaris.solaris.domain.CartProduct;
-import eus.solaris.solaris.domain.Product;
+import eus.solaris.solaris.domain.ProductDescription;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.ProductDto;
 import eus.solaris.solaris.dto.ShopCartManipulateDto;
@@ -55,13 +57,13 @@ public class ShopCartController {
             user.setShopCart(new ArrayList<>());
             userService.save(user);
         }
-        Product product = productRepository.getById(1L);
-        CartProduct cartProduct = new CartProduct();
-        cartProduct.setProduct(product);
-        cartProduct.setQuantity(3);
-        cartProductRepository.save(cartProduct);
-        user.getShopCart().add(cartProduct);
-        userService.save(user);
+        // Product product = productRepository.getById(1L);
+        // CartProduct cartProduct = new CartProduct();
+        // cartProduct.setProduct(product);
+        // cartProduct.setQuantity(3);
+        // cartProductRepository.save(cartProduct);
+        // user.getShopCart().add(cartProduct);
+        // userService.save(user);
         return cartToOutputDto(user);
     }
 
@@ -104,12 +106,20 @@ public class ShopCartController {
     private ShopCartOutputDto cartToOutputDto(User user) {
         ShopCartOutputDto output = new ShopCartOutputDto();
         output.setProducts(user.getShopCart().stream().map(this::cartProductToDto).collect(Collectors.toList()));
+        output.setTotalPrice(output.getProducts().stream().mapToDouble(p -> p.getTotalPrice()).sum());
         return output;
     }
-
+    
     private ProductDto cartProductToDto(CartProduct cartProduct) {
         ProductDto dto = modelMapper.map(cartProduct.getProduct(), ProductDto.class);
         modelMapper.map(cartProduct, dto);
+        dto.setTotalPrice(cartProduct.getQuantity() * cartProduct.getProduct().getPrice());
+
+        Locale locale = LocaleContextHolder.getLocale();
+        System.out.println("languageeeeeee  : " + locale.getLanguage());
+        ProductDescription pd = cartProduct.getProduct().getDescriptions().stream().filter(p -> p.getLanguage().getCode().equals(locale.getLanguage())).findFirst().orElse(null);
+        dto.setName(pd.getName());
+        
         return dto;
     }
 }
