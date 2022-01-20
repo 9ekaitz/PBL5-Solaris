@@ -24,7 +24,7 @@
           <span> Max Verstapen</span>
         </h1>
       </div>
-      <div class="available-installations container current">
+      <div class="available-installations container">
         <h2 class="title" th:text="#{page.installer.installations}"></h2>
         <div class="installation-list">
           <p
@@ -76,7 +76,7 @@
             th:if="${#lists.isEmpty(completedInstallations)}"
           ></p>
           <th:block th:each="installation : ${completedInstallations}">
-            <a th:href="@{'/install/'+${installation.id}}">
+            <a>
               <div class="installation-details">
                 <img
                   th:src="@{'https://source.boringavatars.com/marble/64/'+${installation.name}+'?colors=f9aa31,FA8832,FACC32,FAEE32,E3FA32,C1FA32&square=true'}"

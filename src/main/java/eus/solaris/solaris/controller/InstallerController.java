@@ -61,7 +61,7 @@ public class InstallerController {
 
     if (!filter(installation, (User) model.getAttribute("user")))
       throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-
+    if (installation == null || Boolean.TRUE.equals(installation.getCompleted())) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     model.addAttribute("installation", installation);
 
     return "page/installation";
