@@ -30,10 +30,10 @@ class InitialBufferTest {
             p.setId(Long.valueOf(i));
             solarPanels.add(p);
         }
+        insertDataSingleThread();
 
     }
 
-    @BeforeEach
     void insertDataSingleThread() {
         initialBuffer.add(LocalDate.of(2019, 1, 1), solarPanels);
         initialBuffer.add(LocalDate.of(2021, 1, 1), solarPanels);
