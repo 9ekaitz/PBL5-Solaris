@@ -9,10 +9,15 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +25,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
+import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.SolarPanelRequestDTO;
 import eus.solaris.solaris.repository.DataEntryRepository;
 import eus.solaris.solaris.repository.SolarPanelRepository;
@@ -47,7 +53,10 @@ public class SinglePanelREST implements HandlerInterceptor {
     UserService userService;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTime(SolarPanelRequestDTO dto, HttpServletResponse res) throws BadHttpRequest {
+    public String realTime(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req, FilterChain chain)
+            throws BadHttpRequest {
+        if (!filterRequest(req, res, chain))
+            return null;
         Long panelId = dto.getId();
         if (panelId == null) {
             res.setStatus(400);
@@ -71,7 +80,10 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     @GetMapping(path = "/grouped", produces = "application/json")
-    public String grouped(SolarPanelRequestDTO dto) {
+    public String grouped(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req,
+            FilterChain chain) {
+        if (!filterRequest(req, res, chain))
+            return null;
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");
@@ -88,7 +100,10 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     @GetMapping(path = "/general-data", produces = "application/json")
-    public String generalData(SolarPanelRequestDTO dto) {
+    public String generalData(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req,
+            FilterChain chain) {
+        if (!filterRequest(req, res, chain))
+            return null;
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");
@@ -126,6 +141,41 @@ public class SinglePanelREST implements HandlerInterceptor {
 
     private Double getData(SolarPanel panel, Instant start, Instant end) {
         return dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
+    }
+
+    public Boolean filterRequest(HttpServletRequest request, HttpServletResponse response, FilterChain handler) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return false;
+        }
+
+        Optional<SolarPanel> panel = Optional.empty();
+        User user = userService.findByUsername(authentication.getName());
+
+        try {
+            Long panelid = Long.valueOf(request.getParameter("id"));
+
+            panel = solarPanelRepository.findById(panelid);
+
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return false;
+
+        }
+
+        if (!panel.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return false;
+        }
+
+        if (!panel.get().getUser().equals(user)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return false;
+        }
+        return true;
     }
 
 }

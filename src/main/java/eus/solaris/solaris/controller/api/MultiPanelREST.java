@@ -10,8 +10,15 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.TreeMap;
 
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +53,12 @@ public class MultiPanelREST {
     DataEntryRepository dataEntryRepository;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTimeUser(SolarPanelRequestDTO dto) {
+    public String realTimeUser(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            SolarPanelRequestDTO dto) {
+
+        if (!filterRequest(request, response, chain))
+            return null;
+
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
@@ -68,7 +80,10 @@ public class MultiPanelREST {
     }
 
     @GetMapping(path = "/grouped", produces = "application/json")
-    public String grouped(SolarPanelRequestDTO dto) {
+    public String grouped(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            SolarPanelRequestDTO dto) {
+        if (!filterRequest(request, response, chain))
+            return null;
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
@@ -83,7 +98,10 @@ public class MultiPanelREST {
     }
 
     @GetMapping(path = "/general-data", produces = "application/json")
-    public String generalData(SolarPanelRequestDTO dto) {
+    public String generalData(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            SolarPanelRequestDTO dto) {
+        if (!filterRequest(request, response, chain))
+            return null;
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
             throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
@@ -139,6 +157,33 @@ public class MultiPanelREST {
             val += dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
         }
         return val;
+    }
+
+    protected Boolean filterRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return false;
+        }
+        User user = userRepository.findByUsername(authentication.getName());
+
+        Long userId = -1L;
+
+        try {
+            userId = Long.valueOf(request.getParameter("id"));
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return false;
+        }
+
+        if (!user.getId().equals(userId)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return false;
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        return true;
     }
 
 }
