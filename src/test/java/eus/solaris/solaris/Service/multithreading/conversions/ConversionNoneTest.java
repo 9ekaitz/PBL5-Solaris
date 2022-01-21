@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConversionNoneTest {
+class ConversionNoneTest {
     @Test
     void test() {
         List<Double> targets = new ArrayList<>();

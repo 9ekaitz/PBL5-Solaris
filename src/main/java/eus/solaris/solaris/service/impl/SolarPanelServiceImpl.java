@@ -13,6 +13,10 @@ import eus.solaris.solaris.service.SolarPanelService;
 @Service
 public class SolarPanelServiceImpl implements SolarPanelService {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -715845923957230652L;
     @Autowired
     private SolarPanelRepository solarPanelRepository;
 

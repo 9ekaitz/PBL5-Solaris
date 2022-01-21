@@ -21,17 +21,22 @@ import eus.solaris.solaris.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4889944577388711145L;
+
     @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
     private RoleService roleService;
-    
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-	PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public User register(UserRegistrationForm userRegistrationForm) {
@@ -66,11 +71,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editPassword(String newPassword, String oldPassword, User user) {
 
-        if(BCrypt.checkpw(oldPassword, user.getPassword())){
+        if (BCrypt.checkpw(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             user = save(user);
-        }     
-        else{
+        } else {
             user = null;
         }
 
@@ -83,7 +87,7 @@ public class UserServiceImpl implements UserService {
         user.setName(form.getName());
         user.setFirstSurname(form.getFirstSurname());
         user.setSecondSurname(form.getSecondSurname());
-        return save(user);    
+        return save(user);
     }
 
     @Override
@@ -98,7 +102,7 @@ public class UserServiceImpl implements UserService {
     public List<PaymentMethod> getUserPaymentMethods(User user) {
 
         user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
-        
+
         return user.getPaymentMethods();
     }
 }
