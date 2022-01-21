@@ -1,16 +1,15 @@
 package eus.solaris.solaris.service.impl;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Stream;
-
-import com.google.inject.internal.util.Sets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Brand;
@@ -18,19 +17,19 @@ import eus.solaris.solaris.domain.Color;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.Size;
-import eus.solaris.solaris.domain.SolarPanelModel;
 import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.repository.ProductRepository;
 import eus.solaris.solaris.repository.filters.BrandRepository;
 import eus.solaris.solaris.repository.filters.ColorRepository;
 import eus.solaris.solaris.repository.filters.MaterialRepository;
 import eus.solaris.solaris.repository.filters.SizeRepository;
+import eus.solaris.solaris.repository.specifications.ProductSpecifications;
 import eus.solaris.solaris.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     @Value("${solaris.pagination.products.pagesize}")
-	private Integer pagesize;
+    private Integer pagesize;
 
     @Autowired
     private ProductRepository productRepository;
@@ -91,28 +90,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Set<Product> getFilteredProducts(ProductFilterForm pff) {
-        Set<Product> products =  new HashSet<>();
-        Set<Product> allProducts = new HashSet<>(productRepository.findAll());
-        if (Stream.of(pff.getBrandsIds()).allMatch(Objects::isNull) && //If no filter are selected
-            Stream.of(pff.getColorsIds()).allMatch(Objects::isNull) &&
-            Stream.of(pff.getMaterialsIds()).allMatch(Objects::isNull) &&
-            Stream.of(pff.getSizesIds()).allMatch(Objects::isNull)) {
-                return allProducts; // return all products
-        } else {
-            // Filter by brand
-            allProducts.forEach(product -> {
-                if (pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getBrand().getId())) {
-                    products.add(product);
-                } else if (pff.getColorsIds() != null && pff.getColorsIds().contains(product.getColor().getId())) {
-                    products.add(product);
-                } else if (pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getMaterial().getId())) {
-                    products.add(product);
-                } else if (pff.getSizesIds() != null && pff.getSizesIds().contains(product.getSize().getId())) {
-                    products.add(product);
-                }
-            });
-            return products;
-        }
+    public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page) {
+        List<Specification<Product>> specifications = new ArrayList<>();
+
+        if (pff.getBrandsIds() != null)
+            specifications.add(ProductSpecifications.findByBrandIds(pff.getBrandsIds()));
+
+        if (pff.getColorsIds() != null)
+            specifications.add(ProductSpecifications.findByColorIds(pff.getColorsIds()));
+
+        if (pff.getMaterialsIds() != null)
+            specifications.add(ProductSpecifications.findByMaterialIds(pff.getMaterialsIds()));
+
+        if (pff.getSizesIds() != null)
+            specifications.add(ProductSpecifications.findBySizeIds(pff.getSizesIds()));
+
+        Specification<Product> query = Specification.where(null);
+        for (Specification<Product> spec : specifications)
+            query = Specification.where(query).and(spec);
+
+        Pageable pageable = PageRequest.of(page, pagesize);
+        return productRepository.findAll(query, pageable);
+
     }
 }

@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import eus.solaris.solaris.domain.Brand;
@@ -16,6 +20,7 @@ import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.Size;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.service.ProductService;
 import eus.solaris.solaris.service.UserService;
 
@@ -27,16 +32,19 @@ public class ShopController {
 	UserService userService;
 
 	@Autowired
-    ProductService productService;
+	ProductService productService;
 
-	@GetMapping
-	public String shopIndex(Model model, Authentication authentication) {
-		setFilters(model);
-        List<Product> products = productService.findAll();
-        PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
-        model.addAttribute("actualPage", 0);
-        model.addAttribute("products", pagedListHolder.getPageList());
-        model.addAttribute("totalPages", pagedListHolder.getPageCount());
+	@GetMapping({"", "/{page}"})
+	public String shopIndex(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model,
+			Authentication authentication, @PathVariable(required = false) Integer page) {
+		if(page == null) page = 0;
+        Page<Product> products = productService.getFilteredProducts(pff, page);
+        setFilters(model);
+        model.addAttribute("actualPage", page);
+        model.addAttribute("products", products.getContent());
+        model.addAttribute("totalPages", products.getTotalPages());
+		model.addAttribute("form", pff);
+
 		return "page/shop-products";
 	}
 
@@ -51,14 +59,14 @@ public class ShopController {
 	}
 
 	private void setFilters(Model model) {
-        List<Brand> brands = productService.getBrands();
-        model.addAttribute("brands", brands);
-        List<Color> colors = productService.getColors();
-        model.addAttribute("colors", colors);
-        List<Size> sizes = productService.getSizes();
-        model.addAttribute("sizes", sizes);
-        List<Material> materials = productService.getMaterials();
-        model.addAttribute("materials", materials);
-    }
+		List<Brand> brands = productService.getBrands();
+		model.addAttribute("brands", brands);
+		List<Color> colors = productService.getColors();
+		model.addAttribute("colors", colors);
+		List<Size> sizes = productService.getSizes();
+		model.addAttribute("sizes", sizes);
+		List<Material> materials = productService.getMaterials();
+		model.addAttribute("materials", materials);
+	}
 
 }

@@ -28,16 +28,15 @@ const toggleShoppingCart = () => {
 }
 
 const loadShoppingCart = async () => {
-    const res = await fetch("/shop-cart", {
+    const response = await fetch("/shop-cart", {
         method: 'GET'
     });
-    const result =  await res.json();
+    const result =  await response.json();
     if(!response.ok) showError();
     else showShoppingCart(result);
 }
 
 const showShoppingCart = cart => {
-    console.log(cart);
     cartList.textContent = '';
     cart.products.forEach(product => {
         const container = document.createElement('div');

@@ -1,9 +1,9 @@
 package eus.solaris.solaris.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
 
 import eus.solaris.solaris.domain.Brand;
 import eus.solaris.solaris.domain.Color;
@@ -21,5 +21,5 @@ public interface ProductService {
     public List<Color> getColors();
     public List<Size> getSizes();
     public List<Material> getMaterials();
-	public Set<Product> getFilteredProducts(ProductFilterForm pff);
+	public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page);
 }

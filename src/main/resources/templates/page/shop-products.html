@@ -8,7 +8,7 @@
 <body>
     <div layout:fragment="shop-content">
         <div class="products-panel">
-            <form class="filter-panel" th:action="@{/shop}" method="post">
+            <form class="filter-panel" th:action="@{/shop/0}" method="GET">
                 <input type="submit" th:value="#{page.shop.filter.submit}"></input>
                 <hr>
                 <h2 class="filter-option-title" th:text="#{page.shop.filter.brand}"></h2>
@@ -28,7 +28,6 @@
                 </div>
                 <hr>
                 <h2 class="filter-option-title" th:text="#{page.shop.filter.materials}"></h2>
-
                 <div class="filter-options">
                     <th:block th:each="material, iterator : ${materials}">
                         <label><input type="checkbox" th:name="materialsIds[__${iterator.index}__]"
@@ -38,22 +37,12 @@
                 </div>
                 <hr>
                 <h2 class="filter-option-title" th:text="#{page.shop.filter.sizes}"></h2>
-                <th:block th:each="size, iterator : ${sizes}">
-                    <label><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}"
-                            th:id="${'size-' + size.id}"><span
-                            th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
-                </th:block>
-                <hr>
-                <h2 class="filter-option-title" th:text="#{page.shop.filter.price}"></h2>
                 <div class="filter-options">
-                    <label><input type="checkbox" id="lt50"><span
-                            th:text="#{page.dashboard.manage-products.lt50}"></span></label>
-                    <label><input type="checkbox" id="gt50_lt100"><span
-                            th:text="#{page.dashboard.manage-products.gt50_lt100}"></span></label>
-                    <label><input type="checkbox" id="gt100_lt250"><span
-                            th:text="#{page.dashboard.manage-products.gt100_lt250}"></span></label>
-                    <label><input type="checkbox" id="gt250"><span
-                            th:text="#{page.dashboard.manage-products.gt250}"></span></label>
+                    <th:block th:each="size, iterator : ${sizes}">
+                        <label><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}"
+                                th:id="${'size-' + size.id}"><span
+                                th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
+                    </th:block>
                 </div>
                 <hr>
             </form>
@@ -61,28 +50,30 @@
 
                 <div class="products-items-panel">
                     <th:block th:each="product : ${products}">
-                        <div class="product">
-                            <div class="product-img">
-                                <img th:src="@{'~' + ${product.imagePath}}" alt="product-image">
-                            </div>
-                            <th:block th:each="description : ${product.descriptions}">
-                                <p class="product-title" th:if="${description.language.code} == #{locale}"
+                        <a href="/shop/product/1" th:href="@{'/shop/product/' + ${product.id}}">
+                            <div class="product">
+                                <div class="product-img">
+                                    <img th:src="@{'~' + ${product.imagePath}}" alt="product-image">
+                                </div>
+                                <th:block th:each="description : ${product.descriptions}">
+                                    <p class="product-title" th:if="${description.language.code} == #{locale}"
                                     th:text="${description.name}">Null</p>
-                            </th:block>
-                            <p class="product-price" th:text="${product.price + ' €'}">Null</p>
-                        </div>
+                                </th:block>
+                                <p class="product-price" th:text="${product.price + ' €'}">Null</p>
+                            </div>
+                        </a>
                     </th:block>
                 </div>
-                <div class="products-item-pages">
+                <div th:if="${totalPages} gt 0" class="products-item-pages">
                     <th:block th:with="iterations=${actualPage}">
                         <th:block th:each="i : ${#numbers.sequence( actualPage, iterations+3, 1 )}">
                             <a th:if="${i gt 0 and i lt totalPages}"
                                 th:classappend="${i eq actualPage + 1} ? selected : notselected"
-                                th:href="@{'/dashboard/manage-products/'+${i}}" th:text="${i}">null</a>
+                                th:href="@{'/shop/'+${i}}" th:text="${i}">null</a>
                         </th:block>
                     </th:block>
                     <span th:if="${totalPages gt 3}">...</span>
-                    <a th:href="@{'/dashboard/manage-products/'+${totalPages}}"
+                    <a th:href="@{'/shop/'+${totalPages}}"
                         th:classappend="${totalPages eq actualPage + 1} ? selected : notselected"
                         th:text="${totalPages}">null</a>
                 </div>
