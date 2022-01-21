@@ -115,7 +115,7 @@ public class OrderTest {
         LocalDate mockDate0 = LocalDate.of(1, 1, 1);
         order0.setCreationTime(Date.from(mockDate0.atStartOfDay(ZoneId.of("Europe/Madrid")).toInstant()));
         Date date0 = order0.getCreationTime();
-        assertEquals("Mon Jan 03 00:50:39 CET 1", date0.toString());
+        assertEquals("Mon Jan 03 00:14:44 UTC 1", date0.toString());
     }
 
     @Test
