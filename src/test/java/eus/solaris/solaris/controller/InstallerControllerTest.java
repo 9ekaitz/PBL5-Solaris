@@ -266,6 +266,7 @@ class InstallerControllerTest {
     try {
       mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
           .param("tasksId[0]", "1")
+          .param("signed", "true")
           .with(csrf()))
           .andExpect(status().isFound())
           .andExpect(view().name("redirect:/install"));
@@ -333,6 +334,7 @@ class InstallerControllerTest {
 
     try {
       mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
+          .param("signed", "true")
           .with(csrf()))
           .andExpect(status().isFound())
           .andExpect(view().name("redirect:/install"));
@@ -369,7 +371,7 @@ class InstallerControllerTest {
     i.setInstaller(user);
     i.setCompleted(false);
     i.setOrder(null);
-    i.setSign("/dev/null");
+    i.setSignature("/dev/null");
     i.setTasks(null);
     i.setVersion(0);
     return i;
