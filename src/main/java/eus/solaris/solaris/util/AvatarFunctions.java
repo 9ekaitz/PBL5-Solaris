@@ -24,9 +24,9 @@
 
 package eus.solaris.solaris.util;
 
-public class Functions {
+public class AvatarFunctions {
 
-  private Functions(){
+  private AvatarFunctions(){
   }
 
   public static int getHashCode(String name){

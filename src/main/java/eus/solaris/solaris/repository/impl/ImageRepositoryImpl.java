@@ -15,8 +15,8 @@ import eus.solaris.solaris.repository.ImageRepository;
 public class ImageRepositoryImpl implements ImageRepository {
 
     private static final String BASE_PATH = System.getProperty("user.dir");
-    private static final String PATH_SIGNATURES = BASE_PATH+"/signatures/";
-    private static final String RELATIVE_PROFILES_PATH =  "/img/profile/";
+    private static final String PATH_SIGNATURES = BASE_PATH + "/signatures/";
+    private static final String RELATIVE_PROFILES_PATH = "/img/profile/";
     private static final String ABSOLUTE_PROFILES_PATH = BASE_PATH + RELATIVE_PROFILES_PATH;
 
     @Override
@@ -34,15 +34,14 @@ public class ImageRepositoryImpl implements ImageRepository {
 
     @Override
     public String save(byte[] bytes, String name) throws Exception {
-            File convFile = new File(ABSOLUTE_PROFILES_PATH + name);
+        File convFile = new File(ABSOLUTE_PROFILES_PATH + name);
         convFile.getParentFile().mkdirs();
         if (convFile.createNewFile()) {
-            try (FileOutputStream out = new FileOutputStream(convFile)) {
-                out.write(bytes);
-            } catch (Exception e) {
-            }
+            FileOutputStream out = new FileOutputStream(convFile);
+            out.write(bytes);
+            out.close();
         }
-        return RELATIVE_PROFILES_PATH+convFile.getName();
+        return RELATIVE_PROFILES_PATH + convFile.getName();
     }
 
     @Override
