@@ -78,7 +78,7 @@ public class ThreadService implements ICompletionObserver {
 
         synchronized (sync) {
             try {
-                while (!doContinue) {
+                while (!doContinue.booleanValue()) {
                     sync.wait();
                 }
             } catch (InterruptedException e) {

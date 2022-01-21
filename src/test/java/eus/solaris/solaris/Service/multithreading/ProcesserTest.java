@@ -19,11 +19,11 @@ import org.junit.jupiter.api.Timeout;
 
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
 
-public class ProcesserTest {
+class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test00() throws Throwable {
+    void test00() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         Instant instant0 = Instant.ofEpochSecond((-2222L), 0L);
         Double double0 = 0.0;
@@ -35,20 +35,20 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test01() throws Throwable {
+    void test01() throws Throwable {
         ConversionType conversionType0 = ConversionType.TO_AVOIDED_MM_INCREASE;
         assertThrows(NullPointerException.class, () -> Processer.process((Map<Instant, Double>) null, conversionType0));
     }
 
     @Test
     @Timeout(4)
-    public void test02() throws Throwable {
+    void test02() throws Throwable {
         assertThrows(NullPointerException.class, () -> Processer.groupPanels((Map<Instant, Double>) null));
     }
 
     @Test
     @Timeout(4)
-    public void test03() throws Throwable {
+    void test03() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         Instant instant0 = Instant.ofEpochSecond((-2222L), 0L);
         Double double0 = 0.0;
@@ -59,7 +59,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test04() throws Throwable {
+    void test04() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         Map<Instant, Double> map0 = Processer.groupPanels(hashMap0);
         assertTrue(map0.isEmpty());
@@ -67,7 +67,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test05() throws Throwable {
+    void test05() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         ConversionType conversionType0 = ConversionType.NONE;
         Map<Instant, Double> map0 = Processer.process(hashMap0, conversionType0);
@@ -76,7 +76,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test06() throws Throwable {
+    void test06() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         ConversionType conversionType0 = ConversionType.TO_AVOIDED_MM_INCREASE;
         Map<Instant, Double> map0 = Processer.process(hashMap0, conversionType0);
@@ -85,7 +85,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test07() throws Throwable {
+    void test07() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         ConversionType conversionType0 = ConversionType.TO_AVOIDED_TEMP_C;
         Map<Instant, Double> map0 = Processer.process(hashMap0, conversionType0);
@@ -94,7 +94,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test08() throws Throwable {
+    void test08() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         ConversionType conversionType0 = ConversionType.TO_AVOIDED_CO2;
         Map<Instant, Double> map0 = Processer.process(hashMap0, conversionType0);
@@ -103,7 +103,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test09() throws Throwable {
+    void test09() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         ConversionType conversionType0 = ConversionType.TO_POUNDS;
         Map<Instant, Double> map0 = Processer.process(hashMap0, conversionType0);
@@ -112,7 +112,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test10() throws Throwable {
+    void test10() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         ConversionType conversionType0 = ConversionType.TO_DOLLAR;
         Map<Instant, Double> map0 = Processer.process(hashMap0, conversionType0);
@@ -121,7 +121,7 @@ public class ProcesserTest {
 
     @Test
     @Timeout(4)
-    public void test11() throws Throwable {
+    void test11() throws Throwable {
         HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
         ConversionType conversionType0 = ConversionType.TO_EUR;
         Map<Instant, Double> map0 = Processer.process(hashMap0, conversionType0);

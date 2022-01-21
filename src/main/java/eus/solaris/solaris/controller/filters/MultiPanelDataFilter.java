@@ -1,6 +1,7 @@
 package eus.solaris.solaris.controller.filters;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -20,16 +21,12 @@ import eus.solaris.solaris.service.UserService;
 
 @Component(role = HttpFilter.class)
 @Order(1)
-public class MultiPanelDataFilter extends HttpFilter {
+public class MultiPanelDataFilter extends HttpFilter implements Serializable {
 
     private static final long serialVersionUID = -7558919156063627292L;
 
     @Autowired
     private UserService userService;
-
-    // public MultiPanelDataFilter() {
-    // this.userService = SpringContextUtil.getBean(UserService.class);
-    // }
 
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -58,7 +55,6 @@ public class MultiPanelDataFilter extends HttpFilter {
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
-        return;
     }
 
 }

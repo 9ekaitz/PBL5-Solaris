@@ -20,11 +20,11 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class OrderTest {
+class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test00() throws Throwable {
+    void test00() throws Throwable {
         Order order0 = new Order();
         Integer integer0 = 0;
         order0.setVersion(integer0);
@@ -34,7 +34,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test01() throws Throwable {
+    void test01() throws Throwable {
         Order order0 = new Order();
         Integer integer0 = 3551;
         order0.setVersion(integer0);
@@ -44,7 +44,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test02() throws Throwable {
+    void test02() throws Throwable {
         Order order0 = new Order();
         Integer integer0 = -979;
         order0.setVersion(integer0);
@@ -54,7 +54,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test03() throws Throwable {
+    void test03() throws Throwable {
         Order order0 = new Order();
         LinkedHashSet<OrderProduct> linkedHashSet0 = new LinkedHashSet<OrderProduct>();
         order0.products = (Set<OrderProduct>) linkedHashSet0;
@@ -64,7 +64,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test04() throws Throwable {
+    void test04() throws Throwable {
         Order order0 = new Order();
         LinkedHashSet<OrderProduct> linkedHashSet0 = new LinkedHashSet<OrderProduct>();
         linkedHashSet0.add((OrderProduct) null);
@@ -75,7 +75,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test05() throws Throwable {
+    void test05() throws Throwable {
         Order order0 = new Order();
         Boolean boolean0 = Boolean.valueOf("nqd>X2;= y~yb7Zv8[o");
         LinkedList<Task> linkedList0 = new LinkedList<Task>();
@@ -90,7 +90,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test06() throws Throwable {
+    void test06() throws Throwable {
         Order order0 = new Order();
         Long long0 = Long.getLong("leE", 6L);
         order0.setId(long0);
@@ -100,7 +100,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test07() throws Throwable {
+    void test07() throws Throwable {
         Order order0 = new Order();
         Long long0 = Long.getLong("leE", (-1L));
         order0.setId(long0);
@@ -110,7 +110,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test08() throws Throwable {
+    void test08() throws Throwable {
         Order order0 = new Order();
         LocalDate mockDate0 = LocalDate.of(1, 1, 1);
         order0.setCreationTime(Date.from(mockDate0.atStartOfDay(ZoneId.of("Europe/Madrid")).toInstant()));
@@ -120,7 +120,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test09() throws Throwable {
+    void test09() throws Throwable {
         Order order0 = new Order();
         Country country0 = new Country();
         Province province0 = new Province();
@@ -135,7 +135,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test10() throws Throwable {
+    void test10() throws Throwable {
         Order order0 = new Order();
         Installation installation0 = order0.getInstallation();
         assertNull(installation0);
@@ -143,7 +143,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test11() throws Throwable {
+    void test11() throws Throwable {
         Order order0 = new Order();
         Long long0 = Long.valueOf(0L);
         order0.setId(long0);
@@ -153,7 +153,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test12() throws Throwable {
+    void test12() throws Throwable {
         Order order0 = new Order();
         Date date0 = order0.getCreationTime();
         assertNull(date0);
@@ -161,7 +161,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test13() throws Throwable {
+    void test13() throws Throwable {
         Order order0 = new Order();
         Long long0 = order0.getId();
         assertNull(long0);
@@ -169,7 +169,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test14() throws Throwable {
+    void test14() throws Throwable {
         Order order0 = new Order();
         Set<OrderProduct> set0 = order0.getProducts();
         assertNull(set0);
@@ -177,7 +177,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test15() throws Throwable {
+    void test15() throws Throwable {
         Order order0 = new Order();
         User user0 = order0.getOwner();
         assertNull(user0);
@@ -185,7 +185,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test16() throws Throwable {
+    void test16() throws Throwable {
         Order order0 = new Order();
         LinkedHashSet<OrderProduct> linkedHashSet0 = new LinkedHashSet<OrderProduct>();
         order0.setProducts(linkedHashSet0);
@@ -194,7 +194,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test17() throws Throwable {
+    void test17() throws Throwable {
         Order order0 = new Order();
         Address address0 = order0.getAddress();
         assertNull(address0);
@@ -202,7 +202,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test18() throws Throwable {
+    void test18() throws Throwable {
         Order order0 = new Order();
         Address address0 = new Address();
         order0.setAddress(address0);
@@ -212,7 +212,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test19() throws Throwable {
+    void test19() throws Throwable {
         Order order0 = new Order();
         Integer integer0 = order0.getVersion();
         assertNull(integer0);
@@ -220,7 +220,7 @@ public class OrderTest {
 
     @Test
     @Timeout(4)
-    public void test20() throws Throwable {
+    void test20() throws Throwable {
         Order order0 = new Order();
         User user0 = new User();
         order0.setOwner(user0);

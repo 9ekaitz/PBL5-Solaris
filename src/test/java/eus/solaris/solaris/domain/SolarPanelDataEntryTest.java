@@ -14,11 +14,11 @@ import java.time.Instant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class SolarPanelDataEntryTest {
+class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test00() throws Throwable {
+    void test00() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = 1534.492184;
         solarPanelDataEntry0.setVoltage(double0);
@@ -28,7 +28,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test01() throws Throwable {
+    void test01() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = (-1515.7108);
         solarPanelDataEntry0.setVoltage(double0);
@@ -38,7 +38,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test02() throws Throwable {
+    void test02() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Instant instant0 = Instant.ofEpochSecond(1L);
         solarPanelDataEntry0.setTimestamp(instant0);
@@ -48,7 +48,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test03() throws Throwable {
+    void test03() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         SolarPanel solarPanel0 = new SolarPanel();
         solarPanelDataEntry0.setSolarPanel(solarPanel0);
@@ -58,7 +58,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test04() throws Throwable {
+    void test04() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = 0.0;
         solarPanelDataEntry0.setPower(double0);
@@ -68,7 +68,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test05() throws Throwable {
+    void test05() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = 1.0;
         solarPanelDataEntry0.setPower(double0);
@@ -78,7 +78,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test06() throws Throwable {
+    void test06() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = (-1.0);
         solarPanelDataEntry0.setPower(double0);
@@ -88,7 +88,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test07() throws Throwable {
+    void test07() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Long long0 = 0L;
         solarPanelDataEntry0.setId(long0);
@@ -98,7 +98,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test08() throws Throwable {
+    void test08() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Long long0 = Long.valueOf(123L);
         solarPanelDataEntry0.setId(long0);
@@ -108,7 +108,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test09() throws Throwable {
+    void test09() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = 0.0;
         solarPanelDataEntry0.setCurrent(double0);
@@ -118,7 +118,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test10() throws Throwable {
+    void test10() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = 123.0;
         solarPanelDataEntry0.setCurrent(double0);
@@ -128,7 +128,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test11() throws Throwable {
+    void test11() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = (-1.0);
         solarPanelDataEntry0.setCurrent(double0);
@@ -138,7 +138,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test12() throws Throwable {
+    void test12() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = solarPanelDataEntry0.getPower();
         assertNull(double0);
@@ -146,7 +146,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test13() throws Throwable {
+    void test13() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         SolarPanel solarPanel0 = solarPanelDataEntry0.getSolarPanel();
         assertNull(solarPanel0);
@@ -154,7 +154,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test14() throws Throwable {
+    void test14() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Instant instant0 = solarPanelDataEntry0.getTimestamp();
         assertNull(instant0);
@@ -162,7 +162,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test15() throws Throwable {
+    void test15() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = solarPanelDataEntry0.getVoltage();
         assertNull(double0);
@@ -170,7 +170,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test16() throws Throwable {
+    void test16() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Long long0 = solarPanelDataEntry0.getId();
         assertNull(long0);
@@ -178,7 +178,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test17() throws Throwable {
+    void test17() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Long long0 = -2630L;
         solarPanelDataEntry0.setId(long0);
@@ -188,7 +188,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test18() throws Throwable {
+    void test18() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = solarPanelDataEntry0.getCurrent();
         assertNull(double0);
@@ -196,7 +196,7 @@ public class SolarPanelDataEntryTest {
 
     @Test
     @Timeout(4)
-    public void test19() throws Throwable {
+    void test19() throws Throwable {
         SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
         Double double0 = 0.0;
         solarPanelDataEntry0.setVoltage(double0);

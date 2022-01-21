@@ -22,11 +22,11 @@ import org.junit.jupiter.api.Timeout;
 
 import eus.solaris.solaris.service.multithreading.modes.GroupMode;
 
-public class GrouperTest {
+class GrouperTest {
 
   @Test
   @Timeout(4)
-  public void test0() throws Throwable {
+  void test0() throws Throwable {
     LinkedList<Double> linkedList0 = new LinkedList<Double>();
     Double double0 = 60.0;
     linkedList0.push(double0);
@@ -36,7 +36,7 @@ public class GrouperTest {
 
   @Test()
   @Timeout(4)
-  public void test1() throws Throwable {
+  void test1() throws Throwable {
     GroupMode groupMode0 = GroupMode.MONTH;
     Grouper grouper0 = new Grouper((GatherBuffer) null, (DataBuffer) null, groupMode0);
     assertThrows(NullPointerException.class, grouper0::run);
@@ -45,19 +45,19 @@ public class GrouperTest {
 
   @Test
   @Timeout(4)
-  public void test2() throws Throwable {
+  void test2() throws Throwable {
     assertThrows(NullPointerException.class, () -> Grouper.groupByMonth((Map<Instant, Double>) null));
   }
 
   @Test
   @Timeout(4)
-  public void test3() throws Throwable {
+  void test3() throws Throwable {
     assertThrows(NullPointerException.class, () -> Grouper.getKWhSumFromKWminList((List<Double>) null));
   }
 
   @Test
   @Timeout(4)
-  public void test4() throws Throwable {
+  void test4() throws Throwable {
     Integer integer0 = -524;
     LocalDate localDate0 = LocalDate.ofEpochDay((-524));
     ThreadService threadService0 = new ThreadService(integer0, localDate0, localDate0);
@@ -72,7 +72,7 @@ public class GrouperTest {
 
   @Test
   @Timeout(4)
-  public void test6() throws Throwable {
+  void test6() throws Throwable {
     HashMap<Instant, Double> hashMap0 = new HashMap<Instant, Double>();
     Map<Instant, Double> map0 = Grouper.groupByMonth(hashMap0);
     assertTrue(map0.isEmpty());
@@ -80,7 +80,7 @@ public class GrouperTest {
 
   @Test
   @Timeout(4)
-  public void test7() throws Throwable {
+  void test7() throws Throwable {
     LinkedList<Double> linkedList0 = new LinkedList<Double>();
     Double double0 = -4281.2;
     linkedList0.add(double0);
@@ -90,7 +90,7 @@ public class GrouperTest {
 
   @Test
   @Timeout(4)
-  public void test8() throws Throwable {
+  void test8() throws Throwable {
     LinkedList<Double> linkedList0 = new LinkedList<Double>();
     Double double0 = Grouper.getKWhSumFromKWminList(linkedList0);
     assertEquals(0.0, (double) double0, 0.01);

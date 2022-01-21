@@ -11,11 +11,11 @@ import static org.junit.Assert.assertNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class ProvinciaTest {
+class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test0() throws Throwable {
+    void test0() throws Throwable {
         Provincia provincia0 = new Provincia();
         Integer integer0 = Integer.getInteger("%kn1)x56Dt|.(", 0);
         provincia0.setId(integer0);
@@ -25,7 +25,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test1() throws Throwable {
+    void test1() throws Throwable {
         Provincia provincia0 = new Provincia();
         Integer integer0 = 1;
         provincia0.setId(integer0);
@@ -35,7 +35,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test2() throws Throwable {
+    void test2() throws Throwable {
         Provincia provincia0 = new Provincia();
         Integer integer0 = -1846;
         provincia0.setId(integer0);
@@ -45,7 +45,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test3() throws Throwable {
+    void test3() throws Throwable {
         Provincia provincia0 = new Provincia();
         provincia0.setCapitalProvincia("");
         String string0 = provincia0.getCapitalProvincia();
@@ -54,7 +54,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test4() throws Throwable {
+    void test4() throws Throwable {
         Provincia provincia0 = new Provincia();
         Comunidad comunidad0 = new Comunidad();
         provincia0.setComunidad(comunidad0);
@@ -64,7 +64,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test5() throws Throwable {
+    void test5() throws Throwable {
         Provincia provincia0 = new Provincia();
         Integer integer0 = provincia0.getId();
         assertNull(integer0);
@@ -72,7 +72,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test6() throws Throwable {
+    void test6() throws Throwable {
         Provincia provincia0 = new Provincia();
         provincia0.setCapitalProvincia("%kn1)x56Dt|.(");
         String string0 = provincia0.getCapitalProvincia();
@@ -81,7 +81,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test7() throws Throwable {
+    void test7() throws Throwable {
         Provincia provincia0 = new Provincia();
         String string0 = provincia0.getCapitalProvincia();
         assertNull(string0);
@@ -89,7 +89,7 @@ public class ProvinciaTest {
 
     @Test
     @Timeout(4)
-    public void test8() throws Throwable {
+    void test8() throws Throwable {
         Provincia provincia0 = new Provincia();
         Comunidad comunidad0 = provincia0.getComunidad();
         assertNull(comunidad0);

@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class ComunidadTest {
+class ComunidadTest {
 
     @Test()
     @Timeout(4)
-    public void test0() throws Throwable {
+    void test0() throws Throwable {
         Comunidad comunidad0 = new Comunidad();
         Long long0 = 0L;
         comunidad0.setId(long0);
@@ -25,7 +25,7 @@ public class ComunidadTest {
 
     @Test()
     @Timeout(4)
-    public void test1() throws Throwable {
+    void test1() throws Throwable {
         Comunidad comunidad0 = new Comunidad();
         Long long0 = 944L;
         comunidad0.setId(long0);
@@ -35,7 +35,7 @@ public class ComunidadTest {
 
     @Test()
     @Timeout(4)
-    public void test2() throws Throwable {
+    void test2() throws Throwable {
         Comunidad comunidad0 = new Comunidad();
         comunidad0.setComunity("Wd\"_aDyD/tY");
         String string0 = comunidad0.getComunity();
@@ -44,7 +44,7 @@ public class ComunidadTest {
 
     @Test()
     @Timeout(4)
-    public void test3() throws Throwable {
+    void test3() throws Throwable {
         Comunidad comunidad0 = new Comunidad();
         comunidad0.setComunity("");
         String string0 = comunidad0.getComunity();
@@ -53,7 +53,7 @@ public class ComunidadTest {
 
     @Test()
     @Timeout(4)
-    public void test4() throws Throwable {
+    void test4() throws Throwable {
         Comunidad comunidad0 = new Comunidad();
         String string0 = comunidad0.getComunity();
         assertNull(string0);
@@ -61,7 +61,7 @@ public class ComunidadTest {
 
     @Test()
     @Timeout(4)
-    public void test5() throws Throwable {
+    void test5() throws Throwable {
         Comunidad comunidad0 = new Comunidad();
         Long long0 = -2330L;
         comunidad0.setId(long0);
@@ -71,7 +71,7 @@ public class ComunidadTest {
 
     @Test()
     @Timeout(4)
-    public void test6() throws Throwable {
+    void test6() throws Throwable {
         Comunidad comunidad0 = new Comunidad();
         Long long0 = comunidad0.getId();
         assertNull(long0);

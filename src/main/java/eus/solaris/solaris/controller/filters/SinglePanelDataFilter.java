@@ -1,6 +1,7 @@
 package eus.solaris.solaris.controller.filters;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Optional;
 
 import javax.servlet.FilterChain;
@@ -19,7 +20,7 @@ import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.service.UserService;
 
-public class SinglePanelDataFilter extends HttpFilter {
+public class SinglePanelDataFilter extends HttpFilter implements Serializable {
 
     private static final long serialVersionUID = -5465116158907781458L;
 
@@ -59,9 +60,6 @@ public class SinglePanelDataFilter extends HttpFilter {
 
         if (!panel.get().getUser().equals(user)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return;
         }
-
-        return;
     }
 }

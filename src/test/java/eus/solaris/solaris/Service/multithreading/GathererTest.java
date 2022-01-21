@@ -18,11 +18,11 @@ import org.junit.jupiter.api.Timeout;
 
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
 
-public class GathererTest {
+class GathererTest {
 
   @Test
   @Timeout(4)
-  public void test0() throws Throwable {
+  void test0() throws Throwable {
     LinkedList<SolarPanelDataEntry> linkedList0 = new LinkedList<SolarPanelDataEntry>();
     SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
     Instant instant0 = Instant.ofEpochSecond((-1556L), 0L);
@@ -34,7 +34,7 @@ public class GathererTest {
 
   @Test
   @Timeout(4)
-  public void test1() throws Throwable {
+  void test1() throws Throwable {
     LinkedList<SolarPanelDataEntry> linkedList0 = new LinkedList<SolarPanelDataEntry>();
     SolarPanelDataEntry solarPanelDataEntry0 = new SolarPanelDataEntry();
     linkedList0.push(solarPanelDataEntry0);
@@ -43,7 +43,7 @@ public class GathererTest {
 
   @Test
   @Timeout(4)
-  public void test2() throws Throwable {
+  void test2() throws Throwable {
     LinkedList<SolarPanelDataEntry> linkedList0 = new LinkedList<SolarPanelDataEntry>();
     Map<Instant, Double> map0 = Gatherer.extractData(linkedList0);
     assertEquals(0, map0.size());
@@ -51,7 +51,7 @@ public class GathererTest {
 
   @Test
   @Timeout(4)
-  public void test3() throws Throwable {
+  void test3() throws Throwable {
     assertThrows(NullPointerException.class, () -> new Gatherer((InitialBuffer) null, (GatherBuffer) null));
   }
 }

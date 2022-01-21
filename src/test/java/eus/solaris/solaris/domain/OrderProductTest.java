@@ -10,15 +10,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class OrderProductTest {
+class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test00() throws Throwable {
+    void test00() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = 0;
         orderProduct0.setVersion(integer0);
@@ -28,7 +29,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test01() throws Throwable {
+    void test01() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = 19;
         orderProduct0.setVersion(integer0);
@@ -38,7 +39,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test02() throws Throwable {
+    void test02() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = -214;
         orderProduct0.setVersion(integer0);
@@ -48,7 +49,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test03() throws Throwable {
+    void test03() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Product product0 = new Product();
         orderProduct0.product = product0;
@@ -58,7 +59,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test04() throws Throwable {
+    void test04() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Order order0 = new Order();
         orderProduct0.setOrder(order0);
@@ -68,7 +69,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test05() throws Throwable {
+    void test05() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         OrderProductKey orderProductKey0 = new OrderProductKey();
         orderProduct0.id = orderProductKey0;
@@ -78,7 +79,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test06() throws Throwable {
+    void test06() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = 0;
         orderProduct0.setAmount(integer0);
@@ -88,7 +89,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test07() throws Throwable {
+    void test07() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = 43;
         orderProduct0.setAmount(integer0);
@@ -98,7 +99,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test08() throws Throwable {
+    void test08() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = -4142;
         orderProduct0.setAmount(integer0);
@@ -108,7 +109,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test09() throws Throwable {
+    void test09() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         boolean boolean0 = orderProduct0.canEqual(orderProduct0);
         assertTrue(boolean0);
@@ -116,7 +117,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test10() throws Throwable {
+    void test10() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         boolean boolean0 = orderProduct0.canEqual("|&G6ij`Q");
         assertFalse(boolean0);
@@ -124,7 +125,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test11() throws Throwable {
+    void test11() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = orderProduct0.getVersion();
         assertNull(integer0);
@@ -132,7 +133,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test12() throws Throwable {
+    void test12() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Order order0 = orderProduct0.getOrder();
         assertNull(order0);
@@ -140,7 +141,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test13() throws Throwable {
+    void test13() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Product product0 = orderProduct0.getProduct();
         assertNull(product0);
@@ -148,7 +149,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test14() throws Throwable {
+    void test14() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         OrderProductKey orderProductKey0 = orderProduct0.getId();
         assertNull(orderProductKey0);
@@ -156,7 +157,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test15() throws Throwable {
+    void test15() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = orderProduct0.getAmount();
         assertNull(integer0);
@@ -164,7 +165,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test16() throws Throwable {
+    void test16() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Product product0 = new Product();
         orderProduct0.product = product0;
@@ -179,7 +180,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test17() throws Throwable {
+    void test17() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Product product0 = new Product();
         orderProduct0.product = product0;
@@ -190,7 +191,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test18() throws Throwable {
+    void test18() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Order order0 = new Order();
         orderProduct0.setOrder(order0);
@@ -199,13 +200,13 @@ public class OrderProductTest {
 
         orderProduct1.order = order0;
         boolean boolean0 = orderProduct1.equals(orderProduct0);
-        assertTrue(orderProduct1.equals((Object) orderProduct0));
+        assertEquals(orderProduct1, ((Object) orderProduct0));
         assertTrue(boolean0);
     }
 
     @Test
     @Timeout(4)
-    public void test19() throws Throwable {
+    void test19() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         OrderProduct orderProduct1 = new OrderProduct();
         assertTrue(orderProduct1.equals((Object) orderProduct0));
@@ -213,13 +214,13 @@ public class OrderProductTest {
         Order order0 = new Order();
         orderProduct1.order = order0;
         boolean boolean0 = orderProduct0.equals(orderProduct1);
-        assertFalse(orderProduct1.equals((Object) orderProduct0));
+        assertNotEquals(orderProduct1, ((Object) orderProduct0));
         assertFalse(boolean0);
     }
 
     @Test
     @Timeout(4)
-    public void test20() throws Throwable {
+    void test20() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Order order0 = new Order();
         orderProduct0.setOrder(order0);
@@ -230,22 +231,22 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test21() throws Throwable {
+    void test21() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         OrderProduct orderProduct1 = new OrderProduct();
         OrderProductKey orderProductKey0 = new OrderProductKey();
         orderProduct0.setId(orderProductKey0);
-        assertFalse(orderProduct0.equals((Object) orderProduct1));
+        assertNotEquals(orderProduct0, (Object) orderProduct1);
 
         orderProduct1.id = orderProductKey0;
         boolean boolean0 = orderProduct1.equals(orderProduct0);
-        assertTrue(orderProduct0.equals((Object) orderProduct1));
+        assertEquals(orderProduct0, ((Object) orderProduct1));
         assertTrue(boolean0);
     }
 
     @Test
     @Timeout(4)
-    public void test22() throws Throwable {
+    void test22() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         OrderProduct orderProduct1 = new OrderProduct();
         assertTrue(orderProduct1.equals((Object) orderProduct0));
@@ -253,28 +254,28 @@ public class OrderProductTest {
         OrderProductKey orderProductKey0 = new OrderProductKey();
         orderProduct1.id = orderProductKey0;
         boolean boolean0 = orderProduct1.equals(orderProduct0);
-        assertFalse(orderProduct1.equals((Object) orderProduct0));
+        assertNotEquals(orderProduct1, ((Object) orderProduct0));
         assertFalse(boolean0);
     }
 
     @Test
     @Timeout(4)
-    public void test23() throws Throwable {
+    void test23() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = -675;
         orderProduct0.setAmount(integer0);
         OrderProduct orderProduct1 = new OrderProduct();
-        assertFalse(orderProduct1.equals((Object) orderProduct0));
+        assertNotEquals(orderProduct1, ((Object) orderProduct0));
 
         orderProduct1.setAmount(integer0);
         boolean boolean0 = orderProduct0.equals(orderProduct1);
-        assertTrue(orderProduct1.equals((Object) orderProduct0));
+        assertEquals(orderProduct1, (Object) orderProduct0);
         assertTrue(boolean0);
     }
 
     @Test
     @Timeout(4)
-    public void test24() throws Throwable {
+    void test24() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = -675;
         orderProduct0.setAmount(integer0);
@@ -285,7 +286,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test25() throws Throwable {
+    void test25() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         boolean boolean0 = orderProduct0.equals("eus.solaris.solaris.domain.User");
         assertFalse(boolean0);
@@ -293,7 +294,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test26() throws Throwable {
+    void test26() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         boolean boolean0 = orderProduct0.equals(orderProduct0);
         assertTrue(boolean0);
@@ -301,34 +302,40 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test27() throws Throwable {
+    void test27() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
+        Integer hash1 = orderProduct0.hashCode();
         Product product0 = new Product();
         orderProduct0.product = product0;
-        orderProduct0.hashCode();
+        Integer hash2 = orderProduct0.hashCode();
+        assertNotEquals(hash1, hash2);
     }
 
     @Test
     @Timeout(4)
-    public void test28() throws Throwable {
+    void test28() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
+        Integer hash1 = orderProduct0.hashCode();
         OrderProductKey orderProductKey0 = new OrderProductKey();
         orderProduct0.id = orderProductKey0;
-        orderProduct0.hashCode();
+        Integer hash2 = orderProduct0.hashCode();
+        assertNotEquals(hash1, hash2);
     }
 
     @Test
     @Timeout(4)
-    public void test29() throws Throwable {
+    void test29() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
+        Integer hash1 = orderProduct0.hashCode();
         Integer integer0 = 1;
         orderProduct0.setAmount(integer0);
-        orderProduct0.hashCode();
+        Integer hash2 = orderProduct0.hashCode();
+        assertNotEquals(hash1, hash2);
     }
 
     @Test
     @Timeout(4)
-    public void test30() throws Throwable {
+    void test30() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Integer integer0 = -675;
         orderProduct0.setAmount(integer0);
@@ -339,16 +346,19 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test31() throws Throwable {
+    void test31() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
+        Integer hash1 = orderProduct0.hashCode();
         Order order0 = new Order();
         orderProduct0.setOrder(order0);
         orderProduct0.hashCode();
+        Integer hash2 = orderProduct0.hashCode();
+        assertNotEquals(hash1, hash2);
     }
 
     @Test
     @Timeout(4)
-    public void test32() throws Throwable {
+    void test32() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         Product product0 = new Product();
         orderProduct0.setProduct(product0);
@@ -362,7 +372,7 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test33() throws Throwable {
+    void test33() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         String string0 = orderProduct0.toString();
         assertEquals("OrderProduct(id=null, order=null, product=null, amount=null, version=null)", string0);
@@ -370,13 +380,13 @@ public class OrderProductTest {
 
     @Test
     @Timeout(4)
-    public void test34() throws Throwable {
+    void test34() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         OrderProductKey orderProductKey0 = new OrderProductKey();
         orderProduct0.setId(orderProductKey0);
         OrderProduct orderProduct1 = new OrderProduct();
         boolean boolean0 = orderProduct1.equals(orderProduct0);
-        assertFalse(orderProduct0.equals((Object) orderProduct1));
+        assertNotEquals(orderProduct0, ((Object) orderProduct1));
         assertFalse(boolean0);
     }
 }

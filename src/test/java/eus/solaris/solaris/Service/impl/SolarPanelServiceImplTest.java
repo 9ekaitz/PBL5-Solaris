@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Timeout;
 
 import eus.solaris.solaris.domain.User;
 
-public class SolarPanelServiceImplTest {
+class SolarPanelServiceImplTest {
 
   @Test
   @Timeout(4)
-  public void test0() throws Throwable {
+  void test0() throws Throwable {
     SolarPanelServiceImpl solarPanelServiceImpl0 = new SolarPanelServiceImpl();
     User user0 = new User();
     assertThrows(NullPointerException.class, () -> solarPanelServiceImpl0.findByUser(user0));

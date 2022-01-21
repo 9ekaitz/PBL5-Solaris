@@ -17,11 +17,11 @@ import org.junit.jupiter.api.Timeout;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
 import eus.solaris.solaris.service.multithreading.modes.GroupMode;
 
-public class SolarPanelRequestDTOTest {
+class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test00() throws Throwable {
+    void test00() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         LocalDate localDate0 = LocalDate.ofYearDay(4, 4);
         solarPanelRequestDTO0.setStart(localDate0);
@@ -31,7 +31,7 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test01() throws Throwable {
+    void test01() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         Long long0 = 2423L;
         solarPanelRequestDTO0.setId(long0);
@@ -41,7 +41,7 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test02() throws Throwable {
+    void test02() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         Long long0 = -501L;
         solarPanelRequestDTO0.setId(long0);
@@ -51,7 +51,7 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test03() throws Throwable {
+    void test03() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         LocalDate localDate0 = LocalDate.ofYearDay(4, 4);
         solarPanelRequestDTO0.setEnd(localDate0);
@@ -61,7 +61,7 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test04() throws Throwable {
+    void test04() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         ConversionType conversionType0 = ConversionType.TO_AVOIDED_CO2;
         solarPanelRequestDTO0.setConversionType(conversionType0);
@@ -71,14 +71,15 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test05() throws Throwable {
+    void test05() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
-        solarPanelRequestDTO0.getConversionType();
+        ConversionType iConversion0 = solarPanelRequestDTO0.getConversionType();
+        assertNull(iConversion0);
     }
 
     @Test
     @Timeout(4)
-    public void test06() throws Throwable {
+    void test06() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         Long long0 = solarPanelRequestDTO0.getId();
         assertNull(long0);
@@ -86,7 +87,7 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test07() throws Throwable {
+    void test07() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         LocalDate localDate0 = solarPanelRequestDTO0.getStart();
         assertNull(localDate0);
@@ -94,14 +95,15 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test08() throws Throwable {
+    void test08() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
-        solarPanelRequestDTO0.getGroupMode();
+        GroupMode mode = solarPanelRequestDTO0.getGroupMode();
+        assertNull(mode);
     }
 
     @Test
     @Timeout(4)
-    public void test09() throws Throwable {
+    void test09() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         LocalDate localDate0 = solarPanelRequestDTO0.getEnd();
         assertNull(localDate0);
@@ -109,7 +111,7 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test10() throws Throwable {
+    void test10() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         GroupMode groupMode0 = GroupMode.DAY;
         solarPanelRequestDTO0.setGroupMode(groupMode0);
@@ -119,7 +121,7 @@ public class SolarPanelRequestDTOTest {
 
     @Test
     @Timeout(4)
-    public void test11() throws Throwable {
+    void test11() throws Throwable {
         SolarPanelRequestDTO solarPanelRequestDTO0 = new SolarPanelRequestDTO();
         Long long0 = 0L;
         solarPanelRequestDTO0.setId(long0);
