@@ -115,9 +115,10 @@
                 <path class="st1" d="M73,52.3V27.5h2.7v24.8H73z" />
               </g>
             </svg>
-            <h2 class="text" th:case="'installer'" th:text="#{nav.title.installer}"></h2>
-            <h2 class="text" th:case="'admin'" th:text="#{nav.title.admin}"></h2>
-            <h2 class="text" th:case="'user'" th:text="#{nav.title.user}"></h2>
+            <h2 class="text" th:case="ROLE_ADMIN" th:text="#{nav.title.admin}"></h2>
+            <h2 class="text" th:case="'ROLE_USER'" th:text="#{nav.title.user}"></h2>
+            <h2 class="text" th:case="'ROLE_TECHNICIAN'" th:text="#{nav.title.technician}"></h2>
+            <h2 class="text" th:case="'ROLE_SUPERVISOR'" th:text="#{nav.title.supervidor}"></h2>
           </a>
           <hr />
           <a class="nav-item current">

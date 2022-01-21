@@ -1,0 +1,110 @@
+.container {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+}
+.container .header-mobile {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: relative;
+}
+.container .header-mobile:hover {
+  cursor: pointer;
+}
+.container .header-mobile img {
+  border-radius: 8px;
+  width: 64px;
+}
+.container .header-mobile svg {
+  position: absolute;
+  left: -1.5rem;
+  top: 50%;
+  transform: translate(0%, -50%) rotate(180deg);
+}
+.container .subtitle {
+  font-size: 1.3rem;
+  font-weight: normal;
+  -webkit-text-decoration: underline #f9aa31 3px;
+          text-decoration: underline #f9aa31 3px;
+  text-underline-offset: 4px;
+}
+.container .details {
+  overflow: auto;
+  position: relative;
+}
+.container .details h3 + * {
+  font-weight: lighter;
+  padding-left: 1rem;
+  font-size: 1.1rem;
+}
+.container .details .address {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border: 1px solid #C7C7C7;
+}
+.container .details .address p {
+  margin: 0.2rem;
+  font-weight: lighter;
+  font-size: 1.1rem;
+}
+.container .details .product-list {
+  list-style: circle;
+}
+.container .details .map {
+  display: none;
+}
+.container ul {
+  list-style: none;
+}
+.container ul li {
+  font-size: 1.1rem;
+}
+.container ul,
+.container form {
+  padding-left: 1rem;
+}
+.container label {
+  display: flex;
+  align-items: center;
+}
+.container label .check {
+  margin: 0 1rem 0 0;
+  font-size: 1.3rem;
+}
+.container label .text {
+  font-size: 1.3rem;
+}
+@media screen and (min-width: 768px) {
+  .container {
+    grid-template-rows: auto 1fr auto;
+    padding: 2rem 4rem;
+  }
+  .container .header-mobile {
+    display: none;
+  }
+  .container .details {
+    border: 1px solid #C7C7C7;
+  }
+  .container .details h3 + * {
+    padding-left: 2rem;
+  }
+  .container .details ul,
+.container .details form {
+    padding-left: 3rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .container .details .map {
+    display: inline-block;
+    position: absolute;
+    height: 30vw;
+    width: 30vw;
+    right: 3rem;
+    top: 2rem;
+  }
+  .container .details .map iframe {
+    border: 1px solid #C7C7C7;
+  }
+}/*# sourceMappingURL=installation.css.map */

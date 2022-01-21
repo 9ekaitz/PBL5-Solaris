@@ -1,72 +1,72 @@
 @import "../util/variables";
 
 * {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-form {
-    input[type="submit"] {
-        font-size: 0.7rem;
+  input[type="submit"] {
+    font-size: 0.7rem;
+  }
+
+  .remember-me {
+    @include no-select;
+    @include no-drag;
+
+    display: inline-flex;
+    align-items: flex-end;
+    font-size: 0.8rem;
+    margin-top: 0;
+    input {
+      margin-right: 0.6em;
+      width: 1em;
+      height: 1em;
     }
 
-    .remember-me {
-        @include no-select;
-        @include no-drag;
-
-        display: inline-flex;
-        align-items: flex-end;
-        font-size: 0.8rem;
-        margin-top: 0;
-        input {
-            margin-right: 0.6em;
-            width: 1em;
-            height: 1em;
-        }
-
-        label {
-            font-size: inherit;
-        }
+    label {
+      font-size: inherit;
     }
+  }
 
-    .submit-wrap {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        width: 100%;
-    }
+  .submit-wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+  }
 }
 
 .password-reset,
-.register-link   {
-    text-decoration: none;
-    color: $main-color;
-    font-size: 0.7rem;
+.register-link {
+  text-decoration: none;
+  color: $main-color;
+  font-size: 0.7rem;
 }
 
 .register-link {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .password-reset {
-    margin-top: 0.8rem;
+  margin-top: 0.8rem;
 }
 
 h1 {
-    @include no-select;
-    text-align: center;
-    .logo {
-        @include no-drag;
-        font-size: inherit;
-        width: 5em;
-    }
+  @include no-select;
+  text-align: center;
+  .logo {
+    @include no-drag;
+    font-size: inherit;
+    width: 5em;
+  }
 }
 
 .error {
-    font-size: 0.75rem;
+  font-size: 0.75rem;
 }

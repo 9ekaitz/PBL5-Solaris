@@ -12,12 +12,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "privilege")
-@Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Generated
 public class Privilege {
 
     @Id
@@ -34,9 +40,11 @@ public class Privilege {
     private Boolean enabled;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<Role> roles;
 
     @Version
+    @lombok.EqualsAndHashCode.Exclude
     private Integer version;
 
 }

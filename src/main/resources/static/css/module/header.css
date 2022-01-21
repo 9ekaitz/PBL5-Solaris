@@ -1,11 +1,5 @@
-body {
-  margin: 0;
-  display: block;
-}
-
 header .header-computer {
   display: none;
-  position: relative;
 }
 @media (min-width: 768px) {
   header .header-computer {
@@ -90,6 +84,9 @@ header .header-computer {
     margin: auto;
     width: 1.5rem;
     height: 1.5rem;
+  }
+  header .header-computer .header-computer-search form .searcher {
+    border: none;
   }
   header .header-computer .header-computer-lang {
     background-color: #282828;

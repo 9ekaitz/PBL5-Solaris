@@ -1,10 +1,3 @@
-main hr {
-  border: none;
-  display: none;
-}
-main .helper {
-  display: none;
-}
 main .main-content {
   display: flex;
   flex-direction: column;
@@ -17,6 +10,7 @@ main .main-content .content-section {
   margin-block: 1rem;
 }
 main .main-content .content-section.main .title {
+  text-align: left;
   font-size: 3rem;
 }
 main .main-content .content-section.main .subtitle {
@@ -53,6 +47,7 @@ main .main-content .content-section .sub-section img {
   margin-block: 1rem;
 }
 main .main-content .content-section .sub-section .title {
+  text-align: left;
   font-size: 2.75rem;
   margin: 0;
 }
@@ -60,24 +55,6 @@ main .main-content .content-section .sub-section .subtitle {
   font-size: 1.5rem;
 }
 @media (min-width: 768px) {
-  main .helper {
-    display: block;
-    margin: 0;
-    padding: 0.5rem 0 0.5rem 10rem;
-    font-size: 1rem;
-  }
-  main .helper a {
-    color: #f9aa31;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  main hr {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-top: 1px solid #C7C7C7;
-  }
   main .main-content {
     padding: 7.5rem 0rem 5rem 0rem;
     gap: 10rem;
@@ -116,10 +93,8 @@ main .main-content .content-section .sub-section .subtitle {
     margin: auto;
     width: 70px;
     line-height: 70px;
-    border-radius: 50%;
     text-align: center;
     font-size: 2rem;
-    border: 1px solid black;
   }
   main .main-content .content-section.unit .sub-section {
     width: 100%;

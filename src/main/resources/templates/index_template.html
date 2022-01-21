@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html th:lang="#{locale}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/module/header.css}">
+    <link rel="stylesheet" th:href="@{/css/module/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/module/nav.css}">
+    <link rel="stylesheet" th:href="@{/css/page/index.css}">
+
+    <script th:src="@{/js/header.js}"></script>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
+
+<!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+        var u="https://deploysolaris.ddns.net:5443/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+  <!-- End Matomo Code -->
+  <!-- Matomo Tag Manager -->
+    <script>
+        var _mtm = window._mtm = window._mtm || [];
+        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src='https://deploysolaris.ddns.net:5443/js/container_dXyikgUe.js'; s.parentNode.insertBefore(g,s);
+    </script>
+    <!-- End Matomo Tag Manager -->
+</head>
+<body>
+    <header th:insert="header :: header"></header>
+    <main layout:fragment="content">
+        <p>Changing contents</p>
+    </main>
+    <footer th:insert="footer :: footer"></footer>
+    <hr class="separator">
+    <nav th:insert="nav :: nav"></nav>
+</body>

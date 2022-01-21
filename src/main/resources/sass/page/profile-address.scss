@@ -1,0 +1,84 @@
+@import "../util/variables";  
+
+
+.add-address{
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+}
+
+.address-section{
+    border: 2px solid $border-color;
+
+    .icon{
+        width: 25%;
+        height: 25%;
+        fill: grey;
+    }
+
+    .add{
+        font-weight: bold;
+    }
+}
+
+.address-info{
+    border: 2px solid $border-color;
+    margin-top: 1.5rem;
+
+    .block{
+        text-decoration: none;
+
+        .default{
+            font-weight: lighter;
+            .text{
+                padding-left: 1rem;
+            }
+        }
+
+        .info{
+            padding-left: 1rem;
+
+            .name{
+                font-weight: bold;
+            }
+        }   
+    }
+
+    .address-edit-options{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-block: 1.5rem;
+
+        .option{
+            background-color: transparent;
+            color: $main-color;
+
+            &:hover{
+                color: $main-dark-color;
+            }
+        }
+    }
+}
+
+@media (min-width: $large-screen){
+    
+
+    .address-info{
+        margin-top: 0;
+        display: grid;
+        grid-template-rows: 1fr auto;
+    }
+
+    .address{
+        padding: 2rem 10rem;
+    }
+
+
+
+}

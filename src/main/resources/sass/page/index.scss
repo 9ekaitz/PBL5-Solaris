@@ -1,12 +1,6 @@
 @import "../util/variables";
 
 main{
-
-    hr, .helper{
-        border: none;
-        display: none;
-    }
-
     .main-content{
         display: flex;
         flex-direction: column;
@@ -15,11 +9,13 @@ main{
         .content-section{
             display: block;
             font-size: 1rem;
-            padding: 0 1rem;
+            padding: 0rem 1rem 0rem 1rem;
             margin-block: 1rem;
 
             &.main{
+                
                 .title{
+                    text-align: left;
                     font-size: 3rem;
                 }
 
@@ -32,13 +28,23 @@ main{
             &.phases{
                 background-color: $extra-info-color;
                 display: block;
-                padding: 1rem;                
+                padding: 1rem 1rem 1rem 1rem;
+                
     
                 p{
+                    text-align: center;
+                    justify-content: center;
                     padding: 0;
+                    &.info{
+                        padding: 0.5rem 0 0 0;
+                        font-size: 1rem;
+                    }
                     &.number{
+                        margin: auto;
                         width: 30px;
                         line-height: 30px;
+                        border-radius: 50%;
+                        text-align: center;
                         font-size: 1rem;
                         border: 1px solid black;
                     }
@@ -55,6 +61,7 @@ main{
                 }
 
                 .title{
+                    text-align: left;
                     font-size: 2.75rem;
                     margin: 0;
                 }
@@ -68,27 +75,7 @@ main{
     }
 
 
-    @media (min-width: 768px){
-        .helper{
-            display: block;
-            margin: 0;
-            padding: 0.5rem 0 0.5rem 10rem;
-            font-size: 1rem;
-
-            a{
-                color: $main-color;
-                font-weight: bold;
-                text-decoration: none;
-            }
-        }
-
-        hr{
-            display: block;
-            margin: 0;
-            padding: 0;
-            border: 0;
-            border-top: 1px solid $border-color;
-        }
+    @media (min-width: $large-screen){
 
         .main-content{
             padding: 7.5rem 0rem 5rem 0rem;
@@ -98,7 +85,7 @@ main{
                 display: flex;
                 gap: 5rem;
                 margin-block: 0;
-                padding: 0 10rem;
+                padding: 0rem 10rem 0rem 10rem;
                 font-size: 1.5rem;
 
                 &.main{
@@ -108,32 +95,32 @@ main{
                     }
 
                     .subtitle{
+                        font-size: 1.5rem;
                         font-weight: lighter;
                         text-align: justify;
                     }
                 }
 
                 &.phases{
+                    background-color: $extra-info-color;
                     display: flex;
                     justify-content: space-between;
-                    padding: 2rem 10rem;
+                    padding: 2rem 10rem 2rem 10rem;
         
                     .text{
                         text-align: center;
                         justify-content: center;
                         padding: 0;
                         &.info{
-                            padding-top: 0.5rem;
+                            padding: 0.5rem 0 0 0;
                             font-size: 1rem;
                         }
                         &.number{
                             margin: auto;
                             width: 70px;
                             line-height: 70px;
-                            border-radius: 50%;
                             text-align: center;
                             font-size: 2rem;
-                            border: 1px solid black;
                         }
                     }
         
