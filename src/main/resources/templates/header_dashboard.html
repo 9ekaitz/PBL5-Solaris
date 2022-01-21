@@ -27,14 +27,17 @@
             </svg>
           </button>
           <div th:if="${user != null}" class="profile-container">
-            <object type="image/svg+xml" th:data="${user.avatar}">
-            </object>
+            <img
+              class="profile"
+              th:alt="#{img.alt.user-profile}"
+              th:src="@{${user.avatar}}"
+            />
           </div>
           <div th:unless="${user != null}" class="profile-container">
             <img
               class="profile"
               th:alt="#{img.alt.user-profile}"
-              th:src="@{/images/moraito_pocco.png}"
+              th:src="@{/images/user.png}"
             />
           </div>
           <h2 th:text="${user.name +' ' + user.firstSurname}"></h2>

@@ -24,7 +24,7 @@ import eus.solaris.solaris.util.Beam;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final int SIZE = 64;
+    private static final int SIZE = 32;
 
     @Autowired
     private ModelMapper modelMapper;
