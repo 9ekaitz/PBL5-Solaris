@@ -5,16 +5,18 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,6 +52,9 @@ public class SinglePanelREST implements HandlerInterceptor {
     DataEntryRepository dataEntryRepository;
 
     @Autowired
+    MessageSource messageSource;
+
+    @Autowired
     UserService userService;
 
     @GetMapping(path = "/real-time", produces = "application/json")
@@ -75,7 +80,8 @@ public class SinglePanelREST implements HandlerInterceptor {
         Map<Instant, Double> data = Gatherer.extractData(entries);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.LINE);
-        fj.setLabel("Potencia generada a tiempo real"); // TODO: Localize
+        Locale locale = LocaleContextHolder.getLocale();
+        fj.setLabel(messageSource.getMessage("rest.graph.single.real_time", null, locale));
         return fj.getJSON().toString();
     }
 
@@ -94,7 +100,8 @@ public class SinglePanelREST implements HandlerInterceptor {
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), ConversionType.NONE);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.BAR);
-        fj.setLabel("Potencia generada por panel"); // TODO: Localize
+        Locale locale = LocaleContextHolder.getLocale();
+        fj.setLabel(messageSource.getMessage("rest.graph.single.per_panel", null, locale));
         return fj.getJSON().toString();
     }
 
@@ -141,7 +148,7 @@ public class SinglePanelREST implements HandlerInterceptor {
         return dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
     }
 
-    public Boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {
+    public boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
