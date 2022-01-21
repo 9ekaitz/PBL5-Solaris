@@ -87,7 +87,7 @@ hr {
     display: inline-block;
   }
   .nav-computer .nav-item .logo {
-    fill: #c7c7c7;
+    fill: #C7C7C7;
     max-width: 2rem;
     max-height: 2rem;
     min-width: 2rem;
@@ -95,7 +95,7 @@ hr {
     width: 100%;
   }
   .nav-computer .nav-item .text {
-    color: #c7c7c7;
+    color: #C7C7C7;
     margin: 0 1rem 0 1rem;
     overflow: hidden;
     white-space: nowrap;
@@ -117,8 +117,8 @@ hr {
   fill: none;
 }
 .nav-computer .no-animation:hover .text {
-  color: #c7c7c7;
+  color: #C7C7C7;
 }
 .nav-computer h2 {
-  color: #c7c7c7;
+  color: #C7C7C7;
 }/*# sourceMappingURL=nav_dashboard.css.map */

@@ -1,6 +1,7 @@
 package eus.solaris.solaris.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import eus.solaris.solaris.domain.Brand;
+import eus.solaris.solaris.domain.Color;
+import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Product;
+import eus.solaris.solaris.domain.Size;
+import eus.solaris.solaris.domain.SolarPanelModel;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.PasswordUpdateForm;
+import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
 import eus.solaris.solaris.service.ProductService;
@@ -125,12 +132,51 @@ public class AdminController {
     @GetMapping(value = "/manage-products")
     public String showManageProductsPage(Model model) {
         model.addAttribute("page_title", "PRODUCTS");
+        setFilters(model);
         List<Product> products = productService.findAll();
         PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
         model.addAttribute("actualPage", 0);
         model.addAttribute("products", pagedListHolder.getPageList());
         model.addAttribute("totalPages", pagedListHolder.getPageCount());
         return "page/admin-dashboard/manage-products";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @GetMapping(value = "/manage-products/{page}")
+    public String showManageProductsPage(Model model, @PathVariable int page) {
+        model.addAttribute("page_title", "PRODUCTS");
+        List<Product> products = productService.findAll();
+        setFilters(model);
+        PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
+        pagedListHolder.setPage(--page);
+        model.addAttribute("actualPage", page);
+        model.addAttribute("products", pagedListHolder.getPageList());
+        model.addAttribute("totalPages", pagedListHolder.getPageCount());
+        return "page/admin-dashboard/manage-products";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PostMapping(value = "/manage-products/filter")
+    public String filterProducts(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model) {
+        model.addAttribute("page_title", "PRODUCTS");
+        Set<Product> products = productService.getFilteredProducts(pff);
+        setFilters(model);
+        PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(List.copyOf(products));
+        model.addAttribute("actualPage", 0);
+        model.addAttribute("products", pagedListHolder.getPageList());
+        model.addAttribute("totalPages", pagedListHolder.getPageCount());
+        return "page/admin-dashboard/manage-products";
+    }
+
+    public void setFilters(Model model) {
+        List<Brand> brands = productService.getBrands();
+        model.addAttribute("brands", brands);
+        List<Color> colors = productService.getColors();
+        model.addAttribute("colors", colors);
+        List<Size> sizes = productService.getSizes();
+        model.addAttribute("sizes", sizes);
+        List<Material> materials = productService.getMaterials();
+        model.addAttribute("materials", materials);
     }
 
     public boolean checkPasswords(String psw1, String psw2) {

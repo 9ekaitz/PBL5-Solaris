@@ -4,7 +4,7 @@ body {
 }
 
 .header-mobile .header-mobile-top {
-  background-color: #4D4D4D;
+  background-color: #4d4d4d;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -80,7 +80,7 @@ header .header-computer {
   position: relative;
 }
 header .header-computer .header-computer-main {
-  background-color: #4D4D4D;
+  background-color: #4d4d4d;
   padding: 1.5rem 10rem 1.5rem 10rem;
   display: flex;
   justify-content: space-between;
@@ -119,13 +119,13 @@ header .header-computer .header-computer-main .header-computer-icons .icon:hover
   cursor: pointer;
 }
 header .header-computer .header-computer-main .header-computer-icons .icon .logo {
-  fill: #FFF;
+  fill: #fff;
 }
 header .header-computer .header-computer-main .header-computer-icons .icon .logo:hover {
   fill: #f9aa31;
 }
 header .header-computer .header-computer-main a {
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
 }
 header .header-computer .header-computer-search {

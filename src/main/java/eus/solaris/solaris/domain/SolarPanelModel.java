@@ -23,10 +23,13 @@ public class SolarPanelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "code", nullable = false)
     private String code;
-    
+
     @Column(name = "i18n", nullable = false)
     private String i18n;
     

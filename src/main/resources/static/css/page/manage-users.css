@@ -1,12 +1,12 @@
 main {
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   flex-grow: 1;
   overflow: auto;
   padding: 2rem;
 }
 
 .container {
-  background: #FFF;
+  background: #fff;
   padding: 1rem 2rem 1rem 2rem;
 }
 
@@ -17,6 +17,7 @@ main {
 .manage-accounts .title-flex {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .manage-accounts .title-flex .title {
   font-weight: normal;
@@ -61,7 +62,7 @@ main {
   float: left;
 }
 .manage-accounts .accounts-list table tr:nth-child(2n) {
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
 }
 .manage-accounts .accounts-list table tr td:nth-child(1), .manage-accounts .accounts-list table tr td:last-child() {
   width: 15px;
@@ -76,7 +77,7 @@ main {
   margin-inline: 0.5rem;
   padding: 0.3em;
   text-decoration: none;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   border-radius: 3em;
 }
 .manage-accounts .accounts-list .pages .selected {
@@ -84,7 +85,7 @@ main {
   color: white;
 }
 .manage-accounts .accounts-list .pages .not-selected {
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   color: black;
 }
 

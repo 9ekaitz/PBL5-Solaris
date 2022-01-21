@@ -16,6 +16,7 @@ main {
 .title-flex {
     display: flex;
     flex-direction: row;
+    align-items: center;
     .title {
         font-weight: normal;
         font-size: 1.5rem;
@@ -96,16 +97,16 @@ main {
                 align-items: center;
                 grid-template-columns: 3fr 1fr;
                 grid-template-rows: 4fr 1fr 1fr;
-                border-radius: 1em;
+                border-radius: $section-border;
                 margin: 1em;
-                -webkit-box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-                -moz-box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+                box-sizing: border-box;
+                border: 1px solid rgba(0, 0, 0, 0.2);
                 box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
                 .product-img {
                     display: flex;
                     grid-row: 1;
                     grid-column: span 2;
-                    border-radius: 1em;
+                    border-radius: $section-border;
                     margin-top: 0.7em;
                     margin-left: 0.5em;
                     margin-right: 0.5em;
@@ -142,6 +143,8 @@ main {
             align-items: flex-start;
             margin-top: 2rem;
             margin-bottom: 2rem;
+            grid-row: 2;
+            grid-column: 2;
             a {
                 margin-inline: 0.5rem;
                 padding: 0.3em;
@@ -156,6 +159,62 @@ main {
             .not-selected {
                 background-color: $bg-color;
                 color: black;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1320px) {
+    .products-panel {
+        overflow: hidden;
+        margin-top: 1em;
+        display: grid;
+        padding: 1rem;
+        gap: 1.5rem;
+        grid-template-columns: 2fr 4fr;
+        grid-template-rows: 4fr 1fr;
+        height: 100%;
+        .filter-panel {
+            display: flex;
+            flex-direction: column;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            grid-row: span 2;
+            grid-column: 1;
+            overflow: auto;
+            height: calc(100% - 4rem);
+            input[type="checkbox"], input[type="radio"] {
+                display: inline-block;
+                margin-right: 1em;
+                margin-left: 1.5em;
+            }
+            hr {
+                border: 1px solid $main-color;
+                width:50%;
+                margin:0 auto;
+                margin-top: 1.5em;
+            }
+            hr:last-child {
+                margin-bottom: 1.5em;
+            }
+        }
+        .products-items-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-row: 1;
+            grid-column: 2;
+            overflow: auto;
+            height: 100%;
+            .product {
+                display: grid;
+                align-items: center;
+                grid-template-columns: 3fr 1fr;
+                grid-template-rows: 4fr 1fr 1fr;
+                border-radius: $section-border;
+                margin: 1em;
+                box-sizing: border-box;
+                border: 1px solid rg
             }
         }
     }

@@ -13,20 +13,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
 
 @Entity
 @Table(name = "product")
+@Data
 @Generated
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name = "name")
-    private String name;
 
     @Column(name = "price")
     private Double price;
@@ -34,20 +33,20 @@ public class Product {
     @Column(nullable = false, name = "imagePath")
     private String imagePath;
 
-    @Column(name = "material")
-    private String material;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Material material;
 
-    @Column(name = "product_type")
-    private String productType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Brand brand;
 
-    @Column(name = "color")
-    private String color;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Color color;
 
-    @Column(name = "description")
-    private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Size size;
 
-    @ManyToOne
-    private SolarPanelModel solarPanelModel;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SolarPanelModel model;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude

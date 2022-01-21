@@ -427,11 +427,11 @@ input[type=submit].btn-big,
 
 @media screen and (min-width: 480px) {
   .section {
-    border: 1px solid #c7c7c7;
+    border: 1px solid #C7C7C7;
   }
 }
 .error {
-  color: #da3633;
+  color: #DA3633;
 }
 
 ul.error * {

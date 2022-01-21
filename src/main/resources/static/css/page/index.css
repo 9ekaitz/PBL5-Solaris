@@ -1,4 +1,5 @@
-main hr, main .helper {
+main hr,
+main .helper {
   border: none;
   display: none;
 }
@@ -20,7 +21,7 @@ main .main-content .content-section.main .subtitle {
   font-size: 1.5rem;
 }
 main .main-content .content-section.phases {
-  background-color: #f1f1f1;
+  background-color: #F1F1F1;
   display: block;
   padding: 1rem;
 }
@@ -64,7 +65,7 @@ main .main-content .content-section .sub-section .subtitle {
     margin: 0;
     padding: 0;
     border: 0;
-    border-top: 1px solid #c7c7c7;
+    border-top: 1px solid #C7C7C7;
   }
   main .main-content {
     padding: 7.5rem 0rem 5rem 0rem;

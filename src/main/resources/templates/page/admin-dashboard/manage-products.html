@@ -16,31 +16,28 @@
                 <a class="button-a" th:href="@{/dashboard/create-user}" th:text="#{page.dashboard.createaproduct}"></a>
             </div>
             <div class="products-panel">
-                <form class="filter-panel" action="/dashboard/manage-products/filter" method="post">
+                <form class="filter-panel" th:action="@{/dashboard/manage-products/filter}" method="post">
                     <input type="submit" th:value="#{page.dashboard.manage-products-filter}"></input>
                     <hr>
                     <h2 th:text="#{page.dashboard.manage-products.brand}"></h2>
-                    <!-- TODO: get all brands from products -->
-                    <label><input type="checkbox" name="brand-1" id="brand-1">Motorola</label>
-                    <label><input type="checkbox" name="brand-2" id="brand-2">IPhone</label>
-                    <label><input type="checkbox" name="brand-3" id="brand-3">Xiaomi</label>
-                    <label><input type="checkbox" name="brand-4" id="brand-4">Xiaomi</label>
-                    <label><input type="checkbox" name="brand-5" id="brand-5">Xiaomi</label>
+                    <th:block th:each="brand, iterator : ${brands}">
+                        <label><input type="checkbox" th:name="brandsIds[__${iterator.index}__]" th:value="${brand.id}" th:id="${'brand-' + brand.id}"><span th:text="${brand.name}"></span></label>
+                    </th:block>
                     <hr>
-                    <!-- TODO: get all types of product from products -->
-                    <h2 th:text="#{page.dashboard.manage-products.typeproduct}"></h2>
-                    <label><input type="checkbox" name="brand-1" id="brand-1">Motorola</label>
-                    <label><input type="checkbox" name="brand-2" id="brand-2">IPhone</label>
-                    <hr>
-                    <!-- TODO: get all types of colors from products -->
                     <h2 th:text="#{page.dashboard.manage-products.colors}"></h2>
-                    <label><input type="checkbox" name="brand-1" id="brand-1">Motorola</label>
-                    <label><input type="checkbox" name="brand-2" id="brand-2">IPhone</label>
+                    <th:block th:each="color, iterator : ${colors}">
+                        <label><input type="checkbox" th:name="colorsIds[__${iterator.index}__]" th:value="${color.id}" th:id="${'color-' + color.id}"><span th:text="${color.name}"></span></label>
+                    </th:block>
                     <hr>
-                    <!-- TODO: get all types of measures from products -->
-                    <h2 th:text="#{page.dashboard.manage-products.measures}"></h2>
-                    <label><input type="checkbox" name="brand-1" id="brand-1">Motorola</label>
-                    <label><input type="checkbox" name="brand-2" id="brand-2">IPhone</label>
+                    <h2 th:text="#{page.dashboard.manage-products.materials}"></h2>
+                    <th:block th:each="material, iterator : ${materials}">
+                        <label><input type="checkbox" th:name="materialsIds[__${iterator.index}__]" th:value="${material.id}" th:id="${'material-' + material.id}"><span th:text="${material.name}"></span></label>
+                    </th:block>
+                    <hr>
+                    <h2 th:text="#{page.dashboard.manage-products.sizes}"></h2>
+                    <th:block th:each="size, iterator : ${sizes}">
+                        <label><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}" th:id="${'size-' + size.id}"><span th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
+                    </th:block>
                     <hr>
                     <!-- TODO: get all types of prices from products -->
                     <h2 th:text="#{page.dashboard.manage-products.price}"></h2>
@@ -55,19 +52,21 @@
                     <th:block th:each="product : ${products}">
                         <div class="product">
                             <div class="product-img">
-                                <img th:src="/images/products/satisfyier.jpg" alt="product-image">
+                                <img th:src="@{'~' + ${product.imagePath}}" alt="product-image">
                             </div>
-                            <p class="product-title">Satisfyier Domaika</p>
-                            <p class="product-price">2,560 €</p>
+                            <th:block th:each="description : ${product.descriptions}">
+                                <p class="product-title" th:if="${description.language.code} == #{locale}" th:text="${description.name}">Null</p>
+                            </th:block>
+                            <p class="product-price" th:text="${product.price + ' €'}">Null</p>
                             <div class="product-buttons">
                                 <!-- <a th:href="@{'/dashboard/edit-user/'+${product.id}}"> -->
-                                <a th:href="@{'/dashboard/edit-product/'}">
+                                <a th:href="@{'/dashboard/edit-product/'+${product.id}}">
                                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                         <path fill="currentColor"
                                             d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
                                     </svg>
                                 </a>
-                                <a th:href="@{'/dashboard/delete-product/'}">
+                                <a th:href="@{'/dashboard/delete-product/'+${product.id}}">
                                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                         <path fill="currentColor"
                                             d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z" />
@@ -76,14 +75,15 @@
                             </div>
                         </div>
                     </th:block>
+                </div>
                 <div class="products-item-pages">
                     <th:block th:with="iterations=${actualPage}">
                         <th:block th:each="i : ${#numbers.sequence( actualPage, iterations+3, 1 )}">
-                            <a th:if="${i gt 0 and i lt totalPages}" th:classappend="${i eq actualPage + 1} ? selected : notselected" th:href="@{'/dashboard/manage-users/'+${i}}" th:text="${i}">null</a>
+                            <a th:if="${i gt 0 and i lt totalPages}" th:classappend="${i eq actualPage + 1} ? selected : notselected" th:href="@{'/dashboard/manage-products/'+${i}}" th:text="${i}">null</a>
                         </th:block>
                     </th:block>
                     <span th:if="${totalPages gt 3}">...</span>
-                    <a th:href="@{'/dashboard/manage-users/'+${totalPages}}" th:classappend="${totalPages eq actualPage + 1} ? selected : notselected" th:text="${totalPages}">null</a>
+                    <a th:href="@{'/dashboard/manage-products/'+${totalPages}}" th:classappend="${totalPages eq actualPage + 1} ? selected : notselected" th:text="${totalPages}">null</a>
                 </div>
             </div>
         </div>

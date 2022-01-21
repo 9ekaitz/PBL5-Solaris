@@ -40,7 +40,7 @@ nav .header-mobile-bottom-section p {
 hr {
   margin: 0;
   border: none;
-  border-top: 1px solid #c7c7c7;
+  border-top: 1px solid #C7C7C7;
   width: 100%;
 }
 @media (min-width: 768px) {
