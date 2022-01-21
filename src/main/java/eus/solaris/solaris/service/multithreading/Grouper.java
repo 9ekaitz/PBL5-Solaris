@@ -14,9 +14,9 @@ import eus.solaris.solaris.service.multithreading.modes.GroupMode;
 
 public class Grouper implements Runnable {
 
-    GatherBuffer gatherBuffer;
-    DataBuffer dataBuffer;
-    GroupMode mode;
+    private GatherBuffer gatherBuffer;
+    private DataBuffer dataBuffer;
+    private GroupMode mode;
 
     public Grouper(GatherBuffer gatherBuffer, DataBuffer dataBuffer, GroupMode mode) {
         this.gatherBuffer = gatherBuffer;
@@ -55,6 +55,45 @@ public class Grouper implements Runnable {
         return groupedMap;
     }
 
+    private void groupWeek(Map<Instant, Double> dataMap) {
+        Map<Instant, List<Double>> groupedData = new HashMap<>();
+        for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
+            Instant instant = dataEntry.getKey();
+            Double power = dataEntry.getValue();
+            Instant hour = instant.truncatedTo(ChronoUnit.HOURS);
+
+            if (groupedData.containsKey(hour)) {
+                groupedData.get(hour).add(power);
+            } else {
+                List<Double> newList = new ArrayList<>();
+                newList.add(power);
+                groupedData.put(hour, newList);
+            }
+        }
+
+        for (Entry<Instant, List<Double>> groupedDataEntry : groupedData.entrySet()) {
+            Instant hour = groupedDataEntry.getKey();
+            List<Double> powerList = groupedDataEntry.getValue();
+            Double kWh = Grouper.getKWhSumFromKWminList(powerList);
+            dataBuffer.put(hour, kWh);
+        }
+    }
+
+    private void groupDay(Map<Instant, Double> dataMap) {
+        for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
+            dataBuffer.put(dataEntry.getKey(), dataEntry.getValue());
+        }
+    }
+
+    private void groupDefault(Map<Instant, Double> dataMap, LocalDate day) {
+        List<Double> powerList = new ArrayList<>();
+        for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
+            powerList.add(dataEntry.getValue());
+        }
+        Double kWh = Grouper.getKWhSumFromKWminList(powerList);
+        dataBuffer.put(day.atStartOfDay().toInstant(ZoneOffset.UTC), kWh);
+    }
+
     private void groupAndInsert(Map<LocalDate, Map<Instant, Double>> data) {
         Entry<LocalDate, Map<Instant, Double>> entry = data.entrySet().iterator().next();
         LocalDate day = entry.getKey();
@@ -63,39 +102,11 @@ public class Grouper implements Runnable {
         System.out.println("[DEBUG] Grouping data for " + day + " mode: " + mode);
 
         if (mode == GroupMode.WEEK) {
-            Map<Instant, List<Double>> groupedData = new HashMap<>();
-            for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
-                Instant instant = dataEntry.getKey();
-                Double power = dataEntry.getValue();
-                Instant hour = instant.truncatedTo(ChronoUnit.HOURS);
-
-                if (groupedData.containsKey(hour)) {
-                    groupedData.get(hour).add(power);
-                } else {
-                    List<Double> newList = new ArrayList<>();
-                    newList.add(power);
-                    groupedData.put(hour, newList);
-                }
-            }
-
-            for (Entry<Instant, List<Double>> groupedDataEntry : groupedData.entrySet()) {
-                Instant hour = groupedDataEntry.getKey();
-                List<Double> powerList = groupedDataEntry.getValue();
-                Double kWh = Grouper.getKWhSumFromKWminList(powerList);
-                dataBuffer.put(hour, kWh);
-            }
-
+            groupWeek(dataMap);
         } else if (mode == GroupMode.DAY) {
-            for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
-                dataBuffer.put(dataEntry.getKey(), dataEntry.getValue());
-            }
+            groupDay(dataMap);
         } else {
-            List<Double> powerList = new ArrayList<>();
-            for (Entry<Instant, Double> dataEntry : dataMap.entrySet()) {
-                powerList.add(dataEntry.getValue());
-            }
-            Double kWh = Grouper.getKWhSumFromKWminList(powerList);
-            dataBuffer.put(day.atStartOfDay().toInstant(ZoneOffset.UTC), kWh);
+            groupDefault(dataMap, day);
         }
 
     }

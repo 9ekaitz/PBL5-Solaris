@@ -4,7 +4,7 @@ nav {
   width: 100%;
   position: sticky;
   bottom: 0;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: $large-screen) {
     grid-row: span 2;
     width: fit-content;
     .expand {
@@ -57,7 +57,7 @@ nav {
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: $large-screen) {
     display: none;
   }
 }
@@ -71,7 +71,7 @@ hr {
 
 .nav-computer {
   display: none;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: $large-screen) {
     display: flex;
     justify-content: space-between;
     flex-direction: column;

@@ -16,9 +16,9 @@ public class GatherBuffer {
     private Condition isEmpty;
     private Condition isFull;
 
-    ICompletionObserver observer;
+    private ICompletionObserver observer;
 
-    Integer maxCount;
+    private Integer maxCount;
 
     public GatherBuffer(Integer maxCount, ICompletionObserver observer) {
         this.mutex = new ReentrantLock();

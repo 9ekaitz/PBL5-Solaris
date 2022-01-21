@@ -11,18 +11,18 @@ import eus.solaris.solaris.service.multithreading.modes.GroupMode;
 
 public class ThreadService implements ICompletionObserver {
 
-    InitialBuffer initialBuffer;
-    GatherBuffer gatherBuffer;
-    DataBuffer dataBuffer;
+    private InitialBuffer initialBuffer;
+    private GatherBuffer gatherBuffer;
+    private DataBuffer dataBuffer;
 
-    LocalDate startDate;
-    LocalDate endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    Boolean doContinue;
+    private Boolean doContinue;
 
-    Object sync;
+    private Object sync;
 
-    Integer threads;
+    private Integer threads;
 
     public ThreadService(Integer threads, LocalDate startDate, LocalDate endDate) {
         this.threads = threads;

@@ -18,7 +18,7 @@ public class InitialBuffer {
     private Condition isEmpty;
     private Condition isFull;
 
-    Integer maxCount;
+    private Integer maxCount;
 
     public InitialBuffer(Integer maxCount) {
         this.mutex = new ReentrantLock();

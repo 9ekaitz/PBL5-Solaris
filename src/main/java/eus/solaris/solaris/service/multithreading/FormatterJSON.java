@@ -18,7 +18,7 @@ public class FormatterJSON {
     private Kind kind;
     private String label;
 
-    Map<Instant, Double> data;
+    private Map<Instant, Double> data;
 
     public FormatterJSON(Map<Instant, Double> data) {
         this.kind = Kind.LINE;

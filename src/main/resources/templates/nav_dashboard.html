@@ -9,7 +9,7 @@
   <body>
     <th:block th:fragment="nav">
       <div class="nav-mobile">
-        <a id="user-banner" class="nav-mobile-item">
+        <a id="user-banner" class="nav-mobile-item" th:href="@{/install?view=banner}">
           <svg class="logo" th:alt="#{nav.overview}" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fill-rule="evenodd"
@@ -19,7 +19,7 @@
           </svg>
           <p th:text="#{nav.overview}"></p>
         </a>
-        <a id="available-installations" class="nav-mobile-item">
+        <a id="available-installations" class="nav-mobile-item" th:href="@{/install?view=pending}">
           <svg
             class="logo"
             xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
           </svg>
           <p th:text="#{nav.task.list}"></p>
         </a>
-        <a id="completed-installations" class="nav-mobile-item">
+        <a id="completed-installations" class="nav-mobile-item" th:href="@{/install?view=completed}">
           <svg
             class="logo"
             xmlns="http://www.w3.org/2000/svg"

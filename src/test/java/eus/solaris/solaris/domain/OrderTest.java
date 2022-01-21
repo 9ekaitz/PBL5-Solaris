@@ -80,7 +80,7 @@ class OrderTest {
         Boolean boolean0 = Boolean.valueOf("nqd>X2;= y~yb7Zv8[o");
         LinkedList<Task> linkedList0 = new LinkedList<Task>();
         Installation installation0 = new Installation((Long) null, "nqd>X2;= y~yb7Zv8[o", "GV:_f2j] ?S.M", boolean0,
-                (Order) null, (User) null, linkedList0, (Integer) null);
+                (Order) null, (User) null, linkedList0, null, (Integer) null);
         order0.setInstallation(installation0);
         Installation installation1 = order0.getInstallation();
         assertEquals(
