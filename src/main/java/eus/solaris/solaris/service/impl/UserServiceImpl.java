@@ -55,7 +55,6 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new AvatarNotCreatedException(user.getUsername());
         }
-        System.out.println();
         return save(user);
     }
 

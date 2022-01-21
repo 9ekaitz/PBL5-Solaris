@@ -29,8 +29,8 @@ public class Beam {
     data.eyeSpread = Functions.getUnit(numFromName, 5, 0);
     data.mouthSpread= Functions.getUnit(numFromName, 3, 0);
     data.faceRotate = Functions.getUnit(numFromName, 10, 3);
-    data.faceTranslateX = (wrapperTranslateX > SIZE / 6 ? wrapperTranslateX / (double)2 : Functions.getUnit(numFromName, 8, 1));
-    data.faceTranslateY = (wrapperTranslateY > SIZE / 6 ? wrapperTranslateY / (double)2 : Functions.getUnit(numFromName, 7, 2));
+    data.faceTranslateX = (wrapperTranslateX > (double)SIZE / 6 ? wrapperTranslateX / (double)2 : Functions.getUnit(numFromName, 8, 1));
+    data.faceTranslateY = (wrapperTranslateY > (double)SIZE / 6 ? wrapperTranslateY / (double)2 : Functions.getUnit(numFromName, 7, 2));
 
     return data;
   }

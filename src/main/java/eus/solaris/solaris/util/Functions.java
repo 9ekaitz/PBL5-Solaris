@@ -2,12 +2,14 @@ package eus.solaris.solaris.util;
 
 public class Functions {
 
+  private Functions(){
+  }
+
   public static int getHashCode(String name){
     int hash = 0;
     for (int i = 0; i < name.length(); i++){
       int character = name.charAt(i);
       hash = ((hash << 5)-hash)+character;
-      hash = hash & hash;
     }
     return Math.abs(hash);
   }
