@@ -5,6 +5,7 @@ main {
   flex-grow: 1;
   overflow: auto;
   padding: 2rem;
+  // position: relative;
 }
 
 .container {
@@ -12,6 +13,7 @@ main {
   display: none;
   overflow: hidden;
   padding: 1rem 2rem;
+  height: calc(100% - 2rem);
   .title {
     font-weight: normal;
     font-size: 1.5rem;
@@ -20,12 +22,13 @@ main {
   .footer {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     margin: 1rem 0;
     gap: 2.5rem;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: $large-screen) {
   main {
     grid-column: 2;
     grid-row: 2;
@@ -38,5 +41,44 @@ main {
   .container {
     display: inline-block;
     box-shadow: 2px 3px 1px 2px #00000040;
+  }
+}
+header {
+  position: relative;
+}
+.alert {
+  position: fixed;
+  width: max-content;
+  bottom: 1rem;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  border: 1px solid $border-color;
+  text-align: center;
+  padding: 1rem 3rem;
+  margin: 0;
+  box-shadow: 0 0 8px $border-color;
+  
+  &.alert-danger {
+    background-color: $danger-dark-color;
+  }
+
+  &.alert-success {
+    background-color: $success-color;
+  }
+  .message {
+    color: $text-light-color;
+  }
+  .close {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    right: 0.5rem;
+    .icon {
+      fill: $text-light-color;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }

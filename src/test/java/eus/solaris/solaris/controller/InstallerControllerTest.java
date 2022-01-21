@@ -1,12 +1,14 @@
 package eus.solaris.solaris.controller;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,6 +38,7 @@ import eus.solaris.solaris.config.SpringWebAuxTestConfig;
 import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.Task;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.repository.impl.ImageRepositoryImpl;
 import eus.solaris.solaris.security.CustomUserDetails;
 import eus.solaris.solaris.service.impl.InstallationServiceImpl;
 import eus.solaris.solaris.service.impl.LanguageServiceImpl;
@@ -58,6 +61,9 @@ class InstallerControllerTest {
 
   @MockBean
   LanguageServiceImpl languageServiceImpl;
+
+  @MockBean
+  ImageRepositoryImpl ImageRepositoryImpl;
 
   @MockBean
   UserServiceImpl userServiceImpl;
@@ -104,12 +110,12 @@ class InstallerControllerTest {
   @WithUserDetails(value = "testyTechnician")
   void accessToDashboardWithCredentials() {
     List<Installation> pending = Stream
-        .of(new Installation(1L, "pending_install 1", "Install_Desc 1", true, null, null, null,
+        .of(new Installation(1L, "pending_install 1", "Install_Desc 1", true, null, null, null, null,
             1))
         .collect(Collectors.toList());
 
     List<Installation> completed = Stream
-        .of(new Installation(2L, "completed_install 1", "Install_Desc 1", true, null, null,
+        .of(new Installation(2L, "completed_install 1", "Install_Desc 1", true, null, null, null,
             null, 1))
         .collect(Collectors.toList());
 
@@ -146,8 +152,7 @@ class InstallerControllerTest {
   void accessToInstallWithAdmin() {
     Long requestID = 1L;
 
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, null, null,
-        1);
+    Installation installation = createInstallation(requestID, user);
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 
     try {
@@ -163,8 +168,7 @@ class InstallerControllerTest {
   void accessToInstallWithCredentials() {
     Long requestID = 1L;
 
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, user, null,
-        1);
+    Installation installation = createInstallation(requestID, user);
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 
     try {
@@ -180,8 +184,8 @@ class InstallerControllerTest {
     Long requestID = 1L;
     User testUser = new User();
     testUser.setId(10L);
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser,
-        null, 1);
+    Installation installation = createInstallation(requestID, testUser);
+
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 
     try {
@@ -196,7 +200,7 @@ class InstallerControllerTest {
     Long requestID = 1L;
 
     try {
-      mvc.perform(post("https://localhost/install/" + requestID + "/save")
+      mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
           .with(csrf()))
           .andExpect(status().isFound());
     } catch (Exception e) {
@@ -209,13 +213,18 @@ class InstallerControllerTest {
   void postToInstallPageWithCredentialsAndOneNullParameter() {
     Long requestID = 1L;
 
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, user, null,
-        1);
+    Installation installation = createInstallation(requestID, user);
 
-    Task task1 = new Task(1L, "description", false, installation, 0);
-    Task task2 = new Task(2L, "description", false, installation, 0);
-    Task task1T = new Task(1L, "description", true, installation, 0);
-    Task task2T = new Task(2L, "description", true, installation, 0);
+    Task task1 = createTask(installation);
+    Task task2 = createTask(installation);
+    task2.setId(2L);
+    installation.setTasks(Stream.of(task1, task2).collect(Collectors.toList()));
+
+    Task task1T = createTask(task1);
+    task1T.setCompleted(true);
+
+    Task task2T = createTask(task2);
+    task2T.setCompleted(true);
 
     when(installationServiceImpl.findById(requestID)).thenReturn(installation);
     when(taskServiceImpl.findById(1L)).thenReturn(task1);
@@ -225,7 +234,7 @@ class InstallerControllerTest {
     when(taskServiceImpl.markCompleted(task2)).thenReturn(task2T);
 
     try {
-      mvc.perform(post("https://localhost/install/" + requestID + "/save")
+      mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
           .param("tasksId[0]", "1")
           .param("tasksId[1]", "")
           .param("tasksId[2]", "2")
@@ -250,17 +259,17 @@ class InstallerControllerTest {
     User testUser = new User();
     testUser.setId(10L);
 
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser,
-        null, 1);
+    Installation installation = createInstallation(requestID, testUser);
 
     when(installationServiceImpl.findById(requestID)).thenReturn(installation);
 
     try {
-      mvc.perform(post("https://localhost/install/" + requestID + "/save")
+      mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
           .param("tasksId[0]", "1")
+          .param("signed", "true")
           .with(csrf()))
           .andExpect(status().isFound())
-          .andExpect(view().name("redirect:/install/" + requestID));
+          .andExpect(view().name("redirect:/install"));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -272,16 +281,100 @@ class InstallerControllerTest {
     Long requestID = 1L;
     User testUser = new User();
     testUser.setId(10L);
-    Installation installation = new Installation(requestID, "Install_Name 1", "Install_Desc 1", true, null, testUser,
-        null, 1);
+    Installation installation = createInstallation(requestID, testUser);
+
     when(installationServiceImpl.findById(1L)).thenReturn(installation);
 
     try {
-      mvc.perform(post("https://localhost/install/" + requestID + "/save")
+      mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
           .with(csrf()))
           .andExpect(status().isForbidden());
     } catch (Exception e) {
     }
+  }
+
+  @Test
+  @WithUserDetails(value = "testyTechnician")
+  void postToInstallSomeTasksDone() {
+    Long requestID = 1L;
+
+    Installation installation = createInstallation(requestID, user);
+
+    Task task1 = createTask(installation);
+    task1.setCompleted(true);
+    Task task2 = createTask(installation);
+    task2.setId(2L);
+
+    installation.setTasks(Stream.of(task1, task2).collect(Collectors.toList()));
+
+    when(installationServiceImpl.findById(requestID)).thenReturn(installation);
+
+    try {
+      mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
+          .with(csrf()))
+          .andExpect(status().isFound())
+          .andExpect(view().name("redirect:/install/" + requestID));
+    } catch (Exception e) {
+    }
+    assertFalse(installation.getCompleted());
+  }
+
+  @Test
+  @WithUserDetails(value = "testyTechnician")
+  void postToInstallAllTasksDone() {
+    Long requestID = 1L;
+    Installation installation = createInstallation(requestID, user);
+
+    Task task = createTask(installation);
+    task.setCompleted(true);
+
+    installation.setTasks(Stream.of(task).collect(Collectors.toList()));
+
+    when(installationServiceImpl.findById(requestID)).thenReturn(installation);
+
+    try {
+      mvc.perform(multipart("https://localhost/install/" + requestID + "/save")
+          .param("signed", "true")
+          .with(csrf()))
+          .andExpect(status().isFound())
+          .andExpect(view().name("redirect:/install"));
+    } catch (Exception e) {
+    }
+    assertTrue(installation.getCompleted());
+  }
+
+  private Task createTask(Installation installation) {
+    Task t = new Task();
+    t.setId(1L);
+    t.setDescription("foo_description");
+    t.setCompleted(false);
+    t.setInstallation(installation);
+    t.setVersion(0);
+    return t;
+  }
+
+  private Task createTask(Task task) {
+    Task t = new Task();
+    t.setId(task.getId());
+    t.setDescription(task.getDescription());
+    t.setCompleted(task.getCompleted());
+    t.setInstallation(task.getInstallation());
+    t.setVersion(task.getVersion());
+    return t;
+  }
+
+  private Installation createInstallation(Long id, User user) {
+    Installation i = new Installation();
+    i.setId(id);
+    i.setName("foo_name");
+    i.setDescription("foo_description");
+    i.setInstaller(user);
+    i.setCompleted(false);
+    i.setOrder(null);
+    i.setSignature("/dev/null");
+    i.setTasks(null);
+    i.setVersion(0);
+    return i;
   }
 
 }
