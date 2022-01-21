@@ -5,16 +5,30 @@ let mobile_search_bar;
 let computer_search_bar;
 
 window.addEventListener("DOMContentLoaded", function() {
+    mobile_lang_bar = document.getElementById("header-mobile-lang");
+    computer_lang_bar = document.getElementById("header-computer-lang");
+    mobile_search_bar = document.getElementById("search-mobile-bar");
+    computer_search_bar = document.getElementById("search-computer-bar");
+
     document.getElementById("search-computer-icon").addEventListener("click", showSearch, false);
     document.getElementById("search-mobile-icon").addEventListener("click", showSearch, false);
     document.getElementById("lang-computer-icon").addEventListener("click", showLang, false);
     document.getElementById("lang-mobile-icon").addEventListener("click", showLang, false);
 
-    mobile_lang_bar = document.getElementById("header-mobile-lang");
-    computer_lang_bar = document.getElementById("header-computer-lang");
-    mobile_search_bar = document.getElementById("search-mobile-bar");
-    computer_search_bar = document.getElementById("search-computer-bar");
+    let langs = document.getElementsByClassName("locales");
+    
+    for(let i = 0; i < langs.length; i++){
+        langs[i].addEventListener("click", changeLanguage, false);
+    }
 })
+
+function changeLanguage(e){
+    let locale = e.target.value;
+    let url = window.location.href;
+    console.log(url)
+    let newUrl = url.replace(/[a-z]{2}-[a-z]{2}/, locale);
+    window.location.href = newUrl;
+}
 
 function showSearch(){
     removeLang();

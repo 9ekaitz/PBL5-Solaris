@@ -142,7 +142,7 @@
             </div>
             <div class="header-computer-lang" id="header-computer-lang">
                 <th:block th:each="lang : ${languages}">
-                    <a href="" class="lang" th:text=#{${lang.i18n}}></a>
+                    <a th:href="'?lang=' + ${lang.code}" class="lang locales" th:text=#{${lang.i18n}}></a>
                 </th:block>
             </div>
         </div>
@@ -257,7 +257,7 @@
                 </div>
                 <div class="header-mobile-lang" id="header-mobile-lang">
                     <th:block th:each="lang : ${languages}">
-                      <a href="" class="lang" th:text=#{${lang.i18n}}></a>
+                      <a th:href="'?lang=' + ${lang.code}" class="lang locales" th:text=#{${lang.i18n}}></a>
                     </th:block>
                 </div>
             </div>
