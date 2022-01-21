@@ -9,7 +9,7 @@ import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
 import eus.solaris.solaris.service.multithreading.modes.GroupMode;
 
-public class ThreadController implements ICompletionObserver {
+public class ThreadService implements ICompletionObserver {
 
     InitialBuffer initialBuffer;
     GatherBuffer gatherBuffer;
@@ -24,7 +24,7 @@ public class ThreadController implements ICompletionObserver {
 
     Integer threads;
 
-    public ThreadController(Integer threads, LocalDate startDate, LocalDate endDate) {
+    public ThreadService(Integer threads, LocalDate startDate, LocalDate endDate) {
         this.threads = threads;
         Integer maxCount = countDays(startDate, endDate);
         initialBuffer = new InitialBuffer(maxCount);

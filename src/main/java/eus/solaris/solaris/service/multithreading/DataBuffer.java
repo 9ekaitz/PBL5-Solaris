@@ -75,4 +75,8 @@ public class DataBuffer {
         this.mutex.unlock();
         return data;
     }
+
+    public void interrupt() {
+        Thread.currentThread().interrupt();
+    }
 }

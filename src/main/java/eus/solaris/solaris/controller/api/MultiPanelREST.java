@@ -26,10 +26,10 @@ import eus.solaris.solaris.repository.UserRepository;
 import eus.solaris.solaris.service.multithreading.FormatterJSON;
 import eus.solaris.solaris.service.multithreading.Gatherer;
 import eus.solaris.solaris.service.multithreading.Processer;
-import eus.solaris.solaris.service.multithreading.ThreadController;
+import eus.solaris.solaris.service.multithreading.ThreadService;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 
-@RestController()
+@RestController
 @RequestMapping("/api/user-panel")
 public class MultiPanelREST {
 
@@ -74,7 +74,7 @@ public class MultiPanelREST {
             throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
         }
         List<SolarPanel> panels = solarPanelRepository.findByUser(user.get());
-        ThreadController tc = new ThreadController(THREADS, dto.getStart(), dto.getEnd());
+        ThreadService tc = new ThreadService(THREADS, dto.getStart(), dto.getEnd());
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), dto.getConversionType());
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.BAR);

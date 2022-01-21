@@ -1,8 +1,10 @@
 package eus.solaris.solaris.controller;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,13 +19,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.repository.DataEntryRepository;
+import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.security.UserDetailsServiceImpl;
 import eus.solaris.solaris.service.impl.LanguageServiceImpl;
 import eus.solaris.solaris.service.impl.RoleServiceImpl;
 import eus.solaris.solaris.service.impl.UserServiceImpl;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(AppController.class)
+@WebMvcTest(controllers = AppController.class)
 class AppControllerTest {
 
   @Autowired
@@ -42,6 +46,12 @@ class AppControllerTest {
   MessageSource messageSource;
 
   @MockBean
+  SolarPanelRepository solarPanelRespository;
+
+  @MockBean
+  DataEntryRepository dataEntryRepository;
+
+  @MockBean
   PasswordEncoder passwordEncoder;
 
   @MockBean
@@ -50,12 +60,13 @@ class AppControllerTest {
   private User user;
 
   @BeforeEach
-  void loadUser(){
+  void loadUser() {
     String username = "testy";
-    user = new User(1L, "testy", "tetsy@email.com", "testy123", "Testy", "Tasty", "Tester", true, null, null, null, null, 1);
+    user = new User(1L, "testy", "tetsy@email.com", "testy123", "Testy", "Tasty", "Tester", true, null, null, null,
+        null, 1);
     when(userServiceImpl.findByUsername(username)).thenReturn(user);
   }
-  
+
   @Test
   @WithMockUser("testy")
   void returnIndexPage() {

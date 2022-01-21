@@ -5,13 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-/**
- * @ Description: get the tool class of bean object
- * 
- * @Author: yaorong
- * @CreateDate: 2018/12/10
- */
-
 @Component
 public class SpringContextUtil implements ApplicationContextAware {
     private static ApplicationContext applicationContext;

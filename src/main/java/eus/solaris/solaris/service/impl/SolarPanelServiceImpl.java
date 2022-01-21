@@ -1,4 +1,4 @@
-package eus.solaris.solaris.service;
+package eus.solaris.solaris.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.repository.SolarPanelRepository;
+import eus.solaris.solaris.service.SolarPanelService;
 
 @Service
 public class SolarPanelServiceImpl implements SolarPanelService {

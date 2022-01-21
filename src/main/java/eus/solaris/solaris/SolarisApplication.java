@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -46,11 +47,29 @@ public class SolarisApplication extends SpringBootServletInitializer implements 
 		return lci;
 	}
 
+	@Bean
+	public FilterRegistrationBean<MultiPanelDataFilter> multiPanelDataFilter() {
+		FilterRegistrationBean<MultiPanelDataFilter> registrationBean = new FilterRegistrationBean<>();
+		MultiPanelDataFilter multiPanelDataFilter = new MultiPanelDataFilter();
+		registrationBean.setFilter(multiPanelDataFilter);
+		registrationBean.addUrlPatterns("/api/user-panel/*");
+		registrationBean.setOrder(1);
+		return registrationBean;
+	}
+
+	@Bean
+	public FilterRegistrationBean<SinglePanelDataFilter> singlePanelDataFilter() {
+		FilterRegistrationBean<SinglePanelDataFilter> registrationBean = new FilterRegistrationBean<>();
+		SinglePanelDataFilter singlePanelDataFilter = new SinglePanelDataFilter();
+		registrationBean.setFilter(singlePanelDataFilter);
+		registrationBean.addUrlPatterns("/api/panel/*");
+		registrationBean.setOrder(2);
+		return registrationBean;
+	}
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
-		registry.addInterceptor(new SinglePanelDataFilter()).addPathPatterns("/api/panel/**");
-		registry.addInterceptor(new MultiPanelDataFilter()).addPathPatterns("/api/user-panel/**");
 	}
 
 }

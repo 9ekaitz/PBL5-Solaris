@@ -26,12 +26,12 @@ import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.service.UserService;
 import eus.solaris.solaris.service.multithreading.FormatterJSON;
 import eus.solaris.solaris.service.multithreading.Gatherer;
-import eus.solaris.solaris.service.multithreading.ThreadController;
+import eus.solaris.solaris.service.multithreading.ThreadService;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 import javassist.tools.web.BadHttpRequest;
 
-@RestController()
+@RestController
 @RequestMapping("/api/panel")
 public class SinglePanelREST implements HandlerInterceptor {
 
@@ -77,7 +77,7 @@ public class SinglePanelREST implements HandlerInterceptor {
             throw new NoSuchElementException("Panel not found");
         }
         SolarPanel p = panel.get();
-        ThreadController tc = new ThreadController(THREADS, dto.getStart(), dto.getEnd());
+        ThreadService tc = new ThreadService(THREADS, dto.getStart(), dto.getEnd());
         List<SolarPanel> panels = new ArrayList<>();
         panels.add(p);
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), ConversionType.NONE);

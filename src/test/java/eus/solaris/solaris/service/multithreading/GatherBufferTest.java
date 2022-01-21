@@ -20,14 +20,13 @@ class GatherBufferTest {
     @BeforeEach
     void setUp() {
         gatherBuffer = new GatherBuffer(5,
-                new ThreadController(6, LocalDate.of(2019, 1, 1), LocalDate.of(2019, 1, 1)));
+                new ThreadService(6, LocalDate.of(2019, 1, 1), LocalDate.of(2019, 1, 1)));
         valMap = new HashMap<>();
         valMap.put(Instant.ofEpochMilli(556677), 1.0);
         valMap.put(Instant.ofEpochMilli(556678), 2.0);
         valMap.put(Instant.ofEpochMilli(556679), 3.0);
         valMap.put(Instant.ofEpochMilli(556680), 4.0);
         insertDataSingleThread();
-
     }
 
     void insertDataSingleThread() {

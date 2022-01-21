@@ -37,7 +37,7 @@ public class FormatterJSON {
     private List<String> getLabels(Map<Instant, Double> data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
                 .withLocale(Locale.forLanguageTag("ESP"))
-                .withZone(ZoneId.systemDefault());
+                .withZone(ZoneId.of("Europe/Madrid"));
         List<String> labels = new ArrayList<>();
         for (Instant instant : data.keySet()) {
             labels.add(formatter.format(instant));
