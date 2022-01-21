@@ -84,7 +84,7 @@ class OrderTest {
         order0.setInstallation(installation0);
         Installation installation1 = order0.getInstallation();
         assertEquals(
-                "Installation(id=null, name=nqd>X2;= y~yb7Zv8[o, description=GV:_f2j] ?S.M, completed=false, order=null, installer=null, tasks=[], version=null)",
+                "Installation(id=null, name=nqd>X2;= y~yb7Zv8[o, description=GV:_f2j] ?S.M, completed=false, order=null, installer=null, tasks=[], signature=null, version=null)",
                 installation1.toString());
     }
 
