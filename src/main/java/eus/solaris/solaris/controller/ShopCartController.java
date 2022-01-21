@@ -57,13 +57,6 @@ public class ShopCartController {
             user.setShoppingCart(new ArrayList<>());
             userService.save(user);
         }
-        // Product product = productRepository.getById(1L);
-        // CartProduct cartProduct = new CartProduct();
-        // cartProduct.setProduct(product);
-        // cartProduct.setQuantity(3);
-        // cartProductRepository.save(cartProduct);
-        // user.getShoppingCart().add(cartProduct);
-        // userService.save(user);
         return cartToOutputDto(user);
     }
 

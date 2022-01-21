@@ -45,14 +45,18 @@ public class ShopServiceImpl implements ShopService {
         for (CartProduct p : products) {
             if (p.getProduct().getId() == productId) {
                 products.remove(p);
+                cartProductRepository.delete(p);
                 break;
             }
         }
         return userService.save(user);
     }
-    
+
     @Override
     public User cartUpdateProduct(User user, Long productId, Integer quantity) {
+        if (quantity <= 0)
+            return cartRemoveProduct(user, productId);
+
         List<CartProduct> products = user.getShoppingCart();
         for (CartProduct p : products) {
             if (p.getProduct().getId() == productId) {
@@ -63,7 +67,7 @@ public class ShopServiceImpl implements ShopService {
         }
         return userService.save(user);
     }
-    
+
     @Override
     public User emptyCart(User user) {
         user.setShoppingCart(new ArrayList<CartProduct>());

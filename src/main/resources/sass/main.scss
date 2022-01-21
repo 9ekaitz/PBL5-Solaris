@@ -17,7 +17,7 @@ body {
 }
 
 .hide {
-  display: none !important;
+  display: none;
 }
 
 .row {
@@ -187,7 +187,8 @@ input[type="checkbox"] {
   }
 }
 
-input[type="submit"] {
+input[type="submit"],
+.btn {
   font-size: 1em;
   font-weight: bold;
   border: none;

@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -28,6 +29,21 @@ public class Product {
     
     @Column(nullable = false)
     private Double price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Material material;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Brand brand;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Color color;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Size size;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SolarPanelModel model;
 
     @Column(nullable = false)
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)

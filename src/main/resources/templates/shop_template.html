@@ -8,7 +8,6 @@
     <script th:src="@{/js/shopping-cart.js}"></script>
     <link rel="stylesheet" th:href="@{/css/shop.css}" href="/css/shop.css">
 </head>
-6
 
 <body>
     <main layout:fragment="content">
@@ -22,7 +21,7 @@
                         th:alt="#{page.shop.cart.open}" alt="Open shopping cart">
                 </div>
             </div>
-            <section id="shopping-cart" class="hide">
+            <aside id="shopping-cart" class="hide">
                 <div class="shopping-cart-wrap">
                     <div class="shopping-cart-header">
                         <div>
@@ -133,7 +132,7 @@
                         <button class="btn" th:text="#{page.shop.checkout}">Checkout</button>
                     </div>
                 </div>
-            </section>
+            </aside>
         </div>
     </main>
 </body>

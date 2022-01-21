@@ -25,6 +25,9 @@ public class CartProduct {
     @Column(nullable = false)
     private Integer quantity;
 
+    @ManyToOne(optional = false)
+    private User user;
+
     @Version
     private Integer version;
 
