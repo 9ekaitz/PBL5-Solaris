@@ -90,7 +90,6 @@ function uploadFile() {
     data.append('signed', true);
 
     xhr.onload = function (e) {
-      let location = xhr.responseURL;
       document.querySelector("html").innerHTML = xhr.response;
       window.document.dispatchEvent(new Event("DOMContentLoaded", {
         bubbles: true,

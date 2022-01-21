@@ -64,7 +64,7 @@ public class InstallerController {
 
     filter(installation, (User) model.getAttribute("user"));
 
-    if (installation == null || Boolean.TRUE.equals(installation.getCompleted()))
+    if (Boolean.TRUE.equals(installation.getCompleted()))
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     model.addAttribute("installation", installation);
 
