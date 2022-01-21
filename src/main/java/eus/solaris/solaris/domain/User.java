@@ -21,6 +21,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "`user`")
@@ -72,6 +73,11 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     private Set<SolarPanel> solarPanels;
+
+    @Column
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private String avatar;
 
     @Version
     @EqualsAndHashCode.Exclude
