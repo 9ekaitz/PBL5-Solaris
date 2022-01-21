@@ -53,9 +53,9 @@ public class SinglePanelREST implements HandlerInterceptor {
     UserService userService;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTime(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req, FilterChain chain)
+    public String realTime(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req)
             throws BadHttpRequest {
-        if (!filterRequest(req, res, chain))
+        if (!filterRequest(req, res))
             return null;
         Long panelId = dto.getId();
         if (panelId == null) {
@@ -80,9 +80,8 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     @GetMapping(path = "/grouped", produces = "application/json")
-    public String grouped(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req,
-            FilterChain chain) {
-        if (!filterRequest(req, res, chain))
+    public String grouped(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
+        if (!filterRequest(req, res))
             return null;
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
@@ -100,9 +99,8 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     @GetMapping(path = "/general-data", produces = "application/json")
-    public String generalData(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req,
-            FilterChain chain) {
-        if (!filterRequest(req, res, chain))
+    public String generalData(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
+        if (!filterRequest(req, res))
             return null;
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
@@ -143,7 +141,7 @@ public class SinglePanelREST implements HandlerInterceptor {
         return dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
     }
 
-    public Boolean filterRequest(HttpServletRequest request, HttpServletResponse response, FilterChain handler) {
+    public Boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

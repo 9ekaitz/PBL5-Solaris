@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,10 +52,10 @@ public class MultiPanelREST {
     DataEntryRepository dataEntryRepository;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTimeUser(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+    public String realTimeUser(HttpServletRequest request, HttpServletResponse response,
             SolarPanelRequestDTO dto) {
 
-        if (!filterRequest(request, response, chain))
+        if (!filterRequest(request, response))
             return null;
 
         Optional<User> user = userRepository.findById(dto.getId());
@@ -80,9 +79,9 @@ public class MultiPanelREST {
     }
 
     @GetMapping(path = "/grouped", produces = "application/json")
-    public String grouped(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+    public String grouped(HttpServletRequest request, HttpServletResponse response,
             SolarPanelRequestDTO dto) {
-        if (!filterRequest(request, response, chain))
+        if (!filterRequest(request, response))
             return null;
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
@@ -98,9 +97,9 @@ public class MultiPanelREST {
     }
 
     @GetMapping(path = "/general-data", produces = "application/json")
-    public String generalData(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+    public String generalData(HttpServletRequest request, HttpServletResponse response,
             SolarPanelRequestDTO dto) {
-        if (!filterRequest(request, response, chain))
+        if (!filterRequest(request, response))
             return null;
         Optional<User> user = userRepository.findById(dto.getId());
         if (user.isEmpty()) {
@@ -159,7 +158,7 @@ public class MultiPanelREST {
         return val;
     }
 
-    protected Boolean filterRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
+    protected Boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
