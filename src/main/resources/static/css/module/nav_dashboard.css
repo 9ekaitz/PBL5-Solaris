@@ -94,6 +94,9 @@ hr {
     min-height: 2rem;
     width: 100%;
   }
+  .nav-computer .nav-item .logo.eco {
+    fill: #49AE66;
+  }
   .nav-computer .nav-item .text {
     color: #C7C7C7;
     margin: 0 1rem 0 1rem;
@@ -109,14 +112,23 @@ hr {
   .nav-computer .current .text, .nav-computer .nav-item:hover .text {
     color: #f9aa31;
   }
+  .nav-computer #eco.nav-item .logo {
+    fill: #49AE66;
+  }
+  .nav-computer #eco.nav-item:hover .logo, .nav-computer #eco.current .logo {
+    fill: #3a8a51;
+  }
+  .nav-computer #eco.nav-item:hover .text, .nav-computer #eco.current .text {
+    color: #49AE66;
+  }
 }
 .nav-computer .no-animation:hover {
   cursor: initial;
 }
-.nav-computer .no-animation:hover .logo {
+.nav-computer .no-animation:hover.logo {
   fill: none;
 }
-.nav-computer .no-animation:hover .text {
+.nav-computer .no-animation:hover.text {
   color: #C7C7C7;
 }
 .nav-computer h2 {
