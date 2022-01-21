@@ -33,28 +33,28 @@ public class Beam {
   private Data generateData(String name, String[] colors) {
     Data data = new Data();
     
-    int numFromName = Functions.getHashCode(name);
+    int numFromName = AvatarFunctions.getHashCode(name);
     int range = colors.length;
-    String wrapperColor = Functions.getRandomColor(numFromName, colors, range);
-    int preTranslateX = Functions.getUnit(numFromName, 10, 1);
+    String wrapperColor = AvatarFunctions.getRandomColor(numFromName, colors, range);
+    int preTranslateX = AvatarFunctions.getUnit(numFromName, 10, 1);
     int wrapperTranslateX = (preTranslateX < 5 ? preTranslateX + SIZE / 9 : preTranslateX);
-    int preTranslateY = Functions.getUnit(numFromName, 10, 2);
+    int preTranslateY = AvatarFunctions.getUnit(numFromName, 10, 2);
     int wrapperTranslateY = (preTranslateY < 5 ? preTranslateY + SIZE / 9 : preTranslateY);
 
     data.wrapperColor = wrapperColor;
-    data.faceColor = Functions.getContrast(wrapperColor);
-    data.backgroundColor = Functions.getRandomColor(numFromName + 13, colors, range);
+    data.faceColor = AvatarFunctions.getContrast(wrapperColor);
+    data.backgroundColor = AvatarFunctions.getRandomColor(numFromName + 13, colors, range);
     data.wrapperTranslateX = wrapperTranslateX;
     data.wrapperTranslateY = wrapperTranslateY;
-    data.wrapperRotate = Functions.getUnit(numFromName, 360, 0);
-    data.wrapperScale = 1 + Functions.getUnit(numFromName, SIZE, 0) / 10;
-    data.isMouthOpen = Functions.getBoolean(numFromName, 2);
-    data.isCircle = Functions.getBoolean(numFromName, 1);
-    data.eyeSpread = Functions.getUnit(numFromName, 5, 0);
-    data.mouthSpread= Functions.getUnit(numFromName, 3, 0);
-    data.faceRotate = Functions.getUnit(numFromName, 10, 3);
-    data.faceTranslateX = (wrapperTranslateX > (double)SIZE / 6 ? wrapperTranslateX / (double)2 : Functions.getUnit(numFromName, 8, 1));
-    data.faceTranslateY = (wrapperTranslateY > (double)SIZE / 6 ? wrapperTranslateY / (double)2 : Functions.getUnit(numFromName, 7, 2));
+    data.wrapperRotate = AvatarFunctions.getUnit(numFromName, 360, 0);
+    data.wrapperScale = 1 + AvatarFunctions.getUnit(numFromName, SIZE, 0) / 10;
+    data.isMouthOpen = AvatarFunctions.getBoolean(numFromName, 2);
+    data.isCircle = AvatarFunctions.getBoolean(numFromName, 1);
+    data.eyeSpread = AvatarFunctions.getUnit(numFromName, 5, 0);
+    data.mouthSpread= AvatarFunctions.getUnit(numFromName, 3, 0);
+    data.faceRotate = AvatarFunctions.getUnit(numFromName, 10, 3);
+    data.faceTranslateX = (wrapperTranslateX > (double)SIZE / 6 ? wrapperTranslateX / (double)2 : AvatarFunctions.getUnit(numFromName, 8, 1));
+    data.faceTranslateY = (wrapperTranslateY > (double)SIZE / 6 ? wrapperTranslateY / (double)2 : AvatarFunctions.getUnit(numFromName, 7, 2));
 
     return data;
   }
