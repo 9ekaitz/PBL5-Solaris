@@ -24,6 +24,7 @@ import eus.solaris.solaris.util.Beam;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final long serialVersionUID = 4889944577388711145L;
     private static final int SIZE = 32;
 
     @Autowired
@@ -31,12 +32,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleService roleService;
-    
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-	PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     ImageRepository imageRepository;
@@ -48,10 +49,10 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Beam b = new Beam();
-        String svg = b.getAvatarBeam(user.getName()+user.getFirstSurname()+user.getSecondSurname(), SIZE, true);
+        String svg = b.getAvatarBeam(user.getName() + user.getFirstSurname() + user.getSecondSurname(), SIZE, true);
         user = save(user);
         try {
-            user.setAvatar(imageRepository.save(svg.getBytes(), "user_"+user.getId()+".svg"));
+            user.setAvatar(imageRepository.save(svg.getBytes(), "user_" + user.getId() + ".svg"));
         } catch (Exception e) {
             throw new AvatarNotCreatedException(user.getUsername());
         }
@@ -82,11 +83,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editPassword(String newPassword, String oldPassword, User user) {
 
-        if(BCrypt.checkpw(oldPassword, user.getPassword())){
+        if (BCrypt.checkpw(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             user = save(user);
-        }     
-        else{
+        } else {
             user = null;
         }
 
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
         user.setName(form.getName());
         user.setFirstSurname(form.getFirstSurname());
         user.setSecondSurname(form.getSecondSurname());
-        return save(user);    
+        return save(user);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
     public List<PaymentMethod> getUserPaymentMethods(User user) {
 
         user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
-        
+
         return user.getPaymentMethods();
     }
 }

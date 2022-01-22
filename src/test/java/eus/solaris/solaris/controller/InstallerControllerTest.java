@@ -7,13 +7,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +42,8 @@ import eus.solaris.solaris.repository.impl.ImageRepositoryImpl;
 import eus.solaris.solaris.security.CustomUserDetails;
 import eus.solaris.solaris.service.impl.InstallationServiceImpl;
 import eus.solaris.solaris.service.impl.LanguageServiceImpl;
+import eus.solaris.solaris.repository.SolarPanelRepository;
+import eus.solaris.solaris.repository.DataEntryRepository;
 import eus.solaris.solaris.service.impl.TaskServiceImpl;
 import eus.solaris.solaris.service.impl.UserServiceImpl;
 
@@ -67,6 +69,12 @@ class InstallerControllerTest {
 
   @MockBean
   UserServiceImpl userServiceImpl;
+
+  @MockBean
+  SolarPanelRepository solarPanelRespository;
+
+  @MockBean
+  DataEntryRepository dataEntryRepository;
 
   @MockBean
   PasswordEncoder passwordEncoder;

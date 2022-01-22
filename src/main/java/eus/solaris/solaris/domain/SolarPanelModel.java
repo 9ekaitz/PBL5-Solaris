@@ -18,23 +18,39 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "solar_panel_model")
-@Getter @Setter
+@Getter
+@Setter
 @Generated
 public class SolarPanelModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "code", nullable = false)
     private String code;
-    
+
     @Column(name = "i18n", nullable = false)
     private String i18n;
-    
+
+    @Column(name = "power", nullable = false)
+    private Double power;
+
+    @Column(name = "voltage", nullable = false)
+    private Double voltage;
+
+    @Column(name = "width", nullable = false)
+    private Double width;
+
+    @Column(name = "height", nullable = false)
+    private Double height;
+
+    @Column(name = "price", nullable = false)
+    private Double price;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
     private Set<SolarPanel> solarPanel;
-    
+
     @Version
     private Integer version;
 }
