@@ -6,6 +6,7 @@ import java.util.List;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.exception.AvatarNotCreatedException;
 import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 
@@ -24,7 +25,7 @@ public interface UserService extends Serializable {
 
     public List<PaymentMethod> getUserPaymentMethods(User user);
 
-    public User register(UserRegistrationForm userRegistrationForm);
+    public User register(UserRegistrationForm userRegistrationForm) throws AvatarNotCreatedException;
 
     public User editUser(UserInformationEditForm form, User attribute);
 }

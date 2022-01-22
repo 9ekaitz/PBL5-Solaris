@@ -28,15 +28,16 @@
           </button>
           <div th:if="${user != null}" class="profile-container">
             <img
-            th:alt="#{img.alt.profile-picture}"
-              src="https://source.boringavatars.com/beam/32/Marfria%20MiDtfhell?colors=f9aa31,FA8832,FACC32,FAEE32,E3FA32,C1FA32"
+              class="profile"
+              th:alt="#{img.alt.user-profile}"
+              th:src="@{${user.avatar}}"
             />
           </div>
           <div th:unless="${user != null}" class="profile-container">
             <img
               class="profile"
               th:alt="#{img.alt.user-profile}"
-              th:src="@{/images/moraito_pocco.png}"
+              th:src="@{/images/user.png}"
             />
           </div>
           <h2 th:text="${user.name +' ' + user.firstSurname}"></h2>

@@ -88,6 +88,9 @@ hr {
       }
 
       .logo {
+        &.eco {
+          fill: $eco-color;
+        }
         fill: $border-color;
         max-width: 2rem;
         max-height: 2rem;
@@ -116,12 +119,26 @@ hr {
       }
     }
 
+    #eco.nav-item {
+      .logo {
+        fill: $eco-color;
+      }
     }
-    .no-animation:hover {
-      .logo{
-        fill: none;
+    #eco.nav-item:hover, #eco.current {
+      .logo {
+        fill: $eco-dark-color;
       }
       .text {
+        color: $eco-color;
+      }
+    }
+
+    }
+    .no-animation:hover {
+      &.logo{
+        fill: none;
+      }
+      &.text {
         color: $border-color;
       }
       cursor: initial;

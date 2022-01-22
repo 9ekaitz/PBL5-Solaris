@@ -23,7 +23,7 @@ public class SpringWebAuxTestConfig {
             .collect(Collectors.toSet()), 1);
 
     User basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, null, null,
-            ROLE_USER, null, 1);
+            ROLE_USER, null, null, 1);
 
     Role ROLE_ADMIN = new Role(1L, "ROLE_ADMIN", true, null, Stream
             .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1),
@@ -37,14 +37,14 @@ public class SpringWebAuxTestConfig {
 
     User technicianUser = new User(2L, "testyTechnician", "testy@foo", "foo123", "Testy", "Tester", "Technician", true,
             null, null,
-            ROLE_TECHNICIAN, null, 1);
+            ROLE_TECHNICIAN, null, null, 1);
 
     User supervisorUser = new User(3L, "testySupervisor", "testy@foo", "foo123", "Testy", "Tester", "Supervisor", true,
             null, null,
-            null, null, 1);
+            null, null, null, 1);
 
     User adminUser = new User(4L, "testyAdmin", "testy@foo", "foo123", "Testy", "Tester", "Admin", true, null, null,
-            ROLE_ADMIN, null, 1);
+            ROLE_ADMIN, null, null, 1);
 
     @Bean
     public UserDetailsService userDetailsService() {

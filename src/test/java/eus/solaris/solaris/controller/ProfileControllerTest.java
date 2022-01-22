@@ -118,7 +118,7 @@ class ProfileControllerTest {
 
     private User createUser(List<Address> addresses, List<PaymentMethod> paymentMethods, Role ROLE_USER) {
         return new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses,
-                paymentMethods, ROLE_USER, null, 1);
+                paymentMethods, ROLE_USER, null, null, 1);
     }
 
     @Test
@@ -328,7 +328,7 @@ class ProfileControllerTest {
                 email);
 
         User basicUserModify = new User(1L, "testyUser", "testy", "foo123", "testyUser", "testy", "tester", true, null,
-                null, null, null, 1);
+                null, null, null, null, 1);
 
         when(userServiceImpl.editUser(userInformationEditForm, basicUser)).thenReturn(basicUserModify);
 

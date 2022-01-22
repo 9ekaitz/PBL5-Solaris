@@ -63,7 +63,7 @@ class AppControllerTest {
   void loadUser() {
     String username = "testy";
     user = new User(1L, "testy", "tetsy@email.com", "testy123", "Testy", "Tasty", "Tester", true, null, null, null,
-        null, 1);
+        null, null, 1);
     when(userServiceImpl.findByUsername(username)).thenReturn(user);
   }
 
