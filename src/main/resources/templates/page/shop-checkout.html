@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="@{shop_template}"
+>
+  <head>
+    <link rel="stylesheet" th:href="@{/css/page/profile-address.css}" />
+    <link rel="stylesheet" th:href="@{/css/shop-checkout.css}" />
+    <title th:text="#{page.shop.title}">Administrador</title>
+  </head>
+
+  <body>
+    <th:block layout:fragment="helper">
+                    <div class="helper">
+                        <p class="a">
+                          <a th:href="@{/}" class="helper-page" th:text="#{helper.index}"></a> >
+                          <a th:href="@{/shop}" class="helper-page" th:text="#{helper.shop}"></a> >
+                          <a th:href="@{/shop/checkout}" class="helper-page selected" th:text="#{helper.shop.cart}"></a>
+                        </p>
+                      </div>
+                      <hr class="helper-hr">
+                </th:block>
+    <div layout:fragment="shop-content" class="row">
+      <div th:insert="add_address :: add_address"></div>
+      <div th:insert="add_payment_method :: add_payment_method"></div>
+    </div>
+  </body>
+</html>

@@ -3,7 +3,6 @@ package eus.solaris.solaris.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -48,14 +47,16 @@ public class ShopController {
 		return "page/shop-products";
 	}
 
-	@GetMapping("/cart")
+	@GetMapping("/checkout")
 	public String cart(Model model, Authentication authentication) {
 		User user = (User) model.getAttribute("user");
 		if (user == null) {
 			return "redirect:/shop";
 		}
+
+		
 		user.getShoppingCart();
-		return "page/shop-cart";
+		return "page/shop-checkout";
 	}
 
 	private void setFilters(Model model) {
