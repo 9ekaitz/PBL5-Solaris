@@ -92,6 +92,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page) {
         List<Specification<Product>> specifications = new ArrayList<>();
+        Pageable pageable = PageRequest.of(page, pagesize);
 
         if (pff.getBrandsIds() != null)
             specifications.add(ProductSpecifications.findByBrandIds(pff.getBrandsIds()));
@@ -105,12 +106,15 @@ public class ProductServiceImpl implements ProductService {
         if (pff.getSizesIds() != null)
             specifications.add(ProductSpecifications.findBySizeIds(pff.getSizesIds()));
 
-        Specification<Product> query = Specification.where(null);
-        for (Specification<Product> spec : specifications)
-            query = Specification.where(query).and(spec);
+        if (specifications.size() > 0) {
 
-        Pageable pageable = PageRequest.of(page, pagesize);
-        return productRepository.findAll(query, pageable);
+            Specification<Product> query = Specification.where(null);
+            for (Specification<Product> spec : specifications)
+                query = Specification.where(query).and(spec);
 
+            return productRepository.findAll(query, pageable);
+        }
+
+        return productRepository.findAll(pageable);
     }
 }
