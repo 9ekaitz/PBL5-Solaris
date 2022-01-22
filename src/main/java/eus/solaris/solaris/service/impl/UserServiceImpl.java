@@ -24,9 +24,6 @@ import eus.solaris.solaris.util.Beam;
 @Service
 public class UserServiceImpl implements UserService {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 4889944577388711145L;
     private static final int SIZE = 32;
 
