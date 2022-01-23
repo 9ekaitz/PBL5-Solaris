@@ -2,6 +2,8 @@ package eus.solaris.solaris.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -31,20 +33,21 @@ import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.UserRepository;
+import eus.solaris.solaris.repository.impl.ImageRepositoryImpl;
 import eus.solaris.solaris.service.impl.UserServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 class UserServiceImplTest {
 
-    @InjectMocks    
+    @InjectMocks
     private UserServiceImpl userServiceImpl;
 
     @Mock
     private UserRepository userRepository;
 
     @Mock
-	private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Mock
     private ModelMapper modelMapper;
@@ -55,8 +58,11 @@ class UserServiceImplTest {
     @Mock
     private Authentication authentication;
 
+    @Mock
+    ImageRepositoryImpl imageRepositoryImpl;
+
     @Test
-    void testRegister() {
+    void testRegister() throws Exception {
         Role role = createRole();
         User user = createUser(role);
         UserRegistrationForm userRegistrationForm = createUserRegistrationForm();
@@ -64,6 +70,8 @@ class UserServiceImplTest {
         when(userRepository.save(user)).thenReturn(user);
         when(modelMapper.map(userRegistrationForm, User.class)).thenReturn(user);
         when(roleService.findByName("ROLE_USER")).thenReturn(role);
+        when(imageRepositoryImpl.save(any(), anyString())).thenReturn("Test");
+
         assertEquals(user, userServiceImpl.register(userRegistrationForm));
     }
 
@@ -77,7 +85,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void testFindByUsername(){
+    void testFindByUsername() {
         User user1 = new User();
         User user2 = new User();
         user1.setName("test");
@@ -88,7 +96,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void testDisabledUser(){
+    void testDisabledUser() {
         User user1 = new User();
         user1.setEnabled(false);
         User user2 = new User();
@@ -99,7 +107,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void editPasswordTestTrue(){
+    void editPasswordTestTrue() {
         Role role = createRole();
         User userToBeChange = createUser2(role);
         User userChanged = createUser2(role);
@@ -111,17 +119,18 @@ class UserServiceImplTest {
             utilities.when(() -> BCrypt.checkpw("password", userToBeChange.getPassword())).thenReturn(true);
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
             when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
-    
+
             assertEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "password", userToBeChange));
         }
     }
 
     private User createUser2(Role role) {
-        return new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true, null, null, role, null, 1);
+        return new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true,
+                null, null, role, null, null, 1);
     }
 
     @Test
-    void editPasswordTestFalse(){
+    void editPasswordTestFalse() {
         Role role = createRole();
         User userToBeChange = createUser2(role);
         User userChanged = createUser2(role);
@@ -133,50 +142,57 @@ class UserServiceImplTest {
             utilities.when(() -> BCrypt.checkpw("password", userToBeChange.getPassword())).thenReturn(false);
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
             when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
-    
+
             assertNotEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "uwu", userToBeChange));
         }
     }
 
     @Test
-    void editUserTest(){
-        UserInformationEditForm userInformationEditForm = new UserInformationEditForm("AritzCambiado", "domaikaCambiado", "peirats", "aritz.domaika@gmail.com");
+    void editUserTest() {
+        UserInformationEditForm userInformationEditForm = new UserInformationEditForm("AritzCambiado",
+                "domaikaCambiado", "peirats", "aritz.domaika@gmail.com");
         Role role = createRole();
         User userToBeChange = createUser2(role);
         User userChanged = createUser2(role);
         userChanged.setName("AritzCambiado");
         userChanged.setFirstSurname("domaikaCambiado");
-        
+
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
         when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
         assertEquals(userChanged, userServiceImpl.editUser(userInformationEditForm, userToBeChange));
     }
 
-     @Test
-     void getUserAddressesTest(){
+    @Test
+    void getUserAddressesTest() {
         Role role = createRole();
         User user = createUser2(role);
         Address allAddresses[] = {
-            new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, true, true, 1),
-            new Address(2L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz", "680728473", user, false, false, 1)
+                new Address(1L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz",
+                        "680728473", user, true, true, 1),
+                new Address(2L, new Country(), new Province(), "Vitoria", "01008", "Pintor Clemente Arraiz",
+                        "680728473", user, false, false, 1)
         };
 
-        List<Address> enabledAddresses = Stream.of(allAddresses).filter(Address::isEnabled).collect(Collectors.toList());
+        List<Address> enabledAddresses = Stream.of(allAddresses).filter(Address::isEnabled)
+                .collect(Collectors.toList());
         when(userRepository.findAddressByUserId(1L)).thenReturn(enabledAddresses);
-        
+
         assertEquals(enabledAddresses, userServiceImpl.getUserAddresses(user));
     }
 
     @Test
-    void getUserPaymentMethodsTest(){
+    void getUserPaymentMethodsTest() {
         Role role = createRole();
         User user = createUser2(role);
         PaymentMethod allPaymentMethods[] = {
-            new PaymentMethod(1L, user, "Aritz Domaika Peirats", "1111222233334444", 11L, 2025L, "111", true, true, 1),
-            new PaymentMethod(1L, user, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false, 1)
+                new PaymentMethod(1L, user, "Aritz Domaika Peirats", "1111222233334444", 11L, 2025L, "111", true, true,
+                        1),
+                new PaymentMethod(1L, user, "Aritz Domaika Peirats", "5555666677778888", 1L, 2027L, "222", false, false,
+                        1)
         };
-        List<PaymentMethod> enabledPaymentMethods = Stream.of(allPaymentMethods).filter(PaymentMethod::isEnabled).collect(Collectors.toList());
+        List<PaymentMethod> enabledPaymentMethods = Stream.of(allPaymentMethods).filter(PaymentMethod::isEnabled)
+                .collect(Collectors.toList());
         when(userRepository.findPaymentMethodByUserId(1L)).thenReturn(enabledPaymentMethods);
 
         when(authentication.getName()).thenReturn("Aritz");
@@ -220,6 +236,4 @@ class UserServiceImplTest {
         return role;
     }
 
-    
-    
 }

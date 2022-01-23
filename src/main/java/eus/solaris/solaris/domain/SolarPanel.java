@@ -20,7 +20,8 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "solar_panel")
-@Data
+@Getter
+@Setter
 @Generated
 public class SolarPanel {
 
@@ -37,7 +38,6 @@ public class SolarPanel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @ToString.Exclude
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)

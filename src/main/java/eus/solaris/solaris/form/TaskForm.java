@@ -11,5 +11,6 @@ import lombok.Setter;
 @Setter
 public class TaskForm {
     private List<Long> tasksId;
-    private MultipartFile sign;    
+    private MultipartFile sign;
+    private boolean signed = false;
 }

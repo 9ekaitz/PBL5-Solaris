@@ -18,7 +18,7 @@ public class FormatterJSON {
     private Kind kind;
     private String label;
 
-    Map<Instant, Double> data;
+    private Map<Instant, Double> data;
 
     public FormatterJSON(Map<Instant, Double> data) {
         this.kind = Kind.LINE;
@@ -37,7 +37,7 @@ public class FormatterJSON {
     private List<String> getLabels(Map<Instant, Double> data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
                 .withLocale(Locale.forLanguageTag("ESP"))
-                .withZone(ZoneId.systemDefault());
+                .withZone(ZoneId.of("Europe/Madrid"));
         List<String> labels = new ArrayList<>();
         for (Instant instant : data.keySet()) {
             labels.add(formatter.format(instant));

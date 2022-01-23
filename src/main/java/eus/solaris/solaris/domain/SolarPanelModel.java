@@ -19,7 +19,8 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "solar_panel_model")
-@Data
+@Getter
+@Setter
 @Generated
 public class SolarPanelModel {
 

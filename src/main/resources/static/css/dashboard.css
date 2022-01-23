@@ -39,4 +39,44 @@ main {
     display: inline-block;
     box-shadow: 2px 3px 1px 2px #00000040;
   }
+}
+header {
+  position: relative;
+}
+
+.alert {
+  position: fixed;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  bottom: 1rem;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  border: 1px solid #C7C7C7;
+  text-align: center;
+  padding: 1rem 3rem;
+  margin: 0;
+  box-shadow: 0 0 8px #C7C7C7;
+}
+.alert.alert-danger {
+  background-color: #b92421;
+}
+.alert.alert-success {
+  background-color: #5CB85C;
+}
+.alert .message {
+  color: #FFF;
+}
+.alert .close {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  right: 0.5rem;
+}
+.alert .close .icon {
+  fill: #FFF;
+}
+.alert .close .icon:hover {
+  cursor: pointer;
 }/*# sourceMappingURL=dashboard.css.map */

@@ -23,7 +23,7 @@ public class Provincia {
     private Integer id;
 
     @Column(name = "capital_provincia", nullable = false)
-    private String capital_provincia;
+    private String capitalProvincia;
 
     @ManyToOne(fetch = javax.persistence.FetchType.EAGER)
     @JoinColumn(name = "id_comunidad", nullable = false)

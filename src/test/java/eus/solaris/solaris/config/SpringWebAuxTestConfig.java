@@ -22,25 +22,29 @@ public class SpringWebAuxTestConfig {
             .of(privilegeUser)
             .collect(Collectors.toSet()), 1);
 
-    User basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, null, null, ROLE_USER, null, 1);
-
+    User basicUser = new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, null, null,
+            ROLE_USER, null, null, 1);
 
     Role ROLE_ADMIN = new Role(1L, "ROLE_ADMIN", true, null, Stream
-            .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1), new Privilege(2L, "AUTH_INSTALL_WRITE", "auth.install.write", true, null, 1))
+            .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1),
+                    new Privilege(2L, "AUTH_INSTALL_WRITE", "auth.install.write", true, null, 1))
             .collect(Collectors.toSet()), 1);
 
     Role ROLE_TECHNICIAN = new Role(1L, "ROLE_TECHNICIAN", true, null, Stream
-            .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1), new Privilege(2L, "AUTH_INSTALL_WRITE", "auth.install.write", true, null, 1))
+            .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1),
+                    new Privilege(2L, "AUTH_INSTALL_WRITE", "auth.install.write", true, null, 1))
             .collect(Collectors.toSet()), 1);
 
-    User technicianUser = new User(2L, "testyTechnician", "testy@foo", "foo123", "Testy", "Tester", "Technician", true, null, null,
-            ROLE_TECHNICIAN, null, 1);
+    User technicianUser = new User(2L, "testyTechnician", "testy@foo", "foo123", "Testy", "Tester", "Technician", true,
+            null, null,
+            ROLE_TECHNICIAN, null, null, 1);
 
-    User supervisorUser = new User(3L, "testySupervisor", "testy@foo", "foo123", "Testy", "Tester", "Supervisor", true, null, null,
-            null, null, 1);
+    User supervisorUser = new User(3L, "testySupervisor", "testy@foo", "foo123", "Testy", "Tester", "Supervisor", true,
+            null, null,
+            null, null, null, 1);
 
     User adminUser = new User(4L, "testyAdmin", "testy@foo", "foo123", "Testy", "Tester", "Admin", true, null, null,
-        ROLE_ADMIN, null, 1);
+            ROLE_ADMIN, null, null, 1);
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -49,18 +53,33 @@ public class SpringWebAuxTestConfig {
             @Override
             public UserDetails loadUserByUsername(String username) {
                 CustomUserDetails userDetails;
-                switch (username){
-                    case "testyAdmin": userDetails = new CustomUserDetails(adminUser); break;
-                    case "testySupervisor": userDetails = new CustomUserDetails(supervisorUser); break;
-                    case "testyTechnician": userDetails = new CustomUserDetails(technicianUser); break;
-                    case "testyUser": userDetails = new CustomUserDetails(basicUser); break;
-                    default: userDetails = new CustomUserDetails(basicUser); break;
+                switch (username) {
+                    case "testyAdmin":
+                        userDetails = new CustomUserDetails(adminUser);
+                        break;
+                    case "testySupervisor":
+                        userDetails = new CustomUserDetails(supervisorUser);
+                        break;
+                    case "testyTechnician":
+                        userDetails = new CustomUserDetails(technicianUser);
+                        break;
+                    case "testyUser":
+                        userDetails = new CustomUserDetails(basicUser);
+                        break;
+                    default:
+                        userDetails = new CustomUserDetails(basicUser);
+                        break;
                 }
                 return userDetails;
             }
         };
         return userDetailsService;
     }
+
+    // @Bean
+    // public SolarPanelRepository solarPanelRepository () {
+
+    // }
 
     private Privilege createLoggedPrivilege() {
         Privilege privilege = new Privilege();

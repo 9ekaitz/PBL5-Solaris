@@ -21,6 +21,6 @@ public class Comunidad {
     private Long id;
 
     @Column(name = "comunidad", nullable = false)
-    private String comunidad;
+    private String comunity;
 
 }

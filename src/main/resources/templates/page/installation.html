@@ -5,7 +5,10 @@
   layout:decorate="@{dashboard_template}"
 >
   <head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <link rel="stylesheet" th:href="@{/css/page/installation.css}" />
+    <script th:src="@{/js/sign.js}"></script>
     <title>Instalador</title>
   </head>
 
@@ -40,8 +43,8 @@
         <h2 class="title" th:text="${installation.name}">
           NOMBRE DE LA INSTALACION
         </h2>
-        <div class="details">
-          <ul>
+        <div id="task-container" class="details current">
+          <ul class="details-list">
             <li>
               <h3
                 class="subtitle"
@@ -80,7 +83,7 @@
               </ul>
             </li>
           </ul>
-          <form id="taskForm" th:action="@{/install/edit}" method="post">
+          <form id="taskForm" class="products-list" th:action="@{'/install/'+${installation.id}+'/save'}" method="post" enctype="multipart/form-data"> 
             <label th:each="task, iterator : ${installation.tasks}"
               ><input
                 type="checkbox"
@@ -103,19 +106,24 @@
             ></iframe>
           </div>
         </div>
+        <div id="canvas-container" class="details sign">
+          <canvas id="sign"></canvas>
+        </div>
         <div class="footer">
-          <input
+          <span id="sign-error" class="error hide" th:text="#{page.installation.error.sign}"></span>
+          <div class="btn-container"><input id="save-btn"
             type="submit"
             form="taskForm"
-            th:formaction="@{'/install/save/'+${installation.id}}"
             th:value="#{page.installation.save}"
           />
-          <input
-            type="submit"
-            form="taskForm"
-            th:formaction="@{'/install/save/'+${installation.id}}"
-            th:value="#{page.installation.sign}"
-          />
+          <button class="btn"
+            id="sign-btn"
+            th:text="#{page.installation.sign}"
+          ></button>
+          <button class="btn hide"
+            id="send-btn"
+            th:text="#{page.installation.send}"
+          ></button></div>
         </div>
       </div>
     </main>

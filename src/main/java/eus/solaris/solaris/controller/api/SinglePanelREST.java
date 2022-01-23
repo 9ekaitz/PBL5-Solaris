@@ -5,14 +5,21 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,18 +27,19 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
+import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.dto.SolarPanelRequestDTO;
 import eus.solaris.solaris.repository.DataEntryRepository;
 import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.service.UserService;
 import eus.solaris.solaris.service.multithreading.FormatterJSON;
 import eus.solaris.solaris.service.multithreading.Gatherer;
-import eus.solaris.solaris.service.multithreading.ThreadController;
+import eus.solaris.solaris.service.multithreading.ThreadService;
 import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 import javassist.tools.web.BadHttpRequest;
 
-@RestController()
+@RestController
 @RequestMapping("/api/panel")
 public class SinglePanelREST implements HandlerInterceptor {
 
@@ -44,10 +52,16 @@ public class SinglePanelREST implements HandlerInterceptor {
     DataEntryRepository dataEntryRepository;
 
     @Autowired
+    MessageSource messageSource;
+
+    @Autowired
     UserService userService;
 
     @GetMapping(path = "/real-time", produces = "application/json")
-    public String realTime(SolarPanelRequestDTO dto, HttpServletResponse res) throws BadHttpRequest {
+    public String realTime(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req)
+            throws BadHttpRequest {
+        if (!filterRequest(req, res))
+            return null;
         Long panelId = dto.getId();
         if (panelId == null) {
             res.setStatus(400);
@@ -66,29 +80,35 @@ public class SinglePanelREST implements HandlerInterceptor {
         Map<Instant, Double> data = Gatherer.extractData(entries);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.LINE);
-        fj.setLabel("Potencia generada a tiempo real"); // TODO: Localize
+        Locale locale = LocaleContextHolder.getLocale();
+        fj.setLabel(messageSource.getMessage("rest.graph.single.real_time", null, locale));
         return fj.getJSON().toString();
     }
 
     @GetMapping(path = "/grouped", produces = "application/json")
-    public String grouped(SolarPanelRequestDTO dto) {
+    public String grouped(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
+        if (!filterRequest(req, res))
+            return null;
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");
         }
         SolarPanel p = panel.get();
-        ThreadController tc = new ThreadController(THREADS, dto.getStart(), dto.getEnd());
+        ThreadService tc = new ThreadService(THREADS, dto.getStart(), dto.getEnd());
         List<SolarPanel> panels = new ArrayList<>();
         panels.add(p);
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), ConversionType.NONE);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.BAR);
-        fj.setLabel("Potencia generada por panel"); // TODO: Localize
+        Locale locale = LocaleContextHolder.getLocale();
+        fj.setLabel(messageSource.getMessage("rest.graph.single.per_panel", null, locale));
         return fj.getJSON().toString();
     }
 
     @GetMapping(path = "/general-data", produces = "application/json")
-    public String generalData(SolarPanelRequestDTO dto) {
+    public String generalData(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
+        if (!filterRequest(req, res))
+            return null;
         Optional<SolarPanel> panel = solarPanelRepository.findById(dto.getId());
         if (panel.isEmpty()) {
             throw new NoSuchElementException("Panel not found");
@@ -126,6 +146,41 @@ public class SinglePanelREST implements HandlerInterceptor {
 
     private Double getData(SolarPanel panel, Instant start, Instant end) {
         return dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
+    }
+
+    public boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return false;
+        }
+
+        Optional<SolarPanel> panel = Optional.empty();
+        User user = userService.findByUsername(authentication.getName());
+
+        try {
+            Long panelid = Long.valueOf(request.getParameter("id"));
+
+            panel = solarPanelRepository.findById(panelid);
+
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return false;
+
+        }
+
+        if (!panel.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return false;
+        }
+
+        if (!panel.get().getUser().equals(user)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return false;
+        }
+        return true;
     }
 
 }

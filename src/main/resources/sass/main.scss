@@ -10,14 +10,15 @@
 body {
   margin: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  // min-height: -webkit-fill-available;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto auto;
 }
 
 .hide {
-  display: none !important;
+  display: none;
 }
 
 .row {
@@ -48,7 +49,7 @@ body {
     .allWidth {
         width: 100%;
     }
-    
+
     .double{
         display: flex;
         gap: 1rem;
@@ -169,34 +170,35 @@ input[type="checkbox"] {
       transform: scale(0.7);
     }
   }
+  &.btn-big {
+    width: 18rem;
+    height: 4rem;
+    border-radius: 1.5 * $btn-border;
 }
 
-    &.btn-big {
-        width: 18rem;
-        height: 4rem;
-        border-radius: 1.5 * $btn-border;
-    }
+&.delete-account{
+    background-color: $danger-color;
+    color: $text-light-color;
 
-    &.delete-account{
-        background-color: $danger-color;
-        color: $text-light-color;
-
-        &:hover,
-        &:focus{
-            background-color: $danger-dark-color;
-        }
+    &:hover,
+    &:focus{
+        background-color: $danger-dark-color;
     }
+}
+}
+
+
 input[type="submit"],
 .btn {
   font-size: 1em;
   font-weight: bold;
   border: none;
   border-radius: $btn-border;
-  min-width: 10em;
+  min-width: fit-content;
   min-height: 3em;
   color: $text-color;
   background-color: $main-color;
-  padding-inline: 2em;
+  padding-inline: 1em;
 
   &:hover {
     cursor: pointer;
@@ -209,7 +211,12 @@ input[type="submit"],
     border-radius: 1.5 * $btn-border;
   }
 }
-
+@media screen and (min-width: $large-screen) {
+  input[type="submit"],
+.btn {
+  padding-inline: 2em;
+}
+}
 .section {
   display: flex;
   flex-direction: column;

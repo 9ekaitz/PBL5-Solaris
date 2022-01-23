@@ -13,11 +13,12 @@ public class GatherBuffer {
     private Lock mutex;
 
     private List<Map<LocalDate, Map<Instant, Double>>> buffer;
-    private Condition isEmpty, isFull;
+    private Condition isEmpty;
+    private Condition isFull;
 
-    ICompletionObserver observer;
+    private ICompletionObserver observer;
 
-    Integer maxCount;
+    private Integer maxCount;
 
     public GatherBuffer(Integer maxCount, ICompletionObserver observer) {
         this.mutex = new ReentrantLock();
@@ -28,10 +29,10 @@ public class GatherBuffer {
         this.observer = observer;
     }
 
-    public void add(Map<LocalDate, Map<Instant, Double>> data) {
+    public void add(Map<LocalDate, Map<Instant, Double>> dataMap) {
         this.mutex.lock();
         try {
-            this.buffer.add(data);
+            this.buffer.add(dataMap);
             this.isEmpty.signal();
         } finally {
             this.mutex.unlock();
@@ -46,7 +47,7 @@ public class GatherBuffer {
                 isEmpty.signal();
                 return null;
             }
-            while (this.buffer.size() == 0) {
+            while (this.buffer.isEmpty()) {
                 this.isEmpty.await();
                 if (maxCount == 0) {
                     observer.complete();
@@ -59,6 +60,7 @@ public class GatherBuffer {
             this.maxCount--;
             return data;
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             return null;
         } finally {
             this.mutex.unlock();
@@ -68,21 +70,9 @@ public class GatherBuffer {
     public Boolean isEmpty() {
         this.mutex.lock();
         try {
-            return this.buffer.size() == 0;
+            return this.buffer.isEmpty();
         } finally {
             this.mutex.unlock();
         }
     }
-
-    public void print() {
-        buffer.forEach(action -> {
-            action.forEach((key, value) -> {
-                System.out.println(key);
-                value.forEach((k, v) -> {
-                    System.out.println(k + " " + v);
-                });
-            });
-        });
-    }
-
 }

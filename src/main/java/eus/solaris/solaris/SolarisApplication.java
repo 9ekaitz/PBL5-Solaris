@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -51,6 +52,12 @@ public class SolarisApplication extends SpringBootServletInitializer implements 
 		registry.addInterceptor(localeChangeInterceptor());
 		registry.addInterceptor(new SinglePanelDataFilter()).addPathPatterns("/api/panel/**");
 		registry.addInterceptor(new MultiPanelDataFilter()).addPathPatterns("/api/user-panel/**");
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/img/**").addResourceLocations("file:img/")
+				.setCachePeriod(0);
 	}
 
 }

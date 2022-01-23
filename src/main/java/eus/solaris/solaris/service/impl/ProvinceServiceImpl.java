@@ -17,8 +17,7 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     @Override
     public List<Province> findAll() {
-        List<Province> provinces = provinceRepository.findAll();
-        return provinces;
+        return provinceRepository.findAll();
     }
 
     @Override

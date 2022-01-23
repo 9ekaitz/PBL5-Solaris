@@ -18,14 +18,13 @@ import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Generated;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "`user`")
-@Getter @Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor 
@@ -68,13 +67,20 @@ public class User implements Serializable {
     private List<PaymentMethod> paymentMethods;
     
     @ManyToOne(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Role role;
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<SolarPanel> solarPanels;
 
+    @Column
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private String avatar;
+
     @Version
-    @lombok.EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     private Integer version;
     
 }

@@ -12,33 +12,50 @@ import org.springframework.stereotype.Service;
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.exception.AvatarNotCreatedException;
 import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
+import eus.solaris.solaris.repository.ImageRepository;
 import eus.solaris.solaris.repository.UserRepository;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
+import eus.solaris.solaris.util.Beam;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final long serialVersionUID = 4889944577388711145L;
+    private static final int SIZE = 32;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
     private RoleService roleService;
-    
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-	PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     @Override
-    public User register(UserRegistrationForm userRegistrationForm) {
+    public User register(UserRegistrationForm userRegistrationForm) throws AvatarNotCreatedException {
         User user = modelMapper.map(userRegistrationForm, User.class);
         user.setRole(roleService.findByName("ROLE_USER"));
         user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Beam b = new Beam();
+        String svg = b.getAvatarBeam(user.getName() + user.getFirstSurname() + user.getSecondSurname(), SIZE, true);
+        user = save(user);
+        try {
+            user.setAvatar(imageRepository.save(svg.getBytes(), "user_" + user.getId() + ".svg"));
+        } catch (Exception e) {
+            throw new AvatarNotCreatedException(user.getUsername());
+        }
         return save(user);
     }
 
@@ -66,11 +83,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editPassword(String newPassword, String oldPassword, User user) {
 
-        if(BCrypt.checkpw(oldPassword, user.getPassword())){
+        if (BCrypt.checkpw(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             user = save(user);
-        }     
-        else{
+        } else {
             user = null;
         }
 
@@ -83,7 +99,7 @@ public class UserServiceImpl implements UserService {
         user.setName(form.getName());
         user.setFirstSurname(form.getFirstSurname());
         user.setSecondSurname(form.getSecondSurname());
-        return save(user);    
+        return save(user);
     }
 
     @Override
@@ -98,7 +114,7 @@ public class UserServiceImpl implements UserService {
     public List<PaymentMethod> getUserPaymentMethods(User user) {
 
         user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
-        
+
         return user.getPaymentMethods();
     }
 }
