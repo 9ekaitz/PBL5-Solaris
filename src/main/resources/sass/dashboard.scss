@@ -23,7 +23,7 @@ main {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin: 1rem 0;
+    margin-top: 2rem;
     gap: 2.5rem;
   }
 }
@@ -47,9 +47,9 @@ header {
   position: relative;
 }
 .alert {
-  position: fixed;
+  position: absolute;
   width: max-content;
-  bottom: 1rem;
+  top: 2rem;
   z-index: 1;
   left: 50%;
   transform: translate(-50%, 0%);
