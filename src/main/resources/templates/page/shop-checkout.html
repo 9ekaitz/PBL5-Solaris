@@ -7,6 +7,7 @@
   <head>
     <link rel="stylesheet" th:href="@{/css/page/profile-address.css}" />
     <link rel="stylesheet" th:href="@{/css/page/shop-checkout.css}" />
+    <script th:src="@{/js/checkout.js}"></script>
     <title th:text="#{page.shop.title}">Administrador</title>
   </head>
 
@@ -29,7 +30,7 @@
         </p>
       </div>
       <hr class="helper-hr" />
-      <section class="checkout-main">
+      <form class="checkout-main" method="post" th:action="@{/shop/checkout}">
         <div class="section-background">
           <div>
             <h1
@@ -37,10 +38,36 @@
               th:text="#{page.shop.checkout.address.title}"
             ></h1>
           </div>
-          <form
-            class="form"
-            method="POST"
-            th:action="(${address} == null) ? @{/profile/address/add} : @{'/profile/address/edit/' + ${address.id}}"
+          <div
+            class="address-toggle form"
+            th:if="${#lists.size(user.addresses) > 0}"
+          >
+            <div class="field">
+              <label th:text="#{page.shop.checkout.select_address}"></label>
+              <div>
+                <select name="addressId" id="addressId" class="select">
+                  <th:block th:each="address : ${user.addresses}">
+                    <option
+                      class="address-option"
+                      th:if="${address.enabled}"
+                      th:value="${address.id}"
+                      th:title="${address.street}+', '+${address.city}+', '+ #{${address.province.i18n}}+', '+ #{${address.country.i18n}}"
+                      th:text="${#strings.substring(address.street,0,12)}+'... '+${address.city}+', '+#{${address.country.i18n}}"
+                      th:selected="${address.defaultAddress}"
+                    ></option>
+                  </th:block>
+                  <option
+                    class="address-option"
+                    id="custom-address"
+                    th:value="custom"
+                    th:text="#{page.shop.checkout.custom_address}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div
+            th:class="'address-toggle form '+${(#lists.size(user.addresses) > 0 ? 'hide' : '')}"
           >
             <div class="field">
               <label for="street" th:value="#{page.profile.address.edit.street}"
@@ -146,13 +173,20 @@
                 />
               </div>
             </div>
-            <input
-              class="btn"
-              type="submit"
-              value="Edit password"
-              th:value="#{page.profile.edit.save}"
-            />
-          </form>
+            <label class="save-prompt"
+              ><input type="checkbox" /><span
+                class="checkbox-text"
+                th:text="#{page.shop.checkout.save_address}"
+              ></span
+            ></label>
+            <button
+              id="back-to-address"
+              th:class="'address-toggle btn '+${(#lists.size(user.addresses) > 0 ? 'hide' : '')}"
+              type="button"
+              th:if="${(#lists.size(user.addresses))}"
+              th:text="#{page.shop.chekcout.back_to_selector}"
+            ></button>
+          </div>
         </div>
         <div class="section-background">
           <div>
@@ -161,11 +195,35 @@
               th:text="#{page.shop.checkout.payment_method.title}"
             ></h1>
           </div>
-          <form
-            class="form"
-            method="POST"
-            th:action="(${paymentMethod} == null) ? @{/profile/payment-method/add} : @{'/profile/payment-method/edit/' + ${paymentMethod.id}}"
+          <div
+            class="payment-toggle form"
+            th:if="${#lists.size(user.paymentMethods) > 0}"
           >
+            <div class="field">
+              <label th:text="#{page.shop.checkout.select_payment_method}"></label>
+              <div>
+                <select name="paymentId" id="paymentId" class="select">
+                  <th:block th:each="paymentMethod : ${user.paymentMethods}">
+                    <option
+                      class="payment-option"
+                      th:if="${paymentMethod.enabled}"
+                      th:value="${paymentMethod.id}"
+                      th:title="'**** **** **** ' + ${#strings.substring(paymentMethod.cardNumber,12,16)}"
+                      th:text="'**** **** **** ' + ${#strings.substring(paymentMethod.cardNumber,12,16)}"
+                      th:selected="${paymentMethod.defaultMethod}"
+                    ></option>
+                  </th:block>
+                  <option
+                    class="payment-option"
+                    id="custom-payment"
+                    th:value="custom"
+                    th:text="#{page.shop.checkout.custom_payment_method}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div th:class="'payment-toggle form '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}">
             <div class="field">
               <label
                 for="cardNumber"
@@ -259,64 +317,85 @@
                 </div>
               </div>
             </div>
+            <label class="save-prompt"
+              ><input type="checkbox" /><span
+                class="checkbox-text"
+                th:text="#{page.shop.checkout.save_payment_method}"
+              ></span
+            ></label>
+            <button
+            id="back-to-payment"
+            th:class="'payment-toggle btn '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}"
+            type="button"
+            th:if="${(#lists.size(user.paymentMethods))}"
+            th:text="#{page.shop.chekcout.back_to_selector}"
+          ></button>
+          </div>
+        </div>
+        <div id="summary-section" class="section-background">
+          <div class="form">
+            <div>
+              <h1 class="title" th:text="#{page.shop.checkout.your_order}"></h1>
+            </div>
+            <div class="summary">
+              <table class="summary-table">
+                <thead class="legend">
+                  <tr>
+                    <!-- TODO: is article or product??? -->
+                    <th th:text="#{page.shop.checkout.article}"></th>
+                    <th th:text="#{page.shop.checkout.number}"></th>
+                    <th th:text="#{page.shop.checkout.total}"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="item"
+                    th:each="cartProduct : ${cart}"
+                    th:with="productTotal=${cartProduct.quantity * cartProduct.product.price}"
+                  >
+                    <th:block
+                      th:each="description : ${cartProduct.product.descriptions}"
+                    >
+                      <td
+                        th:if="${description.language.code} == #{locale}"
+                        th:text="${description.name}"
+                      ></td>
+                    </th:block>
+                    <td th:text="${cartProduct.quantity}"></td>
+                    <td
+                      th:text="${#numbers.formatDecimal(productTotal,1,2,'COMMA')}+'€'"
+                    ></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div id="summary-subtotal" class="details">
+                <p class="title" th:text="#{page.shop.checkout.subtotal}"></p>
+                <span
+                  th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
+                ></span>
+              </div>
+              <div id="summary-shipping" class="details"></div>
+              <div id="summary-total" class="details">
+                <p class="title" th:text="#{page.shop.checkout.total}"></p>
+                <span
+                  th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
+                ></span>
+              </div>
+            </div>
             <input
               class="btn"
               type="submit"
-              value="Edit password"
-              th:value="#{page.profile.edit.save}"
+              value="confirm"
+              th:value="#{page.shop.checkout.confirm}"
             />
-          </form>
-        </div>
-        <div class="section-background">
-          <div>
-            <h1 class="title" th:text="#{page.shop.checkout.your_order}"></h1>
           </div>
-          <div class="summary">
-            <table class="summary-table">
-              <thead class="legend">
-                <tr>
-                  <!-- TODO: is article or product??? -->
-                  <th th:text="#{page.shop.checkout.article}"></th>
-                  <th th:text="#{page.shop.checkout.number}"></th>
-                  <th th:text="#{page.shop.checkout.total}"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="item"
-                  th:each="cartProduct : ${cart}"
-                  th:with="productTotal=${cartProduct.quantity * cartProduct.product.price}"
-                >
-                  <th:block
-                    th:each="description : ${cartProduct.product.descriptions}"
-                  >
-                    <td
-                      th:if="${description.language.code} == #{locale}"
-                      th:text="${description.name}"
-                    ></td>
-                  </th:block>
-                  <td th:text="${cartProduct.quantity}"></td>
-                  <td
-                    th:text="${#numbers.formatDecimal(productTotal,1,2,'COMMA')}+'€'"
-                  ></td>
-                </tr>
-              </tbody>
-            </table>
-            <div id="summary-subtotal" class="details">
-              <p class="title" th:text="#{page.shop.checkout.subtotal}"></p>
-              <span
-                th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
-              ></span>
-            </div>
-            <div id="summary-shipping" class="details"></div>
-            <div id="summary-total" class="details">
-              <p class="title" th:text="#{page.shop.checkout.total}"></p>
-              <span
-                th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
-              ></span>
-            </div>
-          </div>
+          <a
+            class="change-prompt"
+            th:href="@{/shop}"
+            th:text="#{page.shop.checkout.change_prompt}"
+          ></a>
         </div>
-      </section>
+      </form>
     </main>
   </body>
 </html>

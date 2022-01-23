@@ -6,6 +6,22 @@
   display: flex;
   justify-content: space-around;
   margin: 2rem 3rem;
+  min-height: 85%;
+}
+.checkout-main #summary-section {
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.checkout-main #summary-section .form {
+  width: 100%;
+}
+.checkout-main #summary-section .btn {
+  margin-block: 1.5rem;
 }
 .checkout-main .section-background {
   background-color: #FFF;
@@ -13,6 +29,28 @@
   padding-inline: 2rem;
   padding-block: 1.5rem;
   min-width: 20%;
+  max-height: calc(100% - 4rem);
+  flex-basis: 25%;
+}
+.checkout-main .section-background .save-prompt {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-block: 1rem 0;
+}
+.checkout-main .section-background .save-prompt .checkbox-text {
+  margin-block: 0.5rem 0;
+}
+.checkout-main .section-background .btn.address-toggle, .checkout-main .section-background .btn.payment-toggle {
+  margin-block: 2rem;
+}
+.checkout-main .section-background .change-prompt {
+  text-decoration: none;
+  color: #f9aa31;
+  font-size: 0.7rem;
+}
+.checkout-main .section-background .summary {
+  width: 100%;
 }
 .checkout-main .section-background .summary .summary-table {
   width: 100%;
@@ -23,8 +61,8 @@
 .checkout-main .section-background .summary .summary-table .legend {
   border-bottom: 1px solid #4D4D4D;
 }
-.checkout-main .section-background .summary .summary-table .item {
-  padding-top: 0.2rem;
+.checkout-main .section-background .summary .summary-table .item * {
+  padding-top: 0.5rem;
 }
 .checkout-main .section-background .summary .details {
   display: flex;
@@ -35,8 +73,6 @@
   margin-block: 0.5rem;
   font-weight: bold;
 }
-.checkout-main .row {
-  min-height: 85%;
-  justify-content: space-around;
-  align-items: center;
+.checkout-main .hide {
+  display: none;
 }/*# sourceMappingURL=shop-checkout.css.map */

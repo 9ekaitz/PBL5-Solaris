@@ -7,6 +7,21 @@
   display: flex;
   justify-content: space-around;
   margin: 2rem 3rem;
+  min-height: 85%;
+
+  #summary-section {
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .form {
+      width: 100%;
+    }
+    .btn {
+      margin-block: 1.5rem;
+    }
+  }
 
   .section-background {
     background-color: $section-bg-color;
@@ -14,8 +29,34 @@
     padding-inline: 2rem;
     padding-block: 1.5rem;
     min-width: 20%;
+    max-height: calc(100% - 4rem);
+    flex-basis: 25%;
+
+    .save-prompt {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-block: 1rem 0;
+      .checkbox-text {
+        margin-block: 0.5rem 0;
+      }
+    }
+
+    .btn {
+      &.address-toggle,
+      &.payment-toggle {
+        margin-block: 2rem;
+      }
+    }
+
+    .change-prompt {
+      text-decoration: none;
+      color: $main-color;
+      font-size: 0.7rem;
+    }
 
     .summary {
+      width: 100%;
       .summary-table {
         width: 100%;
         border-collapse: collapse;
@@ -24,8 +65,8 @@
         .legend {
           border-bottom: 1px solid $breadcrumbs-off-color;
         }
-        .item {
-          padding-top: 0.2rem;
+        .item * {
+          padding-top: 0.5rem;
         }
       }
       .details {
@@ -41,11 +82,7 @@
     }
   }
 
-  .row {
-    min-height: 85%;
-    justify-content: space-around;
-    align-items: center;
-    // padding: 2rem;
-    // gap: 3rem;
+  .hide {
+    display: none;
   }
 }
