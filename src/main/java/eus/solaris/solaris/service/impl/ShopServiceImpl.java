@@ -28,11 +28,16 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public User cartAddProduct(User user, Long productId, Integer quantity) {
-        Product product = productRepository.getById(productId);
+        List<CartProduct> products = user.getShoppingCart();
+        CartProduct cp = findInCart(products, productId);
+        if (cp != null)
+            return cartUpdateProduct(user, productId, quantity);
 
+        Product product = productRepository.getById(productId);
         CartProduct cartProduct = new CartProduct();
         cartProduct.setProduct(product);
         cartProduct.setQuantity(quantity);
+        cartProduct.setUser(user);
 
         cartProductRepository.save(cartProduct);
         user.getShoppingCart().add(cartProduct);
@@ -42,13 +47,9 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public User cartRemoveProduct(User user, Long productId) {
         List<CartProduct> products = user.getShoppingCart();
-        for (CartProduct p : products) {
-            if (p.getProduct().getId() == productId) {
-                products.remove(p);
-                cartProductRepository.delete(p);
-                break;
-            }
-        }
+        CartProduct cp = findInCart(products, productId);
+        products.remove(cp);
+        cartProductRepository.delete(cp);
         return userService.save(user);
     }
 
@@ -58,13 +59,9 @@ public class ShopServiceImpl implements ShopService {
             return cartRemoveProduct(user, productId);
 
         List<CartProduct> products = user.getShoppingCart();
-        for (CartProduct p : products) {
-            if (p.getProduct().getId() == productId) {
-                p.setQuantity(quantity);
-                cartProductRepository.save(p);
-                break;
-            }
-        }
+        CartProduct cp = findInCart(products, productId);
+        cp.setQuantity(quantity);
+        cartProductRepository.save(cp);
         return userService.save(user);
     }
 
@@ -72,6 +69,15 @@ public class ShopServiceImpl implements ShopService {
     public User emptyCart(User user) {
         user.setShoppingCart(new ArrayList<CartProduct>());
         return userService.save(user);
+    }
+
+    private CartProduct findInCart(List<CartProduct> products, Long productId) {
+        for (CartProduct cp : products) {
+            if (cp.getProduct().getId() == productId) {
+                return cp;
+            }
+        }
+        return null;
     }
 
 }
