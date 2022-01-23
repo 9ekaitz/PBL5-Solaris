@@ -2,28 +2,321 @@
 <html
   lang="en"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="@{shop_template}"
+  layout:decorate="@{public_template}"
 >
   <head>
     <link rel="stylesheet" th:href="@{/css/page/profile-address.css}" />
-    <link rel="stylesheet" th:href="@{/css/shop-checkout.css}" />
+    <link rel="stylesheet" th:href="@{/css/page/shop-checkout.css}" />
     <title th:text="#{page.shop.title}">Administrador</title>
   </head>
 
   <body>
-    <th:block layout:fragment="helper">
-                    <div class="helper">
-                        <p class="a">
-                          <a th:href="@{/}" class="helper-page" th:text="#{helper.index}"></a> >
-                          <a th:href="@{/shop}" class="helper-page" th:text="#{helper.shop}"></a> >
-                          <a th:href="@{/shop/checkout}" class="helper-page selected" th:text="#{helper.shop.cart}"></a>
-                        </p>
-                      </div>
-                      <hr class="helper-hr">
-                </th:block>
-    <div layout:fragment="shop-content" class="row">
-      <div th:insert="add_address :: add_address"></div>
-      <div th:insert="add_payment_method :: add_payment_method"></div>
-    </div>
+    <main layout:fragment="content" class="checkout">
+      <div class="helper">
+        <p class="a">
+          <a th:href="@{/}" class="helper-page" th:text="#{helper.index}"></a> >
+          <a
+            th:href="@{/shop}"
+            class="helper-page"
+            th:text="#{helper.shop}"
+          ></a>
+          >
+          <a
+            th:href="@{/shop/checkout}"
+            class="helper-page selected"
+            th:text="#{helper.shop.cart}"
+          ></a>
+        </p>
+      </div>
+      <hr class="helper-hr" />
+      <section class="checkout-main">
+        <div class="section-background">
+          <div>
+            <h1
+              class="title"
+              th:text="#{page.shop.checkout.address.title}"
+            ></h1>
+          </div>
+          <form
+            class="form"
+            method="POST"
+            th:action="(${address} == null) ? @{/profile/address/add} : @{'/profile/address/edit/' + ${address.id}}"
+          >
+            <div class="field">
+              <label for="street" th:value="#{page.profile.address.edit.street}"
+                >Dirección</label
+              >
+              <div>
+                <input
+                  class="input-field"
+                  type="text"
+                  id="street"
+                  name="street"
+                  th:value="(${address} == null) ? null : ${address.street}"
+                  placeholder="Dirección"
+                  th:placeholder="#{page.profile.address.edit.street}"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label
+                for="country"
+                th:text="#{page.profile.address.edit.country}"
+                >Pais</label
+              >
+              <div>
+                <select name="countryId" id="countryId" class="select">
+                  <option
+                    class="country-option"
+                    th:each="country : ${countries}"
+                    th:value="${country.id}"
+                    th:text="#{${country.i18n}}"
+                    th:selected="(${address} != null AND ${address.country.id} == ${country.id})"
+                  ></option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="city" th:text="#{page.profile.address.edit.city}"
+                >Ciudad</label
+              >
+              <div>
+                <input
+                  class="input-field"
+                  type="text"
+                  id="city"
+                  name="city"
+                  th:value="(${address} == null) ? null : ${address.city}"
+                  placeholder="Ciudad"
+                  th:placeholder="#{page.profile.address.edit.city}"
+                />
+              </div>
+            </div>
+            <div class="double">
+              <div class="field">
+                <label
+                  for="postcode"
+                  th:text="#{page.profile.address.edit.postalcode}"
+                  >Codigo postal</label
+                >
+                <div>
+                  <input
+                    class="input-field"
+                    type="text"
+                    id="postcode"
+                    name="postcode"
+                    th:value="(${address} == null) ? null : ${address.postcode}"
+                    placeholder="Codigo postal"
+                    th:placeholder="#{page.profile.address.edit.postalcode}"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label
+                  for="province"
+                  th:text="#{page.profile.address.edit.province}"
+                  >Provincia</label
+                >
+                <div>
+                  <select name="provinceId" id="provinceId" class="select">
+                    <option
+                      class="country-option"
+                      th:each="province : ${provinces}"
+                      th:value="${province.id}"
+                      th:text="#{${province.i18n}}"
+                      th:selected="(${address} != null AND ${address.province.id} == ${province.id})"
+                    ></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="number" th:text="#{page.profile.address.edit.mobile}"
+                >Telefono</label
+              >
+              <div>
+                <input
+                  class="input-field"
+                  type="text"
+                  id="number"
+                  name="number"
+                  placeholder="Telefono movil"
+                  th:placeholder="#{page.profile.address.edit.mobile}"
+                  th:value="(${address} == null) ? null : ${address.number}"
+                />
+              </div>
+            </div>
+            <input
+              class="btn"
+              type="submit"
+              value="Edit password"
+              th:value="#{page.profile.edit.save}"
+            />
+          </form>
+        </div>
+        <div class="section-background">
+          <div>
+            <h1
+              class="title"
+              th:text="#{page.shop.checkout.payment_method.title}"
+            ></h1>
+          </div>
+          <form
+            class="form"
+            method="POST"
+            th:action="(${paymentMethod} == null) ? @{/profile/payment-method/add} : @{'/profile/payment-method/edit/' + ${paymentMethod.id}}"
+          >
+            <div class="field">
+              <label
+                for="cardNumber"
+                th:text="#{page.profile.payment_method.edit.cardNumber}"
+              ></label>
+              <div>
+                <input
+                  class="input-field"
+                  type="text"
+                  id="cardNumber"
+                  name="cardNumber"
+                  th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardNumber}"
+                  placeholder="Numero de tarjeta"
+                  th:placeholder="#{page.profile.payment_method.edit.cardNumber}"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label
+                for="cardHolderName"
+                th:text="#{page.profile.payment_method.edit.name}"
+              ></label>
+              <div>
+                <input
+                  class="input-field"
+                  type="text"
+                  id="cardHolderName"
+                  name="cardHolderName"
+                  th:value="(${paymentMethod} == null) ? null : ${paymentMethod.cardHolderName}"
+                  placeholder="Nombre"
+                  th:placeholder="#{page.profile.payment_method.edit.name}"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label
+                for="securityCode"
+                th:text="#{page.profile.payment_method.edit.cvc}"
+              ></label>
+              <div>
+                <input
+                  class="input-field"
+                  type="text"
+                  id="securityCode"
+                  name="securityCode"
+                  th:value="(${paymentMethod} == null) ? null : ${paymentMethod.securityCode}"
+                  placeholder="CVC"
+                  th:placeholder="#{page.profile.payment_method.edit.cvc}"
+                />
+              </div>
+            </div>
+            <div class="allWidth">
+              <label
+                for="city"
+                th:text="#{page.profile.payment_method.edit.expirationDate}"
+              ></label>
+              <div class="double">
+                <div class="field">
+                  <div>
+                    <select
+                      name="expirationYear"
+                      id="expirationYear"
+                      class="select"
+                    >
+                      <option
+                        class="country-option"
+                        th:each="expirationYear : ${#numbers.sequence(2021, 2050)}"
+                        th:value="${expirationYear}"
+                        th:text="${expirationYear}"
+                        th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationYear} == ${expirationYear})"
+                      ></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field">
+                  <div>
+                    <select
+                      name="expirationMonth"
+                      id="expirationMonth"
+                      class="select"
+                    >
+                      <option
+                        class="country-option"
+                        th:each="expirationMonth : ${#numbers.sequence(1, 12)}"
+                        th:value="${expirationMonth}"
+                        th:text="${expirationMonth}"
+                        th:selected="(${paymentMethod} != null AND ${paymentMethod.expirationMonth} == ${expirationMonth})"
+                      ></option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input
+              class="btn"
+              type="submit"
+              value="Edit password"
+              th:value="#{page.profile.edit.save}"
+            />
+          </form>
+        </div>
+        <div class="section-background">
+          <div>
+            <h1 class="title" th:text="#{page.shop.checkout.your_order}"></h1>
+          </div>
+          <div class="summary">
+            <table class="summary-table">
+              <thead class="legend">
+                <tr>
+                  <!-- TODO: is article or product??? -->
+                  <th th:text="#{page.shop.checkout.article}"></th>
+                  <th th:text="#{page.shop.checkout.number}"></th>
+                  <th th:text="#{page.shop.checkout.total}"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="item"
+                  th:each="cartProduct : ${cart}"
+                  th:with="productTotal=${cartProduct.quantity * cartProduct.product.price}"
+                >
+                  <th:block
+                    th:each="description : ${cartProduct.product.descriptions}"
+                  >
+                    <td
+                      th:if="${description.language.code} == #{locale}"
+                      th:text="${description.name}"
+                    ></td>
+                  </th:block>
+                  <td th:text="${cartProduct.quantity}"></td>
+                  <td
+                    th:text="${#numbers.formatDecimal(productTotal,1,2,'COMMA')}+'€'"
+                  ></td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="summary-subtotal" class="details">
+              <p class="title" th:text="#{page.shop.checkout.subtotal}"></p>
+              <span
+                th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
+              ></span>
+            </div>
+            <div id="summary-shipping" class="details"></div>
+            <div id="summary-total" class="details">
+              <p class="title" th:text="#{page.shop.checkout.total}"></p>
+              <span
+                th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

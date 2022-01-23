@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import eus.solaris.solaris.domain.Brand;
+import eus.solaris.solaris.domain.CartProduct;
 import eus.solaris.solaris.domain.Color;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Product;
@@ -50,12 +51,16 @@ public class ShopController {
 	@GetMapping("/checkout")
 	public String cart(Model model, Authentication authentication) {
 		User user = (User) model.getAttribute("user");
+		List<CartProduct> cart;
+		Double subtotal;
 		if (user == null) {
 			return "redirect:/shop";
 		}
 
-		
-		user.getShoppingCart();
+		cart = user.getShoppingCart();
+		subtotal = cart.stream().mapToDouble(x -> x.getQuantity()*x.getProduct().getPrice()).sum();
+		model.addAttribute("cart", cart);
+		model.addAttribute("subtotal", subtotal);
 		return "page/shop-checkout";
 	}
 

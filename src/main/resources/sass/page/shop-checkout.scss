@@ -1,6 +1,51 @@
 @import "../util/variables.scss";
 
-// .shop-content {
-//   display: grid;
-  
-// }
+.checkout {
+  background-color: $bg-color;
+}
+.checkout-main {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 3rem;
+
+  .section-background {
+    background-color: $section-bg-color;
+    border: 1px solid $border-color;
+    padding-inline: 2rem;
+    padding-block: 1.5rem;
+    min-width: 20%;
+
+    .summary {
+      .summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        margin-bottom: 2rem;
+        .legend {
+          border-bottom: 1px solid $breadcrumbs-off-color;
+        }
+        .item {
+          padding-top: 0.2rem;
+        }
+      }
+      .details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+          margin-block: 0.5rem;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .row {
+    min-height: 85%;
+    justify-content: space-around;
+    align-items: center;
+    // padding: 2rem;
+    // gap: 3rem;
+  }
+}
