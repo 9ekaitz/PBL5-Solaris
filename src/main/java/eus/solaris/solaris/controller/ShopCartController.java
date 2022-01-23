@@ -104,12 +104,11 @@ public class ShopCartController {
     }
     
     private ProductDto cartProductToDto(CartProduct cartProduct) {
-        ProductDto dto = modelMapper.map(cartProduct.getProduct(), ProductDto.class);
-        modelMapper.map(cartProduct, dto);
+        ProductDto dto = modelMapper.map(cartProduct, ProductDto.class);
+        modelMapper.map(cartProduct.getProduct(), dto);
         dto.setTotalPrice(cartProduct.getQuantity() * cartProduct.getProduct().getPrice());
 
         Locale locale = LocaleContextHolder.getLocale();
-        System.out.println("languageeeeeee  : " + locale.getLanguage());
         ProductDescription pd = cartProduct.getProduct().getDescriptions().stream().filter(p -> p.getLanguage().getCode().equals(locale.getLanguage())).findFirst().orElse(null);
         dto.setName(pd.getName());
         

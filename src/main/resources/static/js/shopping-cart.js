@@ -8,6 +8,27 @@ let cartTotal;
 const loadShop = async () => {
     cartToggleExt = document.getElementById("cart-toggle-ext");
     if (cartToggleExt) {
+        const quantityLabel = document.querySelector(".single-product .product__quantity");
+
+        const addBtn = document.querySelector(".add-to-cart");
+        if (addBtn) addBtn.addEventListener('click', () => {
+            addProduct(parseInt(addBtn.getAttribute("data-target")), parseInt(quantityLabel.textContent));
+        });
+        
+        const sumBtn = document.querySelector(".single-product .controls__sum");
+        if (sumBtn) sumBtn.addEventListener('click', () => {
+            let quantity = parseInt(quantityLabel.textContent) + 1;
+            if(quantity < 1) quantity = 1;
+            quantityLabel.textContent = quantity;
+        });
+        
+        const subBtn = document.querySelector(".single-product .controls__substract");
+        if (subBtn) subBtn.addEventListener('click', () => {
+            let quantity = parseInt(quantityLabel.textContent) - 1;
+            if(quantity < 1) quantity = 1;
+            quantityLabel.textContent = quantity;
+        });
+
         document.querySelectorAll(".cart-toggle, #header-mobile-cart").forEach(t => t.addEventListener('click', e => {
             e.preventDefault();
             toggleShoppingCart();
@@ -31,70 +52,71 @@ const loadShoppingCart = async () => {
     const response = await fetch("/shop-cart", {
         method: 'GET'
     });
-    const result =  await response.json();
-    if(!response.ok) showError();
+    const result = await response.json();
+    if (!response.ok) showError();
     else showShoppingCart(result);
 }
 
 const showShoppingCart = cart => {
     cartList.textContent = '';
-    cart.products.forEach(product => {
-        const container = document.createElement('div');
-        container.id = `product-${product.id}`;
-        container.classList.add("product");
-        container.setAttribute('data-product-id', product.id);
+    cart.products.forEach(product => showCartProduct(product));
+    cartTotal.textContent = `${formatPrice(cart.totalPrice)} €`;
+}
 
-        const imgWrap = document.createElement('div');
-        imgWrap.classList.add("img-wrap");
-        imgWrap.style.backgroundImage = `url(${product.imagePath})`;
-        container.appendChild(imgWrap);
+const showCartProduct = product => {
+    const container = document.createElement('div');
+    container.id = `product-${product.id}`;
+    container.classList.add("product");
+    container.setAttribute('data-product-id', product.id);
 
-        const title = document.createElement('h3');
-        title.textContent = product.name;
-        container.appendChild(title);
+    const imgWrap = document.createElement('div');
+    imgWrap.classList.add("img-wrap");
+    imgWrap.style.backgroundImage = `url(${product.imagePath})`;
+    container.appendChild(imgWrap);
 
-        const price = document.createElement('p');
-        price.classList.add("product__totalCost");
-        price.textContent = product.totalPrice + ' €';
-        container.appendChild(price);
+    const title = document.createElement('h3');
+    title.textContent = product.name;
+    container.appendChild(title);
 
-        const menu = document.createElement('div');
-        menu.classList.add("controls");
+    const price = document.createElement('p');
+    price.classList.add("product__totalCost");
+    price.textContent = formatPrice(product.totalPrice) + ' €';
+    container.appendChild(price);
 
-        const remove = document.createElement('span');
-        remove.classList.add("controls__remove", "btn");
-        remove.textContent = 'Eliminar producto';
-        remove.addEventListener('click', () => removeProduct(product.id));
-        menu.appendChild(remove);
+    const menu = document.createElement('div');
+    menu.classList.add("controls");
 
-        const quantityWrap = document.createElement('div');
-        quantityWrap.classList.add("controls__quantity-wrap");
+    const remove = document.createElement('span');
+    remove.classList.add("controls__remove", "btn");
+    remove.textContent = 'Eliminar producto';
+    remove.addEventListener('click', () => removeProduct(product.id));
+    menu.appendChild(remove);
 
-        const subs = document.createElement('span');
-        subs.classList.add("controls__substract", "btn");
-        subs.textContent = '-';
-        subs.addEventListener('click', () => subsProduct(product.id));
-        quantityWrap.appendChild(subs);
+    const quantityWrap = document.createElement('div');
+    quantityWrap.classList.add("controls__quantity-wrap");
 
-        const quantity = document.createElement('span');
-        quantity.classList.add("product__quantity");
-        quantity.textContent = product.quantity;
-        quantityWrap.appendChild(quantity);
+    const subs = document.createElement('span');
+    subs.classList.add("controls__substract", "btn");
+    subs.textContent = '-';
+    subs.addEventListener('click', () => subsProduct(product.id));
+    quantityWrap.appendChild(subs);
 
-        const sum = document.createElement('span');
-        sum.classList.add("controls__sum", "btn");
-        sum.textContent = '+';
-        sum.addEventListener('click', () => sumProduct(product.id));
-        quantityWrap.appendChild(sum);
+    const quantity = document.createElement('span');
+    quantity.classList.add("product__quantity");
+    quantity.textContent = product.quantity;
+    quantityWrap.appendChild(quantity);
 
-        menu.appendChild(quantityWrap);
+    const sum = document.createElement('span');
+    sum.classList.add("controls__sum", "btn");
+    sum.textContent = '+';
+    sum.addEventListener('click', () => sumProduct(product.id));
+    quantityWrap.appendChild(sum);
 
-        container.appendChild(menu);
+    menu.appendChild(quantityWrap);
 
-        cartList.appendChild(container);
-    });
+    container.appendChild(menu);
 
-    cartTotal.textContent = `${cart.totalPrice} €`;
+    cartList.appendChild(container);
 }
 
 const subsProduct = async id => {
@@ -112,9 +134,8 @@ const subsProduct = async id => {
         })
     });
     const result = await response.json();
-    console.log(result);
     if (!response.ok) showError();
-    else if (currentQuantity - 1 <= 0) removeItem(result, id);
+    else if (currentQuantity - 1 <= 0) removeItem(id, result);
     else updateItem(result, id);
 }
 
@@ -151,10 +172,10 @@ const removeProduct = async id => {
     });
     const result = await response.json();
     if (!response.ok) showError();
-    else removeItem(result, id);
+    else removeItem(id, result);
 }
 
-const addProduct = async id => {
+const addProduct = async (id, quantity) => {
     const response = await fetch("/shop-cart/add", {
         method: 'POST',
         headers: {
@@ -164,25 +185,39 @@ const addProduct = async id => {
         },
         body: JSON.stringify({
             productId: id,
-            quantity: 1
+            quantity: quantity
         })
     });
     const result = await response.json();
     if (!response.ok) showError();
+    else updateItem(result, id);
 }
 
-const removeItem = (cart, id) => {
+const removeItem = (id, cart) => {
     document.querySelector(`#product-${id}`).remove();
+    updateCartTotalPrice(cart);
 }
 
 const updateItem = (cart, id) => {
     const cp = cart.products.find(e => e.id == id);
-    const product = document.querySelector(`#product-${cp.id}`);
-    product.querySelector('.product__quantity').textContent = cp.quantity;
-    product.querySelector('.product__totalCost').textContent = `${cp.totalPrice} €`;
-    document.querySelector('#cart-total').textContent = `${cart.totalPrice} €`
+    const product = document.querySelector(`#product-${id}`);
+    if (product) {
+        product.querySelector('.product__quantity').textContent = cp.quantity;
+        product.querySelector('.product__totalCost').textContent = `${formatPrice(cp.totalPrice)} €`;
+    } else {
+        showCartProduct(cp);
+    }
+    updateCartTotalPrice(cart);
+}
+
+const updateCartTotalPrice = cart => {
+    document.querySelector('#cart-total').textContent = `${formatPrice(cart.totalPrice)} €`
 }
 
 const showError = () => {
 
+}
+
+const formatPrice = num => {
+    return num.toFixed(2).replace(".", ",");
 }

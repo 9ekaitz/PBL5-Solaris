@@ -64,6 +64,13 @@ public class ShopController {
 		return "page/shop-checkout";
 	}
 
+	@GetMapping("/product/{id}")
+	public String cart(Model model, @PathVariable(name = "id") Long productId, Authentication authentication) {
+		Product product = productService.findById(productId);
+		model.addAttribute("product", product);
+		return "page/shop-product";
+	}
+
 	private void setFilters(Model model) {
 		List<Brand> brands = productService.getBrands();
 		model.addAttribute("brands", brands);

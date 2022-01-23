@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
 
 <head>
-    <title th:text="#{page.shop.title}">Administrador</title>
+    <title th:text="#{page.shop.title}">Shop</title>
 </head>
 
 <body>
@@ -59,7 +59,7 @@
                                     <p class="product-title" th:if="${description.language.code} == #{locale}"
                                     th:text="${description.name}">Null</p>
                                 </th:block>
-                                <p class="product-price" th:text="${product.price + ' €'}">Null</p>
+                                <p class="product-price" th:text="${#numbers.formatDecimal(product.price,1,2,'COMMA') + ' €'}">Null</p>
                             </div>
                         </a>
                     </th:block>
