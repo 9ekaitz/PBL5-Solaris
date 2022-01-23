@@ -6,16 +6,24 @@
   display: flex;
   justify-content: space-around;
   margin: 2rem 3rem;
-  min-height: 85%;
+  min-height: 90%;
+}
+@media screen and (min-width: 768px) {
+  .checkout-main {
+    min-height: 85%;
+  }
 }
 .checkout-main #summary-section {
+  display: none;
   max-height: -webkit-fit-content;
   max-height: -moz-fit-content;
   max-height: fit-content;
-  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+.checkout-main #summary-section.current {
+  display: flex;
 }
 .checkout-main #summary-section .form {
   width: 100%;
@@ -24,13 +32,27 @@
   margin-block: 1.5rem;
 }
 .checkout-main .section-background {
+  display: none;
+  position: relative;
   background-color: #FFF;
   border: 1px solid #C7C7C7;
   padding-inline: 2rem;
   padding-block: 1.5rem;
   min-width: 20%;
+  width: 100%;
   max-height: calc(100% - 4rem);
-  flex-basis: 25%;
+}
+@media screen and (min-width: 768px) {
+  .checkout-main .section-background {
+    width: auto;
+  }
+}
+.checkout-main .section-background.current {
+  display: flex;
+  flex-direction: column;
+}
+.checkout-main .section-background .form {
+  flex-grow: 1;
 }
 .checkout-main .section-background .save-prompt {
   display: flex;
@@ -41,8 +63,16 @@
 .checkout-main .section-background .save-prompt .checkbox-text {
   margin-block: 0.5rem 0;
 }
-.checkout-main .section-background .btn.address-toggle, .checkout-main .section-background .btn.payment-toggle {
-  margin-block: 2rem;
+.checkout-main .section-background #back-to-address,
+.checkout-main .section-background #back-to-payment {
+  margin-block: 1rem;
+  text-decoration: none;
+  color: #f9aa31;
+  font-size: 0.7rem;
+}
+.checkout-main .section-background #back-to-address:hover,
+.checkout-main .section-background #back-to-payment:hover {
+  cursor: pointer;
 }
 .checkout-main .section-background .change-prompt {
   text-decoration: none;
@@ -72,6 +102,20 @@
 .checkout-main .section-background .summary .details .title {
   margin-block: 0.5rem;
   font-weight: bold;
+}
+.checkout-main .section-background .next {
+  margin-left: auto;
+}
+@media screen and (min-width: 768px) {
+  .checkout-main #summary-section {
+    display: flex;
+  }
+  .checkout-main .section-background {
+    display: block;
+  }
+  .checkout-main .section-background .next {
+    display: none;
+  }
 }
 .checkout-main .hide {
   display: none;

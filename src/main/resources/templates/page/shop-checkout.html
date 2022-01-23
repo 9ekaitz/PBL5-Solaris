@@ -31,7 +31,7 @@
       </div>
       <hr class="helper-hr" />
       <form class="checkout-main" method="post" th:action="@{/shop/checkout}">
-        <div class="section-background">
+        <div class="section-background current">
           <div>
             <h1
               class="title"
@@ -59,7 +59,7 @@
                   <option
                     class="address-option"
                     id="custom-address"
-                    th:value="custom"
+                    th:value="-1"
                     th:text="#{page.shop.checkout.custom_address}"
                   ></option>
                 </select>
@@ -176,17 +176,18 @@
             <label class="save-prompt"
               ><input type="checkbox" /><span
                 class="checkbox-text"
+                name="saveAddress"
                 th:text="#{page.shop.checkout.save_address}"
               ></span
             ></label>
-            <button
+            <a
               id="back-to-address"
-              th:class="'address-toggle btn '+${(#lists.size(user.addresses) > 0 ? 'hide' : '')}"
-              type="button"
+              th:class="'address-toggle '+${(#lists.size(user.addresses) > 0 ? 'hide' : '')}"
               th:if="${(#lists.size(user.addresses))}"
               th:text="#{page.shop.chekcout.back_to_selector}"
-            ></button>
+            ></a>
           </div>
+          <button class="next btn" type="button" th:text="#{page.shop.checkout.next}"></button>
         </div>
         <div class="section-background">
           <div>
@@ -200,9 +201,11 @@
             th:if="${#lists.size(user.paymentMethods) > 0}"
           >
             <div class="field">
-              <label th:text="#{page.shop.checkout.select_payment_method}"></label>
+              <label
+                th:text="#{page.shop.checkout.select_payment_method}"
+              ></label>
               <div>
-                <select name="paymentId" id="paymentId" class="select">
+                <select name="paymentMethodId" id="paymentId" class="select">
                   <th:block th:each="paymentMethod : ${user.paymentMethods}">
                     <option
                       class="payment-option"
@@ -216,14 +219,16 @@
                   <option
                     class="payment-option"
                     id="custom-payment"
-                    th:value="custom"
+                    th:value="-1"
                     th:text="#{page.shop.checkout.custom_payment_method}"
                   ></option>
                 </select>
               </div>
             </div>
           </div>
-          <div th:class="'payment-toggle form '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}">
+          <div
+            th:class="'payment-toggle form '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}"
+          >
             <div class="field">
               <label
                 for="cardNumber"
@@ -320,17 +325,18 @@
             <label class="save-prompt"
               ><input type="checkbox" /><span
                 class="checkbox-text"
+                name="savePaymentMethod"
                 th:text="#{page.shop.checkout.save_payment_method}"
               ></span
             ></label>
-            <button
-            id="back-to-payment"
-            th:class="'payment-toggle btn '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}"
-            type="button"
-            th:if="${(#lists.size(user.paymentMethods))}"
-            th:text="#{page.shop.chekcout.back_to_selector}"
-          ></button>
+            <a
+              id="back-to-payment"
+              th:class="'payment-toggle '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}"
+              th:if="${(#lists.size(user.paymentMethods))}"
+              th:text="#{page.shop.chekcout.back_to_selector}"
+            ></a>
           </div>
+          <button class="next btn" type="button" th:text="#{page.shop.checkout.next}"></button>
         </div>
         <div id="summary-section" class="section-background">
           <div class="form">
