@@ -27,7 +27,6 @@ main {
 .manage-accounts .title-flex .button-a {
   display: block;
   margin-block: 0.5rem 0;
-  margin-left: 2.5rem;
   border: 1px solid #000;
   border-radius: 0.2rem;
   padding: 0.2em;
@@ -116,6 +115,9 @@ main {
 
   .manage-accounts .title-flex {
     flex-direction: row;
+  }
+  .manage-accounts .button-a {
+    margin-left: 2.5rem;
   }
 
   .accounts-list {

@@ -6,5 +6,5 @@ import eus.solaris.solaris.domain.Language;
 
 public interface LanguageService {
     public List<Language> findAll();
-    
+    public Language findById(Long id);
 }

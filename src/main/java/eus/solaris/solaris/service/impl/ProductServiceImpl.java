@@ -2,6 +2,7 @@ package eus.solaris.solaris.service.impl;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -11,19 +12,24 @@ import com.google.inject.internal.util.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Jetty.Accesslog.FORMAT;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Brand;
 import eus.solaris.solaris.domain.Color;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Product;
+import eus.solaris.solaris.domain.ProductDescription;
 import eus.solaris.solaris.domain.Size;
 import eus.solaris.solaris.domain.SolarPanelModel;
+import eus.solaris.solaris.form.ProductCreateForm;
 import eus.solaris.solaris.form.ProductFilterForm;
+import eus.solaris.solaris.repository.ProductDescriptionRepository;
 import eus.solaris.solaris.repository.ProductRepository;
 import eus.solaris.solaris.repository.filters.BrandRepository;
 import eus.solaris.solaris.repository.filters.ColorRepository;
 import eus.solaris.solaris.repository.filters.MaterialRepository;
+import eus.solaris.solaris.repository.filters.ModelRepository;
 import eus.solaris.solaris.repository.filters.SizeRepository;
 import eus.solaris.solaris.service.ProductService;
 
@@ -45,11 +51,25 @@ public class ProductServiceImpl implements ProductService {
     private SizeRepository sizeRepository;
 
     @Autowired
+    private ProductDescriptionRepository productDescriptionRepository;
+
+    @Autowired
     private MaterialRepository materialRepository;
+
+    @Autowired
+    private ModelRepository modelRepository;
+
+    @Autowired
+    private LanguageServiceImpl languageService;
 
     @Override
     public void save(Product product) {
         productRepository.save(product);
+    }
+
+    @Override
+    public void delete(Product product) {
+        productRepository.delete(product);;
     }
 
     @Override
@@ -91,6 +111,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<SolarPanelModel> getModels() {
+        return modelRepository.findAll();
+    }
+
+    
+
+    @Override
     public Set<Product> getFilteredProducts(ProductFilterForm pff) {
         Set<Product> products =  new HashSet<>();
         Set<Product> allProducts = new HashSet<>(productRepository.findAll());
@@ -121,6 +148,57 @@ public class ProductServiceImpl implements ProductService {
                 }
             });
             return products;
+        }
+    }
+
+    @Override
+    public ProductDescription getProductDescription(Product product, Locale locale) {
+        // Future implementation: get all descriptions for a product to show in the edit product page
+        for (ProductDescription pDescription : product.getDescriptions()) {
+            return pDescription;
+        }
+        return null;
+    }
+
+    @Override
+    public void create(ProductCreateForm pcf) {
+        ProductDescription productDescription = new ProductDescription();
+        productDescription.setName(pcf.getName());
+        productDescription.setSubtitle(pcf.getSubtitle());
+        productDescription.setDescription(pcf.getDescription());
+        productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+        Product product = new Product();
+        product.setImagePath(pcf.getImagePath());
+        product.setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
+        product.setPrice(pcf.getPrice());
+        product.setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
+        product.setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
+        product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
+        product.setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
+        this.save(product);
+        productDescription.setProduct(product);
+        productDescriptionRepository.save(productDescription);
+    }
+
+    @Override
+    public void update(Product product, ProductCreateForm pcf, Locale locale) {
+        product.setImagePath(pcf.getImagePath());
+        product.setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
+        product.setPrice(pcf.getPrice());
+        product.setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
+        product.setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
+        product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
+        product.setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
+        this.save(product);
+        for (ProductDescription pDescription : product.getDescriptions()) {
+            if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
+                pDescription.setName(pcf.getName());
+                pDescription.setSubtitle(pcf.getSubtitle());
+                pDescription.setDescription(pcf.getDescription());
+                productDescriptionRepository.save(pDescription);
+                pDescription.setProduct(product);
+                productDescriptionRepository.save(pDescription);
+            }
         }
     }
 }

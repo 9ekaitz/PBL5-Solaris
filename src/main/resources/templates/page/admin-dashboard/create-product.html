@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/create-product.css}" />
+    <link rel="stylesheet" th:href="@{/css/page/dashboard.css}" />
+    <link rel="stylesheet" href="@{/css/main.css}">
+    <title>Administrador</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="admin-dashboard">
+        <div class="create-account container">
+            <div class="title-flex">
+                <h1 class="title" th:text="#{page.dashboard.createaproduct}">Create product</h1>
+            </div>
+            <form th:action="@{/dashboard/create-product}" method="post">
+                <div class="form-group-col1">
+                    <div class="form-pair">
+                        <label for="name" th:text="#{product.name} + ':'"></label>
+                        <input type="text" th:placeholder="#{product.name}" name="name">
+                    </div>
+                    <div class="form-pair">
+                        <label for="subtitle" th:text="#{product.subtitle} + ':'"></label>
+                        <input type="text" th:placeholder="#{product.subtitle}" name="subtitle">
+                    </div>
+                    <div class="form-pair">
+                        <label for="brandId" th:text="#{product.brand} + ':'"></label>
+                        <select name="brandId" id="">
+                            <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="price" th:text="#{product.price} + ':'"></label>
+                        <input type="text" th:placeholder="#{product.price}" name="price">
+                    </div>
+                    <div class="form-pair">
+                        <label for="materialId" th:text="#{product.material} + ':'"></label>
+                        <select name="materialId" id="">
+                            <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="modelId" th:text="#{product.model} + ':'"></label>
+                        <select name="modelId" id="">
+                            <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="imagePath" th:text="#{product.image} + ':'"></label>
+                        <input type="text" name="imagePath" th:placeholder="#{product.image}" value="/img/products/solar-panel-1.jpg">
+                    </div>
+                </div>
+                <div class="form-group-col2">
+                    <div class="form-pair">
+                        <label for="sizeId" th:text="#{product.size} + ':'"></label>
+                        <select name="sizeId" id="">
+                            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.width} + ' x ' + ${size.height}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="colorId" th:text="#{product.color} + ':'"></label>
+                        <select name="colorId" id="">
+                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="description" th:text="#{product.description} + ':'"></label>
+                        <textarea id="description" placeholder="Description" name="description" cols="24" rows="9"></textarea>
+                    </div>
+                    <div class="form-pair">
+                        <label for="language" th:text="#{product.language} + ':'"></label>
+                        <select name="languageId" id="">
+                            <option th:each="language : ${languages}" th:value="${language.id}" th:text="#{${language.i18n}}">Null</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <input type="submit" th:value="#{dashboard.save}"></input>
+                    <a class="red-button" href="/dashboard/manage-products"><span th:text="#{dashboard.cancel}"></span></a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

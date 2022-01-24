@@ -1,11 +1,13 @@
 package eus.solaris.solaris.controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ import eus.solaris.solaris.domain.Size;
 import eus.solaris.solaris.domain.SolarPanelModel;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.PasswordUpdateForm;
+import eus.solaris.solaris.form.ProductCreateForm;
 import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
@@ -166,6 +169,56 @@ public class AdminController {
         model.addAttribute("products", pagedListHolder.getPageList());
         model.addAttribute("totalPages", pagedListHolder.getPageCount());
         return "page/admin-dashboard/manage-products";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @GetMapping(value = "/edit-product/{id}")
+    public String showEditProductForm(@PathVariable(value = "id") Long id, Model model) {
+        Product product = productService.findById(id);
+        model.addAttribute("productToEdit", product);
+        Locale locale = LocaleContextHolder.getLocale();
+        model.addAttribute("description", productService.getProductDescription(product, locale));
+        setProductFieldsIntoModel(model);
+        return "page/admin-dashboard/edit-product";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PostMapping(value = "/edit-product/{id}")
+    public String editProduct(@PathVariable(value = "id") Long id, @ModelAttribute ProductCreateForm pcf, Model model) {
+        Product product = productService.findById(id);
+        Locale locale = LocaleContextHolder.getLocale();
+        productService.update(product, pcf, locale);
+        return "page/admin-dashboard/manage-products";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @GetMapping(value = "/create-product")
+    public String editProduct(Model model) {
+        setProductFieldsIntoModel(model);
+        return "page/admin-dashboard/create-product";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PostMapping(value = "/create-product")
+    public String createProduct(@ModelAttribute ProductCreateForm pcf, BindingResult result, Model model) {
+        productService.create(pcf);
+        return "redirect:/dashboard/manage-products";
+    }
+
+    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @GetMapping(value = "/delete-product/{id}")
+    public String deleteProduct(@PathVariable(value = "id") Long id, Model model) {
+        Product product = productService.findById(id);
+        productService.delete(product);
+        return "redirect:/dashboard/manage-products";
+    }
+
+    public void setProductFieldsIntoModel(Model model) {
+        model.addAttribute("brands", productService.getBrands());
+        model.addAttribute("materials", productService.getMaterials());
+        model.addAttribute("models", productService.getModels());
+        model.addAttribute("sizes", productService.getSizes());
+        model.addAttribute("colors", productService.getColors());
     }
 
     public void setFilters(Model model) {

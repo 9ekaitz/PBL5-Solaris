@@ -1,0 +1,191 @@
+main {
+  background-color: #e5e5e5;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.container {
+  background: #fff;
+  padding: 1rem 2rem 1rem 2rem;
+}
+
+.current, .create-account {
+  display: inline-block;
+}
+
+.create-account {
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.5rem;
+  overflow: auto;
+}
+
+.create-product .title-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.create-product .title-flex .title {
+  font-weight: normal;
+  font-size: 1.5rem;
+  margin: 0;
+}
+.create-product .title-flex .button-a {
+  display: block;
+  margin-block: 0.5rem 0;
+  margin-left: 2.5rem;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  padding: 0.2em;
+  height: 1.5em;
+  outline: 1px solid #f9aa31;
+  background-color: #f9aa31;
+  border-color: #f9aa31;
+  text-decoration: none;
+  padding-inline: 1.3em;
+}
+.create-product .create-product-form {
+  overflow: hidden;
+}
+
+select {
+  width: 12rem;
+}
+
+input[type=submit],
+.btn {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.2rem;
+  min-width: 10em;
+  min-height: 3em;
+  color: #000;
+  background-color: #f9aa31;
+  padding-inline: 2em;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+input[type=submit]:hover, input[type=submit]:focus,
+.btn:hover,
+.btn:focus {
+  cursor: pointer;
+  background-color: #f09407;
+}
+
+.red-button {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.2rem;
+  min-width: 10em;
+  min-height: 3em;
+  color: white;
+  background-color: #DA3633;
+  border-color: #DA3633;
+  text-decoration: none;
+  margin-top: 0.5em;
+  margin-left: 2em;
+  margin-right: 2em;
+  display: flex;
+  /*CSS3*/
+  align-items: center;
+  /*Vertical align*/
+  justify-content: center;
+  /*horizontal align*/
+}
+.red-button span {
+  color: white;
+}
+.red-button:hover, .red-button:focus {
+  cursor: pointer;
+  background-color: #b92421;
+}
+
+.button-group {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: normal;
+}
+.button-group button,
+.button-group .btn,
+.button-group .red-button {
+  width: 15%;
+}
+.button-group .btn,
+.button-group .red-button {
+  text-align: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+}
+form .form-group-col1, form .form-group-col2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5em;
+}
+form .form-pair {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+form .form-pair input[type=text], form .form-pair select {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5em;
+}
+form .form-pair select {
+  height: 2em;
+}
+
+textarea {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  padding: 0.2em;
+}
+textarea:focus, textarea:hover {
+  outline: 1px solid #f9aa31;
+  border-color: #f9aa31;
+}
+
+@media (max-width: 545px) {
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media (max-width: 768px) {
+  .create-account {
+    width: calc(100% - 4rem);
+  }
+}
+@media (min-width: 768px) {
+  main {
+    justify-items: center;
+  }
+
+  form {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  form .form-group-col2 {
+    align-items: flex-start;
+  }
+  form .form-group-col1 {
+    align-items: flex-end;
+  }
+
+  .button-group {
+    grid-column: span 2;
+    grid-row: 2;
+  }
+}/*# sourceMappingURL=create-product.css.map */

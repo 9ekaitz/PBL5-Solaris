@@ -1,0 +1,198 @@
+@import "../util/variables.scss";
+
+
+main {
+  background-color: $bg-color;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.container {
+  background: $section-bg-color;
+  padding: 1rem 2rem 1rem 2rem;
+}
+
+.current, .create-account{
+  display: inline-block;
+}
+
+.create-account{
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.5rem;
+  overflow: auto;
+}
+
+.create-product {
+  .title-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .title {
+      font-weight: normal;
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .button-a {
+      display: block;
+      margin-block: 0.5rem 0;
+      margin-left: 2.5rem;
+      border: 1px solid $text-color;
+      border-radius: $input-border;
+      padding: 0.2em;
+      height: 1.5em;
+      outline: 1px solid $main-color;
+      background-color: $main-color;
+      border-color: $main-color;
+      text-decoration: none;
+      padding-inline: 1.3em;
+    }
+  }
+  .create-product-form {
+    overflow: hidden;
+  }
+}
+
+select {
+  width: 12rem;
+}
+
+input[type="submit"],
+.btn {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: $btn-border;
+  min-width: 10em;
+  min-height: 3em;
+  color: $text-color;
+  background-color: $main-color;
+  padding-inline: 2em;
+  margin-left: 2em;
+  margin-right: 2em;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background-color: $main-dark-color;
+  }
+  
+}
+
+.red-button {
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: $btn-border;
+  min-width: 10em;
+  min-height: 3em;
+  color: white;
+  background-color: $danger-color;
+  border-color: $danger-color;
+  text-decoration: none;
+  margin-top: 0.5em;
+  margin-left: 2em;
+  margin-right: 2em;
+  display:flex;/*CSS3*/
+  align-items:center;/*Vertical align*/
+  justify-content:center;/*horizontal align*/
+  span {
+    color: white;
+  }
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background-color: $danger-darken-color;
+  }
+}
+
+.button-group {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: normal;
+  button,
+  .btn,
+  .red-button {
+    width: 15%;
+  }
+  .btn,
+  .red-button {
+    text-align: center;
+  }
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  .form-group-col1, .form-group-col2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5em;
+  }
+  .form-pair {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    input[type="text"], select {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0.5em;
+    }
+    select {
+      height: 2em;
+    }
+  }
+}
+
+textarea {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid $text-color;
+  border-radius: $input-border;
+  padding: 0.2em;
+
+  &:focus,
+  &:hover {
+      outline: 1px solid $main-color;
+      border-color: $main-color;
+  }
+}
+
+@media (max-width: 545px) {
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .create-account {
+    width: calc(100% - 4rem);
+  }
+}
+
+@media (min-width: 768px) {
+  main {
+    justify-items: center;
+  }
+  form {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    .form-group-col2 {
+      align-items: flex-start;
+    }
+    .form-group-col1 {
+      align-items: flex-end;
+    }
+  }
+  .button-group {
+    grid-column: span 2;
+    grid-row: 2;
+  }
+}

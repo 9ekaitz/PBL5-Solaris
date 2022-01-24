@@ -13,7 +13,7 @@
         <div class="manage-accounts container current">
             <div class="title-flex">
                 <h1 class="title" th:text="#{page.dashboard.manageproducts}"></h1>
-                <a class="button-a" th:href="@{/dashboard/create-user}" th:text="#{page.dashboard.createaproduct}"></a>
+                <a class="button-a" th:href="@{/dashboard/create-product}" th:text="#{page.dashboard.createaproduct}"></a>
             </div>
             <div class="products-panel">
                 <form class="filter-panel" th:action="@{/dashboard/manage-products/filter}" method="post">

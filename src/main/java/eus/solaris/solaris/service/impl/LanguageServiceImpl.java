@@ -19,5 +19,12 @@ public class LanguageServiceImpl implements LanguageService{
     public List<Language> findAll() {
         return languageRepository.findAll();
     }
+
+    @Override
+    public Language findById(Long id) {
+        return languageRepository.findById(id).orElse(null);
+    }
+
+    
     
 }

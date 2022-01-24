@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/create-product.css}" />
+    <link rel="stylesheet" th:href="@{/css/page/dashboard.css}" />
+    <link rel="stylesheet" href="@{/css/main.css}">
+    <title>Administrador</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="admin-dashboard">
+        <div class="create-account container">
+            <div class="title-flex">
+                <h1 class="title" th:text="#{page.dashboard.editproduct}">Edit product</h1>
+            </div>
+            <form th:action="@{@{'/dashboard/edit-product/'+${productToEdit.id}}}" method="post">
+                <div class="form-group-col1">
+                    <div class="form-pair">
+                        <label for="name" th:text="#{product.name} + ':'"></label>
+                        <input type="text" th:placeholder="#{product.name}" name="name" th:value="${description.name}">
+                    </div>
+                    <div class="form-pair">
+                        <label for="subtitle" th:text="#{product.subtitle} + ':'"></label>
+                        <input type="text" th:placeholder="#{product.subtitle}" name="name" th:value="${description.subtitle}">
+                    </div>
+                    <div class="form-pair">
+                        <label for="brand" th:text="#{product.brand} + ':'"></label>
+                        <select name="brand" id="">
+                            <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}" th:selected="${productToEdit.brand.id == brand.id}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="prize" th:text="#{product.price} + ':'"></label>
+                        <input type="text" placeholder="Prize" name="prize" th:value="${productToEdit.price}">
+                    </div>
+                    <div class="form-pair">
+                        <label for="material" th:text="#{product.material} + ':'"></label>
+                        <select name="material" id="">
+                            <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}" th:selected="${productToEdit.material.id == material.id}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="model" th:text="#{product.model} + ':'"></label>
+                        <select name="model" id="">
+                            <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}" th:selected="${productToEdit.model.id == model.id}">Null</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group-col2">
+                    <div class="form-pair">
+                        <label for="size" th:text="#{product.size} + ':'"></label>
+                        <select name="size" id="">
+                            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.width} + ' x ' + ${size.height}" th:selected="${productToEdit.size.id == size.id}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="color" th:text="#{product.color} + ':'"></label>
+                        <select name="color" id="">
+                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}" th:selected="${productToEdit.color.id == color.id}">Null</option>
+                        </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="description" th:text="#{product.description} + ':'"></label>
+                        <textarea id="message" placeholder="Description" name="description" cols="24" rows="9" th:value="${description.description}"></textarea>
+                    </div>
+                    <div class="form-pair">
+                        <label for="language" th:text="#{product.language} + ':'"></label>
+                        <select name="languageId" id="">
+                            <option th:each="language : ${languages}" th:value="${language.id}" th:text="#{${language.i18n}}" th:selected="${description.language.id == language.id}">Null</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <input type="submit" th:value="#{dashboard.save}"></input>
+                    <a class="red-button" href="/dashboard/manage-products"><span th:text="#{dashboard.cancel}"></span></a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
