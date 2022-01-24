@@ -1,14 +1,12 @@
 package eus.solaris.solaris.domain;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -41,17 +39,17 @@ public class SolarPanelModel {
     @Column(name = "voltage", nullable = false)
     private Double voltage;
 
-    @Column(name = "width", nullable = false)
-    private Double width;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Material material;
 
-    @Column(name = "height", nullable = false)
-    private Double height;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Size size;
 
-    @Column(name = "price", nullable = false)
-    private Double price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Brand brand;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
-    private Set<SolarPanel> solarPanel;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Color color;
 
     @Version
     private Integer version;

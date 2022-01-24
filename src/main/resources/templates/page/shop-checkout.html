@@ -30,6 +30,9 @@
         </p>
       </div>
       <hr class="helper-hr" />
+      <ul class="error">
+        <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
+      </ul>
       <form class="checkout-main" method="post" th:action="@{/shop/checkout}">
         <div class="section-background current">
           <div>
@@ -59,7 +62,7 @@
                   <option
                     class="address-option"
                     id="custom-address"
-                    th:value="-1"
+                    th:value="null"
                     th:text="#{page.shop.checkout.custom_address}"
                   ></option>
                 </select>
@@ -209,7 +212,7 @@
                 th:text="#{page.shop.checkout.select_payment_method}"
               ></label>
               <div>
-                <select name="paymentMethodId" id="paymentId" class="select">
+                <select name="paymentMethodId" id="paymentMethodId" class="select">
                   <th:block th:each="paymentMethod : ${user.paymentMethods}">
                     <option
                       class="payment-option"
@@ -223,10 +226,10 @@
                   <option
                     class="payment-option"
                     id="custom-payment"
-                    th:value="-1"
+                    th:value="null"
                     th:text="#{page.shop.checkout.custom_payment_method}"
                   ></option>
-                </select>
+                </select> 
               </div>
             </div>
           </div>

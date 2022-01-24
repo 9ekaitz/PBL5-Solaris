@@ -45,6 +45,9 @@ public class Order {
   @ManyToOne
   private Address address;
 
+  @ManyToOne
+  private PaymentMethod paymentMethod;
+
   @Temporal(value=TemporalType.TIMESTAMP)
   @Column
   private Date creationTime;

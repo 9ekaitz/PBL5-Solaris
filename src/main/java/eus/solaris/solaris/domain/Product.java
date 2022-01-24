@@ -32,18 +32,6 @@ public class Product {
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Material material;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Brand brand;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Color color;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Size size;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     private SolarPanelModel model;
 
     @Column(nullable = false)
