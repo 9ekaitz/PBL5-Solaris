@@ -1,3 +1,75 @@
+header .header-mobile .header-mobile-top {
+  background-color: #4D4D4D;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-top .header-mobile-icons {
+  display: flex;
+  gap: 1rem;
+}
+header .header-mobile .header-mobile-top .logo {
+  max-width: 1.5rem;
+  fill: #FFF;
+}
+header .header-mobile .header-mobile-top .logo:hover {
+  cursor: pointer;
+  fill: #f9aa31;
+}
+header .header-mobile .header-mobile-search {
+  background-color: #282828;
+}
+header .header-mobile .header-mobile-search form {
+  display: none;
+  text-align: center;
+}
+header .header-mobile .header-mobile-search form.show-search {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-search form input[type=text] {
+  background-color: transparent;
+  border: none;
+  font-size: 0.75rem;
+  color: #FFF;
+  border-bottom: 1px solid #FFF;
+  width: 100%;
+}
+header .header-mobile .header-mobile-search form input[type=text]:focus {
+  outline: none;
+}
+header .header-mobile .header-mobile-search form input[type=image] {
+  margin: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+header .header-mobile .header-mobile-lang {
+  background-color: #282828;
+  display: none;
+  width: calc(100% - 2rem);
+}
+header .header-mobile .header-mobile-lang.show-lang {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+header .header-mobile .header-mobile-lang .lang {
+  font-size: 0.75rem;
+  color: #FFF;
+  text-decoration: none;
+}
+header .header-mobile .header-mobile-lang .lang:hover {
+  color: #f9aa31;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  header .header-mobile {
+    display: none;
+  }
+}
 header .header-computer {
   display: none;
 }
@@ -97,7 +169,7 @@ header .header-computer {
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: flex-end;
-    padding: 0.5rem 10rem 0.5rem 10rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
   }
   header .header-computer .header-computer-lang .lang {
     color: #FFF;
@@ -106,76 +178,6 @@ header .header-computer {
   }
   header .header-computer .header-computer-lang .lang:hover {
     color: #f9aa31;
-  }
-}
-header .header-mobile .header-mobile-top {
-  background-color: #4D4D4D;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-}
-header .header-mobile .header-mobile-top .header-mobile-icons {
-  display: flex;
-  gap: 1rem;
-}
-header .header-mobile .header-mobile-top .logo {
-  max-width: 1.5rem;
-  fill: #FFF;
-}
-header .header-mobile .header-mobile-top .logo:hover {
-  cursor: pointer;
-  fill: #f9aa31;
-}
-header .header-mobile .header-mobile-search {
-  background-color: #282828;
-}
-header .header-mobile .header-mobile-search form {
-  display: none;
-  text-align: center;
-}
-header .header-mobile .header-mobile-search form.show-search {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-}
-header .header-mobile .header-mobile-search form input[type=text] {
-  background-color: transparent;
-  border: none;
-  font-size: 0.75rem;
-  color: #FFF;
-  border-bottom: 1px solid #FFF;
-  width: 100%;
-}
-header .header-mobile .header-mobile-search form input[type=text]:focus {
-  outline: none;
-}
-header .header-mobile .header-mobile-search form input[type=image] {
-  margin: auto;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-header .header-mobile .header-mobile-lang {
-  background-color: #282828;
-  display: none;
-  width: calc(100% - 2rem);
-}
-header .header-mobile .header-mobile-lang.show-lang {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: flex-end;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-}
-header .header-mobile .header-mobile-lang .lang {
-  font-size: 0.75rem;
-  color: #FFF;
-  text-decoration: none;
-}
-header .header-mobile .header-mobile-lang .lang:hover {
-  color: #f9aa31;
-}
-@media (min-width: 768px) {
-  header .header-mobile {
-    display: none;
+    cursor: pointer;
   }
 }/*# sourceMappingURL=header.css.map */

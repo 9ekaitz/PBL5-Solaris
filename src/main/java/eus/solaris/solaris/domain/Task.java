@@ -12,12 +12,15 @@ import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Generated
 public class Task {
   
   @Id
@@ -32,6 +35,8 @@ public class Task {
 
   @ManyToOne
   @JoinColumn(name = "installation", nullable = false)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Installation installation;
 
   @Version

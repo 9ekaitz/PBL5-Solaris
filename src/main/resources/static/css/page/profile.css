@@ -42,8 +42,13 @@
 .profile-main .profile-background .extra-options .logout-link {
   color: #f9aa31;
 }
-.profile-main .profile-background .extra-options .delete-account {
+.profile-main .profile-background .extra-options.delete-account {
   width: 100%;
+  background-color: #DA3633;
+  color: #FFF;
+}
+.profile-main .profile-background .extra-options.delete-account:hover, .profile-main .profile-background .extra-options.delete-account:focus {
+  background-color: #b92421;
 }
 .profile-main .profile-background .title {
   margin: 0 0 1.5rem 0;

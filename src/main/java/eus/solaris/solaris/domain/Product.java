@@ -16,6 +16,7 @@ import javax.persistence.Version;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
+import lombok.ToString;
 
 @Entity
 @Table(name = "product")
@@ -51,9 +52,11 @@ public class Product {
     private Set<ProductDescription> descriptions;
 
     @Column(nullable = false)
+    @ToString.Exclude
     private String imagePath;
 
     @Version
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Integer version;
 }

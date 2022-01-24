@@ -62,6 +62,11 @@ public class AppController {
 		return "page/login";
 	}
 
+	@GetMapping("/apitest")
+	public String apitest() {
+		return "page/apitest";
+	}
+
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 		if (checkLogedIn()) {
@@ -74,7 +79,7 @@ public class AppController {
 
 	@PostMapping("/register")
 	public String registerUser(@Validated @ModelAttribute UserRegistrationForm form, BindingResult result,
-			Model model) {
+			Model model) throws Exception{
 		if (result.hasErrors()
 				|| form.getUsername() != null
 						&& !form.getUsername().equals("")

@@ -93,10 +93,8 @@ main .main-content .content-section .sub-section .subtitle {
     margin: auto;
     width: 70px;
     line-height: 70px;
-    border-radius: 50%;
     text-align: center;
     font-size: 2rem;
-    border: 1px solid black;
   }
   main .main-content .content-section.unit .sub-section {
     width: 100%;

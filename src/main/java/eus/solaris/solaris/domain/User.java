@@ -27,7 +27,7 @@ import lombok.ToString;
 @Table(name = "`user`")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor 
 @Generated
 public class User implements Serializable {
 
@@ -71,15 +71,23 @@ public class User implements Serializable {
     private List<PaymentMethod> paymentMethods;
     
     @ManyToOne(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
     private Role role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
     private Set<SolarPanel> solarPanels;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<CartProduct> shoppingCart;
+
+    
+    @Column
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private String avatar;
 
     @Version
     @ToString.Exclude

@@ -34,7 +34,7 @@ import eus.solaris.solaris.service.UserService;
 
 @Controller
 @RequestMapping("/profile")
-@PreAuthorize("hasAuthority('USER_LOGGED_READ')")
+@PreAuthorize("hasAuthority('AUTH_LOGGED_READ')")
 public class ProfileController {
 
     static final String SUCCESS_ATTRIBUTE = "success";

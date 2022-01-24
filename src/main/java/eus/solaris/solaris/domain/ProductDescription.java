@@ -12,15 +12,16 @@ import javax.persistence.Version;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
+import lombok.ToString;
 
 @Entity
 @Data
 @Generated
 public class ProductDescription {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; 
 
     @ManyToOne(optional = false)
     private Language language;
@@ -33,10 +34,12 @@ public class ProductDescription {
 
     @ManyToOne
     @JoinColumn(name = "product", nullable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Product product;
 
     @Version
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Integer version;
-
 }

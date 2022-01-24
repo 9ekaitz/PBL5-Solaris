@@ -49,6 +49,7 @@
 .address-info .address-edit-options .option {
   background-color: transparent;
   color: #f9aa31;
+  padding-inline: 0;
 }
 .address-info .address-edit-options .option:hover {
   color: #f09407;

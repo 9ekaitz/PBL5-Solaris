@@ -30,10 +30,10 @@ public class Country implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", nullable = false, length = 64)
+    @Column(name = "code", nullable = false, length = 64, unique = true)
     private String code;
 
-    @Column(name = "i18n", nullable = false, length = 64)
+    @Column(name = "i18n", nullable = false, length = 64, unique = true)
     private String i18n;
 
     @Version
