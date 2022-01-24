@@ -101,14 +101,22 @@ public class ProductServiceImpl implements ProductService {
                 return allProducts; // return all products
         } else {
             // Filter by brand
+            // allProducts.forEach(product -> {
+            //     if (pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getBrand().getId())) {
+            //         products.add(product);
+            //     } else if (pff.getColorsIds() != null && pff.getColorsIds().contains(product.getColor().getId())) {
+            //         products.add(product);
+            //     } else if (pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getMaterial().getId())) {
+            //         products.add(product);
+            //     } else if (pff.getSizesIds() != null && pff.getSizesIds().contains(product.getSize().getId())) {
+            //         products.add(product);
+            //     }
+            // });
             allProducts.forEach(product -> {
-                if (pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getBrand().getId())) {
-                    products.add(product);
-                } else if (pff.getColorsIds() != null && pff.getColorsIds().contains(product.getColor().getId())) {
-                    products.add(product);
-                } else if (pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getMaterial().getId())) {
-                    products.add(product);
-                } else if (pff.getSizesIds() != null && pff.getSizesIds().contains(product.getSize().getId())) {
+                if(pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getBrand().getId()) ||
+                    pff.getColorsIds() != null && pff.getColorsIds().contains(product.getColor().getId()) ||
+                    pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getMaterial().getId()) ||
+                    pff.getSizesIds() != null && pff.getSizesIds().contains(product.getSize().getId())) {
                     products.add(product);
                 }
             });

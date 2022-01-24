@@ -47,6 +47,10 @@ input[type="submit"],
   
 }
 
+.button-group {
+  flex-direction: row;
+}
+
 .red-button {
   font-size: 1em;
   font-weight: bold;
@@ -75,24 +79,6 @@ input[type="submit"],
   }
 }
 
-.button-group {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: normal;
-  button,
-  .btn,
-  .red-button {
-    width: 15%;
-  }
-  .btn,
-  .red-button {
-    text-align: center;
-  }
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -113,9 +99,14 @@ form {
 }
 
 
+@media (max-width: 764px) {
+  .edit-account, .reset-account-password {
+    width: calc(100% - 4em);
+    margin-bottom: 2em; 
+  }
+}
 
-
-@media (min-width: 1520px) {
+@media (min-width: 764px) {
   main {
     grid-column: 2;
     grid-row: 2;
@@ -131,14 +122,38 @@ form {
     padding: 1rem;
     gap: 1.5rem;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 2fr;
-
+    grid-template-rows: 1.5fr 1fr;
     .edit-account {
       grid-column: 1;
       grid-row: span 2;
+      overflow: auto;
+      form {
+        overflow: hidden;
+      }
     }
     .reset-account-password {
       grid-column: 2;
+      overflow: auto;
+      form {
+        overflow: hidden;
+      }
+    }
+  }
+  .button-group {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: normal;
+    button,
+    .btn,
+    .red-button {
+      width: 15%;
+    }
+    .btn,
+    .red-button {
+      text-align: center;
     }
   }
 }

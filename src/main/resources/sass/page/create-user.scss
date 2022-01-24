@@ -21,7 +21,7 @@ main {
   text-align: center;
   font-weight: normal;
   font-size: 1.5rem;
-  margin: 0;
+  overflow: auto;
 }
 
 .create-account {
@@ -48,6 +48,9 @@ main {
       text-decoration: none;
       padding-inline: 1.3em;
     }
+  }
+  .create-account-form {
+    overflow: hidden;
   }
 }
 
@@ -136,7 +139,18 @@ form {
       height: 2em;
     }
   }
-  
+}
+
+@media (max-width: 510px) {
+  .button-group {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .create-account {
+    width: calc(100% - 4rem);
+  }
 }
 
 @media (min-width: 768px) {

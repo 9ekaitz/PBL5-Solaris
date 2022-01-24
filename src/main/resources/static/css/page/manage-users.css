@@ -16,7 +16,7 @@ main {
 
 .manage-accounts .title-flex {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 }
 .manage-accounts .title-flex .title {
@@ -38,58 +38,63 @@ main {
   text-decoration: none;
   padding-inline: 1.3em;
 }
-.manage-accounts .accounts-list {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-.manage-accounts .accounts-list table {
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  border-collapse: collapse;
-}
-.manage-accounts .accounts-list table thead {
-  background-color: #f9aa31;
-}
-.manage-accounts .accounts-list table th, .manage-accounts .accounts-list table td {
-  padding: 0.5rem;
-  text-align: left;
-}
-.manage-accounts .accounts-list table svg.float-right {
-  float: right;
-}
-.manage-accounts .accounts-list table input[type=checkbox].float-left {
-  float: left;
-}
-.manage-accounts .accounts-list table tr:nth-child(2n) {
-  background-color: #e5e5e5;
-}
-.manage-accounts .accounts-list table tr td:nth-child(1), .manage-accounts .accounts-list table tr td:last-child() {
-  width: 15px;
-}
-.manage-accounts .accounts-list .pages {
+.manage-accounts .pages {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-.manage-accounts .accounts-list .pages a {
+.manage-accounts .pages a {
   margin-inline: 0.5rem;
   padding: 0.3em;
   text-decoration: none;
   background-color: #e5e5e5;
   border-radius: 3em;
 }
-.manage-accounts .accounts-list .pages .selected {
+.manage-accounts .pages .selected {
   background-color: #f9aa31;
   color: white;
 }
-.manage-accounts .accounts-list .pages .not-selected {
+.manage-accounts .pages .not-selected {
   background-color: #e5e5e5;
   color: black;
 }
 
+@media (max-width: 768px) {
+  .hidden-mf {
+    display: none;
+  }
+
+  .manage-accounts {
+    width: calc(100% - 4rem);
+  }
+
+  .user-div {
+    margin: 1em;
+    padding: 1em;
+  }
+  .user-div span {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .user-div .manage-user-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+  .user-div .manage-user-buttons a {
+    margin-right: 1.5em;
+  }
+
+  .user-div:nth-child(odd) {
+    background-color: #e5e5e5;
+  }
+}
 @media (min-width: 768px) {
+  .hidden-df {
+    display: none;
+  }
+
   main {
     grid-column: 2;
     grid-row: 2;
@@ -107,5 +112,39 @@ main {
     gap: 1.5rem;
     grid-template-columns: 1fr;
     grid-template-rows: 4fr 1fr;
+  }
+
+  .manage-accounts .title-flex {
+    flex-direction: row;
+  }
+
+  .accounts-list {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .accounts-list table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border-collapse: collapse;
+  }
+  .accounts-list table thead {
+    background-color: #f9aa31;
+  }
+  .accounts-list table th, .accounts-list table td {
+    padding: 0.5rem;
+    text-align: left;
+  }
+  .accounts-list table svg.float-right {
+    float: right;
+  }
+  .accounts-list table input[type=checkbox].float-left {
+    float: left;
+  }
+  .accounts-list table tr:nth-child(2n) {
+    background-color: #e5e5e5;
+  }
+  .accounts-list table tr td:nth-child(1), .accounts-list table tr td:last-child() {
+    width: 15px;
   }
 }/*# sourceMappingURL=manage-users.css.map */

@@ -131,7 +131,7 @@ main {
 
 @media (min-width: 766px) {
     .products-panel {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 3fr 4fr;
         grid-template-rows: 4fr 1fr;
         .products-items-panel {
             grid-row: 1;
@@ -170,7 +170,7 @@ main {
 
 @media (min-width: 900px) {
     .products-panel {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 2.2fr 4fr;
         .products-items-panel {
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows:  repeat(4, 1fr);
@@ -180,7 +180,7 @@ main {
 
 @media (min-width: 1150px) {
     .products-panel {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 1.5fr 4fr;
         .products-items-panel {
             grid-template-columns:  repeat(3, 1fr);
             grid-template-rows:  repeat(3, 1fr);
@@ -190,7 +190,7 @@ main {
 
 @media (min-width: 1320px) {
     .products-panel {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 1.1fr 4fr;
         .products-items-panel {
             grid-template-columns:  repeat(4, 1fr);
             grid-template-rows:  repeat(2, 1fr);
