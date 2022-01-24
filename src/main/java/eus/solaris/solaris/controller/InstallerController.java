@@ -61,6 +61,9 @@ public class InstallerController {
   public String showTask(@PathVariable(value = "id") Long id, Model model) {
 
     Installation installation = installationService.findById(id);
+    
+    if (installation == null)
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
     filter(installation, (User) model.getAttribute("user"));
 
