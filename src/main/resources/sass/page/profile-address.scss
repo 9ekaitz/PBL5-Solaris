@@ -58,6 +58,7 @@
         .option{
             background-color: transparent;
             color: $main-color;
+            padding-inline: 0;
 
             &:hover{
                 color: $main-dark-color;
