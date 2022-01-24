@@ -10,10 +10,10 @@
 body {
   margin: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto auto;
 }
 
 .hide {
@@ -36,24 +36,24 @@ body {
   flex-direction: column;
   align-items: center;
 
-  .field {
-    margin-block: 0.3rem;
-    width: 100%;
+    .field {
+        margin-block: 0.3rem;
+        width: 100%;
 
-    .select {
-      width: 100%;
+        .select{
+            width: 100%;
+        }
     }
-  }
 
-  .allWidth {
-    width: 100%;
-  }
+    .allWidth {
+        width: 100%;
+    }
 
-  .double {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-  }
+    .double{
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+    }
 
   .input-field {
     width: 100%;
@@ -118,15 +118,15 @@ body {
   }
 }
 
-.select {
-  display: block;
-  margin-block: 0.5rem 0;
-  border: 1px solid $text-color;
-  border-radius: $input-border;
-  height: 1.5em;
+.select{
+    display: block;
+    margin-block: 0.5rem 0;
+    border: 1px solid $text-color;
+    border-radius: $input-border;
+    height: 1.5em;
 }
 
-input {
+input, select {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid $text-color;
@@ -169,23 +169,23 @@ input[type="checkbox"] {
       transform: scale(0.7);
     }
   }
-
   &.btn-big {
     width: 18rem;
     height: 4rem;
     border-radius: 1.5 * $btn-border;
-  }
+}
 
-  &.delete-account {
+&.delete-account{
     background-color: $danger-color;
     color: $text-light-color;
 
     &:hover,
-    &:focus {
-      background-color: $danger-dark-color;
+    &:focus{
+        background-color: $danger-dark-color;
     }
-  }
 }
+}
+
 
 input[type="submit"],
 .btn {
@@ -193,11 +193,11 @@ input[type="submit"],
   font-weight: bold;
   border: none;
   border-radius: $btn-border;
-  min-width: 10em;
+  min-width: fit-content;
   min-height: 3em;
   color: $text-color;
   background-color: $main-color;
-  padding-inline: 2em;
+  padding-inline: 1em;
 
   &:hover {
     cursor: pointer;
@@ -210,13 +210,12 @@ input[type="submit"],
     border-radius: 1.5 * $btn-border;
   }
 }
-
-input[type="submit"],
-button {
-  font-size: 1em;
-  font-weight: bold;
+@media screen and (min-width: $large-screen) {
+  input[type="submit"],
+.btn {
+  padding-inline: 2em;
 }
-
+}
 .section {
   display: flex;
   flex-direction: column;
@@ -228,61 +227,63 @@ button {
   }
 }
 
-.helper {
-  display: none;
+.helper{
+    display: none;
 }
 
-.helper-hr {
-  border: none;
-  display: none;
+
+.helper-hr{
+    border: none;
+    display: none;
 }
 
-.alert {
-  width: 100%;
-  border: 1px solid $border-color;
-  text-align: center;
-  padding-block: 1rem;
-  margin-bottom: 0.5rem;
+.alert{
+    width: 100%;
+    border: 1px solid $border-color;
+    text-align: center;
+    padding-block: 1rem;
+    margin-bottom: 0.5rem;
 
-  &.alert-danger {
-    background-color: $danger-dark-color;
-    color: $text-light-color;
-  }
-
-  &.alert-success {
-    background-color: $success-color;
-    color: $text-light-color;
-  }
-}
-
-@media (min-width: $large-screen) {
-  .helper {
-    display: block;
-    margin: 0;
-    padding: 0.5rem 0 0.5rem 10rem;
-    font-size: 1rem;
-
-    .a {
-      margin: 0;
-
-      .helper-page {
-        text-decoration: none;
-
-        &.selected {
-          font-weight: bold;
-          color: $main-color;
-        }
-      }
+    &.alert-danger{
+        background-color: $danger-dark-color;
+        color: $text-light-color;
     }
-  }
 
-  .helper-hr {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-top: 1px solid $border-color !important;
-  }
+    &.alert-success{
+        background-color: $success-color;
+        color: $text-light-color;
+    }
+
+}
+
+@media (min-width: $large-screen){
+    .helper{
+        display: block;
+        margin: 0;
+        padding: 0.5rem 0 0.5rem 10rem;
+        font-size: 1rem;
+
+        .a{
+            margin: 0;
+
+            .helper-page{
+                text-decoration: none;
+
+                &.selected{
+                    font-weight: bold;
+                    color: $main-color;
+                }
+            }
+        }
+    }
+
+    .helper-hr{
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-top: 1px solid $border-color !important;
+    }
 }
 
 @media screen and (min-width: $medium-screen) {

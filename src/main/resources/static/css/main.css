@@ -269,10 +269,10 @@
 body {
   margin: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto auto;
 }
 
 .hide {
@@ -368,7 +368,7 @@ body {
   height: 1.5em;
 }
 
-input {
+input, select {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid #000;
@@ -376,7 +376,7 @@ input {
   padding: 0.2em;
   height: 1.5em;
 }
-input:focus, input:hover {
+input:focus, input:hover, select:focus, select:hover {
   outline: 1px solid #f9aa31;
   border-color: #f9aa31;
 }
@@ -428,11 +428,13 @@ input[type=submit],
   font-weight: bold;
   border: none;
   border-radius: 0.2rem;
-  min-width: 10em;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   min-height: 3em;
   color: #000;
   background-color: #f9aa31;
-  padding-inline: 2em;
+  padding-inline: 1em;
 }
 input[type=submit]:hover,
 .btn:hover {
@@ -446,12 +448,12 @@ input[type=submit].btn-big,
   border-radius: 0.3rem;
 }
 
-input[type=submit],
-button {
-  font-size: 1em;
-  font-weight: bold;
+@media screen and (min-width: 768px) {
+  input[type=submit],
+.btn {
+    padding-inline: 2em;
+  }
 }
-
 .section {
   display: flex;
   flex-direction: column;

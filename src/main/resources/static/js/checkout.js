@@ -16,11 +16,18 @@ window.addEventListener("DOMContentLoaded", function() {
   }, false);
 
   document.querySelectorAll(".next").forEach(function(i){
-    console.log(i);
     i.addEventListener("click", function() {
         let old = document.querySelector(".current");
         old.classList.remove("current");
         old.nextElementSibling.classList.add("current");
+    });
+  });
+  document.querySelectorAll(".back").forEach(function(i){
+    console.log(i);
+    i.addEventListener("click", function() {
+        let old = document.querySelector(".current");
+        old.classList.remove("current");
+        old.previousElementSibling.classList.add("current");
     });
   });
 });

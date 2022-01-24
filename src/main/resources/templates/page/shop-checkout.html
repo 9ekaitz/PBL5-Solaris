@@ -187,7 +187,11 @@
               th:text="#{page.shop.chekcout.back_to_selector}"
             ></a>
           </div>
-          <button class="next btn" type="button" th:text="#{page.shop.checkout.next}"></button>
+          <button
+            class="next btn"
+            type="button"
+            th:text="#{page.shop.checkout.next}"
+          ></button>
         </div>
         <div class="section-background">
           <div>
@@ -336,7 +340,18 @@
               th:text="#{page.shop.chekcout.back_to_selector}"
             ></a>
           </div>
-          <button class="next btn" type="button" th:text="#{page.shop.checkout.next}"></button>
+          <div class="navigation">
+            <button
+              class="back btn"
+              type="button"
+              th:text="#{page.shop.checkout.back}"
+            ></button>
+            <button
+              class="next btn"
+              type="button"
+              th:text="#{page.shop.checkout.next}"
+            ></button>
+          </div>
         </div>
         <div id="summary-section" class="section-background">
           <div class="form">
@@ -347,8 +362,7 @@
               <table class="summary-table">
                 <thead class="legend">
                   <tr>
-                    <!-- TODO: is article or product??? -->
-                    <th th:text="#{page.shop.checkout.article}"></th>
+                    <th th:text="#{page.shop.checkout.product}"></th>
                     <th th:text="#{page.shop.checkout.number}"></th>
                     <th th:text="#{page.shop.checkout.total}"></th>
                   </tr>
@@ -356,7 +370,7 @@
                 <tbody>
                   <tr
                     class="item"
-                    th:each="cartProduct : ${cart}"
+                    th:each="cartProduct, iterator : ${cart}"
                     th:with="productTotal=${cartProduct.quantity * cartProduct.product.price}"
                   >
                     <th:block
@@ -371,6 +385,7 @@
                     <td
                       th:text="${#numbers.formatDecimal(productTotal,1,2,'COMMA')}+'€'"
                     ></td>
+                    <input type="hidden" th:name="products[__${cartProduct.product.id}__]" th:value="${cartProduct.quantity}" />
                   </tr>
                 </tbody>
               </table>
@@ -395,6 +410,11 @@
               th:value="#{page.shop.checkout.confirm}"
             />
           </div>
+          <button
+            class="back btn"
+            type="button"
+            th:text="#{page.shop.checkout.back}"
+          ></button>
           <a
             class="change-prompt"
             th:href="@{/shop}"

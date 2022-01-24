@@ -31,6 +31,9 @@ public class OrderProduct {
   @Column
   private Integer amount;
 
+  @Column
+  private Double price;
+
   @Version
   @EqualsAndHashCode.Exclude
   private Integer version;

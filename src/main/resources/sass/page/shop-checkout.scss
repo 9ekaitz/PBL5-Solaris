@@ -11,6 +11,12 @@
 
   @media screen and (min-width: $large-screen) {
     min-height: 85%;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  @media screen and (min-width: $very-large-screen) {
+    flex-direction: row;
+    gap: 0;
   }
 
   #summary-section {
@@ -106,8 +112,16 @@
       }
     }
 
-    .next {
-      margin-left: auto;
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .next,
+    .back {
+      margin: 0.5rem auto;
+      width: 100%;
+      max-width: 9rem;
     }
   }
 
@@ -117,7 +131,8 @@
     }
     .section-background {
       display: block;
-      .next {
+      .next,
+      .back {
         display: none;
       }
     }
