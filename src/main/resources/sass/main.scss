@@ -175,16 +175,6 @@ input[type="checkbox"] {
     height: 4rem;
     border-radius: 1.5 * $btn-border;
 }
-
-&.delete-account{
-    background-color: $danger-color;
-    color: $text-light-color;
-
-    &:hover,
-    &:focus{
-        background-color: $danger-dark-color;
-    }
-}
 }
 
 
@@ -209,6 +199,15 @@ input[type="submit"],
     width: 18rem;
     height: 4rem;
     border-radius: 1.5 * $btn-border;
+  }
+  &.delete-account{
+    background-color: $danger-color;
+    color: $text-light-color;
+
+    &:hover,
+    &:focus{
+        background-color: $danger-dark-color;
+    }
   }
 }
 @media screen and (min-width: $large-screen) {
