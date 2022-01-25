@@ -1,4 +1,9 @@
-const realTimeCanvas = document.getElementById("realTimeChart").getContext("2d");
+let realTimeCanvas;
+
+if (REAL_TIME_ENABLED) {
+  realTimeCanvas = document.getElementById("realTimeChart").getContext("2d");
+}
+
 const historicalCanvas = document.getElementById("historical-chart").getContext("2d");
 
 const dayInput = document.getElementById("select-day");
@@ -100,13 +105,10 @@ const reloadRealTimeData = async () => {
   createRTDataGraph(data.data);
 };
 
+// Generate a function that takes a week number an a year and returns the start and end date of that week
 const getDateOfISOWeek = (w, y) => {
-  var simple = new Date(y, 0, 1 + (w - 1) * 7);
-  var dow = simple.getDay();
-  var ISOweekStart = simple;
-  if (dow <= 4) ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
-  else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-  return ISOweekStart;
+  const mom = moment(y + "-" + w, "YYYY-w");
+  return mom.toDate();
 };
 
 const getStartEnd = () => {
@@ -119,7 +121,7 @@ const getStartEnd = () => {
     const week = weekInput.value;
     startDate = getDateOfISOWeek(week, year);
     endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 6);
+    endDate.setDate(endDate.getDate() + 8);
   } else if (groupMode === "MONTH") {
     const year = yearInput.value;
     const month = monthInput.value;
@@ -201,7 +203,7 @@ const getReadableValue = (value) => {
       return (valFloat / 1000000).toFixed(2) + " GWh";
     }
   } else {
-    return ((valFloat - valFloat * IMPUESTO_SOLAR) * 1000).toFixed(2) + CONVERSION.replace("TO_", " ");
+    const val = ((valFloat - valFloat * IMPUESTO_SOLAR) * 1000).toFixed(2) + CONVERSION.replace("TO_", " ");
   }
 };
 
@@ -214,9 +216,11 @@ const setGeneralData = async () => {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  reloadRealTimeData();
-  setGeneralData();
-  setInterval(reloadRealTimeData, 60000);
+  if (REAL_TIME_ENABLED) {
+    reloadRealTimeData();
+    setInterval(reloadRealTimeData, 60000);
+  }
+  if (GENERAL_DATA_ENABLED) setGeneralData();
   groupButtons.forEach((button) => {
     button.addEventListener("click", () => changeGroupMode(button.textContent, button));
   });

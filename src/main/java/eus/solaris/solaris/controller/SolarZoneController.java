@@ -57,4 +57,16 @@ public class SolarZoneController {
         }
     }
 
+    @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
+    @GetMapping("/eco")
+    public String solarZoneEco(Model model) {
+        User user = (User) model.getAttribute("user");
+        if (checkUserHasPanels(user)) {
+            model.addAttribute("panels", solarPanelService.findByUser(user));
+            return "page/solarzone_eco";
+        } else {
+            return "error";
+        }
+    }
+
 }

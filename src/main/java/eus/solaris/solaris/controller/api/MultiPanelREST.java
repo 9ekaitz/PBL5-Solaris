@@ -133,6 +133,24 @@ public class MultiPanelREST {
         return json.toString();
     }
 
+    @GetMapping(path = "/eco", produces = "application/json")
+    public String eco(HttpServletRequest request, HttpServletResponse response,
+            SolarPanelRequestDTO dto) {
+        if (!filterRequest(request, response))
+            return null;
+
+        Optional<User> user = userRepository.findById(dto.getId());
+        List<SolarPanel> panels = solarPanelRepository.findByUser(user.get());
+        Double energy = allTimeUser(panels);
+        JSONObject json = new JSONObject();
+
+        json.put("co2", Processer.processOne(energy, ConversionType.TO_AVOIDED_CO2));
+        json.put("mminc", Processer.processOne(energy, ConversionType.TO_AVOIDED_MM_INCREASE));
+        json.put("tempC", Processer.processOne(energy, ConversionType.TO_AVOIDED_TEMP_C));
+
+        return json.toString();
+    }
+
     private Map<Integer, Integer> countVoltages(List<SolarPanel> panels) {
         Map<Integer, Integer> map = new TreeMap<>();
 
