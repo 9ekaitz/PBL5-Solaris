@@ -23,12 +23,12 @@ public class SolarisApplication extends SpringBootServletInitializer implements 
 	}
 
 	@Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("message");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("message");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
 
 	@Bean
 	public LocaleResolver localeResolver() {
@@ -51,7 +51,8 @@ public class SolarisApplication extends SpringBootServletInitializer implements 
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("img/**").addResourceLocations("file:uploads/")
+		registry.addResourceHandler("/img/**").addResourceLocations("file:img/")
 				.setCachePeriod(0);
 	}
+
 }

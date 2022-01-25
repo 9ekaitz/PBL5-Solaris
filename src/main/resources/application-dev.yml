@@ -1,4 +1,4 @@
-spring:     
+spring:
   datasource:
     driverClassName: org.postgresql.Driver
     password: ENC(r3NjUAbTkDAlljGjSJiRXFO9sb40yu7LWsa/88b1Ijhj12/gI0kxjxyP7l5vuNA1RFcJMcHKSmPqN1E4zoKnDQ==)
@@ -9,12 +9,11 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate: 
+    hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        default-schema: 
+        default-schema:
 
   thyemeleaf:
     cache: false
-  

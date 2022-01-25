@@ -25,4 +25,9 @@ public class InstallationServiceImpl implements InstallationService{
   public Installation findById(Long id) {
     return installationRepository.findById(id).orElse(null);
   }
+
+  @Override
+  public Installation save(Installation installation) {
+    return installationRepository.save(installation);
+  }
 }

@@ -23,13 +23,14 @@ nav{
             text-decoration: none;
             gap: 0.5rem;
 
-            &:hover{
-                filter: invert(64%) sepia(54%) saturate(676%) hue-rotate(345deg) brightness(175%) contrast(95%);
-            }
             .logo{
                 fill: white;
                 width: 100%;
                 max-width: 1.5rem;
+
+                &:hover{
+                    fill: $main-color;
+                }
             }
 
             p{
@@ -45,7 +46,7 @@ nav{
     }
 }
 
-hr{
+.separator{
     margin: 0;
     border: none;
     border-top: 1px solid $border-color;

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{index_template}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/page/profile.css}">
+  <link rel="stylesheet" th:href="@{/css/page/profile-address.css}">
+  <title th:text="#{title.profile}"></title>
+</head>
+
+<main layout:fragment="content" class="profile">
+  <div>
+    <div class="helper">
+      <p class="a">
+        <a href="/profile" th:href="@{/profile}" class="helper-page" th:text="#{helper.profile}">Mi Cuenta</a> > 
+        <a href="/profile/edit" th:href="@{/profile/edit}"  class="helper-page selected" th:text="#{helper.profile.personalInfo}">Mis datos</a>
+      </p>
+    </div>
+    <hr class="helper-hr">
+    <section class="profile-main security">
+      <ul class="error">
+        <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
+      </ul>
+      <div class="profile-background">
+        <div>
+          <h1 class="title" th:text="#{page.profile.edit.user}">Edit user</h1>
+        </div>
+        <form class="form password-form" method="POST" th:action="@{/profile/edit}">
+          <div class="field">
+            <label for="name" th:text="#{user.name}">Name</label>
+            <div>
+                <input class="input-field" type="text" id="name" name="name" th:value="${user.name}"/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email" th:text="#{user.email}">E-mail</label>
+            <div>
+                <input class="input-field" type="email" id="email" name="email" th:value="${user.email}"/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="firstSurname" th:text="#{user.firstSurname}">firstSurname</label>
+            <div>
+                <input class="input-field" type="text" id="firstSurname" name="firstSurname" th:value="${user.firstSurname}"/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="secondSurname" th:text="#{user.secondSurname}">secondSurname</label>
+            <div>
+                <input class="input-field" type="text" id="secondSurname" name="secondSurname" th:value="${user.secondSurname}"/>
+            </div>
+          </div>
+        <input class="btn" type="submit" value="Edit password" th:value="#{page.profile.edit.save}">
+      </form>
+      </div>
+    </section>
+  </div>
+</main>

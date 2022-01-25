@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <th:block th:fragment="header">
+    <th:block th:fragment="header" class="header">
         <div class="header-computer">
             <div class="header-computer-main">
                 <div class="header-computer-submain">
@@ -136,13 +136,13 @@
             </div>
             <div class="header-computer-search">
                 <form method="GET" th:action="@{/login}" id="search-computer-bar">
-                    <input type="text" name="" id="search-computer-box" placeholder="Producto" th:placeholder="Producto" autofocus="autofocus">
-                    <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" th:alt=#{img.alt.search}>
+                    <input type="text" name="" id="search-computer-box" placeholder="Producto" autofocus="autofocus">
+                    <input class="searcher" type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" th:alt=#{img.alt.search}>
                 </form>
             </div>
             <div class="header-computer-lang" id="header-computer-lang">
                 <th:block th:each="lang : ${languages}">
-                    <a href="" class="lang" th:text=#{${lang.i18n}}></a>
+                    <a th:href="'?lang=' + ${lang.code}" class="lang locales" th:text=#{${lang.i18n}}></a>
                 </th:block>
             </div>
         </div>
@@ -251,17 +251,17 @@
                 </div>
                 <div class="header-mobile-search">
                     <form method="GET" th:action="@{/login}" id="search-mobile-bar">
-                        <input type="text" name="" id="search-mobile-box" placeholder="Producto" th:placeholder="Producto" autofocus="autofocus">
+                        <input type="text" name="" id="search-mobile-box" placeholder="Producto" autofocus="autofocus">
                         <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" th:alt="#{img.alt.search}">
                     </form>
                 </div>
                 <div class="header-mobile-lang" id="header-mobile-lang">
                     <th:block th:each="lang : ${languages}">
-                      <a href="" class="lang" th:text=#{${lang.i18n}}></a>
+                      <a th:href="'?lang=' + ${lang.code}" class="lang locales" th:text=#{${lang.i18n}}></a>
                     </th:block>
                 </div>
             </div>
         </div>
-    </th:block>
+    </th:block>   
 </body>
 </html>

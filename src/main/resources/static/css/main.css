@@ -269,14 +269,14 @@
 body {
   margin: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto auto;
 }
 
 .hide {
-  display: none !important;
+  display: none;
 }
 
 .row {
@@ -297,6 +297,17 @@ body {
 }
 .form .field {
   margin-block: 0.3rem;
+  width: 100%;
+}
+.form .field .select {
+  width: 100%;
+}
+.form .allWidth {
+  width: 100%;
+}
+.form .double {
+  display: flex;
+  gap: 1rem;
   width: 100%;
 }
 .form .input-field {
@@ -340,7 +351,7 @@ body {
 }
 .form .password-toggle .show-password svg {
   margin: auto;
-  fill: #52525c;
+  fill: #52525C;
 }
 .form .password-toggle .show-password:hover {
   cursor: pointer;
@@ -349,7 +360,15 @@ body {
   fill: #000;
 }
 
-input, select {
+.select {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  height: 1.5em;
+}
+
+input {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid #000;
@@ -379,7 +398,7 @@ input[type=checkbox]::before {
   height: 1em;
   -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
           clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-  background-color: #fff;
+  background-color: #FFF;
   transform: scale(0);
   transition: transform 0.5s;
 }
@@ -390,6 +409,18 @@ input[type=checkbox]:checked {
 input[type=checkbox]:checked::before {
   transform: scale(0.7);
 }
+input[type=checkbox].btn-big {
+  width: 18rem;
+  height: 4rem;
+  border-radius: 0.3rem;
+}
+input[type=checkbox].delete-account {
+  background-color: #DA3633;
+  color: #FFF;
+}
+input[type=checkbox].delete-account:hover, input[type=checkbox].delete-account:focus {
+  background-color: #b92421;
+}
 
 input[type=submit],
 .btn {
@@ -397,11 +428,13 @@ input[type=submit],
   font-weight: bold;
   border: none;
   border-radius: 0.2rem;
-  min-width: 10em;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   min-height: 3em;
   color: #000;
   background-color: #f9aa31;
-  padding-inline: 2em;
+  padding-inline: 1em;
 }
 input[type=submit]:hover,
 .btn:hover {
@@ -415,6 +448,12 @@ input[type=submit].btn-big,
   border-radius: 0.3rem;
 }
 
+@media screen and (min-width: 768px) {
+  input[type=submit],
+.btn {
+    padding-inline: 2em;
+  }
+}
 .section {
   display: flex;
   flex-direction: column;
@@ -425,6 +464,57 @@ input[type=submit].btn-big,
   border-radius: 0.2rem;
 }
 
+.helper {
+  display: none;
+}
+
+.helper-hr {
+  border: none;
+  display: none;
+}
+
+.alert {
+  width: 100%;
+  border: 1px solid #C7C7C7;
+  text-align: center;
+  padding-block: 1rem;
+  margin-bottom: 0.5rem;
+}
+.alert.alert-danger {
+  background-color: #b92421;
+  color: #FFF;
+}
+.alert.alert-success {
+  background-color: #5CB85C;
+  color: #FFF;
+}
+
+@media (min-width: 768px) {
+  .helper {
+    display: block;
+    margin: 0;
+    padding: 0.5rem 0 0.5rem 10rem;
+    font-size: 1rem;
+  }
+  .helper .a {
+    margin: 0;
+  }
+  .helper .a .helper-page {
+    text-decoration: none;
+  }
+  .helper .a .helper-page.selected {
+    font-weight: bold;
+    color: #f9aa31;
+  }
+
+  .helper-hr {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid #C7C7C7 !important;
+  }
+}
 @media screen and (min-width: 480px) {
   .section {
     border: 1px solid #C7C7C7;
