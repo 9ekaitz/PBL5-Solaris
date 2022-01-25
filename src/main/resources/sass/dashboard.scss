@@ -1,5 +1,9 @@
 @import "util/variables.scss";
 
+body {
+  height: 100vh;
+}
+
 main {
   background-color: $bg-color;
   flex-grow: 1;
