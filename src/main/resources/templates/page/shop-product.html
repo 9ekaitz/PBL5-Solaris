@@ -51,10 +51,15 @@
                             <span th:text="#{page.shop.product.specifications}">Specifications</span>
                             <hr>
                         </div>
-                        <ul>
-                            <li>shop shop shop</li>
-                            <li>shop shop shop</li>
-                            <li>shop shop shop</li>
+                        <ul th:if="${product.model}" th:object="${product.model}">
+                            <li th:if="*{brand != null}"><span th:text="#{page.shop.product.specifications.brand}">Brand</span>: <span th:text="*{brand.name}"></span></li>
+                            <li th:if="*{size != null}"><span th:text="#{page.shop.product.specifications.name}">Model name</span>: <span th:text="*{name}"></span></li>
+                            <li th:if="*{power != null}"><span th:text="#{page.shop.product.specifications.power}">Power</span>: <span th:text="*{power}"></span>W</li>
+                            <li th:if="*{voltage != null}"><span th:text="#{page.shop.product.specifications.voltage}">Voltage</span>: <span th:text="*{voltage}"></span>V</li>
+                            <li th:if="*{size != null}"><span th:text="#{page.shop.product.specifications.width}">Width</span>: <span th:text="*{size.width}"></span>mm</li>
+                            <li th:if="*{size != null}"><span th:text="#{page.shop.product.specifications.height}">Height</span>: <span th:text="*{size.height}"></span>mm</li>
+                            <li th:if="*{color != null}"><span th:text="#{page.shop.product.specifications.color}">Color</span>: <span th:text="*{color.name}"></span></li>
+                            <li th:if="*{material != null}"><span th:text="#{page.shop.product.specifications.material}">Material</span>: <span th:text="*{material.name}"></span></li>
                         </ul>
                     </div>
                 </th:block>
