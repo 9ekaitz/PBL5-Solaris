@@ -13,11 +13,11 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class CheckoutFormTest {
+class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test00() throws Throwable {
+  void test00() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setStreet("o$miNDT(h&sx\nl@$Gv");
     String string0 = checkoutForm0.getStreet();
@@ -26,7 +26,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test01() throws Throwable {
+  void test01() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setStreet("");
     String string0 = checkoutForm0.getStreet();
@@ -35,7 +35,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test02() throws Throwable {
+  void test02() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setSecurityCode(",\"iGQ!uiT,52%f%");
     String string0 = checkoutForm0.getSecurityCode();
@@ -44,7 +44,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test03() throws Throwable {
+  void test03() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (0L);
     checkoutForm0.setProvinceId(long0);
@@ -54,7 +54,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test04() throws Throwable {
+  void test04() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (3012L);
     checkoutForm0.setProvinceId(long0);
@@ -64,7 +64,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test05() throws Throwable {
+  void test05() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = ((-2560L));
     checkoutForm0.setProvinceId(long0);
@@ -74,7 +74,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test06() throws Throwable {
+  void test06() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     LinkedList<Long> linkedList0 = new LinkedList<Long>();
     checkoutForm0.products = (List<Long>) linkedList0;
@@ -84,7 +84,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test07() throws Throwable {
+  void test07() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (0L);
     LinkedList<Long> linkedList0 = new LinkedList<Long>();
@@ -96,7 +96,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test08() throws Throwable {
+  void test08() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setPostcode("eus.solaris.solaris.form.CheckoutForm");
     String string0 = checkoutForm0.getPostcode();
@@ -105,7 +105,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test09() throws Throwable {
+  void test09() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setPostcode("");
     String string0 = checkoutForm0.getPostcode();
@@ -114,7 +114,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test10() throws Throwable {
+  void test10() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (0L);
     checkoutForm0.setPaymentMethodId(long0);
@@ -124,7 +124,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test11() throws Throwable {
+  void test11() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (1L);
     checkoutForm0.setPaymentMethodId(long0);
@@ -134,7 +134,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test12() throws Throwable {
+  void test12() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = ((-3684L));
     checkoutForm0.setPaymentMethodId(long0);
@@ -144,7 +144,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test13() throws Throwable {
+  void test13() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setNumber("eus.solaris.solaris.service.multithreading.conversions.ConversionToTempF");
     String string0 = checkoutForm0.getNumber();
@@ -153,7 +153,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test14() throws Throwable {
+  void test14() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (0L);
     checkoutForm0.setExpirationYear(long0);
@@ -163,7 +163,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test15() throws Throwable {
+  void test15() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (3012L);
     checkoutForm0.setExpirationYear(long0);
@@ -173,7 +173,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test16() throws Throwable {
+  void test16() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = ((-3315L));
     checkoutForm0.setExpirationYear(long0);
@@ -183,7 +183,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test17() throws Throwable {
+  void test17() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (0L);
     checkoutForm0.setExpirationMonth(long0);
@@ -193,7 +193,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test18() throws Throwable {
+  void test18() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (3012L);
     checkoutForm0.setExpirationMonth(long0);
@@ -203,7 +203,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test19() throws Throwable {
+  void test19() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = ((-1L));
     checkoutForm0.setExpirationMonth(long0);
@@ -213,7 +213,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test20() throws Throwable {
+  void test20() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (0L);
     checkoutForm0.setCountryId(long0);
@@ -223,7 +223,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test21() throws Throwable {
+  void test21() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (1L);
     checkoutForm0.setCountryId(long0);
@@ -233,7 +233,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test22() throws Throwable {
+  void test22() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = ((-1L));
     checkoutForm0.setCountryId(long0);
@@ -243,7 +243,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test23() throws Throwable {
+  void test23() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setCity("$%t");
     String string0 = checkoutForm0.getCity();
@@ -252,7 +252,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test24() throws Throwable {
+  void test24() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setCity("");
     String string0 = checkoutForm0.getCity();
@@ -261,7 +261,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test25() throws Throwable {
+  void test25() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setCardNumber("");
     String string0 = checkoutForm0.getCardNumber();
@@ -270,7 +270,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test26() throws Throwable {
+  void test26() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setCardHolderName("IG'y6");
     String string0 = checkoutForm0.getCardHolderName();
@@ -279,7 +279,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test27() throws Throwable {
+  void test27() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (0L);
     checkoutForm0.setAddressId(long0);
@@ -289,7 +289,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test28() throws Throwable {
+  void test28() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = (1171L);
     checkoutForm0.setAddressId(long0);
@@ -299,7 +299,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test29() throws Throwable {
+  void test29() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = ((-1717L));
     checkoutForm0.setAddressId(long0);
@@ -309,7 +309,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test30() throws Throwable {
+  void test30() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setCardNumber("JtC7.QZ{ Vr8  ");
     String string0 = checkoutForm0.getCardNumber();
@@ -318,7 +318,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test31() throws Throwable {
+  void test31() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setSavePaymentMethod(true);
     boolean boolean0 = checkoutForm0.isSavePaymentMethod();
@@ -327,7 +327,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test32() throws Throwable {
+  void test32() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setCardHolderName("");
     String string0 = checkoutForm0.getCardHolderName();
@@ -336,7 +336,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test33() throws Throwable {
+  void test33() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     boolean boolean0 = checkoutForm0.isSavePaymentMethod();
     assertFalse(boolean0);
@@ -344,7 +344,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test34() throws Throwable {
+  void test34() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     String string0 = checkoutForm0.getNumber();
     assertNull(string0);
@@ -352,7 +352,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test35() throws Throwable {
+  void test35() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = checkoutForm0.getExpirationMonth();
     checkoutForm0.setExpirationMonth(long0);
@@ -361,7 +361,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test36() throws Throwable {
+  void test36() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = checkoutForm0.getCountryId();
     assertNull(long0);
@@ -369,7 +369,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test37() throws Throwable {
+  void test37() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = checkoutForm0.getPaymentMethodId();
     assertNull(long0);
@@ -377,7 +377,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test38() throws Throwable {
+  void test38() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = checkoutForm0.getAddressId();
     assertNull(long0);
@@ -385,7 +385,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test39() throws Throwable {
+  void test39() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     String string0 = checkoutForm0.getPostcode();
     assertNull(string0);
@@ -393,7 +393,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test40() throws Throwable {
+  void test40() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     String string0 = checkoutForm0.getCity();
     assertNull(string0);
@@ -401,7 +401,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test41() throws Throwable {
+  void test41() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = checkoutForm0.getProvinceId();
     assertNull(long0);
@@ -409,7 +409,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test42() throws Throwable {
+  void test42() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     List<Long> list0 = checkoutForm0.getProducts();
     assertNull(list0);
@@ -417,7 +417,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test43() throws Throwable {
+  void test43() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setNumber("");
     String string0 = checkoutForm0.getNumber();
@@ -426,7 +426,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test44() throws Throwable {
+  void test44() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     String string0 = checkoutForm0.getStreet();
     assertNull(string0);
@@ -434,7 +434,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test45() throws Throwable {
+  void test45() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     String string0 = checkoutForm0.getCardNumber();
     assertNull(string0);
@@ -442,7 +442,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test46() throws Throwable {
+  void test46() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     String string0 = checkoutForm0.getCardHolderName();
     assertNull(string0);
@@ -450,7 +450,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test47() throws Throwable {
+  void test47() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     Long long0 = checkoutForm0.getExpirationYear();
     assertNull(long0);
@@ -458,7 +458,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test48() throws Throwable {
+  void test48() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     String string0 = checkoutForm0.getSecurityCode();
     assertNull(string0);
@@ -466,7 +466,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test49() throws Throwable {
+  void test49() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     boolean boolean0 = checkoutForm0.isSaveAddress();
     assertFalse(boolean0);
@@ -474,7 +474,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test50() throws Throwable {
+  void test50() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setSaveAddress(true);
     boolean boolean0 = checkoutForm0.isSaveAddress();
@@ -483,7 +483,7 @@ public class CheckoutFormTest {
 
   @Test
   @Timeout(4)
-  public void test51() throws Throwable {
+  void test51() throws Throwable {
     CheckoutForm checkoutForm0 = new CheckoutForm();
     checkoutForm0.setSecurityCode("");
     String string0 = checkoutForm0.getSecurityCode();
