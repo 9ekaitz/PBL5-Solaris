@@ -94,7 +94,7 @@ class ProfileControllerTest {
         String username = "testyUser";
         Privilege privilege = createUserLoggedPrivilege();
 
-        Role ROLE_USER = new Role(1L, "ROLE_USER", true, null, Stream
+        Role ROLE_USER = new Role(1L, "ROLE_USER", true, null, "role.user", Stream
                 .of(privilege)
                 .collect(Collectors.toSet()), 1);
 

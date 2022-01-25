@@ -1,33 +1,23 @@
 package eus.solaris.solaris.service.impl;
 
-<<<<<<< HEAD
-=======
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
->>>>>>> master
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-=======
->>>>>>> master
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
-<<<<<<< HEAD
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
-=======
 import eus.solaris.solaris.exception.AvatarNotCreatedException;
 import eus.solaris.solaris.form.UserInformationEditForm;
->>>>>>> master
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.repository.ImageRepository;
 import eus.solaris.solaris.repository.UserRepository;
@@ -38,13 +28,10 @@ import eus.solaris.solaris.util.Beam;
 @Service
 public class UserServiceImpl implements UserService {
 
-<<<<<<< HEAD
     @Value("${solaris.pagination.users.pagesize}")
 	private Integer pagesize;
-=======
     private static final long serialVersionUID = 4889944577388711145L;
     private static final int SIZE = 32;
->>>>>>> master
 
     @Autowired
     private ModelMapper modelMapper;
@@ -54,18 +41,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-<<<<<<< HEAD
-    private RoleService roleService;
     
-=======
     PasswordEncoder passwordEncoder;
 
     @Autowired
     ImageRepository imageRepository;
 
->>>>>>> master
     @Override
     public User register(UserRegistrationForm userRegistrationForm) throws AvatarNotCreatedException {
         User user = modelMapper.map(userRegistrationForm, User.class);
@@ -94,7 +75,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -156,13 +136,6 @@ public class UserServiceImpl implements UserService {
         this.save(user);
     }
 
-    public void register(UserRegistrationForm userRegistrationForm) {
-        User user = modelMapper.map(userRegistrationForm, User.class);
-        user.setRole(roleService.findByName("ROLE_USER"));
-        user.setEnabled(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        save(user);
-=======
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
@@ -209,6 +182,5 @@ public class UserServiceImpl implements UserService {
         user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
 
         return user.getPaymentMethods();
->>>>>>> master
     }
 }
