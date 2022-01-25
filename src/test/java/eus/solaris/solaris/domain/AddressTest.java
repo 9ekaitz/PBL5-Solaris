@@ -431,11 +431,11 @@ class AddressTest {
     Address address1 = new Address();
     User user0 = new User();
     address0.setUser(user0);
-    assertFalse(address0.equals((Object) address1));
+    assertNotEquals(address0, address1);
 
     address1.setUser(user0);
     boolean boolean0 = address1.equals(address0);
-    assertTrue(address0.equals((Object) address1));
+    assertEquals(address0, address1);
     assertTrue(boolean0);
   }
 
@@ -444,7 +444,7 @@ class AddressTest {
   void test32() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
-    assertTrue(address1.equals((Object) address0));
+    assertEquals(address1, address0);
 
     User user0 = new User();
     address1.setUser(user0);
@@ -457,7 +457,7 @@ class AddressTest {
   void test33() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
-    assertTrue(address1.equals((Object) address0));
+    assertEquals(address1, address0);
 
     User user0 = new User();
     address1.setUser(user0);
@@ -815,9 +815,11 @@ class AddressTest {
   @Timeout(4)
   void test59() throws Throwable {
     Address address0 = new Address();
+    int h1 = address0.hashCode();
     Long long0 = (0L);
     address0.setId(long0);
     address0.hashCode();
+    assertNotEquals(h1, address0.hashCode());
   }
 
   @Test
