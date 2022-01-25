@@ -118,14 +118,6 @@ body {
   }
 }
 
-.select {
-  display: block;
-  margin-block: 0.5rem 0;
-  border: 1px solid $text-color;
-  border-radius: $input-border;
-  height: 1.5em;
-}
-
 input,
 select {
   display: block;
@@ -140,6 +132,14 @@ select {
     outline: 1px solid $main-color;
     border-color: $main-color;
   }
+}
+
+.select {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid $text-color;
+  border-radius: $input-border;
+  height: 1.5em;
 }
 
 input[type="checkbox"] {
@@ -184,7 +184,7 @@ input[type="submit"],
   border: none;
   border-radius: $btn-border;
   min-width: fit-content;
-  min-height: 3em;
+  //   min-height: 3em;
   color: $text-color;
   background-color: $main-color;
   padding-inline: 1em;

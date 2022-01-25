@@ -91,7 +91,7 @@ class UserServiceImplTest {
         user1.setName("test");
         user2.setName("test");
 
-        when(userRepository.findByUsername("test")).thenReturn(user1);
+        when(userRepository.findByUsernameIgnoreCase("test")).thenReturn(user1);
         assertEquals(user2, userServiceImpl.findByUsername("test"));
     }
 
@@ -114,7 +114,7 @@ class UserServiceImplTest {
         userChanged.setPassword("passwordChanged");
 
         when(authentication.getName()).thenReturn("Aritz");
-        when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
+        when(userRepository.findByUsernameIgnoreCase("Aritz")).thenReturn(userToBeChange);
         try (MockedStatic<BCrypt> utilities = Mockito.mockStatic(BCrypt.class)) {
             utilities.when(() -> BCrypt.checkpw("password", userToBeChange.getPassword())).thenReturn(true);
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
@@ -136,7 +136,7 @@ class UserServiceImplTest {
         userChanged.setPassword("passwordChanged");
 
         when(authentication.getName()).thenReturn("Aritz");
-        when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
+        when(userRepository.findByUsernameIgnoreCase("Aritz")).thenReturn(userToBeChange);
         try (MockedStatic<BCrypt> utilities = Mockito.mockStatic(BCrypt.class)) {
             utilities.when(() -> BCrypt.checkpw("password", userToBeChange.getPassword())).thenReturn(false);
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
@@ -155,7 +155,7 @@ class UserServiceImplTest {
         userChanged.setName("AritzCambiado");
         userChanged.setFirstSurname("domaikaCambiado");
         when(authentication.getName()).thenReturn("Aritz");
-        when(userRepository.findByUsername("Aritz")).thenReturn(userToBeChange);
+        when(userRepository.findByUsernameIgnoreCase("Aritz")).thenReturn(userToBeChange);
         when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
         assertEquals(userChanged, userServiceImpl.editUser(userInformationEditForm, userToBeChange));
     }
@@ -193,7 +193,7 @@ class UserServiceImplTest {
         when(userRepository.findPaymentMethodByUserId(1L)).thenReturn(enabledPaymentMethods);
 
         when(authentication.getName()).thenReturn("Aritz");
-        when(userRepository.findByUsername("Aritz")).thenReturn(user);
+        when(userRepository.findByUsernameIgnoreCase("Aritz")).thenReturn(user);
         assertEquals(enabledPaymentMethods, userServiceImpl.getUserPaymentMethods(user));
     }
 

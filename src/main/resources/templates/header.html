@@ -120,10 +120,12 @@
                 </form>
             </div>
             <div class="header-computer-lang" id="header-computer-lang">
-                <th:block th:each="lang : ${languages}">
+                <div class="lang-wrap">
+                  <th:block th:each="lang : ${languages}">
                     <a th:href="'?lang=' + ${lang.code}" class="lang locales" th:text=#{${lang.i18n}}></a>
-                </th:block>
-            </div>
+                  </th:block>
+                </div>
+              </div>
         </div>
         <div class="header-mobile">
             <div>
