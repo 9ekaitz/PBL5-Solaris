@@ -156,9 +156,6 @@ class AppControllerTest {
   @Test
   void registerFormNullUser() throws Exception {
 
-    User u = createUser();
-
-
     mvc.perform(post("https://localhost/register")
     .param("username", "")
     .param("password", "123456789aA@")
