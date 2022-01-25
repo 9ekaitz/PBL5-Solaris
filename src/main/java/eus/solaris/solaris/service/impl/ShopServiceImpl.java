@@ -73,7 +73,7 @@ public class ShopServiceImpl implements ShopService {
 
     private CartProduct findInCart(List<CartProduct> products, Long productId) {
         for (CartProduct cp : products) {
-            if (cp.getProduct().getId() == productId) {
+            if (cp.getProduct().getId().equals(productId)) {
                 return cp;
             }
         }

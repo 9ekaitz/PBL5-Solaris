@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import eus.solaris.solaris.domain.Brand;
 import eus.solaris.solaris.domain.Color;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.Size;
+import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.repository.ProductRepository;
 import eus.solaris.solaris.repository.filters.BrandRepository;
 import eus.solaris.solaris.repository.filters.ColorRepository;
@@ -27,8 +28,7 @@ import eus.solaris.solaris.repository.filters.SizeRepository;
 import eus.solaris.solaris.service.impl.ProductServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-@TestPropertySource(properties = { "solaris.pagination.products.pagesize=20" })
-class ProductServiceImplTest {
+public class ProductServiceImplTest {
 
     @InjectMocks
     private ProductServiceImpl productServiceImpl;
@@ -71,14 +71,16 @@ class ProductServiceImplTest {
         assertEquals(products, productServiceImpl.findAll());
     }
 
-    // @Test
-    // void getPagesFromProductListTest(){
-    //     List<Product> products = Stream
-    //         .of(new Product(1L, 200D, null, null, null, 1),
-    //             new Product(2L, 200D, null, null, null, 1)).collect(Collectors.toList());
+    @Test
+    void getPagesFromProductListTest(){
+        ReflectionTestUtils.setField(productServiceImpl, "pagesize", 20);
 
-    //     assertEquals(products, productServiceImpl.getPagesFromProductList(products));
-    // }
+        List<Product> products = Stream
+            .of(new Product(1L, 200D, null, null, null, 1),
+                new Product(2L, 200D, null, null, null, 1)).collect(Collectors.toList());
+
+        assertEquals(products, productServiceImpl.getPagesFromProductList(products).getPageList());
+    }
 
     @Test
     void getBrandsTest(){
@@ -114,6 +116,29 @@ class ProductServiceImplTest {
         when(materialRepository.findAll()).thenReturn(materials);
 
         assertEquals(materials, productServiceImpl.getMaterials());
+    }
+
+    @Test
+    void getFilteredProductsTest(){
+        ReflectionTestUtils.setField(productServiceImpl, "pagesize", 20);
+
+        ProductFilterForm productFilterForm = new ProductFilterForm();
+        List<Long> ids = Stream.of(1L).collect(Collectors.toList());
+        productFilterForm.setBrandsIds(ids);
+        productFilterForm.setColorsIds(ids);
+        productFilterForm.setMaterialsIds(ids);
+        productFilterForm.setSizesIds(ids);
+
+        assertEquals(null, productServiceImpl.getFilteredProducts(productFilterForm, 1));
+    }
+
+    @Test
+    void getFilteredProductsTest2(){
+        ReflectionTestUtils.setField(productServiceImpl, "pagesize", 20);
+
+        ProductFilterForm productFilterForm = new ProductFilterForm();
+
+        assertEquals(null, productServiceImpl.getFilteredProducts(productFilterForm, 1));
     }
     
 }
