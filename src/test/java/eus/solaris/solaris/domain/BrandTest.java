@@ -98,11 +98,11 @@ class BrandTest {
     Brand brand0 = new Brand();
     brand0.setName("");
     Brand brand1 = new Brand();
-    assertFalse(brand1.equals((Object) brand0));
+    assertNotEquals(brand1, brand0);
 
     brand1.setName("");
     boolean boolean0 = brand1.equals(brand0);
-    assertTrue(brand1.equals((Object) brand0));
+    assertEquals(brand1, brand0);
     assertTrue(boolean0);
   }
 
@@ -136,7 +136,7 @@ class BrandTest {
     Long long0 = ((-2422L));
     brand1.setId(long0);
     boolean boolean0 = brand0.equals(brand1);
-    assertFalse(brand1.equals((Object) brand0));
+    assertNotEquals(brand1,brand0);
     assertFalse(boolean0);
   }
 
@@ -150,7 +150,7 @@ class BrandTest {
 
     brand1.setId(long0);
     boolean boolean0 = brand1.equals(brand0);
-    assertFalse(brand1.equals((Object) brand0));
+    assertNotEquals(brand1, brand0);
     assertFalse(boolean0);
   }
 
@@ -175,8 +175,10 @@ class BrandTest {
   @Timeout(4)
   void test16() throws Throwable {
     Brand brand0 = new Brand();
+    int h1 = brand0.hashCode();
     brand0.setName("");
     brand0.hashCode();
+    assertNotEquals(brand0.hashCode(), h1);
   }
 
   @Test
@@ -184,6 +186,7 @@ class BrandTest {
   void test17() throws Throwable {
     Brand brand0 = new Brand();
     brand0.hashCode();
+    assertNotNull(brand0.hashCode());
   }
 
   @Test
@@ -191,8 +194,9 @@ class BrandTest {
   void test18() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = ((-1L));
+    int h1 = brand0.hashCode();
     brand0.setId(long0);
-    brand0.hashCode();
+    assertNotEquals(brand0.hashCode(), h1);
   }
 
   @Test
@@ -210,11 +214,11 @@ class BrandTest {
     Long long0 = (0L);
     brand0.setId(long0);
     Brand brand1 = new Brand();
-    assertFalse(brand1.equals((Object) brand0));
+    assertNotEquals(brand1, brand0);
 
     brand1.setId(long0);
     boolean boolean0 = brand1.equals(brand0);
-    assertTrue(brand1.equals((Object) brand0));
+    assertEquals(brand1, brand0);
     assertTrue(boolean0);
   }
 }
