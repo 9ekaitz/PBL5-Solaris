@@ -11,12 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.support.PagedListHolder;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import eus.solaris.solaris.domain.Brand;
@@ -30,7 +25,6 @@ import eus.solaris.solaris.repository.filters.BrandRepository;
 import eus.solaris.solaris.repository.filters.ColorRepository;
 import eus.solaris.solaris.repository.filters.MaterialRepository;
 import eus.solaris.solaris.repository.filters.SizeRepository;
-import eus.solaris.solaris.repository.specifications.ProductSpecifications;
 import eus.solaris.solaris.service.impl.ProductServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
