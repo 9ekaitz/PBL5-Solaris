@@ -1,9 +1,12 @@
 footer {
   background-color: #4D4D4D;
+}
+footer .footer-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 1rem 1.5rem 1rem;
+  padding: 1.5rem 2rem;
+  gap: 1rem;
 }
 footer .footer-icons {
   display: flex;
@@ -22,12 +25,16 @@ footer .copyright {
   font-size: 0.75rem;
 }
 @media (min-width: 768px) {
-  footer {
-    padding: 1.5rem 10rem 1.5rem 10rem;
-    width: calc(100% - 20rem);
+  footer .footer-wrap {
+    padding: 2rem;
+    max-width: 1300px;
+    margin: auto;
   }
   footer .footer-icons {
     gap: 1rem;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
   }
   footer .copyright {
     font-size: 1rem;
