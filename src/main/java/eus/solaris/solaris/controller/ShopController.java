@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,29 +26,38 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.Brand;
 import eus.solaris.solaris.domain.CartProduct;
 import eus.solaris.solaris.domain.Color;
 import eus.solaris.solaris.domain.Country;
+import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Order;
 import eus.solaris.solaris.domain.OrderProduct;
+import eus.solaris.solaris.domain.OrderProductKey;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.domain.Size;
 import eus.solaris.solaris.domain.SolarPanel;
+import eus.solaris.solaris.domain.Task;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.CheckoutForm;
 import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.service.AddressService;
 import eus.solaris.solaris.service.CountryService;
+import eus.solaris.solaris.service.InstallationService;
+import eus.solaris.solaris.service.OrderProductService;
+import eus.solaris.solaris.service.OrderService;
 import eus.solaris.solaris.service.PaymentMethodService;
 import eus.solaris.solaris.service.ProductService;
 import eus.solaris.solaris.service.ProvinceService;
+import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.SolarPanelService;
+import eus.solaris.solaris.service.TaskService;
 import eus.solaris.solaris.service.UserService;
 
 @Controller
@@ -60,11 +70,26 @@ public class ShopController {
 	private static final List<String> ADDRESS_FIELDS = Stream
 			.of("street", "countryId", "city", "postcode", "provinceId", "number").collect(Collectors.toList());
 
+	private static final String TECHNICIAN_ROLE = "ROLE_TECHNICIAN";
+
+	private static final String PROVINCE_ATTRIBUTE = "provinces";
+	private static final String COUNTRY_ATTRIBUTE = "countries";
+	private static final String REDIRECT_CHECKOUT = "redirect:/shop/checkout";
+	private static final String REDIRECT_SHOP = "redirect:/shop";
+
+	private static final Double INSTALLATION_PRICE = 200.0;
+
 	@Autowired
 	UserService userService;
 
 	@Autowired
 	ProductService productService;
+
+	@Autowired
+	OrderService orderService;
+
+	@Autowired
+	OrderProductService orderProductService;
 
 	@Autowired
 	AddressService addressService;
@@ -80,6 +105,15 @@ public class ShopController {
 
 	@Autowired
 	SolarPanelService solarPanelService;
+
+	@Autowired
+	RoleService roleService;
+
+	@Autowired
+	TaskService taskService;
+
+	@Autowired
+	InstallationService installationService;
 
 	@GetMapping({ "", "/{page}" })
 	public String shopIndex(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model,
@@ -102,19 +136,23 @@ public class ShopController {
 		List<CartProduct> cart;
 		Double subtotal;
 		if (user == null) {
-			return "redirect:/shop";
+			return REDIRECT_SHOP;
 		}
-
+		CheckoutForm form = new CheckoutForm();
 		cart = user.getShoppingCart();
 		subtotal = cart.stream().mapToDouble(x -> x.getQuantity() * x.getProduct().getPrice()).sum();
 		model.addAttribute("cart", cart);
 		model.addAttribute("subtotal", subtotal);
+		model.addAttribute("installationPrice", INSTALLATION_PRICE);
+		model.addAttribute("form", form);
+		addAddressAttributes(model, user);
 		return "page/shop-checkout";
 	}
 
 	@PreAuthorize("hasAuthority('AUTH_LOGGED_READ')")
 	@PostMapping("/checkout")
-	public String confirmOrder(@Validated @ModelAttribute CheckoutForm form, BindingResult result, Model model) {
+	public String confirmOrder(@Validated @ModelAttribute CheckoutForm form, BindingResult result, Model model,
+			RedirectAttributes rAttributes) {
 		User user = (User) model.getAttribute("user");
 		Order order = new Order();
 		Address address;
@@ -125,17 +163,18 @@ public class ShopController {
 		if (result.hasErrors()) {
 			errors = filterErrors(form, result.getAllErrors());
 			if (errors.size() > 0) {
-				model.addAttribute("errors", errors	);
-				return "page/shop-checkout";
+				rAttributes.addFlashAttribute("errors", errors);
+				return REDIRECT_CHECKOUT;
 			}
 		}
 
+		order.setOwner(user);
 		if (form.getAddressId() != null) {
 			order.setAddress(addressService.findById(form.getAddressId()));
 		} else {
 			address = createAddress(form);
 			address.setUser(user);
-			addressService.save(address);
+			order.setAddress(addressService.save(address));
 		}
 
 		if (form.getPaymentMethodId() != null) {
@@ -143,9 +182,9 @@ public class ShopController {
 		} else {
 			paymentMethod = createPaymentMethod(form);
 			paymentMethod.setUser(user);
-			paymentMethodService.save(paymentMethod);
+			order.setPaymentMethod(paymentMethodService.save(paymentMethod));
 		}
-
+		order = orderService.save(order);
 		purchaseProducts(form.getProducts(), order, user);
 
 		return "page/index";
@@ -192,8 +231,7 @@ public class ShopController {
 		p.setExpirationMonth(form.getExpirationMonth());
 		p.setExpirationYear(form.getExpirationYear());
 		p.setSecurityCode(form.getSecurityCode());
-		p.setDefaultMethod(form.isSavePaymentMethod());
-		p.setDefaultMethod(form.isSavePaymentMethod());
+		p.setEnabled(form.isSavePaymentMethod());
 
 		return p;
 	}
@@ -201,26 +239,82 @@ public class ShopController {
 	private void purchaseProducts(Map<Long, Integer> productMap, Order order, User user) {
 		Product product;
 		Set<OrderProduct> productLst = new HashSet<>();
-		OrderProduct orderProduct;
-		SolarPanel solarPanel;
-
+	
 		for (Long id : productMap.keySet()) {
 			product = productService.findById(id);
-			orderProduct = new OrderProduct();
-			orderProduct.setProduct(product);
-			orderProduct.setOrder(order);
-			orderProduct.setAmount(productMap.get(id));
-			orderProduct.setPrice(product.getPrice());
+			productLst.add(orderProductService.save(createOrderProduct(product,  order, productMap.get(id))));
 
-			productLst.add(orderProduct);
-
-			solarPanel = new SolarPanel();
-			solarPanel.setModel(product.getModel());
-			solarPanel.setUser(user);
-			solarPanel.setTimestamp(Instant.now());
-
-			user.getSolarPanels().add(solarPanel);
+			for (int i = 0; i < productMap.get(id); i++) {
+				createSolarPanel(product, order, user);
+			}
 		}
+		createInstallation(order);
+		order.setProducts(productLst);
+		order.setInstallationCost(INSTALLATION_PRICE);
+		orderService.save(order);
+	}
+
+	private OrderProduct createOrderProduct(Product product, Order order, Integer amount) {
+		OrderProduct orderProduct = new OrderProduct();
+		OrderProductKey orderProductKey;
+		
+		orderProductKey = new OrderProductKey();
+		orderProductKey.setOrderId(order.getId());
+		orderProductKey.setProductId(product.getId());
+		orderProduct.setId(orderProductKey);
+		orderProduct.setProduct(product);
+		orderProduct.setOrder(order);
+		orderProduct.setAmount(amount);
+		orderProduct.setPrice(product.getPrice());
+
+		return orderProduct;
+	}
+
+	private void createSolarPanel(Product product, Order order, User user) {
+		SolarPanel solarPanel = new SolarPanel();
+		solarPanel.setModel(product.getModel());
+		solarPanel.setUser(user);
+		solarPanel.setTimestamp(Instant.now());
+		solarPanel.setProvince(order.getAddress().getProvince());
+		solarPanelService.save(solarPanel);
+		user.getSolarPanels().add(solarPanel);
+	}
+
+	private void createInstallation(Order order) {
+		Installation installation = new Installation();
+		List<User> installers = roleService.findByName(TECHNICIAN_ROLE).getUsers();
+		Random r = new Random(System.currentTimeMillis());
+		int mod = installers.size();
+		User installer;
+		if (mod == 0)
+			installer = null;
+		else
+			installer = installers.get(r.nextInt() % mod);
+
+		installation.setOrder(order);
+		installation.setName("Install panel in " + order.getAddress().getCity() + ", " + order.getAddress().getStreet());
+		installation
+				.setDescription("Install panel in " + order.getAddress().getCity() + ", " + order.getAddress().getStreet());
+		installation.setInstaller(installer);
+		installation = installationService.save(installation);
+		installation.setTasks(createTasks(installation));
+
+		order.setInstallation(installationService.save(installation));
+	}
+
+	private List<Task> createTasks(Installation installation) {
+		Task t1 = new Task();
+		Task t2 = new Task();
+		Task t3 = new Task();
+
+		t1.setDescription("Install the wires for the panels");
+		t1.setInstallation(installation);
+		t2.setDescription("Install the panels");
+		t2.setInstallation(installation);
+		t3.setDescription("Connect the panels to the power grid");
+		t3.setInstallation(installation);
+
+		return Stream.of(taskService.save(t1), taskService.save(t2), taskService.save(t3)).collect(Collectors.toList());
 	}
 
 	private List<ObjectError> filterErrors(CheckoutForm form, List<ObjectError> errors) {
@@ -241,5 +335,14 @@ public class ShopController {
 			}
 		}
 		return filteredErrors;
+	}
+
+	private void addAddressAttributes(Model model, User user) {
+		model.addAttribute(PROVINCE_ATTRIBUTE, provinceService.findAll());
+		model.addAttribute(COUNTRY_ATTRIBUTE, countryService.findAll());
+		model.addAttribute("addresses",
+				user.getAddresses().stream().filter(Address::isEnabled).collect(Collectors.toList()));
+		model.addAttribute("paymentMethods",
+				user.getPaymentMethods().stream().filter(PaymentMethod::isEnabled).collect(Collectors.toList()));
 	}
 }

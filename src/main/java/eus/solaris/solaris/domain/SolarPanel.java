@@ -40,7 +40,7 @@ public class SolarPanel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provincia_id", nullable = false)
-    private Provincia provincia;
+    private Province province;
 
     @Version
     private Integer version;

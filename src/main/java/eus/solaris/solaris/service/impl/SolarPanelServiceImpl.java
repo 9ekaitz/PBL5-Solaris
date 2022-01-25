@@ -22,4 +22,9 @@ public class SolarPanelServiceImpl implements SolarPanelService {
         return solarPanelRepository.findByUser(user);
     }
 
+    @Override
+    public SolarPanel save(SolarPanel solarPanel) {
+        return solarPanelRepository.save(solarPanel);
+    }
+
 }

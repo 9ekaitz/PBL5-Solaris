@@ -7,10 +7,10 @@
   display: flex;
   justify-content: space-around;
   margin: 2rem 3rem;
-  min-height: 90%;
+  // min-height: 90%;
 
   @media screen and (min-width: $large-screen) {
-    min-height: 85%;
+    // min-height: 85%;
     flex-direction: column;
     gap: 2rem;
   }
@@ -50,6 +50,7 @@
 
     @media screen and (min-width: $large-screen) {
       width: auto;
+      flex-basis: 25%;
     }
 
     &.current {
@@ -74,7 +75,7 @@
       margin-block: 1rem;
       text-decoration: none;
       color: $main-color;
-      font-size: 0.7rem;
+      font-size: 0.9rem;
       &:hover {
         cursor: pointer;
       }
@@ -83,7 +84,7 @@
     .change-prompt {
       text-decoration: none;
       color: $main-color;
-      font-size: 0.7rem;
+      font-size: 0.9rem;
     }
 
     .summary {

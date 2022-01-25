@@ -19,6 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,8 +51,12 @@ public class Order {
   private PaymentMethod paymentMethod;
 
   @Temporal(value=TemporalType.TIMESTAMP)
+  @CreationTimestamp
   @Column
   private Date creationTime;
+
+  @Column
+  private Double installationCost;
 
   @Version
   private Integer version;

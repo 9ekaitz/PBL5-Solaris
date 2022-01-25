@@ -14,7 +14,7 @@ public class CheckoutForm {
 
   private Long paymentMethodId;
 
-  @NotEmpty(message = "{page.profile.field.cardNumber.notEmpty}")
+  @NotEmpty(message = "{page.profile.field.number.notEmpty}")
   @Size(min = 16, max = 16, message = "{page.profile.field.cardNumber.size}")
   private String cardNumber;
 

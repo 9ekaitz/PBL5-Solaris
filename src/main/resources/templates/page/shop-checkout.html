@@ -31,7 +31,9 @@
       </div>
       <hr class="helper-hr" />
       <ul class="error">
-        <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
+        <li th:each="error : ${errors}" th:text="${error.defaultMessage}">
+          Error
+        </li>
       </ul>
       <form class="checkout-main" method="post" th:action="@{/shop/checkout}">
         <div class="section-background current">
@@ -43,16 +45,15 @@
           </div>
           <div
             class="address-toggle form"
-            th:if="${#lists.size(user.addresses) > 0}"
+            th:if="${#lists.size(addresses) > 0}"
           >
             <div class="field">
               <label th:text="#{page.shop.checkout.select_address}"></label>
               <div>
                 <select name="addressId" id="addressId" class="select">
-                  <th:block th:each="address : ${user.addresses}">
+                  <th:block th:each="address : ${addresses}">
                     <option
                       class="address-option"
-                      th:if="${address.enabled}"
                       th:value="${address.id}"
                       th:title="${address.street}+', '+${address.city}+', '+ #{${address.province.i18n}}+', '+ #{${address.country.i18n}}"
                       th:text="${#strings.substring(address.street,0,12)}+'... '+${address.city}+', '+#{${address.country.i18n}}"
@@ -70,7 +71,7 @@
             </div>
           </div>
           <div
-            th:class="'address-toggle form '+${(#lists.size(user.addresses) > 0 ? 'hide' : '')}"
+            th:class="'address-toggle form '+${(#lists.size(addresses) > 0 ? 'hide' : '')}"
           >
             <div class="field">
               <label for="street" th:value="#{page.profile.address.edit.street}"
@@ -177,16 +178,16 @@
               </div>
             </div>
             <label class="save-prompt"
-              ><input type="checkbox" /><span
+              ><input type="checkbox" name="saveAddress" />
+              <span
                 class="checkbox-text"
-                name="saveAddress"
                 th:text="#{page.shop.checkout.save_address}"
               ></span
             ></label>
             <a
               id="back-to-address"
-              th:class="'address-toggle '+${(#lists.size(user.addresses) > 0 ? 'hide' : '')}"
-              th:if="${(#lists.size(user.addresses))}"
+              th:class="'address-toggle '+${(#lists.size(addresses) > 0 ? 'hide' : '')}"
+              th:if="${(#lists.size(addresses))}"
               th:text="#{page.shop.chekcout.back_to_selector}"
             ></a>
           </div>
@@ -205,18 +206,21 @@
           </div>
           <div
             class="payment-toggle form"
-            th:if="${#lists.size(user.paymentMethods) > 0}"
+            th:if="${#lists.size(paymentMethods) > 0}"
           >
             <div class="field">
               <label
                 th:text="#{page.shop.checkout.select_payment_method}"
               ></label>
               <div>
-                <select name="paymentMethodId" id="paymentMethodId" class="select">
-                  <th:block th:each="paymentMethod : ${user.paymentMethods}">
+                <select
+                  name="paymentMethodId"
+                  id="paymentMethodId"
+                  class="select"
+                >
+                  <th:block th:each="paymentMethod : ${paymentMethods}">
                     <option
                       class="payment-option"
-                      th:if="${paymentMethod.enabled}"
                       th:value="${paymentMethod.id}"
                       th:title="'**** **** **** ' + ${#strings.substring(paymentMethod.cardNumber,12,16)}"
                       th:text="'**** **** **** ' + ${#strings.substring(paymentMethod.cardNumber,12,16)}"
@@ -229,12 +233,12 @@
                     th:value="null"
                     th:text="#{page.shop.checkout.custom_payment_method}"
                   ></option>
-                </select> 
+                </select>
               </div>
             </div>
           </div>
           <div
-            th:class="'payment-toggle form '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}"
+            th:class="'payment-toggle form '+${(#lists.size(paymentMethods) > 0 ? 'hide' : '')}"
           >
             <div class="field">
               <label
@@ -330,16 +334,15 @@
               </div>
             </div>
             <label class="save-prompt"
-              ><input type="checkbox" /><span
+              ><input type="checkbox" name="savePaymentMethod"/><span
                 class="checkbox-text"
-                name="savePaymentMethod"
                 th:text="#{page.shop.checkout.save_payment_method}"
               ></span
             ></label>
             <a
               id="back-to-payment"
-              th:class="'payment-toggle '+${(#lists.size(user.paymentMethods) > 0 ? 'hide' : '')}"
-              th:if="${(#lists.size(user.paymentMethods))}"
+              th:class="'payment-toggle '+${(#lists.size(paymentMethods) > 0 ? 'hide' : '')}"
+              th:if="${(#lists.size(paymentMethods))}"
               th:text="#{page.shop.chekcout.back_to_selector}"
             ></a>
           </div>
@@ -388,7 +391,11 @@
                     <td
                       th:text="${#numbers.formatDecimal(productTotal,1,2,'COMMA')}+'€'"
                     ></td>
-                    <input type="hidden" th:name="products[__${cartProduct.product.id}__]" th:value="${cartProduct.quantity}" />
+                    <input
+                      type="hidden"
+                      th:name="products[__${cartProduct.product.id}__]"
+                      th:value="${cartProduct.quantity}"
+                    />
                   </tr>
                 </tbody>
               </table>
@@ -398,11 +405,14 @@
                   th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
                 ></span>
               </div>
-              <div id="summary-shipping" class="details"></div>
+              <div id="summary-shipping" class="details"><p class="title" th:text="#{page.shop.checkout.installCost}"></p>
+                <span
+                  th:text="${#numbers.formatDecimal(installationPrice,1,2,'COMMA')}+'€'"
+                ></span></div>
               <div id="summary-total" class="details">
                 <p class="title" th:text="#{page.shop.checkout.total}"></p>
                 <span
-                  th:text="${#numbers.formatDecimal(subtotal,1,2,'COMMA')}+'€'"
+                  th:text="${#numbers.formatDecimal(subtotal + installationPrice,1,2,'COMMA')}+'€'"
                 ></span>
               </div>
             </div>

@@ -6,11 +6,9 @@
   display: flex;
   justify-content: space-around;
   margin: 2rem 3rem;
-  min-height: 90%;
 }
 @media screen and (min-width: 768px) {
   .checkout-main {
-    min-height: 85%;
     flex-direction: column;
     gap: 2rem;
   }
@@ -53,6 +51,7 @@
 @media screen and (min-width: 768px) {
   .checkout-main .section-background {
     width: auto;
+    flex-basis: 25%;
   }
 }
 .checkout-main .section-background.current {
@@ -76,7 +75,7 @@
   margin-block: 1rem;
   text-decoration: none;
   color: #f9aa31;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
 }
 .checkout-main .section-background #back-to-address:hover,
 .checkout-main .section-background #back-to-payment:hover {
@@ -85,7 +84,7 @@
 .checkout-main .section-background .change-prompt {
   text-decoration: none;
   color: #f9aa31;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
 }
 .checkout-main .section-background .summary {
   width: 100%;

@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -39,7 +40,7 @@ public class Role {
     private Boolean enabled;
     
     @OneToMany(mappedBy = "role")
-    private Set<User> users;
+    private List<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude

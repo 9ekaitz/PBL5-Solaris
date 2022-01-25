@@ -8,4 +8,5 @@ import eus.solaris.solaris.domain.User;
 
 public interface SolarPanelService extends Serializable {
     public List<SolarPanel> findByUser(User user);
+    public SolarPanel save(SolarPanel solarPanel);
 }

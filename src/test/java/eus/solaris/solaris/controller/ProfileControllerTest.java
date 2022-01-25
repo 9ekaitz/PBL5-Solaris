@@ -31,6 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import eus.solaris.solaris.config.SpringWebAuxTestConfig;
 import eus.solaris.solaris.domain.Address;
+import eus.solaris.solaris.domain.Comunidad;
 import eus.solaris.solaris.domain.Country;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Privilege;
@@ -410,7 +411,7 @@ class ProfileControllerTest {
     }
 
     private Province createProvince(Long provinceId) {
-        return new Province(provinceId, "ALAVA", "alava", 1);
+        return new Province(provinceId, "ALAVA", "alava", "Vitoria", new Comunidad(), 1);
     }
 
     private Country createCountry(Long countryId) {
