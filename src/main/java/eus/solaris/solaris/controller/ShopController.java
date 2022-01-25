@@ -1,6 +1,5 @@
 package eus.solaris.solaris.controller;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -38,7 +37,6 @@ import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Order;
 import eus.solaris.solaris.domain.OrderProduct;
-import eus.solaris.solaris.domain.OrderProductKey;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.Province;
@@ -250,7 +248,7 @@ public class ShopController {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The cart product doesn't exist");
 			
 			product = p.getProduct();
-			productLst.add(orderProductService.save(createOrderProduct(product, order, p.getQuantity())));
+			productLst.add(orderProductService.create(order, product, p.getQuantity()));
 			cartProductService.delete(p);
 			user.getShoppingCart().remove(p);
 
@@ -264,30 +262,9 @@ public class ShopController {
 		orderService.save(order);
 	}
 
-	private OrderProduct createOrderProduct(Product product, Order order, Integer amount) {
-		OrderProduct orderProduct = new OrderProduct();
-		OrderProductKey orderProductKey;
-
-		orderProductKey = new OrderProductKey();
-		orderProductKey.setOrderId(order.getId());
-		orderProductKey.setProductId(product.getId());
-		orderProduct.setId(orderProductKey);
-		orderProduct.setProduct(product);
-		orderProduct.setOrder(order);
-		orderProduct.setAmount(amount);
-		orderProduct.setPrice(product.getPrice());
-
-		return orderProduct;
-	}
-
 	private void createSolarPanel(Product product, Order order, User user) {
-		SolarPanel solarPanel = new SolarPanel();
-		solarPanel.setModel(product.getModel());
-		solarPanel.setUser(user);
-		solarPanel.setTimestamp(Instant.now());
-		solarPanel.setProvince(order.getAddress().getProvince());
-		solarPanelService.save(solarPanel);
-		user.getSolarPanels().add(solarPanel);
+		SolarPanel p = solarPanelService.create(product.getModel(), user, order.getAddress().getProvince());
+		user.getSolarPanels().add(p);
 	}
 
 	private void createInstallation(Order order) {
