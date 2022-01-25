@@ -38,15 +38,15 @@ import eus.solaris.solaris.service.UserService;
 @RequestMapping("/dashboard")
 public class AdminController {
 
-    final static String pageTitle = "page_title";
-    final static String actualPage = "actualPage";
-    final static String totalPages = "totalPages";
-    final static String productsModel = "products";
+    final static String PAGE_TITLE = "page_title";
+    final static String ACTUAL_PAGE = "actualPage";
+    final static String TOTAL_PAGES = "totalPages";
+    final static String PRODUCTS_MODEL = "products";
 
-    final static String productsTitle = "PRODUCTS";
+    final static String PRODUCTS_TITLE = "PRODUCTS";
 
-    final static String redirectManageUsers = "redirect:/dashboard/manage-users";
-    final static String returnManageUsers = "page/admin-dashboard/manage-products";
+    final static String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
+    final static String RETURN_MANAGE_USERS = "page/admin-dashboard/manage-products";
 
     @Autowired
     UserService userService;
@@ -63,12 +63,12 @@ public class AdminController {
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping("/manage-users")
     public String manageUser(Authentication authentication, Model model) {
-        model.addAttribute(pageTitle, "USERS");
+        model.addAttribute(PAGE_TITLE, "USERS");
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
-        model.addAttribute(actualPage, 0);
+        model.addAttribute(ACTUAL_PAGE, 0);
         model.addAttribute("users", pagedListHolder.getPageList());
-        model.addAttribute(totalPages, pagedListHolder.getPageCount());
+        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
         return "page/admin-dashboard/manage-users";
     }
 
@@ -78,9 +78,9 @@ public class AdminController {
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
         pagedListHolder.setPage(--page);
-        model.addAttribute(actualPage, page);
+        model.addAttribute(ACTUAL_PAGE, page);
         model.addAttribute("users", pagedListHolder.getPageList());
-        model.addAttribute(totalPages, pagedListHolder.getPageCount());
+        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
         return "page/admin-dashboard/manage-users";
     }
 
@@ -97,7 +97,7 @@ public class AdminController {
     @PostMapping(value = "/update-user/{id}")
     public String updateUser(@PathVariable(value = "id") Long id, @ModelAttribute UserProfileUpdateForm upuf, BindingResult result, Model model) {
         userService.update(id, upuf);
-        return redirectManageUsers;
+        return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
@@ -109,7 +109,7 @@ public class AdminController {
             model.addAttribute("error", "Las contraseñas no coinciden");
             return "redirect:/dashboard/edit-user/" + id.toString();
         }
-        return redirectManageUsers;
+        return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
@@ -117,7 +117,7 @@ public class AdminController {
     public String deleteUser(@PathVariable(value = "id") Long id, Model model) {
         User user = userService.findById(id);
         userService.disable(user);
-        return redirectManageUsers;
+        return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
@@ -136,47 +136,47 @@ public class AdminController {
             model.addAttribute("error", "Las contraseñas no coinciden");
             return "/dashboard/create-user";
         }
-        return redirectManageUsers;
+        return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products")
     public String showManageProductsPage(Model model) {
-        model.addAttribute(pageTitle, productsTitle);
+        model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         setFilters(model);
         List<Product> products = productService.findAll();
         PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
-        model.addAttribute(actualPage, 0);
-        model.addAttribute(productsModel, pagedListHolder.getPageList());
-        model.addAttribute(totalPages, pagedListHolder.getPageCount());
-        return returnManageUsers;
+        model.addAttribute(ACTUAL_PAGE, 0);
+        model.addAttribute(PRODUCTS_MODEL, pagedListHolder.getPageList());
+        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
+        return RETURN_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products/{page}")
     public String showManageProductsPage(Model model, @PathVariable int page) {
-        model.addAttribute(pageTitle, productsTitle);
+        model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         List<Product> products = productService.findAll();
         setFilters(model);
         PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
         pagedListHolder.setPage(--page);
-        model.addAttribute(actualPage, page);
-        model.addAttribute(totalPages, pagedListHolder.getPageCount());
-        model.addAttribute(totalPages, pagedListHolder.getPageCount());
-        return returnManageUsers;
+        model.addAttribute(ACTUAL_PAGE, page);
+        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
+        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
+        return RETURN_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/manage-products/filter")
     public String filterProducts(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model) {
-        model.addAttribute(pageTitle, productsTitle);
+        model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         Set<Product> products = productService.getFilteredProducts(pff);
         setFilters(model);
         PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(List.copyOf(products));
-        model.addAttribute(actualPage, 0);
-        model.addAttribute(productsModel, pagedListHolder.getPageList());
-        model.addAttribute(totalPages, pagedListHolder.getPageCount());
-        return returnManageUsers;
+        model.addAttribute(ACTUAL_PAGE, 0);
+        model.addAttribute(PRODUCTS_MODEL, pagedListHolder.getPageList());
+        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
+        return RETURN_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
