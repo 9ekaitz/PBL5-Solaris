@@ -54,7 +54,7 @@ class OrderProductTest {
         Product product0 = new Product();
         orderProduct0.product = product0;
         Product product1 = orderProduct0.getProduct();
-        assertEquals("Product(id=null, descriptions=null, imagePath=null, version=null)", product1.toString());
+        assertEquals("Product(id=null, descriptions=null, imagePath=null, version=null, price=null, material=null, brand=null, color=null, size=null, model=null)", product1.toString());
     }
 
     @Test
