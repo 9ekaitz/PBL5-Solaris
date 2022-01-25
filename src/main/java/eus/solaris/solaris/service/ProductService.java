@@ -13,7 +13,7 @@ import eus.solaris.solaris.domain.Size;
 import eus.solaris.solaris.form.ProductFilterForm;
 
 public interface ProductService {
-    public void save(Product product);
+    public Product save(Product product);
     public Product findById(Long id);
     public List<Product> findAll();
     public PagedListHolder<Product> getPagesFromProductList(List<Product> products);
