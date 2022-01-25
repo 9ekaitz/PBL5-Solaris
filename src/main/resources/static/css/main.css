@@ -368,7 +368,8 @@ input .select, select .select {
   padding: 0.2em;
   height: 1.5em;
 }
-input input, select input {
+
+input {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid #000;
@@ -376,11 +377,12 @@ input input, select input {
   padding: 0.2em;
   height: 1.5em;
 }
-input input:focus, input input:hover, select input:focus, select input:hover {
+input:focus, input:hover {
   outline: 1px solid #f9aa31;
   border-color: #f9aa31;
 }
-input input[type=checkbox], select input[type=checkbox] {
+
+input[type=checkbox] {
   width: 1em;
   height: 1em;
   -webkit-appearance: none;
@@ -391,7 +393,7 @@ input input[type=checkbox], select input[type=checkbox] {
   transition: box-shadow 0.2s;
   cursor: pointer;
 }
-input input[type=checkbox]::before, select input[type=checkbox]::before {
+input[type=checkbox]::before {
   content: "";
   width: 1em;
   height: 1em;
@@ -401,21 +403,21 @@ input input[type=checkbox]::before, select input[type=checkbox]::before {
   transform: scale(0);
   transition: transform 0.5s;
 }
-input input[type=checkbox]:checked, select input[type=checkbox]:checked {
+input[type=checkbox]:checked {
   border-color: #f9aa31;
   box-shadow: inset 0 0 0 2em #f9aa31;
 }
-input input[type=checkbox]:checked::before, select input[type=checkbox]:checked::before {
+input[type=checkbox]:checked::before {
   transform: scale(0.7);
 }
-input input[type=checkbox].btn-big, select input[type=checkbox].btn-big {
+input[type=checkbox].btn-big {
   width: 18rem;
   height: 4rem;
   border-radius: 0.3rem;
 }
-input input[type=submit],
-input .btn, select input[type=submit],
-select .btn {
+
+input[type=submit],
+.btn {
   font-size: 1em;
   font-weight: bold;
   border: none;
@@ -428,88 +430,88 @@ select .btn {
   background-color: #f9aa31;
   padding-inline: 1em;
 }
-input input[type=submit]:hover,
-input .btn:hover, select input[type=submit]:hover,
-select .btn:hover {
+input[type=submit]:hover,
+.btn:hover {
   cursor: pointer;
   background-color: #f09407;
 }
-input input[type=submit].btn-big,
-input .btn.btn-big, select input[type=submit].btn-big,
-select .btn.btn-big {
+input[type=submit].btn-big,
+.btn.btn-big {
   width: 18rem;
   height: 4rem;
   border-radius: 0.3rem;
 }
-input input[type=submit].delete-account,
-input .btn.delete-account, select input[type=submit].delete-account,
-select .btn.delete-account {
+input[type=submit].delete-account,
+.btn.delete-account {
   background-color: #DA3633;
   color: #FFF;
 }
-input input[type=submit].delete-account:hover, input input[type=submit].delete-account:focus,
-input .btn.delete-account:hover,
-input .btn.delete-account:focus, select input[type=submit].delete-account:hover, select input[type=submit].delete-account:focus,
-select .btn.delete-account:hover,
-select .btn.delete-account:focus {
+input[type=submit].delete-account:hover, input[type=submit].delete-account:focus,
+.btn.delete-account:hover,
+.btn.delete-account:focus {
   background-color: #b92421;
 }
+
 @media screen and (min-width: 768px) {
-  input input[type=submit],
-input .btn, select input[type=submit],
-select .btn {
+  input[type=submit],
+.btn {
     padding-inline: 2em;
   }
 }
-input .section, select .section {
+.section {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
 }
-input .section.section-rounded, select .section.section-rounded {
+.section.section-rounded {
   border-radius: 0.2rem;
 }
-input .helper, select .helper {
+
+.helper {
   display: none;
 }
-input .helper-hr, select .helper-hr {
+
+.helper-hr {
   border: none;
   display: none;
 }
-input .alert, select .alert {
+
+.alert {
   width: 100%;
   border: 1px solid #C7C7C7;
   text-align: center;
   padding-block: 1rem;
   margin-bottom: 0.5rem;
 }
-input .alert.alert-danger, select .alert.alert-danger {
+.alert.alert-danger {
   background-color: #b92421;
   color: #FFF;
 }
-input .alert.alert-success, select .alert.alert-success {
+.alert.alert-success {
   background-color: #5CB85C;
   color: #FFF;
 }
+
 @media (min-width: 768px) {
-  input .helper, select .helper {
+  .helper {
     display: block;
     margin: 0;
     padding: 0.5rem 0 0.5rem 10rem;
     font-size: 1rem;
   }
-  input .helper .a, select .helper .a {
+  .helper .a {
     margin: 0;
   }
-  input .helper .a .helper-page, select .helper .a .helper-page {
+  .helper .a .helper-page {
     text-decoration: none;
   }
-  input .helper .a .helper-page.selected, select .helper .a .helper-page.selected {
+  .helper .a .helper-page.selected {
     font-weight: bold;
     color: #f9aa31;
   }
-  input .helper-hr, select .helper-hr {
+
+  .helper-hr {
     display: block;
     margin: 0;
     padding: 0;
@@ -518,16 +520,18 @@ input .alert.alert-success, select .alert.alert-success {
   }
 }
 @media screen and (min-width: 480px) {
-  input .section, select .section {
+  .section {
     border: 1px solid #C7C7C7;
   }
 }
-input .error, select .error {
+.error {
   color: #DA3633;
 }
-input ul.error *, select ul.error * {
+
+ul.error * {
   color: inherit;
 }
-input svg, select svg {
+
+svg {
   display: block;
 }/*# sourceMappingURL=main.css.map */
