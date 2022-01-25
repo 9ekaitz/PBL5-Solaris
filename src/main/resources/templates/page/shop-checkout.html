@@ -365,12 +365,12 @@
               <h1 class="title" th:text="#{page.shop.checkout.your_order}"></h1>
             </div>
             <div class="summary">
-              <table class="summary-table">
+              <table class="summary-table" th:aria-describedby="#{table.desc.summary}">
                 <thead class="legend">
                   <tr>
-                    <th th:text="#{page.shop.checkout.product}"></th>
-                    <th th:text="#{page.shop.checkout.number}"></th>
-                    <th th:text="#{page.shop.checkout.total}"></th>
+                    <th scope="col" th:text="#{page.shop.checkout.product}"></th>
+                    <th scope="col" th:text="#{page.shop.checkout.number}"></th>
+                    <th scope="col" th:text="#{page.shop.checkout.total}"></th>
                   </tr>
                 </thead>
                 <tbody>

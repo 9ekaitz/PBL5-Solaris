@@ -106,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
         if (pff.getSizesIds() != null)
             specifications.add(ProductSpecifications.findBySizeIds(pff.getSizesIds()));
 
-        if (specifications.size() > 0) {
+        if (!specifications.isEmpty()) {
 
             Specification<Product> query = Specification.where(null);
             for (Specification<Product> spec : specifications)

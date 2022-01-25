@@ -162,7 +162,7 @@ public class ShopController {
 
 		if (result.hasErrors()) {
 			errors = filterErrors(form, result.getAllErrors());
-			if (errors.size() > 0) {
+			if (!errors.isEmpty()) {
 				rAttributes.addFlashAttribute("errors", errors);
 				return REDIRECT_CHECKOUT;
 			}
@@ -239,10 +239,10 @@ public class ShopController {
 	private void purchaseProducts(Map<Long, Integer> productMap, Order order, User user) {
 		Product product;
 		Set<OrderProduct> productLst = new HashSet<>();
-	
+
 		for (Long id : productMap.keySet()) {
 			product = productService.findById(id);
-			productLst.add(orderProductService.save(createOrderProduct(product,  order, productMap.get(id))));
+			productLst.add(orderProductService.save(createOrderProduct(product, order, productMap.get(id))));
 
 			for (int i = 0; i < productMap.get(id); i++) {
 				createSolarPanel(product, order, user);
@@ -257,7 +257,7 @@ public class ShopController {
 	private OrderProduct createOrderProduct(Product product, Order order, Integer amount) {
 		OrderProduct orderProduct = new OrderProduct();
 		OrderProductKey orderProductKey;
-		
+
 		orderProductKey = new OrderProductKey();
 		orderProductKey.setOrderId(order.getId());
 		orderProductKey.setProductId(product.getId());
@@ -322,17 +322,13 @@ public class ShopController {
 		ListIterator<ObjectError> iterator = filteredErrors.listIterator();
 		while (iterator.hasNext()) {
 			FieldError fError = (FieldError) iterator.next();
-			if (form.getAddressId() != null) {
-				if (ADDRESS_FIELDS.contains(fError.getField())) {
-					iterator.remove();
-					continue;
-				}
+			if (form.getAddressId() != null && ADDRESS_FIELDS.contains(fError.getField())) {
+				iterator.remove();
+				continue;
+			}
 
-			}
-			if (form.getPaymentMethodId() != null) {
-				if (PAYMENT_FIELDS.contains(fError.getField()))
-					iterator.remove();
-			}
+			if (form.getPaymentMethodId() != null && PAYMENT_FIELDS.contains(fError.getField()))
+				iterator.remove();
 		}
 		return filteredErrors;
 	}
