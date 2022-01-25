@@ -495,7 +495,6 @@ input[type=submit].delete-account:hover, input[type=submit].delete-account:focus
 @media (min-width: 768px) {
   .helper {
     display: block;
-    margin: 0;
     font-size: 1rem;
     max-width: 1300px;
     margin: 0.5rem auto;
