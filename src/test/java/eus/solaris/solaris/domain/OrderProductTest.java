@@ -365,7 +365,7 @@ class OrderProductTest {
         OrderProduct orderProduct1 = new OrderProduct();
         boolean boolean0 = orderProduct1.equals(orderProduct0);
         assertEquals(
-            "OrderProduct(id=null, order=null, product=Product(id=null, price=null, material=null, brand=null, color=null, size=null, model=null, descriptions=null), amount=null, price=null, version=null)",
+            "OrderProduct(id=null, order=null, product=Product(id=null, price=null, model=null, descriptions=null), amount=null, price=null, version=null)",
                 orderProduct0.toString());
         assertFalse(boolean0);
     }
