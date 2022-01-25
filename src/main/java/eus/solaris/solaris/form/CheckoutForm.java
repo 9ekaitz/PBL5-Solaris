@@ -1,6 +1,6 @@
 package eus.solaris.solaris.form;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -51,5 +51,5 @@ public class CheckoutForm {
 
   private boolean saveAddress;
 
-  Map<Long, Integer> products;
+  List<Long> products;
 }

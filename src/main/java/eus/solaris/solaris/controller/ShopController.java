@@ -1,11 +1,9 @@
 package eus.solaris.solaris.controller;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,6 +11,7 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import eus.solaris.solaris.domain.Address;
@@ -37,7 +37,6 @@ import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Order;
 import eus.solaris.solaris.domain.OrderProduct;
-import eus.solaris.solaris.domain.OrderProductKey;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.Province;
@@ -48,6 +47,7 @@ import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.CheckoutForm;
 import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.service.AddressService;
+import eus.solaris.solaris.service.CartProductService;
 import eus.solaris.solaris.service.CountryService;
 import eus.solaris.solaris.service.InstallationService;
 import eus.solaris.solaris.service.OrderProductService;
@@ -115,6 +115,9 @@ public class ShopController {
 	@Autowired
 	InstallationService installationService;
 
+	@Autowired
+	CartProductService cartProductService;
+
 	@GetMapping({ "", "/{page}" })
 	public String shopIndex(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model,
 			Authentication authentication, @PathVariable(required = false) Integer page) {
@@ -158,7 +161,6 @@ public class ShopController {
 		Order order = new Order();
 		Address address;
 		PaymentMethod paymentMethod;
-
 		List<ObjectError> errors;
 
 		if (result.hasErrors()) {
@@ -237,15 +239,21 @@ public class ShopController {
 		return p;
 	}
 
-	private void purchaseProducts(Map<Long, Integer> productMap, Order order, User user) {
+	private void purchaseProducts(List<Long> products, Order order, User user) {
 		Product product;
 		Set<OrderProduct> productLst = new HashSet<>();
+		CartProduct p;
 
-		for (Long id : productMap.keySet()) {
-			product = productService.findById(id);
-			productLst.add(orderProductService.save(createOrderProduct(product, order, productMap.get(id))));
+		for (Long id : products) {
+			if ((p = cartProductService.findById(id)) == null)
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The cart product doesn't exist");
+			
+			product = p.getProduct();
+			productLst.add(orderProductService.create(order, product, p.getQuantity()));
+			cartProductService.delete(p);
+			user.getShoppingCart().remove(p);
 
-			for (int i = 0; i < productMap.get(id); i++) {
+			for (int i = 0; i < p.getQuantity(); i++) {
 				createSolarPanel(product, order, user);
 			}
 		}
@@ -255,30 +263,9 @@ public class ShopController {
 		orderService.save(order);
 	}
 
-	private OrderProduct createOrderProduct(Product product, Order order, Integer amount) {
-		OrderProduct orderProduct = new OrderProduct();
-		OrderProductKey orderProductKey;
-
-		orderProductKey = new OrderProductKey();
-		orderProductKey.setOrderId(order.getId());
-		orderProductKey.setProductId(product.getId());
-		orderProduct.setId(orderProductKey);
-		orderProduct.setProduct(product);
-		orderProduct.setOrder(order);
-		orderProduct.setAmount(amount);
-		orderProduct.setPrice(product.getPrice());
-
-		return orderProduct;
-	}
-
 	private void createSolarPanel(Product product, Order order, User user) {
-		SolarPanel solarPanel = new SolarPanel();
-		solarPanel.setModel(product.getModel());
-		solarPanel.setUser(user);
-		solarPanel.setTimestamp(Instant.now());
-		solarPanel.setProvince(order.getAddress().getProvince());
-		solarPanelService.save(solarPanel);
-		user.getSolarPanels().add(solarPanel);
+		SolarPanel p = solarPanelService.create(product.getModel(), user, order.getAddress().getProvince());
+		user.getSolarPanels().add(p);
 	}
 
 	private void createInstallation(Order order) {

@@ -8,5 +8,4 @@ import eus.solaris.solaris.domain.CartProduct;
 @Repository
 public interface CartProductRepository extends JpaRepository<CartProduct, Long> {
 
-    
 }

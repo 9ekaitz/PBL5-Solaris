@@ -391,11 +391,7 @@
                     <td
                       th:text="${#numbers.formatDecimal(productTotal,1,2,'COMMA')}+'€'"
                     ></td>
-                    <input
-                      type="hidden"
-                      th:name="products[__${cartProduct.product.id}__]"
-                      th:value="${cartProduct.quantity}"
-                    />
+                    <input type="hidden" th:name="products[__${iterator.index}__]" th:value="${cartProduct.id}" />
                   </tr>
                 </tbody>
               </table>
