@@ -13,7 +13,7 @@ import eus.solaris.solaris.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public User findByUsername(String username);
+    public User findByUsernameIgnoreCase(String username);
     
     @Query("SELECT a FROM Address a WHERE a.user.id = ?1 AND a.enabled = true")
     public List<Address> findAddressByUserId(Long id);
