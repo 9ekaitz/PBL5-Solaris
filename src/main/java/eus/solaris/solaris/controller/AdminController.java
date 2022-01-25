@@ -78,7 +78,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping("/manage-users/{page}")
-    public String manageUserPageHandler(Authentication authentication, @PathVariable(value = "page") Integer page, Model model) {
+    public String manageUserPageHandler(Authentication authentication, @PathVariable(value = "page") int page, Model model) {
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
         pagedListHolder.setPage(--page);
@@ -158,14 +158,14 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products/{page}")
-    public String showManageProductsPage(Model model, @PathVariable(value = "page") Integer page) {
+    public String showManageProductsPage(Model model, @PathVariable(value = "page") int page) {
         model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         List<Product> products = productService.findAll();
         setFilters(model);
         PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
         pagedListHolder.setPage(--page);
         model.addAttribute(ACTUAL_PAGE, page);
-        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
+        model.addAttribute(PRODUCTS_MODEL, pagedListHolder.getPageList());
         model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
         return RETURN_MANAGE_USERS;
     }
