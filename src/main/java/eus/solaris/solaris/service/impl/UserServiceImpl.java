@@ -114,10 +114,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserPassword(Long id, String password) {
-        User user = this.findById(id);
-        user.setPassword(passwordEncoder.encode(password));
-        this.save(user);
+    public Boolean updateUserPassword(Long id, String password) {
+        try {
+            User user = this.findById(id);
+            user.setPassword(passwordEncoder.encode(password));
+            this.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

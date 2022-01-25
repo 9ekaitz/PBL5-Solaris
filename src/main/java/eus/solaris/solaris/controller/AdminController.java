@@ -56,6 +56,9 @@ public class AdminController {
     private static final String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
     private static final String RETURN_MANAGE_USERS = "page/admin-dashboard/manage-products";
     private static final String CREATE_USER = "page/admin-dashboard/create-user";
+    private static final String EDIT_USER = "page/admin-dashboard/edit-user";
+    private static final String RETURN_EDIT_PRODUCT = "page/admin-dashboard/edit-product";
+    private static final String CREATE_PRODUCT = "page/admin-dashboard/create-product";
 
     @Autowired
     UserService userService;
@@ -104,21 +107,36 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/update-user/{id}")
-    public String updateUser(@PathVariable(value = "id") Long id, @ModelAttribute UserProfileUpdateForm upuf, RedirectAttributes redirectAttributes, BindingResult result, Model model) {
-        Boolean resultSQL = userService.update(id, upuf);
-        addFlashAttribute(resultSQL, redirectAttributes, "alert.userupdate.success", "alert.userupdate.error");
-        return REDIRECT_MANAGE_USERS;
+    public String updateUser(@Validated @ModelAttribute UserProfileUpdateForm upuf, BindingResult result, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes, Model model) {
+        if (result.hasErrors()) {
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute("errorsUserData", errors);
+            User user = userService.findById(id);
+            model.addAttribute("userToEdit", user);
+            model.addAttribute("roles", roleService.findAll());
+            return EDIT_USER;
+        } else {
+            Boolean resultSQL = userService.update(id, upuf);
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.userupdate.success", "alert.userupdate.error");
+            return REDIRECT_MANAGE_USERS;
+        }
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/update-user-password/{id}")
-    public String updateUserPassword(@PathVariable(value = "id") Long id, @ModelAttribute PasswordUpdateForm puf, RedirectAttributes redirectAttributes, BindingResult result, Model model) {
-        boolean resultSQL = puf.getNewPassword().equals(puf.getVerifyNewPasword());
-        if (resultSQL) {
-            userService.updateUserPassword(id, puf.getNewPassword());
+    public String updateUserPassword(@Validated @ModelAttribute PasswordUpdateForm puf, BindingResult result, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes, Model model) {
+        if (result.hasErrors()) {
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute("errorsPassword", errors);
+            User user = userService.findById(id);
+            model.addAttribute("userToEdit", user);
+            model.addAttribute("roles", roleService.findAll());
+            return EDIT_USER;
+        } else {
+            Boolean resultSQL = userService.updateUserPassword(id, puf.getNewPassword());
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
+            return REDIRECT_MANAGE_USERS;
         }
-        addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
-        return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
@@ -144,7 +162,6 @@ public class AdminController {
         if (result.hasErrors()) {
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute(ERROR_FORM, errors);
-
             model.addAttribute("form", upcf);
             model.addAttribute("roles", roleService.findAll());
             return CREATE_USER;
@@ -208,24 +225,41 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/edit-product/{id}")
-    public String editProduct(@PathVariable(value = "id") Long id, @ModelAttribute ProductCreateForm pcf, Model model, RedirectAttributes redirectAttributes) {
+    public String editProduct(@Validated @ModelAttribute ProductCreateForm pcf, BindingResult result, @PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Product product = productService.findById(id);
         Locale locale = LocaleContextHolder.getLocale();
-        Boolean resultSQL = productService.update(product, pcf, locale);
-        addFlashAttribute(resultSQL, redirectAttributes, "alert.updateproduct.success", "alert.updateproduct.error");
-        return "redirect:/dashboard/manage-products";
+        if (result.hasErrors() && product != null) {
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute(ERROR_FORM, errors);
+            model.addAttribute("productToEdit", product);
+            model.addAttribute("description", productService.getProductDescription(product, locale));
+            setProductFieldsIntoModel(model);
+            return RETURN_EDIT_PRODUCT;
+        } else {
+            Boolean resultSQL = productService.update(product, pcf, locale);
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.updateproduct.success", "alert.updateproduct.error");
+            return "redirect:/dashboard/manage-products";
+        }
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/create-product")
     public String editProduct(Model model) {
+        model.addAttribute("form", new ProductCreateForm());
         setProductFieldsIntoModel(model);
-        return "page/admin-dashboard/create-product";
+        return CREATE_PRODUCT;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/create-product")
-    public String createProduct(@ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String createProduct(@Validated @ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if(result.hasErrors()) {
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute(ERROR_FORM, errors);
+            model.addAttribute("form", pcf);
+            setProductFieldsIntoModel(model);
+            return CREATE_PRODUCT;
+        }
         Boolean resultSQL = productService.create(pcf);
         addFlashAttribute(resultSQL, redirectAttributes, "alert.createproduct.success", "alert.createproduct.error");
         return "redirect:/dashboard/manage-products";

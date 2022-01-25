@@ -13,6 +13,9 @@
                 <h1>Editar usuario</h1>
             </div>
             <form th:action="@{'/dashboard/update-user/'+${userToEdit.id}}" method="post">
+                <ul class="error">
+                    <li th:each="error : ${errorsUserData}" th:text="${error.defaultMessage}">Error</li>
+                </ul>
                 <div class="form-pair">
                     <label for="username" th:text="#{user.username} + ':'"></label>
                     <input type="text" th:placeholder="#{user.username}" name="username" th:value="${userToEdit.username}">
@@ -51,6 +54,9 @@
                 <h1 th:text="#{page.dashboard.account.changepassword}"></h1>
             </div>
             <form method="post" th:action="@{'/dashboard/update-user-password/'+${userToEdit.id}}">
+                <ul class="error">
+                    <li th:each="error : ${errorsPassword}" th:text="${error.defaultMessage}">Error</li>
+                </ul>
                 <div class="form-pair">
                     <label for="newPassword" th:text="#{page.dashboard.account.newpassword} + ':'"></label>
                     <input type="password" th:placeholder="#{page.dashboard.account.newpassword}" name="newPassword">

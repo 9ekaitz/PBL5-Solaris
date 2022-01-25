@@ -12,6 +12,9 @@
             <div class="title-flex">
                 <h1 class="title" th:text="#{page.dashboard.editproduct}">Edit product</h1>
             </div>
+            <ul class="error">
+                <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
+            </ul>
             <form th:action="@{@{'/dashboard/edit-product/'+${productToEdit.id}}}" method="post">
                 <div class="form-group-col1">
                     <div class="form-pair">
@@ -64,7 +67,7 @@
                     </div>
                     <div class="form-pair">
                         <label for="description" th:text="#{product.description} + ':'"></label>
-                        <textarea id="message" th:placeholder="#{product.description}" name="description" cols="24" rows="9" th:value="${description.description}"></textarea>
+                        <textarea id="message" th:placeholder="#{product.description}" name="description" cols="24" rows="9" th:inline="text">[[${description.description}]]</textarea>
                     </div>
                     <div class="form-pair">
                         <label for="languageId" th:text="#{product.language} + ':'"></label>

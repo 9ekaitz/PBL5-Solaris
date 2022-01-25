@@ -1,6 +1,9 @@
 package eus.solaris.solaris.form;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.Generated;
@@ -16,7 +19,8 @@ public class ProductCreateForm {
 
     private Long brandId;
 
-    @NotEmpty(message = "{alert.createproduct.price.notEmpty}")
+    @NotNull(message = "{alert.createproduct.price.notEmpty}")
+    @Min(value = 0, message = "{alert.createproduct.price.min}")
     private Double price;
 
     private Long materialId;

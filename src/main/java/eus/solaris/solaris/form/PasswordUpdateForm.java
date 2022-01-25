@@ -9,9 +9,9 @@ import lombok.Generated;
 
 @Data
 @Generated
-@ValidFieldsMatch(field = "password", fieldMatch = "verifyNewPasword", message = "page.manageusers.field.verifyPassword.fieldMatch")
+@ValidFieldsMatch(field = "newPassword", fieldMatch = "verifyNewPasword", message = "{page.manageusers.field.verifyPassword.fieldMatch}")
 public class PasswordUpdateForm {
-    @ValidPassword
+    @ValidPassword(message = "{page.manageusers.field.password.valid}")
     @NotEmpty(message = "{alert.password.notEmpty}")
     private String newPassword;
     private String verifyNewPasword;

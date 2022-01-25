@@ -360,12 +360,11 @@ body {
   fill: #000;
 }
 
-input .select, select .select {
+.select {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid #000;
   border-radius: 0.2rem;
-  padding: 0.2em;
   height: 1.5em;
 }
 

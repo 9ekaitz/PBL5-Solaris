@@ -1,5 +1,6 @@
 package eus.solaris.solaris.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -10,6 +11,10 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Brand;
@@ -118,30 +123,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<SolarPanelModel> getModels() {
         return modelRepository.findAll();
-    }
-
-    
-
-    @Override
-    public Set<Product> getFilteredProducts(ProductFilterForm pff) {
-        Set<Product> products =  new HashSet<>();
-        Set<Product> allProducts = new HashSet<>(productRepository.findAll());
-        if (Stream.of(pff.getBrandsIds()).allMatch(Objects::isNull) && //If no filter are selected
-            Stream.of(pff.getColorsIds()).allMatch(Objects::isNull) &&
-            Stream.of(pff.getMaterialsIds()).allMatch(Objects::isNull) &&
-            Stream.of(pff.getSizesIds()).allMatch(Objects::isNull)) {
-                return allProducts; // return all products
-        } else {
-            allProducts.forEach(product -> {
-                if(pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getModel().getBrand().getId()) ||
-                    pff.getColorsIds() != null && pff.getColorsIds().contains(product.getModel().getColor().getId()) ||
-                    pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getModel().getMaterial().getId()) ||
-                    pff.getSizesIds() != null && pff.getSizesIds().contains(product.getModel().getSize().getId())) {
-                    products.add(product);
-                }
-            });
-            return products;
-        }
     }
 
     @Override
