@@ -11,12 +11,14 @@ import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class OrderProduct {
   
   @EmbeddedId

@@ -12,13 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "solar_panel_model")
-@Getter @Setter
+@Data
 @Generated
 public class SolarPanelModel implements Serializable {
 
@@ -56,5 +57,7 @@ public class SolarPanelModel implements Serializable {
     private Color color;
 
     @Version
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Integer version;
 }
