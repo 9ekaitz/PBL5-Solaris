@@ -8,11 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
-import lombok.Getter;
-import lombok.Setter;
+import groovy.transform.Generated;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Generated
 public class CartProduct {
     
     @Id
