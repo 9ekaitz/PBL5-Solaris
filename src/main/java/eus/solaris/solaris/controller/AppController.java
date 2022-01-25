@@ -97,13 +97,6 @@ public class AppController {
 		return "page/login";
 	}
 
-	// TODO: Handle 404 error on springboot web
-	@GetMapping("/err")
-	public String errorHandler(Model model) {
-		return "errors/404";
-	}
-
-
 	private boolean checkLogedIn() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
