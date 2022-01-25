@@ -104,14 +104,6 @@
     #main-panel {
       position: relative;
 
-      .canvas-div {
-        height: 80%;
-
-        canvas {
-          height: 100%;
-        }
-      }
-
       .button-row {
         justify-content: space-between;
         flex-direction: row;
@@ -136,6 +128,10 @@
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         height: 35rem;
+
+        canvas {
+          height: 100%;
+        }
       }
     }
     #small-panel {

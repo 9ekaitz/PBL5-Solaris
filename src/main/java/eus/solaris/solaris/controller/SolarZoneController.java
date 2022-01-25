@@ -14,22 +14,25 @@ import eus.solaris.solaris.service.SolarPanelService;
 @RequestMapping("/solarzone")
 public class SolarZoneController {
 
+    private static final String PANEL = "panels";
+    private static final String ERROR = "error";
+
     @Autowired
     private SolarPanelService solarPanelService;
 
     public Boolean checkUserHasPanels(User user) {
-        return solarPanelService.findByUser(user).size() > 0;
+        return solarPanelService.findByUser(user).isEmpty();
     }
 
     @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
     @GetMapping
     public String solarZoneHome(Model model) {
         User user = (User) model.getAttribute("user");
-        if (checkUserHasPanels(user)) {
-            model.addAttribute("panels", solarPanelService.findByUser(user));
+        if (checkUserHasPanels(user).booleanValue()) {
+            model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_home";
         } else {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -37,11 +40,11 @@ public class SolarZoneController {
     @GetMapping("/panel")
     public String solarZonePanel(Model model) {
         User user = (User) model.getAttribute("user");
-        if (checkUserHasPanels(user)) {
-            model.addAttribute("panels", solarPanelService.findByUser(user));
+        if (checkUserHasPanels(user).booleanValue()) {
+            model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_panel";
         } else {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -49,11 +52,11 @@ public class SolarZoneController {
     @GetMapping("/economic")
     public String solarZoneEcon(Model model) {
         User user = (User) model.getAttribute("user");
-        if (checkUserHasPanels(user)) {
-            model.addAttribute("panels", solarPanelService.findByUser(user));
+        if (checkUserHasPanels(user).booleanValue()) {
+            model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_econ";
         } else {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -61,11 +64,11 @@ public class SolarZoneController {
     @GetMapping("/eco")
     public String solarZoneEco(Model model) {
         User user = (User) model.getAttribute("user");
-        if (checkUserHasPanels(user)) {
-            model.addAttribute("panels", solarPanelService.findByUser(user));
+        if (checkUserHasPanels(user).booleanValue()) {
+            model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_eco";
         } else {
-            return "error";
+            return ERROR;
         }
     }
 

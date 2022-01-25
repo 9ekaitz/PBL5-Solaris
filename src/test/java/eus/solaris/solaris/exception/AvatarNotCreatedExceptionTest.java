@@ -10,13 +10,13 @@ class AvatarNotCreatedExceptionTest {
     @Test
     void testExceptionEmptyConstructor() {
         AvatarNotCreatedException exception = new AvatarNotCreatedException();
-        assertEquals(exception.getMessage(), null);
+        assertEquals(null, exception.getMessage());
     }
 
     @Test
     void testExceptionConstructor() {
         AvatarNotCreatedException exception = new AvatarNotCreatedException("test");
-        assertEquals(exception.getMessage(), "Could not create avatr picture for user test");
+        assertEquals("Could not create avatr picture for user test", exception.getMessage());
     }
 
     @Test

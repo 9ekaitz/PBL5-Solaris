@@ -24,7 +24,7 @@ let historicalChart;
 let groupMode = "DAY";
 
 const createRTDataGraph = (data) => {
-  chartData = {
+  const chartData = {
     type: "line",
     data: data,
     options: {
@@ -42,7 +42,7 @@ const createRTDataGraph = (data) => {
 
 const createHistoricalDataGraph = (data) => {
   console.log(data);
-  chartData = {
+  const chartData = {
     type: "bar",
     data: data,
     options: {
@@ -80,8 +80,7 @@ const getHistoricalData = async (startDate, endDate) => {
       Credentials: "same-origin",
     },
   });
-  const data = await response.json();
-  return data;
+  return await response.json();
 };
 
 const getRealTimeData = async () => {
@@ -95,8 +94,7 @@ const getRealTimeData = async () => {
       Credentials: "same-origin",
     },
   });
-  const data = await response.json();
-  return data;
+  return await response.json();
 };
 
 const reloadRealTimeData = async () => {
@@ -137,7 +135,7 @@ const getStartEnd = () => {
 };
 
 const reloadHistoricalData = async () => {
-  [startDate, endDate] = getStartEnd();
+  const [startDate, endDate] = getStartEnd();
   const startDateString = startDate.toISOString().split("T")[0];
   const endDateString = endDate.toISOString().split("T")[0];
   panelCover.classList.add("show");
@@ -170,8 +168,8 @@ const changeGroupMode = (mode, button) => {
     monthInput.classList.remove("show");
     yearInput.classList.add("show");
   }
-  groupButtons.forEach((button) => {
-    button.classList.remove("button-selected");
+  groupButtons.forEach((bt) => {
+    bt.classList.remove("button-selected");
   });
   button.classList.add("button-selected");
 };
@@ -188,8 +186,7 @@ const getGeneralData = async () => {
       Credentials: "same-origin",
     },
   });
-  const data = await response.json();
-  return data;
+  return await response.json();
 };
 
 const getReadableValue = (value) => {
@@ -204,12 +201,13 @@ const getReadableValue = (value) => {
     }
   } else {
     const val = ((valFloat - valFloat * IMPUESTO_SOLAR) * 1000).toFixed(2) + CONVERSION.replace("TO_", " ");
+    return val;
   }
 };
 
 const setGeneralData = async () => {
   const data = await getGeneralData();
-  const { voltageList, energyThisMonth, energyLast30Days, energyAllTime } = data;
+  const { energyThisMonth, energyLast30Days, energyAllTime } = data;
   document.getElementById("energy-this-month").textContent = getReadableValue(energyThisMonth);
   document.getElementById("energy-last-30-days").textContent = getReadableValue(energyLast30Days);
   document.getElementById("energy-all-time").textContent = getReadableValue(energyAllTime);

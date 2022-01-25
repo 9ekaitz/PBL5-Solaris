@@ -75,7 +75,6 @@ public class FormatterJSON {
 
     private JSONObject getData(Map<Instant, Double> data) {
         JSONObject innerData = new JSONObject();
-        System.out.println(kind);
         if (kind == Kind.LINE) {
             innerData.put("labels", new JSONArray(getLabelsHour(data)));
         } else {

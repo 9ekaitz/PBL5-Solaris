@@ -80,7 +80,7 @@ public class MultiPanelREST {
         if (dto.getConversionType() == null) {
             fj.setLabel("kWH");
         } else {
-            fj.setLabel((dto.getConversionType().toString() == "NONE") ? "kWh"
+            fj.setLabel((dto.getConversionType().equals(ConversionType.NONE)) ? "kWh"
                     : dto.getConversionType().toString().replace("TO_", ""));
         }
         return fj.getJSON().toString();
@@ -100,7 +100,7 @@ public class MultiPanelREST {
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), dto.getConversionType());
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.BAR);
-        fj.setLabel((dto.getConversionType().toString() == "NONE") ? "kWh"
+        fj.setLabel((dto.getConversionType().equals(ConversionType.NONE)) ? "kWh"
                 : dto.getConversionType().toString().replace("TO_", ""));
         return fj.getJSON().toString();
     }
@@ -217,7 +217,6 @@ public class MultiPanelREST {
         }
 
         if (!user.getId().equals(userId)) {
-            System.out.println("User id: " + userId + " is not the same as logged in user id: " + user.getId());
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return false;
         }

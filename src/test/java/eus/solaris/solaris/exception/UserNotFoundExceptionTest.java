@@ -10,13 +10,13 @@ class UserNotFoundExceptionTest {
     @Test
     void testExceptionEmptyConstructor() {
         UserNotFoundException exception = new UserNotFoundException();
-        assertEquals(exception.getMessage(), null);
+        assertEquals(null, exception.getMessage());
     }
 
     @Test
     void testExceptionConstructor() {
         UserNotFoundException exception = new UserNotFoundException("test");
-        assertEquals(exception.getMessage(), "Could not find user with username test");
+        assertEquals("Could not find user with username test", exception.getMessage());
     }
 
     @Test

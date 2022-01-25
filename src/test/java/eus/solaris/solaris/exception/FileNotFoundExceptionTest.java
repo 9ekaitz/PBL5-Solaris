@@ -10,13 +10,13 @@ class FileNotFoundExceptionTest {
     @Test
     void testExceptionEmptyConstructor() {
         FileNotFoundException exception = new FileNotFoundException();
-        assertEquals(exception.getMessage(), null);
+        assertEquals(null, exception.getMessage());
     }
 
     @Test
     void testExceptionConstructor() {
         FileNotFoundException exception = new FileNotFoundException("test");
-        assertEquals(exception.getMessage(), "Could not find file test");
+        assertEquals("Could not find file test", exception.getMessage());
     }
 
     @Test

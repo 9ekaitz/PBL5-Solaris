@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,18 +27,20 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class Role {
+public class Role implements Serializable {
+
+    private static final long serialVersionUID = -7639358217885801198L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
-    
+
     @OneToMany(mappedBy = "role")
     private Set<User> users;
 
@@ -45,7 +48,7 @@ public class Role {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Privilege> privileges;
-    
+
     @Version
     @EqualsAndHashCode.Exclude
     private Integer version;
