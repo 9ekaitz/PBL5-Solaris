@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,7 +27,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class Product {
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = 7066115489007029093L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
