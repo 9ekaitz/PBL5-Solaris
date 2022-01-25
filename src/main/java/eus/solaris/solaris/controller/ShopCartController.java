@@ -110,7 +110,7 @@ public class ShopCartController {
 
         Locale locale = LocaleContextHolder.getLocale();
         ProductDescription pd = cartProduct.getProduct().getDescriptions().stream().filter(p -> p.getLanguage().getCode().equals(locale.getLanguage())).findFirst().orElse(null);
-        dto.setName(pd.getName());
+        if(pd != null) dto.setName(pd.getName());
         
         return dto;
     }
