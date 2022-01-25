@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,13 +40,19 @@ import eus.solaris.solaris.domain.CartProduct;
 import eus.solaris.solaris.domain.Color;
 import eus.solaris.solaris.domain.Comunidad;
 import eus.solaris.solaris.domain.Country;
+import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.Material;
+import eus.solaris.solaris.domain.Order;
+import eus.solaris.solaris.domain.OrderProduct;
+import eus.solaris.solaris.domain.OrderProductKey;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Privilege;
 import eus.solaris.solaris.domain.Product;
 import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.domain.Role;
 import eus.solaris.solaris.domain.Size;
+import eus.solaris.solaris.domain.SolarPanel;
+import eus.solaris.solaris.domain.SolarPanelModel;
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.security.CustomUserDetails;
@@ -286,7 +293,7 @@ class ShopControllerTest {
 
   @Test
   @WithUserDetails("testyUser")
-  void confirmOrderFormWithAddressFilledManually() throws Exception {
+  void confirmOrderFormWithProductMissing() throws Exception {
 
     PaymentMethod p = createPaymentMethod();
 
@@ -313,6 +320,64 @@ class ShopControllerTest {
         .param("products[0]", "1")
         .with(csrf()))
         .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  @WithUserDetails("testyUser")
+  void confirmOrderFormWithAddressFilledManually() throws Exception {
+
+    Role role = new Role();
+    role.setName("ROLE_TECHNICIAN");
+    role.setUsers(Stream.of(new User()).collect(Collectors.toList()));
+
+    PaymentMethod p = createPaymentMethod();
+
+    Country country = createCountry();
+    Province province = createProvince();
+    Address testAddress = createAddress();
+    Address empty = createAddress();
+    empty.setId(null);
+
+    Product product = new Product();
+    product.setId(1L);
+    CartProduct cartProduct = createCartProduct(product);
+
+    user.setShoppingCart(Stream.of(cartProduct).collect(Collectors.toList()));
+    
+    Order order = new Order();
+    order.setId(1L);
+    order.setAddress(testAddress);
+    order.setPaymentMethod(p);
+    order.setOwner(user);
+
+    OrderProduct orderProduct = creatOrderProduct(order, product, 1);
+    
+    SolarPanel solarPanel = createSolarPanel();
+
+
+    when(paymentMethodService.findById(p.getId())).thenReturn(p);
+    when(countryService.findById(country.getId())).thenReturn(country);
+    when(provinceService.findById(province.getId())).thenReturn(province);
+    when(addressService.save(empty)).thenReturn(testAddress);
+    when(orderService.save(any())).thenReturn(order);
+    when(cartProductService.findById(1L)).thenReturn(cartProduct);
+    when(orderProductService.create(order, product, cartProduct.getQuantity())).thenReturn(orderProduct);
+    when(solarPanelService.create(null, user, province)).thenReturn(solarPanel);
+    when(roleService.findByName("ROLE_TECHNICIAN")).thenReturn(role);
+    when(installationService.save(any())).thenReturn(new Installation());
+
+    mockMvc.perform(post("https://localhost/shop/checkout")
+        .param("paymentMethodId", "" + p.getId())
+        .param("street", empty.getStreet())
+        .param("countryId", "" + country.getId())
+        .param("city", empty.getCity())
+        .param("postcode", empty.getPostcode())
+        .param("provinceId", "" + province.getId())
+        .param("number", empty.getNumber())
+        .param("saveAddress", "false")
+        .param("products[0]", "1")
+        .with(csrf()))
+        .andExpect(status().isOk());
   }
 
   private PaymentMethod createPaymentMethod() {
@@ -372,6 +437,47 @@ class ShopControllerTest {
 
     return a;
   }
+
+  private CartProduct createCartProduct(Product p) {
+    CartProduct c = new CartProduct();
+
+    c.setId(1L);
+    c.setUser(user);
+    c.setProduct(p);
+    c.setQuantity(1);
+    c.setVersion(0);
+
+    return c;
+  }
+
+private OrderProduct creatOrderProduct(Order o, Product p, int i) {
+  OrderProductKey key = new OrderProductKey();
+  OrderProduct product = new OrderProduct();
+
+  key.setOrderId(o.getId());
+  key.setProductId(p.getId());
+
+  product.setId(key);
+  product.setAmount(i);
+  product.setPrice(10.0);
+  product.setVersion(0);
+  product.setProduct(p);
+
+  return product;
+}
+
+private SolarPanel createSolarPanel() {
+  SolarPanel p = new SolarPanel();
+
+  p.setId(1L);
+  p.setModel(new SolarPanelModel());
+  p.setProvince(new Province());
+  p.setTimestamp(Instant.now());
+  p.setUser(user);
+  p.setVersion(0);
+
+  return p;
+}
 
   private Privilege createUserLoggedPrivilege() {
     Privilege privilege = new Privilege();

@@ -23,7 +23,7 @@ import eus.solaris.solaris.service.impl.ShopServiceImpl;
 import eus.solaris.solaris.service.impl.UserServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class ShopServiceImplTest {
+class ShopServiceImplTest {
 
     @InjectMocks
     private ShopServiceImpl shopServiceImpl;
