@@ -4,7 +4,8 @@ main .main-content {
   padding: 1rem 0rem 1rem 0rem;
 }
 main .main-content .content-section {
-  display: block;
+  display: flex;
+  flex-direction: column;
   font-size: 1rem;
   padding: 0rem 1rem 0rem 1rem;
   margin-block: 1rem;
@@ -55,12 +56,15 @@ main .main-content .content-section .sub-section .title {
 main .main-content .content-section .sub-section .subtitle {
   font-size: 1.5rem;
 }
+main .main-content .content-section.installation .image {
+  order: 2;
+}
 @media (min-width: 768px) {
   main .main-content {
     gap: 5rem;
   }
   main .main-content .content-section {
-    display: flex;
+    flex-direction: row;
     gap: 5rem;
     padding: 2rem;
     max-width: 1300px;
@@ -87,11 +91,14 @@ main .main-content .content-section .sub-section .subtitle {
     font-weight: lighter;
     text-align: justify;
   }
+  main .main-content .content-section.installation .image {
+    order: auto;
+  }
   main .main-content .phases {
     background-color: #F1F1F1;
   }
   main .main-content .phases .content-section {
-    display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
   main .main-content .phases .text {
