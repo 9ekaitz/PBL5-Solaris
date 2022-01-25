@@ -51,5 +51,6 @@ public class CheckoutForm {
 
   private boolean saveAddress;
 
+  @NotEmpty(message = "{page.shop.checkout.field.product.notEmpty}")
   List<Long> products;
 }
