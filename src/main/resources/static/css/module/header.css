@@ -166,21 +166,26 @@ header .header-computer .header-computer-lang {
   background-color: #282828;
   display: none;
 }
-header .header-computer .header-computer-lang.show-lang {
+header .header-computer .header-computer-lang .lang-wrap {
   display: flex;
+  max-width: 1300px;
+  margin: auto;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: flex-end;
-  padding: 0.5rem 10rem 0.5rem 10rem;
+  padding: 0.5rem 2rem;
 }
-header .header-computer .header-computer-lang .lang {
+header .header-computer .header-computer-lang .lang-wrap .lang {
   color: #FFF;
   font-size: 1rem;
   text-decoration: none;
 }
-header .header-computer .header-computer-lang .lang:hover {
+header .header-computer .header-computer-lang .lang-wrap .lang:hover {
   color: #f9aa31;
   cursor: pointer;
+}
+header .header-computer .header-computer-lang.show-lang {
+  display: block;
 }
 @media (min-width: 768px) {
   header .header-computer {

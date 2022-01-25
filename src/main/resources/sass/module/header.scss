@@ -201,24 +201,29 @@ header {
         .header-computer-lang {
             background-color: $search-bg-color;
             display: none;
-
-            &.show-lang {
+            .lang-wrap {
                 display: flex;
+                max-width: 1300px;
+                margin: auto;
                 flex-wrap: wrap;
                 gap: 1rem;
                 justify-content: flex-end;
-                padding: 0.5rem 10rem 0.5rem 10rem;
+                padding: 0.5rem 2rem;
+                
+                .lang {
+                    color: $text-light-color;
+                    font-size: 1rem;
+                    text-decoration: none;
+                    
+                    &:hover {
+                        color: $main-color;
+                        cursor: pointer;
+                    }
+                }
             }
 
-            .lang {
-                color: $text-light-color;
-                font-size: 1rem;
-                text-decoration: none;
-
-                &:hover {
-                    color: $main-color;
-                    cursor: pointer;
-                }
+            &.show-lang {
+                display: block;
             }
         }
 
