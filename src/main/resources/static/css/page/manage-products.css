@@ -145,8 +145,10 @@ main {
     overflow: auto;
     height: calc(100% - 4rem);
   }
-  .products-panel .filter-panel input[type=checkbox] {
+  .products-panel .filter-panel .checkbox-group {
     display: inline-block;
+  }
+  .products-panel .filter-panel .checkbox-group input[type=checkbox] {
     margin-right: 1em;
     margin-left: 1.5em;
   }

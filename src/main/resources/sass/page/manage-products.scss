@@ -146,11 +146,14 @@ main {
             grid-column: 1;
             overflow: auto;
             height: calc(100% - 4rem);
-            input[type="checkbox"] {
-                display: inline-block; //TODO: checkbox no sale blanco por poner esto, meterlo en un div
-                margin-right: 1em;
-                margin-left: 1.5em;
+            .checkbox-group {
+                display: inline-block;
+                input[type="checkbox"] {
+                    margin-right: 1em;
+                    margin-left: 1.5em;
+                }
             }
+            
             hr {
                 border: 1px solid $main-color;
                 width:50%;

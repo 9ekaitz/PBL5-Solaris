@@ -3,8 +3,6 @@
 
 <head>
     <link rel="stylesheet" th:href="@{/css/page/manage-products.css}" />
-    <link rel="stylesheet" th:href="@{/css/page/dashboard.css}" />
-    <link rel="stylesheet" href="@{/css/main.css}">
     <title>Administrador</title>
 </head>
 
@@ -21,29 +19,29 @@
                     <hr>
                     <h2 th:text="#{page.dashboard.manage-products.brand}"></h2>
                     <th:block th:each="brand, iterator : ${brands}">
-                        <label><input type="checkbox" th:name="brandsIds[__${iterator.index}__]" th:value="${brand.id}" th:id="${'brand-' + brand.id}"><span th:text="${brand.name}"></span></label>
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="brandsIds[__${iterator.index}__]" th:value="${brand.id}" th:id="${'brand-' + brand.id}"></div><span th:text="${brand.name}"></span></label>
                     </th:block>
                     <hr>
                     <h2 th:text="#{page.dashboard.manage-products.colors}"></h2>
                     <th:block th:each="color, iterator : ${colors}">
-                        <label><input type="checkbox" th:name="colorsIds[__${iterator.index}__]" th:value="${color.id}" th:id="${'color-' + color.id}"><span th:text="${color.name}"></span></label>
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="colorsIds[__${iterator.index}__]" th:value="${color.id}" th:id="${'color-' + color.id}"></div><span th:text="${color.name}"></span></label>
                     </th:block>
                     <hr>
                     <h2 th:text="#{page.dashboard.manage-products.materials}"></h2>
                     <th:block th:each="material, iterator : ${materials}">
-                        <label><input type="checkbox" th:name="materialsIds[__${iterator.index}__]" th:value="${material.id}" th:id="${'material-' + material.id}"><span th:text="${material.name}"></span></label>
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="materialsIds[__${iterator.index}__]" th:value="${material.id}" th:id="${'material-' + material.id}"></div><span th:text="${material.name}"></span></label>
                     </th:block>
                     <hr>
                     <h2 th:text="#{page.dashboard.manage-products.sizes}"></h2>
                     <th:block th:each="size, iterator : ${sizes}">
-                        <label><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}" th:id="${'size-' + size.id}"><span th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}" th:id="${'size-' + size.id}"></div><span th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
                     </th:block>
                     <hr>
                     <h2 th:text="#{page.dashboard.manage-products.price}"></h2>
-                    <label><input type="checkbox" id="lt50"><span th:text="#{page.dashboard.manage-products.lt50}"></span></label>
-                    <label><input type="checkbox" id="gt50_lt100"><span th:text="#{page.dashboard.manage-products.gt50_lt100}"></span></label>
-                    <label><input type="checkbox" id="gt100_lt250"><span th:text="#{page.dashboard.manage-products.gt100_lt250}"></span></label>
-                    <label><input type="checkbox" id="gt250"><span th:text="#{page.dashboard.manage-products.gt250}"></span></label>
+                    <label><div class="checkbox-group"><input type="checkbox" id="lt50"></div><span th:text="#{page.dashboard.manage-products.lt50}"></span></label>
+                    <label><div class="checkbox-group"><input type="checkbox" id="gt50_lt100"></div><span th:text="#{page.dashboard.manage-products.gt50_lt100}"></span></label>
+                    <label><div class="checkbox-group"><input type="checkbox" id="gt100_lt250"></div><span th:text="#{page.dashboard.manage-products.gt100_lt250}"></span></label>
+                    <label><div class="checkbox-group"><input type="checkbox" id="gt250"></div><span th:text="#{page.dashboard.manage-products.gt250}"></span></label>
                     <hr>
                 </form>
                 <div class="products-items-panel">
