@@ -1,5 +1,7 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,11 +20,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class Color {
+public class Color implements Serializable {
+
+    private static final long serialVersionUID = 1927102860971490899L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "color")
+    @Column(name = "color", unique = true)
     private String name;
 }

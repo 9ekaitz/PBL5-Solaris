@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
+
+<head>
+    <title th:text="#{page.shop.cart.title}">Log in</title>
+    <link rel="stylesheet" th:href="@{/css/page/shop-cart.css}" href="/css/page/shop-cart.css">
+</head>
+
+<body>
+    <div layout:fragment="shop-content">
+        <div class="product-list">
+            <th:block th:each="cp : ${user.shoppingCart}">
+                <div class="product" th:object="${cp.product}">
+                    <th:block th:each="description : *{descriptions}">
+                        <th:block th:if="${description.language.code} == #{locale}">
+                            <div class="product__img">
+                                <img th:href="@{*{imagePath}}" src="/images/logo.svg" alt="Solar pane"
+                                    th:alt="${description.name}" />
+                            </div>
+                            <h3 class="product__title" th:text="${description.name}">Solar pane</h3>
+                            <p class="product__total-price" th:text="*{price}">3<span>€</span></p>
+                            <div class="product__controls">
+                                <span class="controls__remove" th:text="#{page.shop.cart.remove}">Remove from list</span>
+                                <span class="controls__substract" th:text="#{page.shop.cart.remove}">-</span>
+                                <span class="product__quantity" th:text="${cp.quantity}">4</span>
+                                <span class="controls__sum" th:text="#{page.shop.cart.remove}">+</span>
+                            </div>
+                        </th:block>
+                    </th:block>
+            </th:block>
+            <div class="product-list__empty" th:if="${#lists.isEmpty(user.shoppingCart)}">
+                <p th:text="#{page.shop.cart.empty}">Your cart is empty. <a th:text="#{page.shop.cart.back}"
+                        th:href="@{/shop}" href="/shop">Search the
+                        shop</a></p>
+            </div>
+        </div>
+        <div class="checkout">
+        </div>
+    </div>
+</body>
+
+</html>

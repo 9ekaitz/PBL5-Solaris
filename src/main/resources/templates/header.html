@@ -35,7 +35,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/profile" th:if="${user != null}">
+                    <a class="icon" href="/profile" th:href="@{/profile}" th:if="${user != null}">
                         <svg class="logo" alt="Search products" th:alt=#{img.alt.profile}
                         width="24"
                         height="24"
@@ -55,7 +55,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/login" th:if="${user == null}">
+                    <a class="icon" href="/login" th:href="@{/login}" th:if="${user == null}">
                         <svg class="logo" alt="Search products" th:alt=#{img.alt.login}
                         width="24"
                         height="24"
@@ -75,7 +75,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/info">
+                    <a class="icon" href="/info" th:href="@{/info}">
                         <svg class="logo" alt="Information" th:alt=#{img.alt.info}
                         width="24"
                         height="24"
@@ -96,7 +96,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/shopping-cart">
+                    <a class="icon" href="/shopping-cart" th:href="@{/shopping-cart}">
                         <svg class="logo" alt="Shopping cart" th:alt=#{img.alt.cart}
                             width="24"
                             height="24"

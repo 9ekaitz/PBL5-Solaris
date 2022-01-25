@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +26,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class Privilege {
+public class Privilege implements Serializable{
+
+    private static final long serialVersionUID = -9015672710263777203L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

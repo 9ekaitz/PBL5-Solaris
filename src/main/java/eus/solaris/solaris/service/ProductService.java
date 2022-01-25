@@ -2,9 +2,10 @@ package eus.solaris.solaris.service;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import org.springframework.beans.support.PagedListHolder;
+
+import org.springframework.data.domain.Page;
 
 import eus.solaris.solaris.domain.Brand;
 import eus.solaris.solaris.domain.Color;
@@ -25,10 +26,10 @@ public interface ProductService {
     public List<Color> getColors();
     public List<Size> getSizes();
     public List<Material> getMaterials();
-	public Set<Product> getFilteredProducts(ProductFilterForm pff);
 	public List<SolarPanelModel> getModels();
 	public ProductDescription getProductDescription(Product product, Locale locale);
     public Boolean create(ProductCreateForm pcf);
     public Boolean delete(Product product);
 	public Boolean update(Product product, ProductCreateForm pcf, Locale locale);
+	public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page);
 }

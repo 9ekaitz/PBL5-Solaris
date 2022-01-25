@@ -31,6 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import eus.solaris.solaris.config.SpringWebAuxTestConfig;
 import eus.solaris.solaris.domain.Address;
+import eus.solaris.solaris.domain.Comunidad;
 import eus.solaris.solaris.domain.Country;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.Privilege;
@@ -118,7 +119,7 @@ class ProfileControllerTest {
 
     private User createUser(List<Address> addresses, List<PaymentMethod> paymentMethods, Role ROLE_USER) {
         return new User(1L, "testyUser", "testy@foo", "foo123", "Testy", "Tester", "User", true, addresses,
-                paymentMethods, ROLE_USER, null, null, 1);
+                paymentMethods, ROLE_USER, null, null, null, 1);
     }
 
     @Test
@@ -328,7 +329,7 @@ class ProfileControllerTest {
                 email);
 
         User basicUserModify = new User(1L, "testyUser", "testy", "foo123", "testyUser", "testy", "tester", true, null,
-                null, null, null, null, 1);
+                null, null, null, null, null, 1);
 
         when(userServiceImpl.editUser(userInformationEditForm, basicUser)).thenReturn(basicUserModify);
 
@@ -410,7 +411,7 @@ class ProfileControllerTest {
     }
 
     private Province createProvince(Long provinceId) {
-        return new Province(provinceId, "ALAVA", "alava", 1);
+        return new Province(provinceId, "ALAVA", "alava", "Vitoria", new Comunidad(), 1);
     }
 
     private Country createCountry(Long countryId) {

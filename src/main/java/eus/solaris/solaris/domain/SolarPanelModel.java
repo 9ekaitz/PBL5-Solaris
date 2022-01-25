@@ -1,6 +1,6 @@
 package eus.solaris.solaris.domain;
 
-import java.util.Set;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -18,13 +17,18 @@ import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 @Entity
 @Table(name = "solar_panel_model")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class SolarPanelModel {
+public class SolarPanelModel implements Serializable {
+
+    private static final long serialVersionUID = 3019735005226998956L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,9 +61,8 @@ public class SolarPanelModel {
     @ManyToOne(fetch = FetchType.LAZY)
     private Color color;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
-    private Set<SolarPanel> solarPanel;
-
     @Version
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Integer version;
 }

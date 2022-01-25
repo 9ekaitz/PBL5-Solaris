@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
@@ -33,12 +32,13 @@ import eus.solaris.solaris.repository.filters.ColorRepository;
 import eus.solaris.solaris.repository.filters.MaterialRepository;
 import eus.solaris.solaris.repository.filters.ModelRepository;
 import eus.solaris.solaris.repository.filters.SizeRepository;
+import eus.solaris.solaris.repository.specifications.ProductSpecifications;
 import eus.solaris.solaris.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     @Value("${solaris.pagination.products.pagesize}")
-	private Integer pagesize;
+    private Integer pagesize;
 
     @Autowired
     private ProductRepository productRepository;
@@ -199,5 +199,32 @@ public class ProductServiceImpl implements ProductService {
             return false;
         }
     }
-}
 
+    public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page) {
+        List<Specification<Product>> specifications = new ArrayList<>();
+        Pageable pageable = PageRequest.of(page, pagesize);
+
+        if (pff.getBrandsIds() != null)
+            specifications.add(ProductSpecifications.findByBrandIds(pff.getBrandsIds()));
+
+        if (pff.getColorsIds() != null)
+            specifications.add(ProductSpecifications.findByColorIds(pff.getColorsIds()));
+
+        if (pff.getMaterialsIds() != null)
+            specifications.add(ProductSpecifications.findByMaterialIds(pff.getMaterialsIds()));
+
+        if (pff.getSizesIds() != null)
+            specifications.add(ProductSpecifications.findBySizeIds(pff.getSizesIds()));
+
+        if (!specifications.isEmpty()) {
+
+            Specification<Product> query = Specification.where(null);
+            for (Specification<Product> spec : specifications)
+                query = Specification.where(query).and(spec);
+
+            return productRepository.findAll(query, pageable);
+        }
+
+        return productRepository.findAll(pageable);
+    }
+}

@@ -23,7 +23,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
@@ -41,7 +40,7 @@ import javassist.tools.web.BadHttpRequest;
 
 @RestController
 @RequestMapping("/api/panel")
-public class SinglePanelREST implements HandlerInterceptor {
+public class SinglePanelREST {
 
     private static final Integer THREADS = 6;
 

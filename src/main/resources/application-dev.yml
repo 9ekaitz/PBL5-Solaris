@@ -1,7 +1,11 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
+<<<<<<< HEAD
     password: ENC(r3NjUAbTkDAlljGjSJiRXFO9sb40yu7LWsa/88b1Ijhj12/gI0kxjxyP7l5vuNA1RFcJMcHKSmPqN1E4zoKnDQ==)
+=======
+    password: 
+>>>>>>> origin/master
     username: postgres
     url: jdbc:postgresql://localhost:5432/solaris
     hikari:

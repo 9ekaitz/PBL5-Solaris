@@ -14,8 +14,10 @@ import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -49,6 +51,7 @@ public class Address implements Serializable{
   private String number;
 
   @ManyToOne(fetch = FetchType.EAGER)
+  @ToString.Exclude
   private User user;
 
   @Column(name = "enabled")
@@ -58,6 +61,7 @@ public class Address implements Serializable{
   private Boolean defaultAddress = false;
 
   @Version
-  @lombok.EqualsAndHashCode.Exclude
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Integer version;
 }
