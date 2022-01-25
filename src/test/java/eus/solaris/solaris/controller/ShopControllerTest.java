@@ -324,6 +324,35 @@ class ShopControllerTest {
 
   @Test
   @WithUserDetails("testyUser")
+  void confirmOrderFormWithManuallyPayment() throws Exception {
+
+    PaymentMethod p = createPaymentMethod();
+    p.setId(null);
+    PaymentMethod payment = createPaymentMethod();
+    Country country = createCountry();
+    Province province = createProvince();
+    Address address = createAddress();
+
+    when(addressService.findById(address.getId())).thenReturn(address);
+    when(countryService.findById(country.getId())).thenReturn(country);
+    when(provinceService.findById(province.getId())).thenReturn(province);
+    when(paymentMethodService.save(p)).thenReturn(payment);
+
+    mockMvc.perform(post("https://localhost/shop/checkout")
+        .param("addressId", "" + address.getId())
+        .param("cardNumber", p.getCardNumber())
+        .param("cardHolderName", p.getCardHolderName())
+        .param("securityCode", p.getSecurityCode())
+        .param("expirationYear", ""+p.getExpirationYear())
+        .param("expirationMonth", ""+p.getExpirationMonth())
+        .param("saveAddress", "false")
+        .param("products[0]", "1")
+        .with(csrf()))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  @WithUserDetails("testyUser")
   void confirmOrderFormWithAddressFilledManually() throws Exception {
 
     Role role = new Role();
