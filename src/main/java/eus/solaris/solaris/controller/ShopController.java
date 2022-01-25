@@ -135,12 +135,13 @@ public class ShopController {
 		User user = (User) model.getAttribute("user");
 		List<CartProduct> cart;
 		Double subtotal;
-		if (user == null) {
+		if (user == null || user.getShoppingCart() == null || user.getShoppingCart().isEmpty()) {
 			return REDIRECT_SHOP;
 		}
 		CheckoutForm form = new CheckoutForm();
 		cart = user.getShoppingCart();
 		subtotal = cart.stream().mapToDouble(x -> x.getQuantity() * x.getProduct().getPrice()).sum();
+
 		model.addAttribute("cart", cart);
 		model.addAttribute("subtotal", subtotal);
 		model.addAttribute("installationPrice", INSTALLATION_PRICE);
