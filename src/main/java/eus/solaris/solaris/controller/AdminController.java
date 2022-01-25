@@ -1,5 +1,6 @@
 package eus.solaris.solaris.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -13,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +44,7 @@ public class AdminController {
 
     static final String SUCCESS_ATTRIBUTE = "success";
     static final String ERROR_ATTRIBUTE = "error";
+    static final String ERROR_FORM = "errors";
 
     private static final String PAGE_TITLE = "page_title";
     private static final String ACTUAL_PAGE = "actualPage";
@@ -51,6 +55,7 @@ public class AdminController {
 
     private static final String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
     private static final String RETURN_MANAGE_USERS = "page/admin-dashboard/manage-products";
+    private static final String CREATE_USER = "page/admin-dashboard/create-user";
 
     @Autowired
     UserService userService;
@@ -129,18 +134,25 @@ public class AdminController {
     @GetMapping(value = "/create-user")
     public String showCreateUserPage(Model model) {
         model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("form", new UserProfileCreateForm());
         return "page/admin-dashboard/create-user";
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/create-user")
-    public String createUser(@ModelAttribute UserProfileCreateForm upcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-        boolean resultSQL = upcf.getPassword().equals(upcf.getRepeatPassword());
-        if (resultSQL) {
-            userService.create(upcf);
+    public String createUser(@Validated @ModelAttribute UserProfileCreateForm upcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
+            model.addAttribute(ERROR_FORM, errors);
+
+            model.addAttribute("form", upcf);
+            model.addAttribute("roles", roleService.findAll());
+            return CREATE_USER;
+        } else {
+            boolean resultSQL = userService.create(upcf);
+            addFlashAttribute(resultSQL, redirectAttributes, "alert.createuser.success", "alert.createuser.error");
+            return REDIRECT_MANAGE_USERS;
         }
-        addFlashAttribute(resultSQL, redirectAttributes, "alert.createuser.success", "alert.createuser.error");
-        return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")

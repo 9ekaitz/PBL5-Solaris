@@ -134,17 +134,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(UserProfileCreateForm upcf) {
-        User user = new User();
-        user.setUsername(upcf.getUsername());
-        user.setName(upcf.getName());
-        user.setFirstSurname(upcf.getFirstSurname());
-        user.setSecondSurname(upcf.getSecondSurname());
-        user.setEmail(upcf.getEmail());
-        user.setPassword(passwordEncoder.encode(upcf.getPassword()));
-        user.setRole(roleService.findById(upcf.getRoleId()));
-        user.setEnabled(true);
-        this.save(user);
+    public Boolean create(UserProfileCreateForm upcf) {
+        try {
+            User user = new User();
+            user.setUsername(upcf.getUsername());
+            user.setName(upcf.getName());
+            user.setFirstSurname(upcf.getFirstSurname());
+            user.setSecondSurname(upcf.getSecondSurname());
+            user.setEmail(upcf.getEmail());
+            user.setPassword(passwordEncoder.encode(upcf.getNewPassword()));
+            user.setRole(roleService.findById(upcf.getRoleId()));
+            user.setEnabled(true);
+            this.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+        
     }
 
     public void deleteUser(Long id) {

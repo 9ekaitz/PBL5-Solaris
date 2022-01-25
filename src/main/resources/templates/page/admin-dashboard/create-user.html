@@ -13,34 +13,37 @@
                 <h1 class="title" th:text="#{page.dashboard.createaccount}">Crear cuenta</h1>
             </div>
             <div class="create-account-form">
+                <ul class="error">
+                    <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
+                </ul>
                 <form th:action="@{/dashboard/create-user}" method="post">
                     <div class="form-pair">
                         <label for="username" th:text="#{user.username} + ':'"></label>
-                        <input type="text" th:placeholder="#{user.username}" name="username">
+                        <input type="text" th:placeholder="#{user.username}" name="username" th:value="${form.username}">
                     </div>
                     <div class="form-pair">
                         <label for="name" th:text="#{user.name} + ':'"></label>
-                        <input type="text" th:placeholder="#{user.name}" name="name">
+                        <input type="text" th:placeholder="#{user.name}" name="name" th:value="${form.name}">
                     </div>
                     <div class="form-pair">
                         <label for="firstSurname" th:text="#{user.firstSurname} + ':'"></label>
-                        <input type="text" th:placeholder="#{user.firstSurname}" name="firstSurname">
+                        <input type="text" th:placeholder="#{user.firstSurname}" name="firstSurname" th:value="${form.firstSurname}">
                     </div>
                     <div class="form-pair">
                         <label for="secondSurname" th:text="#{user.secondSurname} + ':'"></label>
-                        <input type="text" th:placeholder="#{user.secondSurname}" name="secondSurname">
+                        <input type="text" th:placeholder="#{user.secondSurname}" name="secondSurname" th:value="${form.secondSurname}">
                     </div>
                     <div class="form-pair">
                         <label for="email" th:text="#{user.email} + ':'"></label>
-                        <input type="text" th:placeholder="#{user.email}" name="email">
+                        <input type="text" th:placeholder="#{user.email}" name="email" th:value="${form.email}">
                     </div>
                     <div class="form-pair">
                         <label for="newPassword" th:text="#{page.dashboard.account.newpassword} + ':'"></label>
-                        <input type="password" th:placeholder="#{page.dashboard.account.newpassword}" name="newPassword">
+                        <input type="password" th:placeholder="#{page.dashboard.account.newpassword}" name="newPassword" th:value="${form.newPassword}">
                     </div>
                     <div class="form-pair">
                         <label for="verifyNewPasword" th:text="#{page.dashboard.account.repeatpassword} + ':'"></label>
-                        <input type="password" th:placeholder="#{page.dashboard.account.repeatpassword}" name="verifyNewPasword">
+                        <input type="password" th:placeholder="#{page.dashboard.account.repeatpassword}" name="verifyNewPasword" th:value="${form.verifyNewPasword}">
                     </div>
                     <div class="form-pair">
                         <label for="roleId" th:text="#{user.role} + ':'"></label><br>

@@ -24,7 +24,7 @@ public interface UserService extends Serializable {
     public void updateUserPassword(Long id, String password);
     public Boolean disable(User user);
     public List<User> findManageableUsers();
-    public void create(UserProfileCreateForm upcf);
+    public Boolean create(UserProfileCreateForm upcf);
     public PagedListHolder<User> getPagesFromUsersList(List<User> users);
     public void deleteUser(Long id);
     public User disableUser(User user);

@@ -3,11 +3,11 @@ package eus.solaris.solaris.form;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import lombok.Data;
-import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@Generated
+@Getter
+@Setter
 public class UserProfileCreateForm {
     @NotEmpty(message = "{alert.createuser.username.notEmpty}")
     private String username;
