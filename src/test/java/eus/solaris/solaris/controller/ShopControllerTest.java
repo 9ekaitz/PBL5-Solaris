@@ -67,7 +67,7 @@ import eus.solaris.solaris.service.impl.UserServiceImpl;
 @Import(SpringWebAuxTestConfig.class)
 @ExtendWith(SpringExtension.class)
 @WebMvcTest({ ShopController.class, UserControllerAdvice.class })
-public class ShopControllerTest {
+class ShopControllerTest {
 
   @Autowired
   MockMvc mockMvc;
