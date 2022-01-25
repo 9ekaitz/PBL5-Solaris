@@ -65,11 +65,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(Product product) {
-        for (ProductDescription pDescription : product.getDescriptions()){
-            productDescriptionRepository.delete(pDescription);
+    public Boolean delete(Product product) {
+        try {
+            for (ProductDescription pDescription : product.getDescriptions()){
+                productDescriptionRepository.delete(pDescription);
+            }
+            productRepository.delete(product);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        productRepository.delete(product);
     }
 
     @Override
@@ -128,10 +133,10 @@ public class ProductServiceImpl implements ProductService {
                 return allProducts; // return all products
         } else {
             allProducts.forEach(product -> {
-                if(pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getBrand().getId()) ||
-                    pff.getColorsIds() != null && pff.getColorsIds().contains(product.getColor().getId()) ||
-                    pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getMaterial().getId()) ||
-                    pff.getSizesIds() != null && pff.getSizesIds().contains(product.getSize().getId())) {
+                if(pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getModel().getBrand().getId()) ||
+                    pff.getColorsIds() != null && pff.getColorsIds().contains(product.getModel().getColor().getId()) ||
+                    pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getModel().getMaterial().getId()) ||
+                    pff.getSizesIds() != null && pff.getSizesIds().contains(product.getModel().getSize().getId())) {
                     products.add(product);
                 }
             });
@@ -151,56 +156,66 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void create(ProductCreateForm pcf) {
-        ProductDescription productDescription = new ProductDescription();
-        productDescription.setName(pcf.getName());
-        productDescription.setSubtitle(pcf.getSubtitle());
-        productDescription.setDescription(pcf.getDescription());
-        productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
-        Product product = new Product();
-        product.setImagePath(pcf.getImagePath());
-        product.setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
-        product.setPrice(pcf.getPrice());
-        product.setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
-        product.setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
-        product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
-        product.setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
-        this.save(product);
-        productDescription.setProduct(product);
-        productDescriptionRepository.save(productDescription);
-    }
-
-    @Override
-    public void update(Product product, ProductCreateForm pcf, Locale locale) {
-        product.setImagePath(pcf.getImagePath());
-        product.setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
-        product.setPrice(pcf.getPrice());
-        product.setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
-        product.setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
-        product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
-        product.setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
-        this.save(product);
-        boolean descriptionUpdated = false;
-        for (ProductDescription pDescription : product.getDescriptions()) {
-            if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
-                pDescription.setName(pcf.getName());
-                pDescription.setSubtitle(pcf.getSubtitle());
-                pDescription.setDescription(pcf.getDescription());
-                pDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
-                productDescriptionRepository.save(pDescription);
-                pDescription.setProduct(product);
-                productDescriptionRepository.save(pDescription);
-                descriptionUpdated = true;
-            }
-        }
-        if(!descriptionUpdated) {
+    public Boolean create(ProductCreateForm pcf) {
+        try {
             ProductDescription productDescription = new ProductDescription();
             productDescription.setName(pcf.getName());
             productDescription.setSubtitle(pcf.getSubtitle());
             productDescription.setDescription(pcf.getDescription());
             productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+            Product product = new Product();
+            product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
+            product.setImagePath(pcf.getImagePath());
+            product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
+            product.setPrice(pcf.getPrice());
+            product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
+            product.getModel().setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
+            product.getModel().setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
+            this.save(product);
             productDescription.setProduct(product);
             productDescriptionRepository.save(productDescription);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean update(Product product, ProductCreateForm pcf, Locale locale) {
+        try {
+            product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
+            product.setImagePath(pcf.getImagePath());
+            product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
+            product.setPrice(pcf.getPrice());
+            product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
+            product.getModel().setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
+            product.getModel().setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
+            this.save(product);
+            boolean descriptionUpdated = false;
+            for (ProductDescription pDescription : product.getDescriptions()) {
+                if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
+                    pDescription.setName(pcf.getName());
+                    pDescription.setSubtitle(pcf.getSubtitle());
+                    pDescription.setDescription(pcf.getDescription());
+                    pDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+                    productDescriptionRepository.save(pDescription);
+                    pDescription.setProduct(product);
+                    productDescriptionRepository.save(pDescription);
+                    descriptionUpdated = true;
+                }
+            }
+            if(!descriptionUpdated) {
+                ProductDescription productDescription = new ProductDescription();
+                productDescription.setName(pcf.getName());
+                productDescription.setSubtitle(pcf.getSubtitle());
+                productDescription.setDescription(pcf.getDescription());
+                productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+                productDescription.setProduct(product);
+                productDescriptionRepository.save(productDescription);
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

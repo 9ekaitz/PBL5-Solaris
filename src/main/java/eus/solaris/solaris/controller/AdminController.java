@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import eus.solaris.solaris.domain.Brand;
 import eus.solaris.solaris.domain.Color;
@@ -38,11 +39,14 @@ import eus.solaris.solaris.service.UserService;
 @RequestMapping("/dashboard")
 public class AdminController {
 
+    static final String SUCCESS_ATTRIBUTE = "success";
+    static final String ERROR_ATTRIBUTE = "error";
+
     private static final String PAGE_TITLE = "page_title";
     private static final String ACTUAL_PAGE = "actualPage";
     private static final String TOTAL_PAGES = "totalPages";
     private static final String PRODUCTS_MODEL = "products";
-
+    private static final String USERS = "users";
     private static final String PRODUCTS_TITLE = "PRODUCTS";
 
     private static final String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
@@ -67,19 +71,19 @@ public class AdminController {
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
         model.addAttribute(ACTUAL_PAGE, 0);
-        model.addAttribute("users", pagedListHolder.getPageList());
+        model.addAttribute(USERS, pagedListHolder.getPageList());
         model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
         return "page/admin-dashboard/manage-users";
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping("/manage-users/{page}")
-    public String manageUserPageHandler(Authentication authentication, @PathVariable int page, Model model) {
+    public String manageUserPageHandler(Authentication authentication, @PathVariable(value = "page") Integer page, Model model) {
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
         pagedListHolder.setPage(--page);
         model.addAttribute(ACTUAL_PAGE, page);
-        model.addAttribute("users", pagedListHolder.getPageList());
+        model.addAttribute(USERS, pagedListHolder.getPageList());
         model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
         return "page/admin-dashboard/manage-users";
     }
@@ -95,28 +99,29 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/update-user/{id}")
-    public String updateUser(@PathVariable(value = "id") Long id, @ModelAttribute UserProfileUpdateForm upuf, BindingResult result, Model model) {
-        userService.update(id, upuf);
+    public String updateUser(@PathVariable(value = "id") Long id, @ModelAttribute UserProfileUpdateForm upuf, RedirectAttributes redirectAttributes, BindingResult result, Model model) {
+        Boolean resultSQL = userService.update(id, upuf);
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.userupdate.success", "alert.userupdate.error");
         return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/update-user-password/{id}")
-    public String updateUserPassword(@PathVariable(value = "id") Long id, @ModelAttribute PasswordUpdateForm puf, BindingResult result, Model model) {
-        if (checkPasswords(puf.getPassword(), puf.getRepeatPassword())) {
-            userService.updateUserPassword(id, puf.getPassword());
-        } else {
-            model.addAttribute("error", "Las contraseñas no coinciden");
-            return "redirect:/dashboard/edit-user/" + id.toString();
+    public String updateUserPassword(@PathVariable(value = "id") Long id, @ModelAttribute PasswordUpdateForm puf, RedirectAttributes redirectAttributes, BindingResult result, Model model) {
+        boolean resultSQL = puf.getNewPassword().equals(puf.getVerifyNewPasword());
+        if (resultSQL) {
+            userService.updateUserPassword(id, puf.getNewPassword());
         }
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
         return REDIRECT_MANAGE_USERS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping(value = "/delete-user/{id}")
-    public String deleteUser(@PathVariable(value = "id") Long id, Model model) {
+    public String deleteUser(@PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
         User user = userService.findById(id);
-        userService.disable(user);
+        Boolean resultSQL = userService.disable(user);
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.deleteuser.success", "alert.deleteuser.error");
         return REDIRECT_MANAGE_USERS;
     }
 
@@ -129,13 +134,12 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @PostMapping(value = "/create-user")
-    public String createUser(@ModelAttribute UserProfileCreateForm upcf, BindingResult result, Model model) {
-        if (checkPasswords(upcf.getPassword(), upcf.getRepeatPassword())) {
+    public String createUser(@ModelAttribute UserProfileCreateForm upcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        boolean resultSQL = upcf.getPassword().equals(upcf.getRepeatPassword());
+        if (resultSQL) {
             userService.create(upcf);
-        } else {
-            model.addAttribute("error", "Las contraseñas no coinciden");
-            return "/dashboard/create-user";
         }
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.createuser.success", "alert.createuser.error");
         return REDIRECT_MANAGE_USERS;
     }
 
@@ -154,7 +158,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products/{page}")
-    public String showManageProductsPage(Model model, @PathVariable int page) {
+    public String showManageProductsPage(Model model, @PathVariable(value = "page") Integer page) {
         model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         List<Product> products = productService.findAll();
         setFilters(model);
@@ -192,10 +196,11 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/edit-product/{id}")
-    public String editProduct(@PathVariable(value = "id") Long id, @ModelAttribute ProductCreateForm pcf, Model model) {
+    public String editProduct(@PathVariable(value = "id") Long id, @ModelAttribute ProductCreateForm pcf, Model model, RedirectAttributes redirectAttributes) {
         Product product = productService.findById(id);
         Locale locale = LocaleContextHolder.getLocale();
-        productService.update(product, pcf, locale);
+        Boolean resultSQL = productService.update(product, pcf, locale);
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.updateproduct.success", "alert.updateproduct.error");
         return "redirect:/dashboard/manage-products";
     }
 
@@ -208,16 +213,18 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/create-product")
-    public String createProduct(@ModelAttribute ProductCreateForm pcf, BindingResult result, Model model) {
-        productService.create(pcf);
+    public String createProduct(@ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        Boolean resultSQL = productService.create(pcf);
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.createproduct.success", "alert.createproduct.error");
         return "redirect:/dashboard/manage-products";
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/delete-product/{id}")
-    public String deleteProduct(@PathVariable(value = "id") Long id, Model model) {
+    public String deleteProduct(@PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Product product = productService.findById(id);
-        productService.delete(product);
+        Boolean resultSQL = productService.delete(product);
+        addFlashAttribute(resultSQL, redirectAttributes, "alert.deleteproduct.success", "alert.deleteproduct.error");
         return "redirect:/dashboard/manage-products";
     }
 
@@ -240,7 +247,12 @@ public class AdminController {
         model.addAttribute("materials", materials);
     }
 
-    public boolean checkPasswords(String psw1, String psw2) {
-        return psw1.equals(psw2) && psw1.length() > 0;
+    private void addFlashAttribute(boolean resultSQL, RedirectAttributes redirectAttributes, String successMessage, String errorMessage) {
+        if(Boolean.TRUE.equals(resultSQL)){
+            redirectAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, successMessage);
+        }
+        else{
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, errorMessage);
+        }
     }
 }

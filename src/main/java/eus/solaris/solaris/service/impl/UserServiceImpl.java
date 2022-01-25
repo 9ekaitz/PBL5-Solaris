@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -85,21 +86,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void disable(User user) {
-        user.setEnabled(false);
-        userRepository.save(user);
+    public Boolean disable(User user) {
+        try {
+            user.setEnabled(false);
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+        
     }
 
     @Override
-    public void update(Long id, UserProfileUpdateForm upuf) {
+    public Boolean update(Long id, UserProfileUpdateForm upuf) {
         User user = this.findById(id);
-        user.setUsername(upuf.getUsername());
-        user.setName(upuf.getName());
-        user.setFirstSurname(upuf.getFirstSurname());
-        user.setSecondSurname(upuf.getSecondSurname());
-        user.setEmail(upuf.getEmail());
-        user.setRole(roleService.findById(upuf.getRoleId()));
-        this.save(user);
+        if (user != null) {
+            user.setUsername(upuf.getUsername());
+            user.setName(upuf.getName());
+            user.setFirstSurname(upuf.getFirstSurname());
+            user.setSecondSurname(upuf.getSecondSurname());
+            user.setEmail(upuf.getEmail());
+            user.setRole(roleService.findById(upuf.getRoleId()));
+            this.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override

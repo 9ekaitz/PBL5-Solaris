@@ -25,7 +25,7 @@
                     <div class="form-pair">
                         <label for="brandId" th:text="#{product.brand} + ':'"></label>
                         <select name="brandId" id="">
-                            <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}" th:selected="${productToEdit.brand.id == brand.id}">Null</option>
+                            <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}" th:selected="${productToEdit.model.brand.id == brand.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">
@@ -35,7 +35,7 @@
                     <div class="form-pair">
                         <label for="materialId" th:text="#{product.material} + ':'"></label>
                         <select name="materialId" id="">
-                            <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}" th:selected="${productToEdit.material.id == material.id}">Null</option>
+                            <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}" th:selected="${productToEdit.model.material.id == material.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">
@@ -53,13 +53,13 @@
                     <div class="form-pair">
                         <label for="sizeId" th:text="#{product.size} + ':'"></label>
                         <select name="sizeId" id="">
-                            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.width} + ' x ' + ${size.height}" th:selected="${productToEdit.size.id == size.id}">Null</option>
+                            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.width} + ' x ' + ${size.height}" th:selected="${productToEdit.model.size.id == size.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">
                         <label for="colorId" th:text="#{product.color} + ':'"></label>
                         <select name="colorId" id="">
-                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}" th:selected="${productToEdit.color.id == color.id}">Null</option>
+                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}" th:selected="${productToEdit.model.color.id == color.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">

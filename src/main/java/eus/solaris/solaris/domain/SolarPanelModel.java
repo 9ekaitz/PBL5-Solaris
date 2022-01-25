@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -27,6 +28,9 @@ public class SolarPanelModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "code", nullable = false)
     private String code;
 
@@ -39,14 +43,17 @@ public class SolarPanelModel {
     @Column(name = "voltage", nullable = false)
     private Double voltage;
 
-    @Column(name = "width", nullable = false)
-    private Double width;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Size size;
 
-    @Column(name = "height", nullable = false)
-    private Double height;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Material material;
 
-    @Column(name = "price", nullable = false)
-    private Double price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Brand brand;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Color color;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "model")
     private Set<SolarPanel> solarPanel;

@@ -117,8 +117,8 @@ public class SinglePanelREST implements HandlerInterceptor {
 
         JSONObject json = new JSONObject();
         json.put("voltage", p.getModel().getVoltage());
-        json.put("width", p.getModel().getWidth());
-        json.put("height", p.getModel().getHeight());
+        json.put("width", p.getModel().getSize().getWidth());
+        json.put("height", p.getModel().getSize().getHeight());
         json.put("energyThisMonth", thisMonth(p));
         json.put("energyLast30Days", last30Days(p));
         json.put("energyAllTime", allTime(p));

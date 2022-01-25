@@ -28,7 +28,7 @@ public interface ProductService {
 	public Set<Product> getFilteredProducts(ProductFilterForm pff);
 	public List<SolarPanelModel> getModels();
 	public ProductDescription getProductDescription(Product product, Locale locale);
-    public void create(ProductCreateForm pcf);
-    public void delete(Product product);
-	public void update(Product product, ProductCreateForm pcf, Locale locale);
+    public Boolean create(ProductCreateForm pcf);
+    public Boolean delete(Product product);
+	public Boolean update(Product product, ProductCreateForm pcf, Locale locale);
 }
