@@ -409,17 +409,24 @@ input[type=checkbox]::before {
   transform: scale(0);
   transition: transform 0.5s;
 }
+input[type=checkbox].btn-big {
+  width: 18rem;
+  height: 4rem;
+  border-radius: 0.3rem;
+}
+input[type=checkbox].delete-account {
+  background-color: #DA3633;
+  color: #FFF;
+}
+input[type=checkbox].delete-account:hover, input[type=checkbox].delete-account:focus {
+  background-color: #b92421;
+}
 input[type=checkbox]:checked {
   border-color: #f9aa31;
   box-shadow: inset 0 0 0 2em #f9aa31;
 }
 input[type=checkbox]:checked::before {
   transform: scale(0.7);
-}
-input[type=checkbox].btn-big {
-  width: 18rem;
-  height: 4rem;
-  border-radius: 0.3rem;
 }
 
 input[type=submit],
@@ -502,10 +509,9 @@ input[type=submit].delete-account:hover, input[type=submit].delete-account:focus
 @media (min-width: 768px) {
   .helper {
     display: block;
+    margin: 0;
+    padding: 0.5rem 0 0.5rem 10rem;
     font-size: 1rem;
-    max-width: 1300px;
-    margin: 0.5rem auto;
-    padding: 0 2rem;
   }
   .helper .a {
     margin: 0;
