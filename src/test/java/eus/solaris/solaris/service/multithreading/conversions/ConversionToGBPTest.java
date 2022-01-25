@@ -18,8 +18,8 @@ class ConversionToGBPTest {
         targets.add(-1.0);
 
         List<Double> expected = new ArrayList<>();
-        expected.add(1755.3741);
-        expected.add(42.06);
+        expected.add(17.553741);
+        expected.add(0.4206);
         expected.add(0.0);
         expected.add(0.0);
 
