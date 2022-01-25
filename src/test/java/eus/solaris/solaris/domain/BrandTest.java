@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class BrandTest {
+class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test00() throws Throwable {
+  void test00() throws Throwable {
     Brand brand0 = new Brand();
     brand0.setName("N3M~Thbu *R&KD");
     String string0 = brand0.getName();
@@ -23,7 +23,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test01() throws Throwable {
+  void test01() throws Throwable {
     Brand brand0 = new Brand();
     brand0.setName("");
     String string0 = brand0.getName();
@@ -32,7 +32,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test02() throws Throwable {
+  void test02() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = (0L);
     brand0.setId(long0);
@@ -42,7 +42,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test03() throws Throwable {
+  void test03() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = (2112L);
     brand0.setId(long0);
@@ -52,7 +52,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test04() throws Throwable {
+  void test04() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = ((-1126L));
     brand0.setId(long0);
@@ -62,7 +62,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test05() throws Throwable {
+  void test05() throws Throwable {
     Brand brand0 = new Brand();
     boolean boolean0 = brand0.canEqual(brand0);
     assertTrue(boolean0);
@@ -70,7 +70,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test06() throws Throwable {
+  void test06() throws Throwable {
     Brand brand0 = new Brand();
     boolean boolean0 = brand0.canEqual((Object) null);
     assertFalse(boolean0);
@@ -78,7 +78,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test07() throws Throwable {
+  void test07() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = brand0.getId();
     assertNull(long0);
@@ -86,7 +86,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test08() throws Throwable {
+  void test08() throws Throwable {
     Brand brand0 = new Brand();
     String string0 = brand0.getName();
     assertNull(string0);
@@ -94,7 +94,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test09() throws Throwable {
+  void test09() throws Throwable {
     Brand brand0 = new Brand();
     brand0.setName("");
     Brand brand1 = new Brand();
@@ -108,7 +108,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test10() throws Throwable {
+  void test10() throws Throwable {
     Brand brand0 = new Brand();
     brand0.setName("");
     Brand brand1 = new Brand();
@@ -118,7 +118,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test11() throws Throwable {
+  void test11() throws Throwable {
     Brand brand0 = new Brand();
     brand0.setName("P}7");
     Brand brand1 = new Brand();
@@ -128,7 +128,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test12() throws Throwable {
+  void test12() throws Throwable {
     Brand brand0 = new Brand();
     Brand brand1 = new Brand();
     assertTrue(brand1.equals((Object) brand0));
@@ -142,7 +142,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test13() throws Throwable {
+  void test13() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = (0L);
     Brand brand1 = new Brand();
@@ -156,7 +156,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test14() throws Throwable {
+  void test14() throws Throwable {
     Brand brand0 = new Brand();
     Object object0 = new Object();
     boolean boolean0 = brand0.equals(object0);
@@ -165,7 +165,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test15() throws Throwable {
+  void test15() throws Throwable {
     Brand brand0 = new Brand();
     boolean boolean0 = brand0.equals(brand0);
     assertTrue(boolean0);
@@ -173,7 +173,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test16() throws Throwable {
+  void test16() throws Throwable {
     Brand brand0 = new Brand();
     brand0.setName("");
     brand0.hashCode();
@@ -181,14 +181,14 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test17() throws Throwable {
+  void test17() throws Throwable {
     Brand brand0 = new Brand();
     brand0.hashCode();
   }
 
   @Test
   @Timeout(4)
-  public void test18() throws Throwable {
+  void test18() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = ((-1L));
     brand0.setId(long0);
@@ -197,7 +197,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test19() throws Throwable {
+  void test19() throws Throwable {
     Brand brand0 = new Brand();
     String string0 = brand0.toString();
     assertEquals("Brand(id=null, name=null)", string0);
@@ -205,7 +205,7 @@ public class BrandTest {
 
   @Test
   @Timeout(4)
-  public void test20() throws Throwable {
+  void test20() throws Throwable {
     Brand brand0 = new Brand();
     Long long0 = (0L);
     brand0.setId(long0);

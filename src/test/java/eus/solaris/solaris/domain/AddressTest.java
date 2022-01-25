@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class AddressTest {
+class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test00() throws Throwable {
+  void test00() throws Throwable {
     Long long0 = (0L);
     Country country0 = new Country();
     Province province0 = new Province();
@@ -28,7 +28,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test01() throws Throwable {
+  void test01() throws Throwable {
     Long long0 = (0L);
     Country country0 = new Country();
     Province province0 = new Province();
@@ -45,7 +45,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test02() throws Throwable {
+  void test02() throws Throwable {
     Address address0 = new Address();
     Integer integer0 = Integer.getInteger("", 79);
     address0.setVersion(integer0);
@@ -57,7 +57,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test03() throws Throwable {
+  void test03() throws Throwable {
     Long long0 = ((-1176L));
     Country country0 = new Country();
     Comunidad comunidad0 = new Comunidad();
@@ -72,7 +72,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test04() throws Throwable {
+  void test04() throws Throwable {
     Address address0 = new Address();
     address0.getStreet();
     assertEquals(
@@ -82,7 +82,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test05() throws Throwable {
+  void test05() throws Throwable {
     Long long0 = (1L);
     Integer integer0 = (0);
     Country country0 = new Country(long0, "", "", integer0);
@@ -103,7 +103,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test06() throws Throwable {
+  void test06() throws Throwable {
     Long long0 = ((-1176L));
     Country country0 = new Country();
     Comunidad comunidad0 = new Comunidad();
@@ -118,7 +118,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test07() throws Throwable {
+  void test07() throws Throwable {
     Address address0 = new Address();
     address0.getPostcode();
     assertEquals(
@@ -128,7 +128,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test08() throws Throwable {
+  void test08() throws Throwable {
     Long long0 = (0L);
     Country country0 = new Country();
     Province province0 = new Province();
@@ -142,7 +142,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test09() throws Throwable {
+  void test09() throws Throwable {
     Address address0 = new Address();
     address0.setNumber("e$:E`Zt=dlM63`WA)");
     address0.getNumber();
@@ -153,7 +153,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test10() throws Throwable {
+  void test10() throws Throwable {
     Address address0 = new Address();
     address0.setNumber("");
     address0.getNumber();
@@ -164,7 +164,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test11() throws Throwable {
+  void test11() throws Throwable {
     Long long0 = (0L);
     Country country0 = new Country();
     Province province0 = new Province();
@@ -183,7 +183,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test12() throws Throwable {
+  void test12() throws Throwable {
     Long long0 = (1L);
     Country country0 = new Country();
     Comunidad comunidad0 = new Comunidad();
@@ -204,7 +204,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test13() throws Throwable {
+  void test13() throws Throwable {
     Address address0 = new Address();
     address0.getId();
     assertEquals(
@@ -214,7 +214,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test14() throws Throwable {
+  void test14() throws Throwable {
     Long long0 = (1790L);
     Country country0 = new Country(long0, "", "", (Integer) null);
     User user0 = new User();
@@ -229,7 +229,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test15() throws Throwable {
+  void test15() throws Throwable {
     Address address0 = new Address();
     address0.setDefaultAddress((Boolean) null);
     address0.getDefaultAddress();
@@ -240,7 +240,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test16() throws Throwable {
+  void test16() throws Throwable {
     Long long0 = ((-1176L));
     Country country0 = new Country();
     Comunidad comunidad0 = new Comunidad();
@@ -255,7 +255,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test17() throws Throwable {
+  void test17() throws Throwable {
     Long long0 = ((-2045L));
     Country country0 = new Country();
     Integer integer0 = (43);
@@ -273,7 +273,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test18() throws Throwable {
+  void test18() throws Throwable {
     Long long0 = (859L);
     Province province0 = new Province();
     User user0 = new User();
@@ -289,7 +289,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test19() throws Throwable {
+  void test19() throws Throwable {
     Address address0 = new Address();
     address0.canEqual(address0);
     assertEquals(
@@ -299,7 +299,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test20() throws Throwable {
+  void test20() throws Throwable {
     Address address0 = new Address();
     Object object0 = new Object();
     address0.canEqual(object0);
@@ -310,7 +310,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test21() throws Throwable {
+  void test21() throws Throwable {
     Long long0 = ((-1176L));
     Country country0 = new Country();
     Comunidad comunidad0 = new Comunidad();
@@ -325,7 +325,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test22() throws Throwable {
+  void test22() throws Throwable {
     Address address0 = new Address();
     address0.getProvince();
     assertEquals(
@@ -335,7 +335,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test23() throws Throwable {
+  void test23() throws Throwable {
     Address address0 = new Address();
     address0.getNumber();
     assertEquals(
@@ -345,7 +345,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test24() throws Throwable {
+  void test24() throws Throwable {
     Address address0 = new Address();
     address0.getUser();
     assertEquals(
@@ -355,7 +355,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test25() throws Throwable {
+  void test25() throws Throwable {
     Country country0 = new Country();
     Province province0 = new Province();
     User user0 = new User();
@@ -369,7 +369,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test26() throws Throwable {
+  void test26() throws Throwable {
     Address address0 = new Address();
     address0.getDefaultAddress();
     assertEquals(
@@ -379,7 +379,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test27() throws Throwable {
+  void test27() throws Throwable {
     Address address0 = new Address();
     address0.getCity();
     assertEquals(
@@ -389,7 +389,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test28() throws Throwable {
+  void test28() throws Throwable {
     Long long0 = (0L);
     Country country0 = new Country();
     Province province0 = new Province();
@@ -405,7 +405,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test29() throws Throwable {
+  void test29() throws Throwable {
     Address address0 = new Address();
     boolean boolean0 = address0.isEnabled();
     assertEquals(
@@ -416,7 +416,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test30() throws Throwable {
+  void test30() throws Throwable {
     Address address0 = new Address();
     address0.getCountry();
     assertEquals(
@@ -426,7 +426,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test31() throws Throwable {
+  void test31() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     User user0 = new User();
@@ -441,7 +441,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test32() throws Throwable {
+  void test32() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     assertTrue(address1.equals((Object) address0));
@@ -454,7 +454,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test33() throws Throwable {
+  void test33() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     assertTrue(address1.equals((Object) address0));
@@ -467,7 +467,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test34() throws Throwable {
+  void test34() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     address1.setNumber("eus.solaris.solaris.domain.Address");
@@ -480,7 +480,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test35() throws Throwable {
+  void test35() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     address1.setNumber("s7T>)Ga[`,M/w");
@@ -493,7 +493,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test36() throws Throwable {
+  void test36() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     address1.setStreet("e$:E`Zt=dlM63`WA)");
@@ -507,7 +507,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test37() throws Throwable {
+  void test37() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     address1.setStreet("");
@@ -520,7 +520,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test38() throws Throwable {
+  void test38() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     address1.setStreet("e$:E`Zt=dlM63`WA)");
@@ -533,7 +533,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test39() throws Throwable {
+  void test39() throws Throwable {
     Address address0 = new Address();
     address0.setPostcode("Fu%y,Hf{9tNXn}");
     Address address1 = new Address();
@@ -547,7 +547,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test40() throws Throwable {
+  void test40() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     address0.setPostcode("{}uay_9");
@@ -560,7 +560,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test41() throws Throwable {
+  void test41() throws Throwable {
     Address address0 = new Address();
     address0.setCity("eus.solaris.solaris.domain.Address");
     Address address1 = new Address();
@@ -574,7 +574,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test42() throws Throwable {
+  void test42() throws Throwable {
     Address address0 = new Address();
     address0.setCity("eus.solaris.solaris.domain.Address");
     Address address1 = new Address();
@@ -587,7 +587,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test43() throws Throwable {
+  void test43() throws Throwable {
     Address address0 = new Address();
     Province province0 = new Province();
     address0.setProvince(province0);
@@ -602,7 +602,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test44() throws Throwable {
+  void test44() throws Throwable {
     Address address0 = new Address();
     Province province0 = new Province();
     Address address1 = new Address();
@@ -616,7 +616,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test45() throws Throwable {
+  void test45() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     Country country0 = new Country();
@@ -630,7 +630,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test46() throws Throwable {
+  void test46() throws Throwable {
     Address address0 = new Address();
     Country country0 = new Country();
     Address address1 = new Address();
@@ -644,7 +644,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test47() throws Throwable {
+  void test47() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     assertFalse(address1.getDefaultAddress());
@@ -657,7 +657,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test48() throws Throwable {
+  void test48() throws Throwable {
     Address address0 = new Address();
     Address address1 = new Address();
     address1.setDefaultAddress((Boolean) null);
@@ -670,7 +670,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test49() throws Throwable {
+  void test49() throws Throwable {
     Address address0 = new Address();
     Long long0 = (0L);
     address0.setId(long0);
@@ -685,7 +685,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test50() throws Throwable {
+  void test50() throws Throwable {
     Address address0 = new Address();
     Long long0 = (3974L);
     address0.setId(long0);
@@ -699,7 +699,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test51() throws Throwable {
+  void test51() throws Throwable {
     Address address0 = new Address();
     Long long0 = (0L);
     Address address1 = new Address();
@@ -713,7 +713,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test52() throws Throwable {
+  void test52() throws Throwable {
     Address address0 = new Address();
     User user0 = new User();
     Long long0 = ((-957L));
@@ -738,7 +738,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test53() throws Throwable {
+  void test53() throws Throwable {
     Address address0 = new Address();
     boolean boolean0 = address0.equals("e$:E`Zt=dlM63`WA)");
     assertEquals(
@@ -749,7 +749,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test54() throws Throwable {
+  void test54() throws Throwable {
     Address address0 = new Address();
     boolean boolean0 = address0.equals(address0);
     assertEquals(
@@ -760,7 +760,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test55() throws Throwable {
+  void test55() throws Throwable {
     Address address0 = new Address();
     address0.hashCode();
     assertEquals(
@@ -770,7 +770,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test56() throws Throwable {
+  void test56() throws Throwable {
     Country country0 = new Country();
     Province province0 = new Province();
     User user0 = new User();
@@ -785,7 +785,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test57() throws Throwable {
+  void test57() throws Throwable {
     Address address0 = new Address();
     Country country0 = new Country();
     address0.setCountry(country0);
@@ -800,7 +800,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test58() throws Throwable {
+  void test58() throws Throwable {
     Address address0 = new Address();
     address0.setCity("");
     Address address1 = new Address();
@@ -813,7 +813,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test59() throws Throwable {
+  void test59() throws Throwable {
     Address address0 = new Address();
     Long long0 = (0L);
     address0.setId(long0);
@@ -822,7 +822,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test60() throws Throwable {
+  void test60() throws Throwable {
     Address address0 = new Address();
     String string0 = address0.toString();
     assertEquals(
@@ -832,7 +832,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test61() throws Throwable {
+  void test61() throws Throwable {
     Address address0 = new Address();
     address0.setPostcode("Fu%y,Hf{9tNXn}");
     Address address1 = new Address();
@@ -845,7 +845,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test62() throws Throwable {
+  void test62() throws Throwable {
     Address address0 = new Address();
     address0.setEnabled(true);
     assertEquals(
@@ -855,7 +855,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test63() throws Throwable {
+  void test63() throws Throwable {
     Address address0 = new Address();
     Province province0 = new Province();
     address0.setProvince(province0);
@@ -869,7 +869,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test64() throws Throwable {
+  void test64() throws Throwable {
     Address address0 = new Address();
     address0.setNumber("s7T>)Ga[`,M/w");
     Address address1 = new Address();
@@ -883,7 +883,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test65() throws Throwable {
+  void test65() throws Throwable {
     Long long0 = (1790L);
     Country country0 = new Country(long0, "", "", (Integer) null);
     User user0 = new User();
@@ -898,7 +898,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test66() throws Throwable {
+  void test66() throws Throwable {
     Address address0 = new Address();
     User user0 = new User();
     address0.setUser(user0);
@@ -910,7 +910,7 @@ public class AddressTest {
 
   @Test
   @Timeout(4)
-  public void test67() throws Throwable {
+  void test67() throws Throwable {
     Address address0 = new Address();
     address0.setDefaultAddress((Boolean) null);
     Address address1 = new Address();

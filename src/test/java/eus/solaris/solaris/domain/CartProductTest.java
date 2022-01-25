@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-public class CartProductTest {
+class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test00() throws Throwable {
+  void test00() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = (0);
     cartProduct0.setVersion(integer0);
@@ -24,7 +24,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test01() throws Throwable {
+  void test01() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = (97);
     cartProduct0.setVersion(integer0);
@@ -34,7 +34,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test02() throws Throwable {
+  void test02() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = ((-337));
     cartProduct0.setVersion(integer0);
@@ -44,7 +44,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test03() throws Throwable {
+  void test03() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = (0);
     cartProduct0.setQuantity(integer0);
@@ -54,7 +54,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test04() throws Throwable {
+  void test04() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = (1);
     cartProduct0.setQuantity(integer0);
@@ -64,7 +64,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test05() throws Throwable {
+  void test05() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = Integer.valueOf((-1));
     cartProduct0.setQuantity(integer0);
@@ -74,7 +74,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test06() throws Throwable {
+  void test06() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Product product0 = new Product();
     cartProduct0.setProduct(product0);
@@ -84,7 +84,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test07() throws Throwable {
+  void test07() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Long long0 = Long.valueOf(0L);
     cartProduct0.id = long0;
@@ -94,7 +94,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test08() throws Throwable {
+  void test08() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Long long0 = Long.valueOf(2603L);
     cartProduct0.id = long0;
@@ -104,7 +104,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test09() throws Throwable {
+  void test09() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = cartProduct0.getVersion();
     assertNull(integer0);
@@ -112,7 +112,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test10() throws Throwable {
+  void test10() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Long long0 = Long.valueOf((-1L));
     cartProduct0.setId(long0);
@@ -122,7 +122,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test11() throws Throwable {
+  void test11() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Product product0 = cartProduct0.getProduct();
     assertNull(product0);
@@ -130,7 +130,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test12() throws Throwable {
+  void test12() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Long long0 = cartProduct0.getId();
     assertNull(long0);
@@ -138,7 +138,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test13() throws Throwable {
+  void test13() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     Integer integer0 = cartProduct0.getQuantity();
     assertNull(integer0);
@@ -146,7 +146,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test14() throws Throwable {
+  void test14() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     User user0 = new User();
     cartProduct0.setUser(user0);
@@ -156,7 +156,7 @@ public class CartProductTest {
 
   @Test
   @Timeout(4)
-  public void test15() throws Throwable {
+  void test15() throws Throwable {
     CartProduct cartProduct0 = new CartProduct();
     User user0 = cartProduct0.getUser();
     assertNull(user0);
