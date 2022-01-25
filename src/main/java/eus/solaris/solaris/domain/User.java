@@ -76,6 +76,7 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<SolarPanel> solarPanels;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

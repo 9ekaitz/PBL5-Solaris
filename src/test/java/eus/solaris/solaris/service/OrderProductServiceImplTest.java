@@ -34,7 +34,7 @@ class OrderProductServiceImplTest {
   }
 
   @Test
-  void xreateTest() {
+  void createTest() {
     Double price = 1.0;
 
     Product p = new Product();
