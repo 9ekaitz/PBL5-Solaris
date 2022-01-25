@@ -99,7 +99,7 @@ public class ShopCartController {
     private ShopCartOutputDto cartToOutputDto(User user) {
         ShopCartOutputDto output = new ShopCartOutputDto();
         output.setProducts(user.getShoppingCart().stream().map(this::cartProductToDto).collect(Collectors.toList()));
-        output.setTotalPrice(output.getProducts().stream().mapToDouble(p -> p.getTotalPrice()).sum());
+        output.setTotalPrice(output.getProducts().stream().mapToDouble(ProductDto::getTotalPrice).sum());
         return output;
     }
     
@@ -110,7 +110,7 @@ public class ShopCartController {
 
         Locale locale = LocaleContextHolder.getLocale();
         ProductDescription pd = cartProduct.getProduct().getDescriptions().stream().filter(p -> p.getLanguage().getCode().equals(locale.getLanguage())).findFirst().orElse(null);
-        dto.setName(pd.getName());
+        if(pd != null) dto.setName(pd.getName());
         
         return dto;
     }

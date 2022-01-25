@@ -214,8 +214,8 @@ const updateCartTotalPrice = cart => {
     document.querySelector('#cart-total').textContent = `${formatPrice(cart.totalPrice)} €`
 }
 
-const showError = () => {
-
+const showError = error => {
+    console.error(error);
 }
 
 const formatPrice = num => {

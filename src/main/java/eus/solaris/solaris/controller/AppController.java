@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.exception.AvatarNotCreatedException;
 import eus.solaris.solaris.form.UserRegistrationForm;
 import eus.solaris.solaris.service.LanguageService;
 import eus.solaris.solaris.service.RoleService;
@@ -79,7 +80,7 @@ public class AppController {
 
 	@PostMapping("/register")
 	public String registerUser(@Validated @ModelAttribute UserRegistrationForm form, BindingResult result,
-			Model model) throws Exception{
+			Model model) throws AvatarNotCreatedException {
 		if (result.hasErrors()
 				|| form.getUsername() != null
 						&& !form.getUsername().isBlank()

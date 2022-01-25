@@ -8,7 +8,11 @@ import eus.solaris.solaris.domain.Product;
 
 public class ProductSpecifications {
 
-    final static String MODEL_STRING = "model";
+    static final String MODEL_STRING = "model";
+    
+    private ProductSpecifications() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static Specification<Product> findByBrandIds(List<Long> brandIds) {
         return (product, cq, cb) -> product.get(MODEL_STRING).get("brand").get("id").in(brandIds);

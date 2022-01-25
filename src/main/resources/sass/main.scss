@@ -209,52 +209,14 @@ input[type="submit"],
     }
   }
 }
+
 @media screen and (min-width: $large-screen) {
   input[type="submit"],
   .btn {
     padding-inline: 2em;
   }
 }
-.section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
 
-  &.section-rounded {
-    border-radius: $section-border;
-  }
-}
-
-input[type="submit"],
-.btn {
-  font-size: 1em;
-  font-weight: bold;
-  border: none;
-  border-radius: $btn-border;
-  min-width: fit-content;
-  min-height: 3em;
-  color: $text-color;
-  background-color: $main-color;
-  padding-inline: 1em;
-
-  &:hover {
-    cursor: pointer;
-    background-color: $main-dark-color;
-  }
-
-  &.btn-big {
-    width: 18rem;
-    height: 4rem;
-    border-radius: 1.5 * $btn-border;
-  }
-}
-@media screen and (min-width: $large-screen) {
-  input[type="submit"],
-  .btn {
-    padding-inline: 2em;
-  }
-}
 .section {
   display: flex;
   flex-direction: column;
