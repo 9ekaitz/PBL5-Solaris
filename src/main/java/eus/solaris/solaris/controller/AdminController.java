@@ -188,7 +188,7 @@ public class AdminController {
         Product product = productService.findById(id);
         Locale locale = LocaleContextHolder.getLocale();
         productService.update(product, pcf, locale);
-        return "page/admin-dashboard/manage-products";
+        return "redirect:/dashboard/manage-products";
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")

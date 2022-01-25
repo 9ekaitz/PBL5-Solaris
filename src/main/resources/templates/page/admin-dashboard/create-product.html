@@ -69,7 +69,7 @@
                         <textarea id="description" placeholder="Description" name="description" cols="24" rows="9"></textarea>
                     </div>
                     <div class="form-pair">
-                        <label for="language" th:text="#{product.language} + ':'"></label>
+                        <label for="languageId" th:text="#{product.language} + ':'"></label>
                         <select name="languageId" id="">
                             <option th:each="language : ${languages}" th:value="${language.id}" th:text="#{${language.i18n}}">Null</option>
                         </select>

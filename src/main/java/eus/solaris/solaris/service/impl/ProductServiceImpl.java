@@ -69,7 +69,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Product product) {
-        productRepository.delete(product);;
+        for (ProductDescription pDescription : product.getDescriptions()){
+            productDescriptionRepository.delete(pDescription);
+        }
+        productRepository.delete(product);
     }
 
     @Override
@@ -153,11 +156,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDescription getProductDescription(Product product, Locale locale) {
-        // Future implementation: get all descriptions for a product to show in the edit product page
         for (ProductDescription pDescription : product.getDescriptions()) {
-            return pDescription;
+            if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
+                return pDescription;
+            }
         }
-        return null;
+        // if no description found with the user locale, return the first description
+        return product.getDescriptions().iterator().next();
     }
 
     @Override
@@ -190,15 +195,27 @@ public class ProductServiceImpl implements ProductService {
         product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
         product.setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
         this.save(product);
+        boolean descriptionUpdated = false;
         for (ProductDescription pDescription : product.getDescriptions()) {
             if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
                 pDescription.setName(pcf.getName());
                 pDescription.setSubtitle(pcf.getSubtitle());
                 pDescription.setDescription(pcf.getDescription());
+                pDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
                 productDescriptionRepository.save(pDescription);
                 pDescription.setProduct(product);
                 productDescriptionRepository.save(pDescription);
+                descriptionUpdated = true;
             }
+        }
+        if(!descriptionUpdated) {
+            ProductDescription productDescription = new ProductDescription();
+            productDescription.setName(pcf.getName());
+            productDescription.setSubtitle(pcf.getSubtitle());
+            productDescription.setDescription(pcf.getDescription());
+            productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+            productDescription.setProduct(product);
+            productDescriptionRepository.save(productDescription);
         }
     }
 }

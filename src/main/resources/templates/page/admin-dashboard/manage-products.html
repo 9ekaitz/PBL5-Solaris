@@ -48,18 +48,21 @@
                     <hr>
                 </form>
                 <div class="products-items-panel">
-                    <!-- TODO: get the products from the controller -->
                     <th:block th:each="product : ${products}">
                         <div class="product">
                             <div class="product-img">
                                 <img th:src="@{'~' + ${product.imagePath}}" alt="product-image">
                             </div>
-                            <th:block th:each="description : ${product.descriptions}">
-                                <p class="product-title" th:if="${description.language.code} == #{locale}" th:text="${description.name}">Null</p>
+                            <th:block th:each="description, iterator : ${product.descriptions}">
+                                <th:block th:with="listsize=${#lists.size(product.descriptions)-1}">
+                                    <!-- th:if="${description.language.code} == #{locale} or iterator eq listsize}" -->
+                                    <!-- <span th:text="${'listsize: ' + listsize}"></span> -->
+                                    <!-- <span th:text="${'iterator: ' + iterator.index}"></span> -->
+                                    <p class="product-title" th:if="(${description.language.code} == #{locale}) or iterator.index eq listsize" th:text="${description.name}">Null</p>
+                                </th:block>
                             </th:block>
                             <p class="product-price" th:text="${product.price + ' €'}">Null</p>
                             <div class="product-buttons">
-                                <!-- <a th:href="@{'/dashboard/edit-user/'+${product.id}}"> -->
                                 <a th:href="@{'/dashboard/edit-product/'+${product.id}}">
                                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                         <path fill="currentColor"

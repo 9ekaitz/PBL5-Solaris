@@ -22,50 +22,54 @@
                     </div>
                     <div class="form-pair">
                         <label for="subtitle" th:text="#{product.subtitle} + ':'"></label>
-                        <input type="text" th:placeholder="#{product.subtitle}" name="name" th:value="${description.subtitle}">
+                        <input type="text" th:placeholder="#{product.subtitle}" name="subtitle" th:value="${description.subtitle}">
                     </div>
                     <div class="form-pair">
-                        <label for="brand" th:text="#{product.brand} + ':'"></label>
-                        <select name="brand" id="">
+                        <label for="brandId" th:text="#{product.brand} + ':'"></label>
+                        <select name="brandId" id="">
                             <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}" th:selected="${productToEdit.brand.id == brand.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">
-                        <label for="prize" th:text="#{product.price} + ':'"></label>
-                        <input type="text" placeholder="Prize" name="prize" th:value="${productToEdit.price}">
+                        <label for="price" th:text="#{product.price} + ':'"></label>
+                        <input type="text" th:placeholder="#{product.price}" name="price" th:value="${productToEdit.price}">
                     </div>
                     <div class="form-pair">
-                        <label for="material" th:text="#{product.material} + ':'"></label>
-                        <select name="material" id="">
+                        <label for="materialId" th:text="#{product.material} + ':'"></label>
+                        <select name="materialId" id="">
                             <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}" th:selected="${productToEdit.material.id == material.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">
-                        <label for="model" th:text="#{product.model} + ':'"></label>
-                        <select name="model" id="">
+                        <label for="modelId" th:text="#{product.model} + ':'"></label>
+                        <select name="modelId" id="">
                             <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}" th:selected="${productToEdit.model.id == model.id}">Null</option>
                         </select>
+                    </div>
+                    <div class="form-pair">
+                        <label for="imagePath" th:text="#{product.image} + ':'"></label>
+                        <input type="text" name="imagePath" th:placeholder="#{product.image}" value="/img/products/solar-panel-1.jpg">
                     </div>
                 </div>
                 <div class="form-group-col2">
                     <div class="form-pair">
-                        <label for="size" th:text="#{product.size} + ':'"></label>
-                        <select name="size" id="">
+                        <label for="sizeId" th:text="#{product.size} + ':'"></label>
+                        <select name="sizeId" id="">
                             <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.width} + ' x ' + ${size.height}" th:selected="${productToEdit.size.id == size.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">
-                        <label for="color" th:text="#{product.color} + ':'"></label>
-                        <select name="color" id="">
+                        <label for="colorId" th:text="#{product.color} + ':'"></label>
+                        <select name="colorId" id="">
                             <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}" th:selected="${productToEdit.color.id == color.id}">Null</option>
                         </select>
                     </div>
                     <div class="form-pair">
                         <label for="description" th:text="#{product.description} + ':'"></label>
-                        <textarea id="message" placeholder="Description" name="description" cols="24" rows="9" th:value="${description.description}"></textarea>
+                        <textarea id="message" th:placeholder="#{product.description}" name="description" cols="24" rows="9" th:value="${description.description}"></textarea>
                     </div>
                     <div class="form-pair">
-                        <label for="language" th:text="#{product.language} + ':'"></label>
+                        <label for="languageId" th:text="#{product.language} + ':'"></label>
                         <select name="languageId" id="">
                             <option th:each="language : ${languages}" th:value="${language.id}" th:text="#{${language.i18n}}" th:selected="${description.language.id == language.id}">Null</option>
                         </select>
