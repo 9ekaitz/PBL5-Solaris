@@ -270,7 +270,7 @@ public class ShopController {
 	private void createSolarPanel(Product product, Order order, User user) {
 		SolarPanel p = solarPanelService.create(product.getModel(), user, order.getAddress().getProvince());
 		Set<SolarPanel> set = user.getSolarPanels();
-		if (set == null) user.setSolarPanels(new HashSet<SolarPanel>());
+		if (set == null) user.setSolarPanels(new HashSet<>());
 		user.getSolarPanels().add(p);
 	}
 

@@ -27,7 +27,7 @@ public class ImageRepositoryImpl implements ImageRepository {
             try (FileOutputStream out = new FileOutputStream(convFile)) {
                 out.write(file.getBytes());
             } catch (Exception e) {
-                System.out.println("Error saving the file");
+                System.err.println("Error saving the file");
             }
         }
         return convFile.getAbsolutePath();
@@ -41,7 +41,7 @@ public class ImageRepositoryImpl implements ImageRepository {
             try (FileOutputStream out = new FileOutputStream(convFile)) {
             out.write(bytes);
             } catch (Exception e) {
-                System.out.println("Error saving the file");
+                System.err.println("Error saving the file");
             }
         }
         return RELATIVE_PROFILES_PATH + convFile.getName();
