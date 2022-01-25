@@ -10,7 +10,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        default-schema: solarisz
+        default-schema: solaris
 
   # autoconfigure:
   #   exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.ManagementWebSecurityAutoConfiguration
