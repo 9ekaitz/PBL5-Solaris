@@ -18,6 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public List<User> findAll();
     public Optional<User> findById(Long id);
     public List<User> findAllByRoleNameNotAndEnabled(String rolename, boolean enabled);
+    public User findByUsernameIgnoreCase(String username);
     
     @Query("SELECT a FROM Address a WHERE a.user.id = ?1 AND a.enabled = true")
     public List<Address> findAddressByUserId(Long id);

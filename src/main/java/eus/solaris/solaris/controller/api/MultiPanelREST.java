@@ -173,7 +173,7 @@ public class MultiPanelREST {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
-        User user = userRepository.findByUsername(authentication.getName());
+        User user = userRepository.findByUsernameIgnoreCase(authentication.getName());
 
         Long userId = -1L;
 

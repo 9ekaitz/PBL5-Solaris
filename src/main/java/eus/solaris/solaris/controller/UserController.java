@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping
     public String get(@RequestParam String name, Model model) {
-        User user = userRepository.findByUsername(name);
+        User user = userRepository.findByUsernameIgnoreCase(name);
         model.addAttribute("user", user);
         return "user";
     }
