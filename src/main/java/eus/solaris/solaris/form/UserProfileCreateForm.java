@@ -1,9 +1,10 @@
 package eus.solaris.solaris.form;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.Generated;
 
-@Getter @Setter
+@Data
+@Generated
 public class UserProfileCreateForm {
     private String username;
     private String name;

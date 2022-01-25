@@ -7,12 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "size")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Generated
 public class Size {
     @Id

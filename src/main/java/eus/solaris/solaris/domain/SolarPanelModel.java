@@ -13,14 +13,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "solar_panel_model")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Generated
 public class SolarPanelModel {
 
