@@ -10,7 +10,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        default-schema: solaris
+        default-schema: solarisz
 
   # autoconfigure:
   #   exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.ManagementWebSecurityAutoConfiguration
@@ -21,6 +21,10 @@ spring:
   #     password: admin
 
 server:
+  error:
+    page: error
+    path: /error
+    include-mapping: always
   ssl:
     enabled: true
     key-store-type: PKCS12

@@ -63,7 +63,7 @@ public class InstallerController {
     Installation installation = installationService.findById(id);
     
     if (installation == null)
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Installation not found");
 
     filter(installation, (User) model.getAttribute("user"));
 
