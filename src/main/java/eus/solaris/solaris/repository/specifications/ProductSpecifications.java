@@ -8,19 +8,21 @@ import eus.solaris.solaris.domain.Product;
 
 public class ProductSpecifications {
 
+    final static String MODEL_STRING = "model";
+
     public static Specification<Product> findByBrandIds(List<Long> brandIds) {
-        return (product, cq, cb) -> product.get("model").get("brand").get("id").in(brandIds);
+        return (product, cq, cb) -> product.get(MODEL_STRING).get("brand").get("id").in(brandIds);
     }
 
     public static Specification<Product> findByMaterialIds(List<Long> materialIds) {
-        return (product, cq, cb) -> product.get("model").get("material").get("id").in(materialIds);
+        return (product, cq, cb) -> product.get(MODEL_STRING).get("material").get("id").in(materialIds);
     }
 
     public static Specification<Product> findByColorIds(List<Long> colorId) {
-        return (product, cq, cb) -> product.get("model").get("color").get("id").in(colorId);
+        return (product, cq, cb) -> product.get(MODEL_STRING).get("color").get("id").in(colorId);
     }
 
     public static Specification<Product> findBySizeIds(List<Long> sizeIds) {
-        return (product, cq, cb) -> product.get("model").get("size").get("id").in(sizeIds);
+        return (product, cq, cb) -> product.get(MODEL_STRING).get("size").get("id").in(sizeIds);
     }
 }
