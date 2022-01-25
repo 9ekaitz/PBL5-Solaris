@@ -82,7 +82,7 @@ public class AppController {
 			Model model) throws Exception{
 		if (result.hasErrors()
 				|| form.getUsername() != null
-						&& !form.getUsername().equals("")
+						&& !form.getUsername().isBlank()
 						&& userService.findByUsername(form.getUsername()) != null) {
 			Locale locale = LocaleContextHolder.getLocale();
 			List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
