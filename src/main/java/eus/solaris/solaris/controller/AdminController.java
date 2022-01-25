@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -203,12 +204,11 @@ public class AdminController {
     @PostMapping(value = "/manage-products/filter")
     public String filterProducts(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model) {
         model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
-        Set<Product> products = productService.getFilteredProducts(pff);
         setFilters(model);
-        PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(List.copyOf(products));
+        Page<Product> products = productService.getFilteredProducts(pff, 0);
         model.addAttribute(ACTUAL_PAGE, 0);
-        model.addAttribute(PRODUCTS_MODEL, pagedListHolder.getPageList());
-        model.addAttribute(TOTAL_PAGES, pagedListHolder.getPageCount());
+        model.addAttribute(PRODUCTS_MODEL, products.getContent());
+        model.addAttribute(TOTAL_PAGES, products.getTotalPages());
         return RETURN_MANAGE_USERS;
     }
 

@@ -90,7 +90,7 @@ class ShopCartControllerTest {
     String username = "testyUser";
     Privilege privilege = createUserLoggedPrivilege();
 
-    Role ROLE_USER = new Role(1L, "ROLE_USER", true, null, Stream
+    Role ROLE_USER = new Role(1L, "ROLE_USER", true, null, "role.user", Stream
         .of(privilege)
         .collect(Collectors.toSet()), 1);
 
@@ -110,7 +110,7 @@ class ShopCartControllerTest {
 
 
     Set<ProductDescription> productDescriptions = Stream
-        .of(new ProductDescription(1L, new Language(1L, "en", "en", 1), "UWU", "ORIBE TE VOY A MATAR", product, 1)).collect(Collectors.toSet());
+        .of(new ProductDescription(1L, new Language(1L, "en", "en", 1), "Name", "Subtitle", "Description", product, 1)).collect(Collectors.toSet());
 
     product = new Product(1L, 200D, null, productDescriptions, null, 1);
 
