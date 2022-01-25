@@ -5,10 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 
 @Embeddable
-@EqualsAndHashCode
+@Data
 public class OrderProductKey implements Serializable{
   
   private static final long serialVersionUID = -6042347061246458317L;

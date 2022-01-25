@@ -23,7 +23,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
@@ -41,7 +40,7 @@ import javassist.tools.web.BadHttpRequest;
 
 @RestController
 @RequestMapping("/api/panel")
-public class SinglePanelREST implements HandlerInterceptor {
+public class SinglePanelREST {
 
     private static final Integer THREADS = 6;
 
@@ -117,8 +116,8 @@ public class SinglePanelREST implements HandlerInterceptor {
 
         JSONObject json = new JSONObject();
         json.put("voltage", p.getModel().getVoltage());
-        json.put("width", p.getModel().getWidth());
-        json.put("height", p.getModel().getHeight());
+        json.put("width", p.getModel().getSize().getWidth());
+        json.put("height", p.getModel().getSize().getHeight());
         json.put("energyThisMonth", thisMonth(p));
         json.put("energyLast30Days", last30Days(p));
         json.put("energyAllTime", allTime(p));

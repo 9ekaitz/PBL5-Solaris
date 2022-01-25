@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{shop_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/shop-product.css}" href="/css/page/shop-product.css">
+    <title th:text="#{page.shop.title}">Shop</title>
+</head>
+
+<body>
+    <div layout:fragment="shop-content">
+        <div class="single-product" th:object="${product}">
+            <th:block th:each="description : *{descriptions}">
+                <th:block th:if="${description.language.code} == #{locale}">
+                    <div class="product-img">
+                        <img th:src="@{'~' + *{imagePath}}" th:alt="${description.name}" alt="Product name" />
+                    </div>
+                    <div class="info">
+                        <div class="basic-info">
+                            <h2 class="product-title" th:text="${description.name}">Product name</h2>
+                            <p class="product-price" th:text="*{#numbers.formatDecimal(price,1,2,'COMMA') + ' €'}">10 €
+                            </p>
+                        </div>
+                        <div class="buy">
+                            <div class="section-title">
+                                <hr>
+                                <span th:text="#{page.shop.product.buy}">Buy</span>
+                                <hr>
+                            </div>
+                            <div class="controls">
+                                <span class="quantity-label" th:text="#{page.shop.product.quantity}">Quantity</span>
+                                <div class="controls__quantity-wrap">
+                                    <span class="btn controls__substract">-</span>
+                                    <span class="product__quantity" th:text="1">10</span>
+                                    <span class="btn controls__sum">+</span>
+                                </div>
+                            </div>
+                            <button class="btn add-to-cart" th:text="#{page.shop.product.addToCart}"
+                                th:data-target="*{id}">Add to cart</button>
+                        </div>
+                        <div class="description">
+                            <div class="section-title">
+                                <hr>
+                                <span th:text="#{page.shop.product.description}">Description</span>
+                                <hr>
+                            </div>
+                            <p class="description" th:text="${description.description}"></p>
+                        </div>
+                    </div>
+                    <div class="specifications">
+                        <div class="section-title">
+                            <hr>
+                            <span th:text="#{page.shop.product.specifications}">Specifications</span>
+                            <hr>
+                        </div>
+                        <ul th:if="${product.model}" th:object="${product.model}">
+                            <li th:if="*{brand != null}"><span
+                                    th:text="#{page.shop.product.specifications.brand}">Brand</span>: <span
+                                    th:text="*{brand.name}"></span></li>
+                            <li th:if="*{size != null}"><span th:text="#{page.shop.product.specifications.name}">Model
+                                    name</span>: <span th:text="*{name}"></span></li>
+                            <li th:if="*{power != null}"><span
+                                    th:text="#{page.shop.product.specifications.power}">Power</span>: <span
+                                    th:text="*{power}"></span>W</li>
+                            <li th:if="*{voltage != null}"><span
+                                    th:text="#{page.shop.product.specifications.voltage}">Voltage</span>: <span
+                                    th:text="*{voltage}"></span>V</li>
+                            <li th:if="*{size != null}"><span
+                                    th:text="#{page.shop.product.specifications.width}">Width</span>: <span
+                                    th:text="*{size.width}"></span>mm</li>
+                            <li th:if="*{size != null}"><span
+                                    th:text="#{page.shop.product.specifications.height}">Height</span>: <span
+                                    th:text="*{size.height}"></span>mm</li>
+                            <li th:if="*{color != null}"><span
+                                    th:text="#{page.shop.product.specifications.color}">Color</span>: <span
+                                    th:text="*{color.name}"></span></li>
+                            <li th:if="*{material != null}"><span
+                                    th:text="#{page.shop.product.specifications.material}">Material</span>: <span
+                                    th:text="*{material.name}"></span></li>
+                        </ul>
+                    </div>
+                </th:block>
+        </div>
+        </th:block>
+    </div>
+    </div>
+</body>
+
+</html>

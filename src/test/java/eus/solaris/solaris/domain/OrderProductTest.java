@@ -54,7 +54,7 @@ class OrderProductTest {
         Product product0 = new Product();
         orderProduct0.product = product0;
         Product product1 = orderProduct0.getProduct();
-        assertEquals("Product(id=null, descriptions=null, imagePath=null, version=null)", product1.toString());
+        assertEquals("Product(id=null, price=null, model=null, descriptions=null)", product1.toString());
     }
 
     @Test
@@ -365,7 +365,7 @@ class OrderProductTest {
         OrderProduct orderProduct1 = new OrderProduct();
         boolean boolean0 = orderProduct1.equals(orderProduct0);
         assertEquals(
-                "OrderProduct(id=null, order=null, product=Product(id=null, descriptions=null, imagePath=null, version=null), amount=null, version=null)",
+            "OrderProduct(id=null, order=null, product=Product(id=null, price=null, model=null, descriptions=null), amount=null, price=null, version=null)",
                 orderProduct0.toString());
         assertFalse(boolean0);
     }
@@ -375,7 +375,7 @@ class OrderProductTest {
     void test33() throws Throwable {
         OrderProduct orderProduct0 = new OrderProduct();
         String string0 = orderProduct0.toString();
-        assertEquals("OrderProduct(id=null, order=null, product=null, amount=null, version=null)", string0);
+        assertEquals("OrderProduct(id=null, order=null, product=null, amount=null, price=null, version=null)", string0);
     }
 
     @Test

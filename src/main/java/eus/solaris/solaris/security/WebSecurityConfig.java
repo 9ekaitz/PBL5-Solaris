@@ -48,11 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.requiresChannel(channel -> channel.anyRequest().requiresSecure()).authorizeRequests()
+			.requiresChannel(channel -> channel.anyRequest().requiresSecure())
+				.authorizeRequests()
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
-				.loginPage(loginUrl)
+			.loginPage(loginUrl)
 				.defaultSuccessUrl(homeUrl)
 				.failureUrl(loginFailedUrl)
 				.loginProcessingUrl(loginUrl).permitAll()

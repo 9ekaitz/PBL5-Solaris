@@ -21,6 +21,7 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public String get(@RequestParam String name, Model model) {
         User user = userRepository.findByUsernameIgnoreCase(name);
