@@ -1,3 +1,7 @@
+body {
+  height: 100vh;
+}
+
 main {
   background-color: #F1F1F1;
   flex-grow: 1;
