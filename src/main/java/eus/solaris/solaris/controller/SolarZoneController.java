@@ -27,7 +27,31 @@ public class SolarZoneController {
         User user = (User) model.getAttribute("user");
         if (checkUserHasPanels(user)) {
             model.addAttribute("panels", solarPanelService.findByUser(user));
-            return "solarzone";
+            return "page/solarzone_home";
+        } else {
+            return "error";
+        }
+    }
+
+    @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
+    @GetMapping("/panel")
+    public String solarZonePanel(Model model) {
+        User user = (User) model.getAttribute("user");
+        if (checkUserHasPanels(user)) {
+            model.addAttribute("panels", solarPanelService.findByUser(user));
+            return "page/solarzone_panel";
+        } else {
+            return "error";
+        }
+    }
+
+    @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
+    @GetMapping("/economic")
+    public String solarZoneEcon(Model model) {
+        User user = (User) model.getAttribute("user");
+        if (checkUserHasPanels(user)) {
+            model.addAttribute("panels", solarPanelService.findByUser(user));
+            return "page/solarzone_econ";
         } else {
             return "error";
         }

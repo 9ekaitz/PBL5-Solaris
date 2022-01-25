@@ -2,7 +2,7 @@ package eus.solaris.solaris.service.multithreading.conversions;
 
 public class ConversionToUSD implements IConversion {
 
-    private static final Double AVERAGE_FACTOR = 0.2913;
+    private static final Double AVERAGE_FACTOR = 0.2913 / 100;
 
     @Override
     public Double apply(Double t) {

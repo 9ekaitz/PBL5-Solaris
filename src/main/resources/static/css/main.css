@@ -368,7 +368,8 @@ body {
   height: 1.5em;
 }
 
-input {
+input,
+select {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid #000;
@@ -376,9 +377,15 @@ input {
   padding: 0.2em;
   height: 1.5em;
 }
-input:focus, input:hover {
+input:focus, input:hover,
+select:focus,
+select:hover {
   outline: 1px solid #f9aa31;
   border-color: #f9aa31;
+}
+input.show,
+select.show {
+  display: block;
 }
 
 input[type=checkbox] {

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,6 +34,7 @@ import eus.solaris.solaris.service.multithreading.FormatterJSON;
 import eus.solaris.solaris.service.multithreading.Gatherer;
 import eus.solaris.solaris.service.multithreading.Processer;
 import eus.solaris.solaris.service.multithreading.ThreadService;
+import eus.solaris.solaris.service.multithreading.conversions.ConversionType;
 import eus.solaris.solaris.service.multithreading.modes.Kind;
 
 @RestController
@@ -57,7 +56,7 @@ public class MultiPanelREST {
     @Autowired
     MessageSource messageSource;
 
-    @GetMapping(path = "/real-time", produces = "application/json")
+    @GetMapping(path = "/real-time")
     public String realTimeUser(HttpServletRequest request, HttpServletResponse response,
             SolarPanelRequestDTO dto) {
 
@@ -76,12 +75,14 @@ public class MultiPanelREST {
             entries.addAll(dataEntryRepository.findBySolarPanelAndTimestampBetween(panel, startOfDay, now));
         }
         Map<Instant, Double> data = Gatherer.extractData(entries);
-        data = Processer.groupPanels(data);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.LINE);
-
-        Locale locale = LocaleContextHolder.getLocale();
-        fj.setLabel(messageSource.getMessage("rest.graph.multi.real_time", null, locale));
+        if (dto.getConversionType() == null) {
+            fj.setLabel("kWH");
+        } else {
+            fj.setLabel((dto.getConversionType().toString() == "NONE") ? "kWh"
+                    : dto.getConversionType().toString().replace("TO_", ""));
+        }
         return fj.getJSON().toString();
     }
 
@@ -99,8 +100,8 @@ public class MultiPanelREST {
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), dto.getConversionType());
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.BAR);
-        Locale locale = LocaleContextHolder.getLocale();
-        fj.setLabel(messageSource.getMessage("rest.graph.multi.grouped", null, locale));
+        fj.setLabel((dto.getConversionType().toString() == "NONE") ? "kWh"
+                : dto.getConversionType().toString().replace("TO_", ""));
         return fj.getJSON().toString();
     }
 
@@ -114,12 +115,20 @@ public class MultiPanelREST {
             throw new NoSuchElementException(ERROR_USER_NOT_FOUND);
         }
         List<SolarPanel> panels = solarPanelRepository.findByUser(user.get());
-
         JSONObject json = new JSONObject();
-        json.put("voltageList", new JSONObject(countVoltages(panels)));
-        json.put("energyThisMonth", thisMonthUser(panels));
-        json.put("energyLast30Days", last30DaysUser(panels));
-        json.put("energyAllTime", allTimeUser(panels));
+        ConversionType c = dto.getConversionType();
+        if (c != null && c != ConversionType.NONE) {
+            json.put("energyThisMonth", Processer.processOne(thisMonthUser(panels), c));
+            json.put("energyLast30Days", Processer.processOne(last30DaysUser(panels), c));
+            json.put("energyAllTime", Processer.processOne(allTimeUser(panels), c));
+
+        } else {
+            json.put("voltageList", new JSONObject(countVoltages(panels)));
+            json.put("energyThisMonth", thisMonthUser(panels));
+            json.put("energyLast30Days", last30DaysUser(panels));
+            json.put("energyAllTime", allTimeUser(panels));
+
+        }
 
         return json.toString();
     }
@@ -163,7 +172,12 @@ public class MultiPanelREST {
         for (SolarPanel panel : panels) {
             val += dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
         }
-        return val;
+
+        return toKWh(val);
+    }
+
+    private Double toKWh(Double val) {
+        return (val / 60) / 1000;
     }
 
     protected boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {
@@ -185,6 +199,7 @@ public class MultiPanelREST {
         }
 
         if (!user.getId().equals(userId)) {
+            System.out.println("User id: " + userId + " is not the same as logged in user id: " + user.getId());
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return false;
         }

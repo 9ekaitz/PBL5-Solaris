@@ -3,7 +3,6 @@ package eus.solaris.solaris.service.multithreading;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -34,8 +33,19 @@ public class FormatterJSON {
         this.label = label;
     }
 
+    private List<String> getLabelsHour(Map<Instant, Double> data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm")
+                .withLocale(Locale.forLanguageTag("ESP"))
+                .withZone(ZoneId.of("Europe/Madrid"));
+        List<String> labels = new ArrayList<>();
+        for (Instant instant : data.keySet()) {
+            labels.add(formatter.format(instant));
+        }
+        return labels;
+    }
+
     private List<String> getLabels(Map<Instant, Double> data) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
                 .withLocale(Locale.forLanguageTag("ESP"))
                 .withZone(ZoneId.of("Europe/Madrid"));
         List<String> labels = new ArrayList<>();
@@ -58,14 +68,19 @@ public class FormatterJSON {
         JSONObject dataset = new JSONObject();
         dataset.put("label", label);
         dataset.put("data", new JSONArray(getValues(data)));
-        dataset.put("backgroundColor", "rgba(255, 99, 132, 0.7)");
+        dataset.put("backgroundColor", "rgba(249, 170, 49, 0.7)");
         datasets.put(dataset);
         return datasets;
     }
 
     private JSONObject getData(Map<Instant, Double> data) {
         JSONObject innerData = new JSONObject();
-        innerData.put("labels", new JSONArray(getLabels(data)));
+        System.out.println(kind);
+        if (kind == Kind.LINE) {
+            innerData.put("labels", new JSONArray(getLabelsHour(data)));
+        } else {
+            innerData.put("labels", new JSONArray(getLabels(data)));
+        }
         innerData.put("datasets", getDatasets(data));
         return innerData;
     }

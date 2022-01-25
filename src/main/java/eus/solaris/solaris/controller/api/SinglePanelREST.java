@@ -80,8 +80,7 @@ public class SinglePanelREST implements HandlerInterceptor {
         Map<Instant, Double> data = Gatherer.extractData(entries);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.LINE);
-        Locale locale = LocaleContextHolder.getLocale();
-        fj.setLabel(messageSource.getMessage("rest.graph.single.real_time", null, locale));
+        fj.setLabel("kWh");
         return fj.getJSON().toString();
     }
 
@@ -100,8 +99,7 @@ public class SinglePanelREST implements HandlerInterceptor {
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), ConversionType.NONE);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.BAR);
-        Locale locale = LocaleContextHolder.getLocale();
-        fj.setLabel(messageSource.getMessage("rest.graph.single.per_panel", null, locale));
+        fj.setLabel("kWh");
         return fj.getJSON().toString();
     }
 
@@ -126,6 +124,21 @@ public class SinglePanelREST implements HandlerInterceptor {
         return json.toString();
     }
 
+    @GetMapping(path = "/getPanels", produces = "application/json")
+    public String getPanels(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
+        if (!filterRequest(req, res))
+            return null;
+        User user = userService.findById(dto.getId());
+        List<SolarPanel> panels = solarPanelRepository.findByUser(user);
+        List<Long> panelIds = new ArrayList<>();
+        for (SolarPanel panel : panels) {
+            panelIds.add(panel.getId());
+        }
+        JSONObject json = new JSONObject();
+        json.put("panels", panelIds);
+        return json.toString();
+    }
+
     private Double thisMonth(SolarPanel p) {
         Instant startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay().toInstant(ZoneOffset.UTC);
         Instant now = Instant.now();
@@ -145,7 +158,7 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     private Double getData(SolarPanel panel, Instant start, Instant end) {
-        return dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
+        return (dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end) / 60) / 1000;
     }
 
     public boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {

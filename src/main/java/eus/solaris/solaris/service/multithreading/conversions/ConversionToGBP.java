@@ -2,7 +2,7 @@ package eus.solaris.solaris.service.multithreading.conversions;
 
 public class ConversionToGBP implements IConversion {
 
-    private static final Double AVERAGE_FACTOR = 0.2103;
+    private static final Double AVERAGE_FACTOR = 0.2103 / 100;
 
     @Override
     public Double apply(Double t) {

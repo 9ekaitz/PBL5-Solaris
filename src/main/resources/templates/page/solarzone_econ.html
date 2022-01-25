@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+  <head>
+    <link rel="stylesheet" th:href="@{/css/page/solarzone.css}" />
+    <title>Localize</title>
+  </head>
+
+  <body>
+    <h2 class="page-title" layout:fragment="title" th:text="#{header.title.overview}"></h2>
+    <main layout:fragment="content" class="installer-dashboard">
+      <script th:inline="javascript">
+        const USER_ID = /*[[${user.id}]]*/ "";
+        const HISTORICAL_TITLE = /*[[#{rest.graph.multi.grouped}]]*/ "";
+        const SINGLE_PANEL = false;
+        const CONVERSION = "TO_EUR";
+        const HISTORICAL_URL = `/api/user-panel/grouped?conversionType=${CONVERSION}&id=`;
+        const GENERAL_DATA_URL = `/api/user-panel/general-data?conversionType=${CONVERSION}&id=`;
+        const REAL_TIME_URL = `/api/user-panel/real-time?conversionType=${CONVERSION}&id=`;
+      </script>
+      <div class="container">
+        <div id="banner" class="panel" style="display: none">
+          <canvas id="realTimeChart"></canvas>
+        </div>
+        <div id="main-panel" class="panel">
+          <div class="load-cover" th:text="#{rest.graph.load_cover}"></div>
+          <div class="button-row">
+            <div class="group-modes">
+              <button class="btn group-button" id="button-year">YEAR</button>
+              <button class="btn group-button" id="button-month">MONTH</button>
+              <button class="btn group-button" id="button-week">WEEK</button>
+              <button class="btn group-button button-selected" id="button-day">DAY</button>
+            </div>
+            <div class="group-dates">
+              <select name="year" class="date-selector" id="select-year">
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+              </select>
+              <select name="month" class="date-selector" id="select-month">
+                <th:block th:each="i: ${#numbers.sequence(1, 12)}">
+                  <option th:value="${i}" th:text="${i}"></option>
+                </th:block>
+              </select>
+              <select name="week" class="date-selector" id="select-week">
+                <th:block th:each="i: ${#numbers.sequence(1, 52)}">
+                  <option value="${i}" th:text="${i}"></option>
+                </th:block>
+              </select>
+              <input class="date-selector show" type="date" id="select-day" min="2019-01-01" max="2022-01-28" />
+            </div>
+          </div>
+          <div class="canvas-div">
+            <canvas id="historical-chart"></canvas>
+          </div>
+        </div>
+        <div id="small-panel" class="panel">
+          <div class="info-panel">
+            <strong><span th:text="#{rest.multi.energy-this-month}"></span></strong>
+            <span id="energy-this-month"></span>
+          </div>
+          <div class="info-panel">
+            <strong><span th:text="#{rest.multi.energy-last-30-days}"></span></strong>
+            <span id="energy-last-30-days"></span>
+          </div>
+          <div class="info-panel">
+            <strong><span th:text="#{rest.multi.energy-all-time}"></span></strong>
+            <span id="energy-all-time"></span>
+          </div>
+        </div>
+      </div>
+      <script th:src="@{/js/solarzone_data_processer.js}" src="/js/solarzone_data_processer.js"></script>
+    </main>
+  </body>
+</html>

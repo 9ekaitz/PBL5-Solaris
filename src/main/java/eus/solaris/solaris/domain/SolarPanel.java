@@ -13,10 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "solar_panel")

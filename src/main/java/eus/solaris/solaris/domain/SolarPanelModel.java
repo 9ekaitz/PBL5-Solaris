@@ -12,9 +12,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity

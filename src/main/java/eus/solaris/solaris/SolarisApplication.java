@@ -15,9 +15,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import eus.solaris.solaris.controller.filters.MultiPanelDataFilter;
-import eus.solaris.solaris.controller.filters.SinglePanelDataFilter;
-
 @SpringBootApplication
 public class SolarisApplication extends SpringBootServletInitializer implements WebMvcConfigurer {
 
@@ -50,8 +47,6 @@ public class SolarisApplication extends SpringBootServletInitializer implements 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
-		registry.addInterceptor(new SinglePanelDataFilter()).addPathPatterns("/api/panel/**");
-		registry.addInterceptor(new MultiPanelDataFilter()).addPathPatterns("/api/user-panel/**");
 	}
 
 	@Override

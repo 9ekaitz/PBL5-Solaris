@@ -47,24 +47,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.requiresChannel(channel -> channel.anyRequest().requiresSecure()).authorizeRequests()
-			.anyRequest().permitAll()
-			.and()
-			.formLogin()
+		http.csrf().disable()
+				.requiresChannel(channel -> channel.anyRequest().requiresSecure()).authorizeRequests()
+				.anyRequest().permitAll()
+				.and()
+				.formLogin()
 				.loginPage(loginUrl)
 				.defaultSuccessUrl(homeUrl)
 				.failureUrl(loginFailedUrl)
 				.loginProcessingUrl(loginUrl).permitAll()
-			.and()
-			.logout()
+				.and()
+				.logout()
 				.deleteCookies("JSESSIONID")
 				.logoutRequestMatcher(new AntPathRequestMatcher(logoutUrl))
 				.logoutSuccessUrl(loginUrl)
-			.and()
-			.rememberMe()
+				.and()
+				.rememberMe()
 				.key(rememberMeKey)
-					.userDetailsService(userDetailsService);
+				.userDetailsService(userDetailsService);
 	}
 
 	@Bean

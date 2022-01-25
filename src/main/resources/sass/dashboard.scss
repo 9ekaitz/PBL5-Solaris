@@ -4,7 +4,6 @@ main {
   background-color: $bg-color;
   flex-grow: 1;
   overflow: auto;
-  padding: 2rem;
   // position: relative;
 }
 
@@ -12,7 +11,7 @@ main {
   background: $section-bg-color;
   display: none;
   overflow: hidden;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   height: calc(100% - 2rem);
   .title {
     font-weight: normal;
@@ -58,7 +57,7 @@ header {
   padding: 1rem 3rem;
   margin: 0;
   box-shadow: 0 0 8px $border-color;
-  
+
   &.alert-danger {
     background-color: $danger-dark-color;
   }
