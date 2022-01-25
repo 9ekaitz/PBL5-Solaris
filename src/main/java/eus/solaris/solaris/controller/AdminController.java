@@ -38,15 +38,15 @@ import eus.solaris.solaris.service.UserService;
 @RequestMapping("/dashboard")
 public class AdminController {
 
-    final static String PAGE_TITLE = "page_title";
-    final static String ACTUAL_PAGE = "actualPage";
-    final static String TOTAL_PAGES = "totalPages";
-    final static String PRODUCTS_MODEL = "products";
+    private static final String PAGE_TITLE = "page_title";
+    private static final String ACTUAL_PAGE = "actualPage";
+    private static final String TOTAL_PAGES = "totalPages";
+    private static final String PRODUCTS_MODEL = "products";
 
-    final static String PRODUCTS_TITLE = "PRODUCTS";
+    private static final String PRODUCTS_TITLE = "PRODUCTS";
 
-    final static String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
-    final static String RETURN_MANAGE_USERS = "page/admin-dashboard/manage-products";
+    private static final String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
+    private static final String RETURN_MANAGE_USERS = "page/admin-dashboard/manage-products";
 
     @Autowired
     UserService userService;
