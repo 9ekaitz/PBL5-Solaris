@@ -21,6 +21,10 @@ spring:
   #     password: admin
 
 server:
+  error:
+    page: error
+    path: /error
+    include-mapping: always
   ssl:
     enabled: true
     key-store-type: PKCS12

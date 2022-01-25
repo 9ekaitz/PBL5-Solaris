@@ -2,10 +2,14 @@
 
 footer{
     background-color: $breadcrumbs-off-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 1rem 1.5rem 1rem;
+    
+    .footer-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+    }
 
     .footer-icons{
         display: flex;
@@ -30,11 +34,14 @@ footer{
     }
 
     @media (min-width: 768px){
-        padding: 1.5rem 10rem 1.5rem 10rem;
-        width: calc(100% - 20rem); 
-
+        .footer-wrap {
+            padding: 2rem;
+            max-width: 1300px;
+            margin: auto;
+        }
         .footer-icons{
             gap: 1rem;
+            width: max-content;
         }
 
         .copyright{

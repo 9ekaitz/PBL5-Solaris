@@ -43,7 +43,8 @@ main .main-content .content-section .sub-section {
   width: 100%;
 }
 main .main-content .content-section .sub-section img {
-  max-width: 100%;
+  display: block;
+  width: 100%;
   margin-block: 1rem;
 }
 main .main-content .content-section .sub-section .title {
@@ -56,14 +57,14 @@ main .main-content .content-section .sub-section .subtitle {
 }
 @media (min-width: 768px) {
   main .main-content {
-    padding: 7.5rem 0rem 5rem 0rem;
-    gap: 10rem;
+    gap: 5rem;
   }
   main .main-content .content-section {
     display: flex;
     gap: 5rem;
-    margin-block: 0;
-    padding: 0rem 10rem 0rem 10rem;
+    padding: 2rem;
+    max-width: 1300px;
+    margin: auto;
     font-size: 1.5rem;
   }
   main .main-content .content-section.main .title {
@@ -73,28 +74,6 @@ main .main-content .content-section .sub-section .subtitle {
     font-size: 1.5rem;
     font-weight: lighter;
     text-align: justify;
-  }
-  main .main-content .content-section.phases {
-    background-color: #F1F1F1;
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem 10rem 2rem 10rem;
-  }
-  main .main-content .content-section.phases .text {
-    text-align: center;
-    justify-content: center;
-    padding: 0;
-  }
-  main .main-content .content-section.phases .text.info {
-    padding: 0.5rem 0 0 0;
-    font-size: 1rem;
-  }
-  main .main-content .content-section.phases .text.number {
-    margin: auto;
-    width: 70px;
-    line-height: 70px;
-    text-align: center;
-    font-size: 2rem;
   }
   main .main-content .content-section.unit .sub-section {
     width: 100%;
@@ -107,5 +86,29 @@ main .main-content .content-section .sub-section .subtitle {
     font-size: 1.25rem;
     font-weight: lighter;
     text-align: justify;
+  }
+  main .main-content .phases {
+    background-color: #F1F1F1;
+  }
+  main .main-content .phases .content-section {
+    display: flex;
+    justify-content: space-between;
+  }
+  main .main-content .phases .text {
+    text-align: center;
+    justify-content: center;
+    padding: 0;
+  }
+  main .main-content .phases .text.info {
+    padding: 0.5rem 0 0 0;
+    font-size: 1rem;
+  }
+  main .main-content .phases .text.number {
+    margin: auto;
+    margin-top: 1em;
+    width: 70px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 2rem;
   }
 }/*# sourceMappingURL=index.css.map */

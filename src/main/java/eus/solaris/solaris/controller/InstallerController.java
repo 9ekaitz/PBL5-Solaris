@@ -61,11 +61,14 @@ public class InstallerController {
   public String showTask(@PathVariable(value = "id") Long id, Model model) {
 
     Installation installation = installationService.findById(id);
+    
+    if (installation == null)
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "error.404.installation");
 
     filter(installation, (User) model.getAttribute("user"));
 
     if (Boolean.TRUE.equals(installation.getCompleted()))
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "error.404.installation");
     model.addAttribute("installation", installation);
 
     return "page/installation";
@@ -102,7 +105,7 @@ public class InstallerController {
 
   private void filter(Installation installation, User user) throws ResponseStatusException {
     if (user == null || (installation.getInstaller() != user && !user.getRole().getName().equals(ROLE_ADMIN)))
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "error.403.title");
   }
 
   private boolean checkTaskCompleted(Installation installation) {

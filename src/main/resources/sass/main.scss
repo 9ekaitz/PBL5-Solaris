@@ -166,15 +166,6 @@ input[type="checkbox"] {
     transform: scale(0);
     transition: transform 0.5s;
   }
-
-  &:checked {
-    border-color: $main-color;
-    box-shadow: inset 0 0 0 2em $main-color;
-
-    &::before {
-      transform: scale(0.7);
-    }
-  }
   &.btn-big {
     width: 18rem;
     height: 4rem;
@@ -188,6 +179,15 @@ input[type="checkbox"] {
     &:hover,
     &:focus {
       background-color: $danger-dark-color;
+    }
+  }
+
+  &:checked {
+    border-color: $main-color;
+    box-shadow: inset 0 0 0 2em $main-color;
+
+    &::before {
+      transform: scale(0.7);
     }
   }
 }
@@ -213,6 +213,15 @@ input[type="submit"],
     width: 18rem;
     height: 4rem;
     border-radius: 1.5 * $btn-border;
+  }
+  &.delete-account {
+    background-color: $danger-color;
+    color: $text-light-color;
+
+    &:hover,
+    &:focus {
+      background-color: $danger-dark-color;
+    }
   }
 }
 @media screen and (min-width: $large-screen) {

@@ -86,13 +86,13 @@
 }
 .container .footer {
   flex-wrap: wrap;
+  margin-top: 1.5rem;
 }
 .container .footer .btn-container {
   display: flex;
   gap: 2rem;
 }
 .container .footer .btn {
-  display: block;
   margin-block: 0.5rem 0;
   border-radius: 0.2rem;
   height: 1.5em;
