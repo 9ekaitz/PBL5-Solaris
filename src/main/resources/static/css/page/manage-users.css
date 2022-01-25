@@ -1,12 +1,12 @@
 main {
-  background-color: #e5e5e5;
+  background-color: #F1F1F1;
   flex-grow: 1;
   overflow: auto;
   padding: 2rem;
 }
 
 .container {
-  background: #fff;
+  background: #FFF;
   padding: 1rem 2rem 1rem 2rem;
 }
 
@@ -47,7 +47,7 @@ main {
   margin-inline: 0.5rem;
   padding: 0.3em;
   text-decoration: none;
-  background-color: #e5e5e5;
+  background-color: #F1F1F1;
   border-radius: 3em;
 }
 .manage-accounts .pages .selected {
@@ -55,7 +55,7 @@ main {
   color: white;
 }
 .manage-accounts .pages .not-selected {
-  background-color: #e5e5e5;
+  background-color: #F1F1F1;
   color: black;
 }
 
@@ -86,7 +86,7 @@ main {
   }
 
   .user-div:nth-child(odd) {
-    background-color: #e5e5e5;
+    background-color: #F1F1F1;
   }
 }
 @media (min-width: 768px) {
@@ -144,7 +144,7 @@ main {
     float: left;
   }
   .accounts-list table tr:nth-child(2n) {
-    background-color: #e5e5e5;
+    background-color: #F1F1F1;
   }
   .accounts-list table tr td:nth-child(1), .accounts-list table tr td:last-child() {
     width: 15px;

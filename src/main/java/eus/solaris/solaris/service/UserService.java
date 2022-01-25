@@ -8,18 +8,15 @@ import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
 import java.io.Serializable;
-import java.util.List;
 
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
-import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.exception.AvatarNotCreatedException;
 import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
 
 public interface UserService extends Serializable {
     public User save(User user);
-
     public User findByUsername(String username);
     public List<User> findAll();
     public User findById(Long id);
