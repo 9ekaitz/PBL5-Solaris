@@ -7,12 +7,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import com.google.inject.internal.util.Sets;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Jetty.Accesslog.FORMAT;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Brand;
@@ -130,18 +127,6 @@ public class ProductServiceImpl implements ProductService {
             Stream.of(pff.getSizesIds()).allMatch(Objects::isNull)) {
                 return allProducts; // return all products
         } else {
-            // Filter by brand
-            // allProducts.forEach(product -> {
-            //     if (pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getBrand().getId())) {
-            //         products.add(product);
-            //     } else if (pff.getColorsIds() != null && pff.getColorsIds().contains(product.getColor().getId())) {
-            //         products.add(product);
-            //     } else if (pff.getMaterialsIds() != null && pff.getMaterialsIds().contains(product.getMaterial().getId())) {
-            //         products.add(product);
-            //     } else if (pff.getSizesIds() != null && pff.getSizesIds().contains(product.getSize().getId())) {
-            //         products.add(product);
-            //     }
-            // });
             allProducts.forEach(product -> {
                 if(pff.getBrandsIds() != null && pff.getBrandsIds().contains(product.getBrand().getId()) ||
                     pff.getColorsIds() != null && pff.getColorsIds().contains(product.getColor().getId()) ||

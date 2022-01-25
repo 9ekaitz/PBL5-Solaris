@@ -39,7 +39,6 @@
                         <label><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}" th:id="${'size-' + size.id}"><span th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
                     </th:block>
                     <hr>
-                    <!-- TODO: get all types of prices from products -->
                     <h2 th:text="#{page.dashboard.manage-products.price}"></h2>
                     <label><input type="checkbox" id="lt50"><span th:text="#{page.dashboard.manage-products.lt50}"></span></label>
                     <label><input type="checkbox" id="gt50_lt100"><span th:text="#{page.dashboard.manage-products.gt50_lt100}"></span></label>
@@ -55,9 +54,6 @@
                             </div>
                             <th:block th:each="description, iterator : ${product.descriptions}">
                                 <th:block th:with="listsize=${#lists.size(product.descriptions)-1}">
-                                    <!-- th:if="${description.language.code} == #{locale} or iterator eq listsize}" -->
-                                    <!-- <span th:text="${'listsize: ' + listsize}"></span> -->
-                                    <!-- <span th:text="${'iterator: ' + iterator.index}"></span> -->
                                     <p class="product-title" th:if="(${description.language.code} == #{locale}) or iterator.index eq listsize" th:text="${description.name}">Null</p>
                                 </th:block>
                             </th:block>

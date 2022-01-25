@@ -11,5 +11,4 @@ public class ProductFilterForm {
     private List<Long> colorsIds;
     private List<Long> sizesIds;
     private List<Long> materialsIds;
-    // private List<Long> minPrizeIds;
 }
