@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,11 +18,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -109,13 +106,6 @@ class AppControllerTest {
       e.printStackTrace();
     }
   }
-
-  // @Test
-  // void apiTest() throws Exception{
-  //     mvc.perform(get("https://localhost/apitest"))
-  //         .andExpect(status().isOk())
-  //         .andExpect(view().name("page/apitest"));
-  // }
 
   @Test
   void loginTestWithoutUser() throws Exception{
@@ -203,7 +193,7 @@ class AppControllerTest {
     User u = new User();
     
     u.setId(1L);
-    u.setUsername("tets");
+    u.setUsername("test");
 
     return u;
   }
