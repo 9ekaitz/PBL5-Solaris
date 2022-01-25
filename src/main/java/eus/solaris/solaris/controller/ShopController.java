@@ -171,6 +171,10 @@ public class ShopController {
 			}
 		}
 
+		if (user == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user found");
+		}
+
 		order.setOwner(user);
 		if (form.getAddressId() != null) {
 			order.setAddress(addressService.findById(form.getAddressId()));

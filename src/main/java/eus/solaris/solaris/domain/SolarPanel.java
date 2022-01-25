@@ -1,5 +1,6 @@
 package eus.solaris.solaris.domain;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Column;
@@ -21,7 +22,9 @@ import lombok.Setter;
 @Table(name = "solar_panel")
 @Getter @Setter
 @Generated
-public class SolarPanel {
+public class SolarPanel implements Serializable{
+
+    private static final long serialVersionUID = -1422868069503118354L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

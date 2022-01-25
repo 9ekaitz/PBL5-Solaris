@@ -28,7 +28,7 @@ import eus.solaris.solaris.repository.filters.SizeRepository;
 import eus.solaris.solaris.service.impl.ProductServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceImplTest {
+class ProductServiceImplTest {
 
     @InjectMocks
     private ProductServiceImpl productServiceImpl;

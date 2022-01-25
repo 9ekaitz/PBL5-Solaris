@@ -63,7 +63,7 @@ public class ShopServiceImpl implements ShopService {
 
         List<CartProduct> products = user.getShoppingCart();
         CartProduct cp = findInCart(products, productId);
-        cp.setQuantity(quantity);
+        if(cp != null) cp.setQuantity(quantity);
         cartProductRepository.save(cp);
         return userService.save(user);
     }
@@ -76,7 +76,7 @@ public class ShopServiceImpl implements ShopService {
 
     private CartProduct findInCart(List<CartProduct> products, Long productId) {
         for (CartProduct cp : products) {
-            if (cp.getProduct().getId() == productId) {
+            if (cp.getProduct().getId().equals(productId)) {
                 return cp;
             }
         }
