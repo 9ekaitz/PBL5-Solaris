@@ -48,9 +48,12 @@ public class ShopServiceImpl implements ShopService {
     public User cartRemoveProduct(User user, Long productId) {
         List<CartProduct> products = user.getShoppingCart();
         CartProduct cp = findInCart(products, productId);
-        products.remove(cp);
-        cartProductRepository.delete(cp);
-        return userService.save(user);
+        if(cp != null) {
+            products.remove(cp);
+            cartProductRepository.delete(cp);
+            return userService.save(user);
+        }
+        return null;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public User emptyCart(User user) {
-        user.setShoppingCart(new ArrayList<CartProduct>());
+        user.setShoppingCart(new ArrayList<>());
         return userService.save(user);
     }
 

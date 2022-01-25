@@ -2,6 +2,7 @@ package eus.solaris.solaris.repository.impl;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.springframework.core.io.FileSystemResource;
@@ -20,28 +21,28 @@ public class ImageRepositoryImpl implements ImageRepository {
     private static final String ABSOLUTE_PROFILES_PATH = BASE_PATH + RELATIVE_PROFILES_PATH;
 
     @Override
-    public String save(MultipartFile file) throws Exception {
+    public String save(MultipartFile file) throws IOException {
         File convFile = new File(PATH_SIGNATURES + file.getOriginalFilename());
         convFile.getParentFile().mkdirs();
         if (convFile.createNewFile()) {
             try (FileOutputStream out = new FileOutputStream(convFile)) {
                 out.write(file.getBytes());
             } catch (Exception e) {
-                System.out.println("Error saving the file");
+                return null;
             }
         }
         return convFile.getAbsolutePath();
     }
 
     @Override
-    public String save(byte[] bytes, String name) throws Exception {
+    public String save(byte[] bytes, String name) throws IOException {
         File convFile = new File(ABSOLUTE_PROFILES_PATH + name);
         convFile.getParentFile().mkdirs();
         if (convFile.createNewFile()) {
             try (FileOutputStream out = new FileOutputStream(convFile)) {
             out.write(bytes);
             } catch (Exception e) {
-                System.out.println("Error saving the file");
+                return null;
             }
         }
         return RELATIVE_PROFILES_PATH + convFile.getName();
