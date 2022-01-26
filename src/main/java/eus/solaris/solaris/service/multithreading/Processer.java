@@ -61,6 +61,39 @@ public class Processer {
         return result;
     }
 
+    public static Double processOne(Double value, ConversionType conversionT) {
+        Double result;
+        switch (conversionT) {
+            case TO_EUR:
+                result = new ConversionToEUR().apply(value);
+                break;
+            case TO_DOLLAR:
+                result = new ConversionToUSD().apply(value);
+                break;
+            case TO_POUNDS:
+                result = new ConversionToGBP().apply(value);
+                break;
+            case TO_AVOIDED_CO2:
+                result = new ConversionToCO2().apply(value);
+                break;
+            case TO_AVOIDED_TEMP_C:
+                result = new ConversionToTempC().apply(value);
+                break;
+            case TO_AVOIDED_TEMP_F:
+                result = new ConversionToTempF().apply(value);
+                break;
+            case TO_AVOIDED_MM_INCREASE:
+                result = new ConversionToNMInc().apply(value);
+                break;
+            case NONE:
+                result = new ConversionNone().apply(value);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown conversion type: " + conversionT);
+        }
+        return result;
+    }
+
     public static Map<Instant, Double> groupPanels(Map<Instant, Double> dataMap) {
         Map<Instant, Double> groupedDataMap = new TreeMap<>();
 

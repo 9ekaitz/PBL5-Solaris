@@ -33,4 +33,6 @@ public interface UserService extends Serializable {
     public List<PaymentMethod> getUserPaymentMethods(User user);
     public User register(UserRegistrationForm userRegistrationForm) throws AvatarNotCreatedException;
     public User editUser(UserInformationEditForm form, User attribute);
+
+    public User findById(Long id);
 }

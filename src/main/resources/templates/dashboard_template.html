@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-  th:lang="#{locale}"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html th:lang="#{locale}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <head>
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/favicon/apple-touch-icon.png}" href="/images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/favicon/favicon-32x32.png}" href="/images/favicon/favicon-32x32.png">
@@ -20,8 +17,10 @@
     <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
     <link rel="stylesheet" th:href="@{/css/module/header_dashboard.css}" />
     <link rel="stylesheet" th:href="@{/css/module/nav_dashboard.css}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 minimum-scale=1" />
     <script th:src="@{/js/dashboard_nav.js}"></script>
     <script th:src="@{/js/dashboard_alerts.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
 
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
   </head>

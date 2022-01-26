@@ -184,7 +184,7 @@ input[type="submit"],
   border: none;
   border-radius: $btn-border;
   min-width: fit-content;
-  //   min-height: 3em;
+  min-height: 3em;
   color: $text-color;
   background-color: $main-color;
   padding-inline: 1em;
@@ -216,7 +216,6 @@ input[type="submit"],
     padding-inline: 2em;
   }
 }
-
 .section {
   display: flex;
   flex-direction: column;
