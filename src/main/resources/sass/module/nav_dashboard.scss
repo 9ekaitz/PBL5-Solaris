@@ -83,6 +83,7 @@ hr {
       display: flex;
       align-items: center;
       margin: 0.8rem;
+      text-decoration: none;
       * {
         display: inline-block;
       }
@@ -132,17 +133,17 @@ hr {
         color: $eco-color;
       }
     }
-
-    }
     .no-animation:hover {
-      &.logo{
+      .logo{
         fill: none;
       }
-      &.text {
+      .text {
         color: $border-color;
       }
       cursor: initial;
     }
+    }
+    
 
     h2 {
       color: $border-color;
