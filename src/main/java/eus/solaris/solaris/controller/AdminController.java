@@ -53,7 +53,6 @@ public class AdminController {
     private static final String USERS = "users";
     private static final String ROLES = "roles";
     private static final String USER_TO_EDIT = "userToEdit";
-    private static final String PRODUCTS_TITLE = "PRODUCTS";
 
     private static final String REDIRECT_MANAGE_PRODUCTS = "redirect:/dashboard/manage-products";
     private static final String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
