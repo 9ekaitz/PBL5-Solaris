@@ -1,11 +1,13 @@
 package eus.solaris.solaris.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import eus.solaris.solaris.domain.User;
 import eus.solaris.solaris.service.SolarPanelService;
@@ -15,13 +17,12 @@ import eus.solaris.solaris.service.SolarPanelService;
 public class SolarZoneController {
 
     private static final String PANEL = "panels";
-    private static final String ERROR = "error";
 
     @Autowired
     private SolarPanelService solarPanelService;
 
     public Boolean checkUserHasPanels(User user) {
-        return solarPanelService.findByUser(user).isEmpty();
+        return !solarPanelService.findByUser(user).isEmpty();
     }
 
     @PreAuthorize("hasAuthority('AUTH_DATA_READ')")
@@ -32,7 +33,7 @@ public class SolarZoneController {
             model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_home";
         } else {
-            return ERROR;
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User doesn't have solar panels");
         }
     }
 
@@ -44,7 +45,7 @@ public class SolarZoneController {
             model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_panel";
         } else {
-            return ERROR;
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User doesn't have solar panels");
         }
     }
 
@@ -56,7 +57,7 @@ public class SolarZoneController {
             model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_econ";
         } else {
-            return ERROR;
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User doesn't have solar panels");
         }
     }
 
@@ -68,7 +69,7 @@ public class SolarZoneController {
             model.addAttribute(PANEL, solarPanelService.findByUser(user));
             return "page/solarzone_eco";
         } else {
-            return ERROR;
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User doesn't have solar panels");
         }
     }
 
