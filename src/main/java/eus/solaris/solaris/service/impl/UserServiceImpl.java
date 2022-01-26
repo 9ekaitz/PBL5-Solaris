@@ -85,43 +85,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean disable(User user) {
-        try {
-            user.setEnabled(false);
-            userRepository.save(user);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-        
+    public User disable(User user) {
+        user.setEnabled(false);
+        userRepository.save(user);
+        return user;
     }
 
     @Override
-    public Boolean update(Long id, UserProfileUpdateForm upuf) {
+    public User update(Long id, UserProfileUpdateForm upuf) {
         User user = this.findById(id);
-        if (user != null) {
-            user.setUsername(upuf.getUsername());
-            user.setName(upuf.getName());
-            user.setFirstSurname(upuf.getFirstSurname());
-            user.setSecondSurname(upuf.getSecondSurname());
-            user.setEmail(upuf.getEmail());
-            user.setRole(roleService.findById(upuf.getRoleId()));
-            this.save(user);
-            return true;
-        }
-        return false;
+        user.setUsername(upuf.getUsername());
+        user.setName(upuf.getName());
+        user.setFirstSurname(upuf.getFirstSurname());
+        user.setSecondSurname(upuf.getSecondSurname());
+        user.setEmail(upuf.getEmail());
+        user.setRole(roleService.findById(upuf.getRoleId()));
+        this.save(user);
+        return user;
     }
 
     @Override
-    public Boolean updateUserPassword(Long id, String password) {
-        try {
-            User user = this.findById(id);
-            user.setPassword(passwordEncoder.encode(password));
-            this.save(user);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public User updateUserPassword(Long id, String password) {
+        User user = this.findById(id);
+        user.setPassword(passwordEncoder.encode(password));
+        this.save(user);
+        return user;
     }
 
     @Override

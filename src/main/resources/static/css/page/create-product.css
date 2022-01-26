@@ -7,7 +7,7 @@ main {
 
 .container {
   background: #FFF;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1rem 2rem;
 }
 
 .current, .create-account {
@@ -41,7 +41,6 @@ main {
   height: 1.5em;
   outline: 1px solid #f9aa31;
   background-color: #f9aa31;
-  border-color: #f9aa31;
   text-decoration: none;
   padding-inline: 1.3em;
 }

@@ -1,5 +1,6 @@
 package eus.solaris.solaris.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -137,8 +138,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Boolean create(ProductCreateForm pcf) {
-        try {
+    public Product create(ProductCreateForm pcf) throws IOException {
             ProductDescription productDescription = new ProductDescription();
             productDescription.setName(pcf.getName());
             productDescription.setSubtitle(pcf.getSubtitle());
@@ -156,52 +156,45 @@ public class ProductServiceImpl implements ProductService {
             this.save(product);
             productDescription.setProduct(product);
             productDescriptionRepository.save(productDescription);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+            return product;
     }
 
     @Override
-    public Boolean update(Product product, ProductCreateForm pcf, Locale locale) {
-        try {
-            product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
-            if(!pcf.getImage().isEmpty()) {
-                String imagePath = imageRepository.save(pcf.getImage(), ImageRepository.ABSOLUTE_PRODUCT_PATH, ImageRepository.RELATIVE_PRODUCT_PATH);
-                product.setImagePath(imagePath);
-            }
-            product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
-            product.setPrice(pcf.getPrice());
-            product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
-            product.getModel().setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
-            product.getModel().setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
-            this.save(product);
-            boolean descriptionUpdated = false;
-            for (ProductDescription pDescription : product.getDescriptions()) {
-                if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
-                    pDescription.setName(pcf.getName());
-                    pDescription.setSubtitle(pcf.getSubtitle());
-                    pDescription.setDescription(pcf.getDescription());
-                    pDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
-                    productDescriptionRepository.save(pDescription);
-                    pDescription.setProduct(product);
-                    productDescriptionRepository.save(pDescription);
-                    descriptionUpdated = true;
-                }
-            }
-            if(!descriptionUpdated) {
-                ProductDescription productDescription = new ProductDescription();
-                productDescription.setName(pcf.getName());
-                productDescription.setSubtitle(pcf.getSubtitle());
-                productDescription.setDescription(pcf.getDescription());
-                productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
-                productDescription.setProduct(product);
-                productDescriptionRepository.save(productDescription);
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
+    public Product update(Product product, ProductCreateForm pcf, Locale locale) throws IOException {
+        product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
+        if(!pcf.getImage().isEmpty()) {
+            String imagePath = imageRepository.save(pcf.getImage(), ImageRepository.ABSOLUTE_PRODUCT_PATH, ImageRepository.RELATIVE_PRODUCT_PATH);
+            product.setImagePath(imagePath);
         }
+        product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
+        product.setPrice(pcf.getPrice());
+        product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
+        product.getModel().setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
+        product.getModel().setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
+        this.save(product);
+        boolean descriptionUpdated = false;
+        for (ProductDescription pDescription : product.getDescriptions()) {
+            if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
+                pDescription.setName(pcf.getName());
+                pDescription.setSubtitle(pcf.getSubtitle());
+                pDescription.setDescription(pcf.getDescription());
+                pDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+                productDescriptionRepository.save(pDescription);
+                pDescription.setProduct(product);
+                productDescriptionRepository.save(pDescription);
+                descriptionUpdated = true;
+            }
+        }
+        if(!descriptionUpdated) {
+            ProductDescription productDescription = new ProductDescription();
+            productDescription.setName(pcf.getName());
+            productDescription.setSubtitle(pcf.getSubtitle());
+            productDescription.setDescription(pcf.getDescription());
+            productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+            productDescription.setProduct(product);
+            productDescriptionRepository.save(productDescription);
+        }
+        return product;
     }
 
     public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page) {

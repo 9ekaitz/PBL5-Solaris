@@ -1,5 +1,6 @@
 package eus.solaris.solaris.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -120,8 +121,8 @@ public class AdminController {
             model.addAttribute(ROLES, roleService.findAll());
             return EDIT_USER;
         } else {
-            Boolean resultSQL = userService.update(id, upuf);
-            addFlashAttribute(resultSQL, redirectAttributes, "alert.userupdate.success", "alert.userupdate.error");
+            User userRes = userService.update(id, upuf);
+            addFlashAttribute((userRes != null), redirectAttributes, "alert.userupdate.success", "alert.userupdate.error");
             return REDIRECT_MANAGE_USERS;
         }
     }
@@ -137,8 +138,8 @@ public class AdminController {
             model.addAttribute(ROLES, roleService.findAll());
             return EDIT_USER;
         } else {
-            Boolean resultSQL = userService.updateUserPassword(id, puf.getNewPassword());
-            addFlashAttribute(resultSQL, redirectAttributes, "alert.password.success", "alert.password.error");
+            User userRes = userService.updateUserPassword(id, puf.getNewPassword());
+            addFlashAttribute((userRes != null), redirectAttributes, "alert.password.success", "alert.password.error");
             return REDIRECT_MANAGE_USERS;
         }
     }
@@ -147,8 +148,8 @@ public class AdminController {
     @GetMapping(value = "/delete-user/{id}")
     public String deleteUser(@PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
         User user = userService.findById(id);
-        Boolean resultSQL = userService.disable(user);
-        addFlashAttribute(resultSQL, redirectAttributes, "alert.deleteuser.success", "alert.deleteuser.error");
+        User userRes = userService.disable(user);
+        addFlashAttribute((userRes != null), redirectAttributes, "alert.deleteuser.success", "alert.deleteuser.error");
         return REDIRECT_MANAGE_USERS;
     }
 
@@ -225,7 +226,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/edit-product/{id}")
-    public String editProduct(@Validated(ProductCreateForm.EditProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, @PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String editProduct(@Validated(ProductCreateForm.EditProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, @PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) throws IOException {
         Product product = productService.findById(id);
         Locale locale = LocaleContextHolder.getLocale();
         if (result.hasErrors() && product != null) {
@@ -236,8 +237,8 @@ public class AdminController {
             setProductFieldsIntoModel(model);
             return RETURN_EDIT_PRODUCT;
         } else {
-            Boolean resultSQL = productService.update(product, pcf, locale);
-            addFlashAttribute(resultSQL, redirectAttributes, "alert.updateproduct.success", "alert.updateproduct.error");
+            Product productRes = productService.update(product, pcf, locale);
+            addFlashAttribute((productRes != null), redirectAttributes, "alert.updateproduct.success", "alert.updateproduct.error");
             return REDIRECT_MANAGE_PRODUCTS;
         }
     }
@@ -252,7 +253,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/create-product")
-    public String createProduct(@Validated(ProductCreateForm.CreateProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String createProduct(@Validated(ProductCreateForm.CreateProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) throws IOException {
         if(result.hasErrors()) {
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute(ERROR_FORM, errors);
@@ -260,8 +261,8 @@ public class AdminController {
             setProductFieldsIntoModel(model);
             return CREATE_PRODUCT;
         }
-        Boolean resultSQL = productService.create(pcf);
-        addFlashAttribute(resultSQL, redirectAttributes, "alert.createproduct.success", "alert.createproduct.error");
+        Product productRes = productService.create(pcf);
+        addFlashAttribute((productRes != null), redirectAttributes, "alert.createproduct.success", "alert.createproduct.error");
         return REDIRECT_MANAGE_PRODUCTS;
     }
 

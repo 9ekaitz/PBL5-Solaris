@@ -1,5 +1,6 @@
 package eus.solaris.solaris.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,8 +29,8 @@ public interface ProductService {
     public List<Material> getMaterials();
 	public List<SolarPanelModel> getModels();
 	public ProductDescription getProductDescription(Product product, Locale locale);
-    public Boolean create(ProductCreateForm pcf);
+    public Product create(ProductCreateForm pcf) throws IOException;
     public Boolean delete(Product product);
-	public Boolean update(Product product, ProductCreateForm pcf, Locale locale);
+	public Product update(Product product, ProductCreateForm pcf, Locale locale) throws IOException;
 	public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page);
 }

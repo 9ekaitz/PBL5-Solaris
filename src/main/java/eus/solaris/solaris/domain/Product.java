@@ -41,8 +41,6 @@ public class Product implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private SolarPanelModel model;
 
-    @Column(nullable = false)
-
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     private Set<ProductDescription> descriptions;

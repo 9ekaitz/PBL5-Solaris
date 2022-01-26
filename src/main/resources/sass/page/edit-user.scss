@@ -9,7 +9,7 @@ main {
 
 .container {
   background: $section-bg-color;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1rem 2rem;
 }
 
 .current, .edit-account, .reset-account-password {
@@ -60,7 +60,6 @@ input[type="submit"],
   min-height: 3em;
   color: white;
   background-color: $danger-color;
-  border-color: $danger-color;
   text-decoration: none;
   margin-top: 0.5em;
   margin-left: 2em;
