@@ -47,10 +47,6 @@
                             <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}" th:selected="${productToEdit.model.id == model.id}">Null</option>
                         </select>
                     </div>
-                    <div class="form-pair">
-                        <label for="image" th:text="#{product.image} + ':'"></label>
-                        <input type="file" name="image">
-                    </div>
                 </div>
                 <div class="form-group-col2">
                     <div class="form-pair">
@@ -76,7 +72,12 @@
                         </select>
                     </div>
                 </div>
-                
+                <div class="image-upload">
+                    <div class="form-pair">
+                        <label for="image" th:text="#{product.image} + ':'"></label>
+                        <input type="file" name="image">
+                    </div>
+                </div>
                 <div class="button-group">
                     <input type="submit" th:value="#{dashboard.save}"></input>
                     <a class="red-button" href="/dashboard/manage-products"><span th:text="#{dashboard.cancel}"></span></a>
