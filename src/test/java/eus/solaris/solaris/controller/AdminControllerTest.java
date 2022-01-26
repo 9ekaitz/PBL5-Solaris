@@ -63,6 +63,7 @@ class AdminControllerTest {
     Authentication authentication;
     User adminUser;
     List<User> users;
+    List<Product> products;
     Role ROLE_ADMIN;
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -95,6 +96,7 @@ class AdminControllerTest {
     void loadProductList() {
         for (Long i = 0L; i < 10; i++) {
             Product product = createProduct(i);
+            products.add(product);
             when(productServiceImpl.findById(i)).thenReturn(product);
         }
     }
@@ -109,20 +111,37 @@ class AdminControllerTest {
     }
 
     @Test
+    void getManageUsersListNotLoggedTest() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/manage-users"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/login"));
+    }
+
+    @Test
     @WithUserDetails(value = "1L")
-    void getProductList() throws Exception {
-        mockMvc.perform(get("https://localhost/dashboard/manage-products"))
+    void getUserListPage() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/manage-users/1"))
         .andExpect(status().isOk())
         .andExpect(view().name("page/admin-dashboard/manage-users"))
-        .andExpect(model().attribute("users",userServiceImpl.getPagesFromUsersList(users).getPageList()
-        ));
+        .andExpect(model().attribute("users", users));
     }
 
     @Test
     void getManageUsersPageNotLoggedTest() throws Exception {
-        mockMvc.perform(get("https://localhost/dashboard/manage-users"))
+        mockMvc.perform(get("https://localhost/dashboard/manage-users/1"))
         .andExpect(status().is3xxRedirection())
         .andExpect(view().name("redirect:/login"));
+    }
+
+
+    @Test
+    @WithUserDetails(value = "1L")
+    void getProductList() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/manage-products"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("page/admin-dashboard/manage-products"))
+        .andExpect(model().attribute("products",productServiceImpl.getPagesFromProductList(products).getPageList()
+        ));
     }
 
     @Test
@@ -130,6 +149,57 @@ class AdminControllerTest {
         mockMvc.perform(get("https://localhost/dashboard/manage-products"))
         .andExpect(status().is3xxRedirection())
         .andExpect(view().name("redirect:/login"));
+    }
+
+    @Test
+    @WithUserDetails(value = "1L")
+    void getProductListPage() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/manage-products/1"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("page/admin-dashboard/manage-products"))
+        .andExpect(model().attribute("products",productServiceImpl.getPagesFromProductList(products).getPageList()
+        ));
+    }
+
+    @Test
+    void getManageProductsNotLoggedPageTest() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/manage-products/1"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/login"));
+    }
+
+    @Test
+    void editUserPrivilege() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/edit-user/2"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/login"));
+    }
+
+    @Test
+    @WithUserDetails(value = "1L")
+    void editUserPrivilegeWithPrivileges() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/edit-user/3"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("page/admin-dashboard/manage-users"))
+        .andExpect(model().attribute("userToEdit", userServiceImpl.findById(3L)
+        ));
+    }
+
+    @Test
+    void editProductNoPrivileges() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/edit-product/2"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/login"));
+    }
+
+    @Test
+    @WithUserDetails(value = "1L")
+    void editProductWithPrivileges() throws Exception {
+        mockMvc.perform(get("https://localhost/dashboard/edit-product/3"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("page/admin-dashboard/manage-products"))
+        .andExpect(model().attribute("productToEdit", productServiceImpl.findById(3L)
+        ));
     }
 
     private Product createProduct(Long id) {
