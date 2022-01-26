@@ -225,4 +225,8 @@ window.addEventListener("DOMContentLoaded", () => {
   dateSelectors.forEach((selector) => {
     selector.addEventListener("change", () => reloadHistoricalData());
   });
+
+  dayInput.value = new Date().toISOString().split("T")[0];
+
+  reloadHistoricalData();
 });
