@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.validation.Valid;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -49,7 +47,6 @@ public class AdminController {
     static final String ERROR_ATTRIBUTE = "error";
     static final String ERROR_FORM = "errors";
 
-    private static final String PAGE_TITLE = "page_title";
     private static final String ACTUAL_PAGE = "actualPage";
     private static final String TOTAL_PAGES = "totalPages";
     private static final String PRODUCTS_MODEL = "products";
@@ -84,7 +81,6 @@ public class AdminController {
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping("/manage-users")
     public String manageUser(Authentication authentication, Model model) {
-        model.addAttribute(PAGE_TITLE, "USERS");
         List<User> users = userService.findManageableUsers();
         PagedListHolder<User> pagedListHolder = userService.getPagesFromUsersList(users);
         model.addAttribute(ACTUAL_PAGE, 0);
@@ -184,7 +180,6 @@ public class AdminController {
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products")
     public String showManageProductsPage(Model model) {
-        model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         setFilters(model);
         List<Product> products = productService.findAll();
         PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
@@ -197,7 +192,6 @@ public class AdminController {
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products/{page}")
     public String showManageProductsPage(Model model, @PathVariable(value = "page") int page) {
-        model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         List<Product> products = productService.findAll();
         setFilters(model);
         PagedListHolder<Product> pagedListHolder = productService.getPagesFromProductList(products);
@@ -211,7 +205,6 @@ public class AdminController {
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/manage-products/filter")
     public String filterProducts(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model) {
-        model.addAttribute(PAGE_TITLE, PRODUCTS_TITLE);
         setFilters(model);
         Page<Product> products = productService.getFilteredProducts(pff, 0);
         model.addAttribute(ACTUAL_PAGE, 0);
