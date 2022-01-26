@@ -35,13 +35,13 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
-    
+
     @OneToMany(mappedBy = "role")
     private List<User> users;
 
@@ -49,7 +49,7 @@ public class Role implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Privilege> privileges;
-    
+
     @Version
     @EqualsAndHashCode.Exclude
     private Integer version;

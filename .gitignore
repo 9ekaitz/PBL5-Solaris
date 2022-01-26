@@ -36,3 +36,9 @@ build/
 ### VS Code ###
 .vscode/
 .settings/org.eclipse.jdt.core.prefs
+
+# Evosuite
+
+/evosuite-tests/
+/evosuite-report/
+evosuite-1.1.0.jar

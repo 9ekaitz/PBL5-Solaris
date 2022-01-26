@@ -31,7 +31,7 @@ public class SolarPanelModel implements Serializable {
 
     @Column(name = "name")
     private String name;
-    
+
     @Column(name = "code", nullable = false)
     private String code;
 

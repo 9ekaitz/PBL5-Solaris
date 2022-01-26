@@ -40,7 +40,7 @@ public class ImageRepositoryImpl implements ImageRepository {
         convFile.getParentFile().mkdirs();
         if (convFile.createNewFile()) {
             try (FileOutputStream out = new FileOutputStream(convFile)) {
-            out.write(bytes);
+                out.write(bytes);
             } catch (Exception e) {
                 return null;
             }

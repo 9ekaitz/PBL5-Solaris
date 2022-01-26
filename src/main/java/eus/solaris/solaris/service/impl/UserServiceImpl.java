@@ -115,4 +115,9 @@ public class UserServiceImpl implements UserService {
         user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
         return user.getPaymentMethods();
     }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

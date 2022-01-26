@@ -99,8 +99,6 @@ public class Grouper implements Runnable {
         LocalDate day = entry.getKey();
         Map<Instant, Double> dataMap = entry.getValue();
 
-        System.out.println("[DEBUG] Grouping data for " + day + " mode: " + mode);
-
         if (mode == GroupMode.WEEK) {
             groupWeek(dataMap);
         } else if (mode == GroupMode.DAY) {
@@ -117,8 +115,6 @@ public class Grouper implements Runnable {
             Map<LocalDate, Map<Instant, Double>> data = gatherBuffer.get();
 
             if (data == null) {
-                System.out
-                        .println("[DEBUG] DayGrouper thread " + Thread.currentThread().getName() + " terminated: EOL.");
                 break;
             }
             groupAndInsert(data);

@@ -13,7 +13,7 @@ import eus.solaris.solaris.service.multithreading.modes.Kind;
 class FormatterJSONTest {
 
     String getOGJSON() {
-        String OGJSON = "{\"data\":{\"datasets\":[{\"backgroundColor\":\"rgba(255, 99, 132, 0.7)\",\"data\":[1,2,3],\"label\":\"Test\"}],\"labels\":[\"1970-01-01 01:00\",\"1970-01-01 01:00\",\"1970-01-01 01:00\"]},\"type\":\"bar\"}";
+        String OGJSON = "{\"data\":{\"datasets\":[{\"backgroundColor\":\"rgba(249, 170, 49, 0.7)\",\"data\":[1,2,3],\"label\":\"Test\"}],\"labels\":[\"1970-01-01 01:00\",\"1970-01-01 01:00\",\"1970-01-01 01:00\"]},\"type\":\"bar\"}";
         return OGJSON;
     }
 

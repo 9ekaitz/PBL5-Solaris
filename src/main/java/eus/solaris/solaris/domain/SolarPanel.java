@@ -27,7 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Generated
-public class SolarPanel implements Serializable{
+public class SolarPanel implements Serializable {
 
     private static final long serialVersionUID = -1422868069503118354L;
 

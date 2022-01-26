@@ -1,0 +1,40 @@
+@import "../util/variables";
+
+.container {
+  #small-panel {
+    display: block;
+
+    #eco-title {
+      text-align: center;
+    }
+
+    .cube-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: center;
+      align-items: stretch;
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      .info-cube {
+        border: 1px solid black;
+        padding: 0.5rem;
+        max-width: 25%;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+          font-weight: bold;
+          font-size: 1.2em;
+          margin: 0;
+        }
+
+        .amount {
+          font-size: larger;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
