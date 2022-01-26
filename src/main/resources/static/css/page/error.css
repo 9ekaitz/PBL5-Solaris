@@ -14,7 +14,8 @@
   flex-direction: column;
   align-items: center;
 }
-.error-section .info, .error-section .error {
+.error-section .info,
+.error-section .error {
   width: 3rem;
   height: 3rem;
   fill: black;
@@ -25,7 +26,8 @@
     display: block;
   }
 
-  .error-section .info, .error-section .error {
+  .error-section .info,
+.error-section .error {
     width: 5rem;
     height: 5rem;
   }

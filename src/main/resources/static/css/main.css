@@ -360,14 +360,6 @@ body {
   fill: #000;
 }
 
-.select {
-  display: block;
-  margin-block: 0.5rem 0;
-  border: 1px solid #000;
-  border-radius: 0.2rem;
-  height: 1.5em;
-}
-
 input,
 select {
   display: block;
@@ -383,9 +375,13 @@ select:hover {
   outline: 1px solid #f9aa31;
   border-color: #f9aa31;
 }
-input.show,
-select.show {
+
+.select {
   display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  height: 1.5em;
 }
 
 input[type=checkbox] {
@@ -409,24 +405,17 @@ input[type=checkbox]::before {
   transform: scale(0);
   transition: transform 0.5s;
 }
-input[type=checkbox].btn-big {
-  width: 18rem;
-  height: 4rem;
-  border-radius: 0.3rem;
-}
-input[type=checkbox].delete-account {
-  background-color: #DA3633;
-  color: #FFF;
-}
-input[type=checkbox].delete-account:hover, input[type=checkbox].delete-account:focus {
-  background-color: #b92421;
-}
 input[type=checkbox]:checked {
   border-color: #f9aa31;
   box-shadow: inset 0 0 0 2em #f9aa31;
 }
 input[type=checkbox]:checked::before {
   transform: scale(0.7);
+}
+input[type=checkbox].btn-big {
+  width: 18rem;
+  height: 4rem;
+  border-radius: 0.3rem;
 }
 
 input[type=submit],

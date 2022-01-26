@@ -9,12 +9,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Generated
 public class ProductDescription {
     
@@ -33,11 +38,12 @@ public class ProductDescription {
 
     @ManyToOne
     @JoinColumn(name = "product", nullable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Product product;
 
     @Version
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Integer version;
-
-
 }

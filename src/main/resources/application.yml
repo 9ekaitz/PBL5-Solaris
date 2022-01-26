@@ -11,7 +11,10 @@ spring:
     properties:
       hibernate:
         default-schema: solaris
-
+  # servlet:
+  #   multipart:
+  #     max-file-size: 10MB
+  #     max-request-size: 10MB
   # autoconfigure:
   #   exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.ManagementWebSecurityAutoConfiguration
 
@@ -49,3 +52,6 @@ solaris:
   security:
     remember-me:
       key: ENC(kpXkc5glu8o9LUfpVIZgEs7i+egWhzDJOI214DzobKOqRbIJkqnCWxX427eTPVUrs2/MtkYoMRXd0GmJx8MLaw==)
+  pagination:
+    products:
+      pagesize: 20

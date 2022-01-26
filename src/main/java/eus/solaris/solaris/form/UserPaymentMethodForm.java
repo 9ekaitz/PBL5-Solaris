@@ -13,13 +13,13 @@ public class UserPaymentMethodForm {
     private Long id;
 
     @NotEmpty(message = "{page.profile.field.address.notEmpty}")
-    @Size(min = 16, max = 16, message = "{page.profile.field.address.size}")
+    @Size(min = 16, max = 16, message = "{page.profile.field.cardNumber.size}")
     private String cardNumber;
 
-    @NotEmpty(message = "{page.profile.field.address.notEmpty}")
+    @NotEmpty(message = "{page.profile.field.cardHolderName.notEmpty}")
     private String cardHolderName;
 
-    @NotEmpty(message = "{page.profile.field.address.notEmpty}")
+    @NotEmpty(message = "{page.profile.field.securityCode.notEmpty}")
     private String securityCode;
 
     private Long expirationYear;

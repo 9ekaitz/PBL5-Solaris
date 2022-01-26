@@ -14,19 +14,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "solar_panel")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Generated
 public class SolarPanel implements Serializable {
 
-    private static final long serialVersionUID = -1144233476985262476L;
+    private static final long serialVersionUID = -1422868069503118354L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,13 +44,16 @@ public class SolarPanel implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provincia_id", nullable = false)
-    private Provincia provincia;
+    @ToString.Exclude
+    private Province province;
 
     @Version
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Integer version;
 }

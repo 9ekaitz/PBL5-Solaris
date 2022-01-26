@@ -11,7 +11,6 @@ body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  // min-height: -webkit-fill-available;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto auto auto;
@@ -119,14 +118,6 @@ body {
   }
 }
 
-.select {
-  display: block;
-  margin-block: 0.5rem 0;
-  border: 1px solid $text-color;
-  border-radius: $input-border;
-  height: 1.5em;
-}
-
 input,
 select {
   display: block;
@@ -141,10 +132,14 @@ select {
     outline: 1px solid $main-color;
     border-color: $main-color;
   }
+}
 
-  &.show {
-    display: block;
-  }
+.select {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid $text-color;
+  border-radius: $input-border;
+  height: 1.5em;
 }
 
 input[type="checkbox"] {
@@ -166,21 +161,6 @@ input[type="checkbox"] {
     transform: scale(0);
     transition: transform 0.5s;
   }
-  &.btn-big {
-    width: 18rem;
-    height: 4rem;
-    border-radius: 1.5 * $btn-border;
-  }
-
-  &.delete-account {
-    background-color: $danger-color;
-    color: $text-light-color;
-
-    &:hover,
-    &:focus {
-      background-color: $danger-dark-color;
-    }
-  }
 
   &:checked {
     border-color: $main-color;
@@ -189,6 +169,11 @@ input[type="checkbox"] {
     &::before {
       transform: scale(0.7);
     }
+  }
+  &.btn-big {
+    width: 18rem;
+    height: 4rem;
+    border-radius: 1.5 * $btn-border;
   }
 }
 
@@ -224,6 +209,7 @@ input[type="submit"],
     }
   }
 }
+
 @media screen and (min-width: $large-screen) {
   input[type="submit"],
   .btn {

@@ -119,14 +119,13 @@ class UserServiceImplTest {
             utilities.when(() -> BCrypt.checkpw("password", userToBeChange.getPassword())).thenReturn(true);
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
             when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
-
             assertEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "password", userToBeChange));
         }
     }
 
     private User createUser2(Role role) {
         return new User(1L, "aritz.domaika", "aritz.domaika@gmail.com", "password", "Aritz", "domaika", "peirats", true,
-                null, null, role, null, null, 1);
+                null, null, role, null, null, null, 1);
     }
 
     @Test
@@ -142,7 +141,6 @@ class UserServiceImplTest {
             utilities.when(() -> BCrypt.checkpw("password", userToBeChange.getPassword())).thenReturn(false);
             when(passwordEncoder.encode("passwordChanged")).thenReturn("passwordChanged");
             when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);
-
             assertNotEquals(userChanged, userServiceImpl.editPassword("passwordChanged", "uwu", userToBeChange));
         }
     }
@@ -156,7 +154,6 @@ class UserServiceImplTest {
         User userChanged = createUser2(role);
         userChanged.setName("AritzCambiado");
         userChanged.setFirstSurname("domaikaCambiado");
-
         when(authentication.getName()).thenReturn("Aritz");
         when(userRepository.findByUsernameIgnoreCase("Aritz")).thenReturn(userToBeChange);
         when(userRepository.save(userToBeChange)).thenReturn(userToBeChange);

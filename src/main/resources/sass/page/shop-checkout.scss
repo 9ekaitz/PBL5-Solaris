@@ -1,0 +1,145 @@
+@import "../util/variables.scss";
+
+.checkout {
+  background-color: $bg-color;
+}
+.checkout-main {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 3rem;
+  // min-height: 90%;
+
+  @media screen and (min-width: $large-screen) {
+    // min-height: 85%;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  @media screen and (min-width: $very-large-screen) {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  #summary-section {
+    display: none;
+    max-height: fit-content;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    &.current {
+      display: flex;
+    }
+    .form {
+      width: 100%;
+    }
+    .btn {
+      margin-block: 1.5rem;
+    }
+  }
+
+  .section-background {
+    display: none;
+    position: relative;
+    background-color: $section-bg-color;
+    border: 1px solid $border-color;
+    padding-inline: 2rem;
+    padding-block: 1.5rem;
+    min-width: 20%;
+    width: 100%;
+    max-height: calc(100% - 4rem);
+
+    @media screen and (min-width: $large-screen) {
+      width: auto;
+      flex-basis: 25%;
+    }
+
+    &.current {
+      display: flex;
+      flex-direction: column;
+    }
+    .form {
+      flex-grow: 1;
+    }
+    .save-prompt {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-block: 1rem 0;
+      .checkbox-text {
+        margin-block: 0.5rem 0;
+      }
+    }
+
+    #back-to-address,
+    #back-to-payment {
+      margin-block: 1rem;
+      text-decoration: none;
+      color: $main-color;
+      font-size: 0.9rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .change-prompt {
+      text-decoration: none;
+      color: $main-color;
+      font-size: 0.9rem;
+    }
+
+    .summary {
+      width: 100%;
+      .summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        margin-bottom: 2rem;
+        .legend {
+          border-bottom: 1px solid $breadcrumbs-off-color;
+        }
+        .item * {
+          padding-top: 0.5rem;
+        }
+      }
+      .details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+          margin-block: 0.5rem;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .next,
+    .back {
+      margin: 0.5rem auto;
+      width: 100%;
+      max-width: 9rem;
+    }
+  }
+
+  @media screen and (min-width: $large-screen) {
+    #summary-section {
+      display: flex;
+    }
+    .section-background {
+      display: block;
+      .next,
+      .back {
+        display: none;
+      }
+    }
+  }
+
+  .hide {
+    display: none;
+  }
+}
