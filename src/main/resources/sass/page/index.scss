@@ -25,8 +25,8 @@ main {
                 }
 
                 .sub-section {
-                  box-sizing: border-box;
-                  flex: 0 0 calc(50% - 2.5em);
+                    box-sizing: border-box;
+                    flex: 0 0 calc(50% - 2.5em);
                 }
             }
 
@@ -78,10 +78,9 @@ main {
                 .subtitle {
                     font-size: 1.5rem;
                 }
-
-                &.installation .image {
-                    order: 2;
-                }
+            }
+            &.installation .image {
+                order: 2;
             }
         }
     }

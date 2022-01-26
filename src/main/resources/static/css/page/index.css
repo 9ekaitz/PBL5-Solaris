@@ -67,7 +67,7 @@ main .main-content .content-section .sub-section .title {
 main .main-content .content-section .sub-section .subtitle {
   font-size: 1.5rem;
 }
-main .main-content .content-section .sub-section.installation .image {
+main .main-content .content-section.installation .image {
   order: 2;
 }
 @media (min-width: 768px) {
