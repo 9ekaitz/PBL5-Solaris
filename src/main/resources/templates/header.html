@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">    
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
     <th:block th:fragment="header" class="header">
@@ -120,7 +118,7 @@
             </div>
             <div class="header-computer-search">
                 <form method="GET" th:action="@{/login}" id="search-computer-bar">
-                    <input type="text" name="" id="search-computer-box" placeholder="Producto" autofocus="autofocus">
+                    <input type="text" name="Producto" id="search-computer-box" placeholder="Producto" autofocus=>
                     <input class="searcher" type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" th:alt=#{img.alt.search}>
                 </form>
             </div>
@@ -242,7 +240,7 @@
                 </div>
                 <div class="header-mobile-search">
                     <form method="GET" th:action="@{/login}" id="search-mobile-bar">
-                        <input type="text" name="" id="search-mobile-box" placeholder="Producto" autofocus="autofocus">
+                        <input type="text" name="Producto" id="search-mobile-box" placeholder="Producto">
                         <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" th:alt="#{img.alt.search}">
                     </form>
                 </div>
