@@ -1,45 +1,42 @@
 @import "../util/variables";
 
-header{
-
-    .header-mobile{
-
-        .header-mobile-top{
+header {
+    .header-mobile {
+        .header-mobile-top {
             background-color: $breadcrumbs-off-color;
             display: flex;
             justify-content: space-between;
             padding: 0.5rem 1rem 0.5rem 1rem;
 
-            .header-mobile-icons{
+            .header-mobile-icons {
                 display: flex;
                 gap: 1rem;
             }
 
-            .logo{
+            .logo {
                 max-width: 1.5rem;
                 fill: $section-bg-color;
-                &:hover{
+                &:hover {
                     cursor: pointer;
                     fill: $main-color;
                 }
             }
-
         }
 
-        .header-mobile-search{
+        .header-mobile-search {
             background-color: $search-bg-color;
 
-            form{
+            form {
                 display: none;
                 text-align: center;
 
-                &.show-search{
+                &.show-search {
                     display: flex;
                     justify-content: flex-end;
                     padding: 0.5rem 1rem 0.5rem 1rem;
                 }
 
-                input[type="text"]{
+                input[type="text"] {
                     background-color: transparent;
                     border: none;
                     font-size: 0.75rem;
@@ -47,12 +44,12 @@ header{
                     border-bottom: 1px solid $text-light-color;
                     width: 100%;
 
-                    &:focus{
+                    &:focus {
                         outline: none;
                     }
                 }
 
-                input[type="image"]{
+                input[type="image"] {
                     margin: auto;
                     width: 1.5rem;
                     height: 1.5rem;
@@ -60,12 +57,12 @@ header{
             }
         }
 
-        .header-mobile-lang{
+        .header-mobile-lang {
             background-color: $search-bg-color;
             display: none;
             width: calc(100% - 2rem);
 
-            &.show-lang{
+            &.show-lang {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 1rem;
@@ -73,157 +70,165 @@ header{
                 padding: 0.5rem 1rem 0.5rem 1rem;
             }
 
-            .lang{
+            .lang {
                 font-size: 0.75rem;
                 color: $text-light-color;
                 text-decoration: none;
 
-                &:hover{
+                &:hover {
                     color: $main-color;
                     cursor: pointer;
                 }
             }
         }
 
-        @media (min-width: 768px){
+        @media (min-width: 768px) {
             display: none;
         }
     }
 
-
-    .header-computer{
+    .header-computer {
         display: none;
-        @media (min-width: 768px){
-            display: block;
+        background-color: $breadcrumbs-off-color;
 
-            .header-computer-main{
-                background-color: $breadcrumbs-off-color;
-                padding: 1.5rem 10rem 1.5rem 10rem;
+        .header-computer-main {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            max-width: 1300px;
+            margin: auto;
+
+            .header-computer-submain {
                 display: flex;
-                justify-content: space-between;
-    
-                .header-computer-submain{
-                    display: flex;
-    
-                    .header-computer-icon{
-                        padding-right: 6rem;
-                        font-weight: bolder;
-    
-                        .link{
-                            .logo{
-                                width: 100%;
-                                max-width: 100px;
-                            }
-                        }
-                    }
-    
-                    .header-computer-options{
-                        display: flex;
-                        gap: 2rem;
-                        font-weight: lighter;
 
-                        .link{
-                            font-size: 1.5rem;
-                            &:hover{
-                                color: $main-color;
-                            }
+                .header-computer-icon {
+                    padding-right: 3rem;
+                    font-weight: bolder;
+
+                    .link {
+                        display: block;
+                        .logo {
+                            display: block;
+                            height: 1.5rem;
+                            width: auto;
                         }
                     }
                 }
-    
-                .header-computer-icons{
-                    display:flex;
-                    gap: 1rem;
-    
-                    .icon{
-                        display:flex;
-                        align-items: center;
 
-                        .logo{
-                            fill: $section-bg-color;
+                .header-computer-options {
+                    display: flex;
+                    gap: 2rem;
+                    font-weight: lighter;
+
+                    .link {
+                        font-size: 1.5rem;
+                        &:hover {
+                            color: $main-color;
                         }
+                    }
+                }
+            }
 
-                        .logo:hover{
+            .header-computer-icons {
+                display: flex;
+                gap: 1rem;
+
+                .icon {
+                    display: flex;
+                    align-items: center;
+
+                    .logo {
+                        fill: $section-bg-color;
+                        &:hover {
                             fill: $main-color;
                         }
                     }
-
-                    #search-computer-icon:hover{
-                        cursor: pointer;
-                    }
-
-                    #lang-computer-icon:hover{
-                        cursor: pointer;
-                    }
                 }
-    
-                a{
-                    color: $text-light-color;
-                    text-decoration: none;
+
+                #search-computer-icon:hover {
+                    cursor: pointer;
+                }
+
+                #lang-computer-icon:hover {
+                    cursor: pointer;
                 }
             }
 
-            .header-computer-search{
-                background-color: $search-bg-color;
-
-                form{
-                    display: none;
-                    text-align: center;
-
-                    &.show-search{
-                        display: flex;
-                        justify-content: flex-end;
-                        padding: 0.5rem 10rem 0.5rem 10rem;
-                    }
-
-                    input[type="text"]{
-                        background-color: transparent;
-                        border: none;
-                        color: $text-light-color;
-                        font-size: 1rem;
-                        border-bottom: 1px solid $text-light-color;
-                        width: 100%;
-
-                        &:focus{
-                            outline: none;
-                        }
-                    }
-
-                    input[type="image"]{
-                        margin: auto;
-                        width: 1.5rem;
-                        height: 1.5rem;
-                    }
-
-                    .searcher{
-                        border: none;
-                    }
-                }
+            a {
+                color: $text-light-color;
+                text-decoration: none;
             }
+        }
 
-            .header-computer-lang{
-                background-color: $search-bg-color;
+        .header-computer-search {
+            background-color: $search-bg-color;
+
+            form {
                 display: none;
+                text-align: center;
 
-                &.show-lang{
+                &.show-search {
                     display: flex;
-                    flex-wrap: wrap;
-                    gap: 1rem;
                     justify-content: flex-end;
-                    padding: 0.5rem 10rem 0.5rem 10rem;
+                    padding: 0.5rem 1rem 0.5rem 1rem;
                 }
 
-                .lang{
+                input[type="text"] {
+                    background-color: transparent;
+                    border: none;
+                    color: $text-light-color;
+                    font-size: 1rem;
+                    border-bottom: 1px solid $text-light-color;
+                    width: 100%;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                input[type="image"] {
+                    margin: auto;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+
+                .searcher {
+                    border: none;
+                }
+            }
+        }
+
+        .header-computer-lang {
+            background-color: $search-bg-color;
+            display: none;
+            .lang-wrap {
+                display: flex;
+                max-width: 1300px;
+                margin: auto;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: flex-end;
+                padding: 0.5rem 2rem;
+                
+                .lang {
                     color: $text-light-color;
                     font-size: 1rem;
                     text-decoration: none;
-
-                    &:hover{
+                    
+                    &:hover {
                         color: $main-color;
                         cursor: pointer;
                     }
                 }
             }
+
+            &.show-lang {
+                display: block;
+            }
+        }
+
+        @media (min-width: 768px) {
+            display: block;
         }
     }
 }

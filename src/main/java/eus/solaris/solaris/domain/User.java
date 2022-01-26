@@ -30,13 +30,13 @@ import lombok.ToString;
 @NoArgsConstructor 
 @Generated
 public class User implements Serializable {
-    
+
     private static final long serialVersionUID = -8446982019565427240L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "username", unique = true)
     private String username;
 
@@ -45,42 +45,54 @@ public class User implements Serializable {
 
     @Column(name = "password")
     private String password;
-    
+
     @Column(name = "name")
     private String name;
-    
+
     @Column(name = "first_surname")
     private String firstSurname;
-    
+
     @Column(name = "second_surname")
     private String secondSurname;
-    
+
     @Column(name = "enabled")
     private Boolean enabled;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @OrderBy("default_address DESC")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Address> addresses;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @OrderBy("default_method ASC")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<PaymentMethod> paymentMethods;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     private Role role;
-    
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<SolarPanel> solarPanels;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<CartProduct> shoppingCart;
+
+    
     @Column
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private String avatar;
 
     @Version
+    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Integer version;
-    
+
 }

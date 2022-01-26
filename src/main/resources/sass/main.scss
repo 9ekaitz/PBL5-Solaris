@@ -11,7 +11,6 @@ body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  // min-height: -webkit-fill-available;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto auto auto;
@@ -37,24 +36,24 @@ body {
   flex-direction: column;
   align-items: center;
 
-    .field {
-        margin-block: 0.3rem;
-        width: 100%;
+  .field {
+    margin-block: 0.3rem;
+    width: 100%;
 
-        .select{
-            width: 100%;
-        }
+    .select {
+      width: 100%;
     }
+  }
 
-    .allWidth {
-        width: 100%;
-    }
+  .allWidth {
+    width: 100%;
+  }
 
-    .double{
-        display: flex;
-        gap: 1rem;
-        width: 100%;
-    }
+  .double {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+  }
 
   .input-field {
     width: 100%;
@@ -119,15 +118,8 @@ body {
   }
 }
 
-.select{
-    display: block;
-    margin-block: 0.5rem 0;
-    border: 1px solid $text-color;
-    border-radius: $input-border;
-    height: 1.5em;
-}
-
-input {
+input,
+select {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid $text-color;
@@ -140,6 +132,14 @@ input {
     outline: 1px solid $main-color;
     border-color: $main-color;
   }
+}
+
+.select {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid $text-color;
+  border-radius: $input-border;
+  height: 1.5em;
 }
 
 input[type="checkbox"] {
@@ -174,9 +174,8 @@ input[type="checkbox"] {
     width: 18rem;
     height: 4rem;
     border-radius: 1.5 * $btn-border;
+  }
 }
-}
-
 
 input[type="submit"],
 .btn {
@@ -200,22 +199,24 @@ input[type="submit"],
     height: 4rem;
     border-radius: 1.5 * $btn-border;
   }
-  &.delete-account{
+  &.delete-account {
     background-color: $danger-color;
     color: $text-light-color;
 
     &:hover,
-    &:focus{
-        background-color: $danger-dark-color;
+    &:focus {
+      background-color: $danger-dark-color;
     }
   }
 }
+
 @media screen and (min-width: $large-screen) {
   input[type="submit"],
-.btn {
-  padding-inline: 2em;
+  .btn {
+    padding-inline: 2em;
+  }
 }
-}
+
 .section {
   display: flex;
   flex-direction: column;
@@ -227,63 +228,61 @@ input[type="submit"],
   }
 }
 
-.helper{
-    display: none;
+.helper {
+  display: none;
 }
 
-
-.helper-hr{
-    border: none;
-    display: none;
+.helper-hr {
+  border: none;
+  display: none;
 }
 
-.alert{
-    width: 100%;
-    border: 1px solid $border-color;
-    text-align: center;
-    padding-block: 1rem;
-    margin-bottom: 0.5rem;
+.alert {
+  width: 100%;
+  border: 1px solid $border-color;
+  text-align: center;
+  padding-block: 1rem;
+  margin-bottom: 0.5rem;
 
-    &.alert-danger{
-        background-color: $danger-dark-color;
-        color: $text-light-color;
-    }
+  &.alert-danger {
+    background-color: $danger-dark-color;
+    color: $text-light-color;
+  }
 
-    &.alert-success{
-        background-color: $success-color;
-        color: $text-light-color;
-    }
-
+  &.alert-success {
+    background-color: $success-color;
+    color: $text-light-color;
+  }
 }
 
-@media (min-width: $large-screen){
-    .helper{
-        display: block;
-        margin: 0;
-        padding: 0.5rem 0 0.5rem 10rem;
-        font-size: 1rem;
+@media (min-width: $large-screen) {
+  .helper {
+    display: block;
+    margin: 0;
+    padding: 0.5rem 0 0.5rem 10rem;
+    font-size: 1rem;
 
-        .a{
-            margin: 0;
+    .a {
+      margin: 0;
 
-            .helper-page{
-                text-decoration: none;
+      .helper-page {
+        text-decoration: none;
 
-                &.selected{
-                    font-weight: bold;
-                    color: $main-color;
-                }
-            }
+        &.selected {
+          font-weight: bold;
+          color: $main-color;
         }
+      }
     }
+  }
 
-    .helper-hr{
-        display: block;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        border-top: 1px solid $border-color !important;
-    }
+  .helper-hr {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid $border-color !important;
+  }
 }
 
 @media screen and (min-width: $medium-screen) {

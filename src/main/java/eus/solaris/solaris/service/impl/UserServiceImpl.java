@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleService roleService;
-
     @Autowired
     UserRepository userRepository;
 
@@ -66,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsernameIgnoreCase(username);
     }
 
     @Override
@@ -114,7 +113,6 @@ public class UserServiceImpl implements UserService {
     public List<PaymentMethod> getUserPaymentMethods(User user) {
 
         user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
-
         return user.getPaymentMethods();
     }
 }

@@ -29,14 +29,14 @@
           <div th:if="${user != null}" class="profile-container">
             <img
               class="profile"
-              th:alt="#{img.alt.user-profile}"
+              th:alt="#{img.alt.profile-picture}"
               th:src="@{${user.avatar}}"
             />
           </div>
           <div th:unless="${user != null}" class="profile-container">
             <img
               class="profile"
-              th:alt="#{img.alt.user-profile}"
+              th:alt="#{img.alt.profile-picture}"
               th:src="@{/images/user.png}"
             />
           </div>
