@@ -7,6 +7,30 @@
 
     <script th:src="@{/js/shopping-cart.js}"></script>
     <link rel="stylesheet" th:href="@{/css/shop.css}" href="/css/shop.css">
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+        var u="https://deploysolaris.ddns.net:5443/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+  <!-- End Matomo Code -->
+  <!-- Matomo Tag Manager -->
+    <script>
+        var _mtm = window._mtm = window._mtm || [];
+        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src='https://deploysolaris.ddns.net:5443/js/container_dXyikgUe.js'; s.parentNode.insertBefore(g,s);
+    </script>
+    <!-- End Matomo Tag Manager -->
+    
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
 </head>
 
@@ -47,7 +71,7 @@
                         <p id="cart-total">1900€</p>
                     </div>
                     <div class="checkout">
-                        <button class="btn" th:text="#{page.shop.checkout}">Checkout</button>
+                        <button id="checkout" class="btn" th:text="#{page.shop.checkout}">Checkout</button>
                     </div>
                 </div>
             </aside>

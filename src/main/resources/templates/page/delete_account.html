@@ -5,30 +5,27 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/page/profile.css}">
+
   <link rel="stylesheet" th:href="@{/css/page/delete-account.css}">
-  <script th:src="@{/js/form.js}" src="/js/form.js"></script>
   <title th:text="#{title.profile}"></title>
 </head>
 
-<body layout:fragment="content">
-    <main>
-        <div class="delete-card-main">
-            <div class="delete-card">
-                <div class="card-header">
-                    <h4 class="card-title">Delete Account</h4>
-                </div>
-                <div class="card-body">
-                    <form th:action="@{/delete-account}" method="post">
-                        <div class="row">
-                            <label>Are you sure you want to delete your account?</label>
-                        </div>
-                        <div class="row">
-                            <input class="btn delete-account" type="submit" value="Borrar cuenta">
-                        </div>
-                    </form>
-                </div>
+<main layout:fragment="content" class="delete-card-main">
+    <div class="delete-card-submain">
+        <div class="delete-card">
+            <div class="card-header">
+                <h4 class="card-title">Delete Account</h4>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/delete-account}" method="post">
+                    <div class="row">
+                        <label>Are you sure you want to delete your account?</label>
+                    </div>
+                    <div class="row">
+                        <input class="btn delete-account" type="submit" value="Borrar cuenta">
+                    </div>
+                </form>
             </div>
         </div>
-    </main>
-</body>
+    </div>
+</main>

@@ -27,7 +27,8 @@ public class SpringWebAuxTestConfig {
 
     Role ROLE_ADMIN = new Role(1L, "ROLE_ADMIN", true, null, "role.admin", Stream
             .of(new Privilege(1L, "AUTH_INSTALL_READ", "auth.install.view", true, null, 1),
-                    new Privilege(2L, "AUTH_INSTALL_WRITE", "auth.install.write", true, null, 1))
+                    new Privilege(2L, "AUTH_INSTALL_WRITE", "auth.install.write", true, null, 1),
+                    new Privilege(3L, "AUTH_DATA_READ", "auth.data.view", true, null, 1))
             .collect(Collectors.toSet()), 1);
 
     Role ROLE_TECHNICIAN = new Role(1L, "ROLE_TECHNICIAN", true, null, "role.tech", Stream
