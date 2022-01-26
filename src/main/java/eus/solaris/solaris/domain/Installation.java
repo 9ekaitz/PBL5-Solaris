@@ -46,7 +46,7 @@ public class Installation {
   private Order order;
 
   @ManyToOne
-  @JoinColumn(name = "installer", nullable = false)
+  @JoinColumn(name = "installer")
   @EqualsAndHashCode.Exclude
   private User installer;
 

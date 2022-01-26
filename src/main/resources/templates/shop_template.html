@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{public_template}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+    <script th:src="@{/js/shopping-cart.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/shop.css}" href="/css/shop.css">
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+        var u="https://deploysolaris.ddns.net:5443/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+  <!-- End Matomo Code -->
+  <!-- Matomo Tag Manager -->
+    <script>
+        var _mtm = window._mtm = window._mtm || [];
+        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src='https://deploysolaris.ddns.net:5443/js/container_dXyikgUe.js'; s.parentNode.insertBefore(g,s);
+    </script>
+    <!-- End Matomo Tag Manager -->
+    
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <div class="shop-grid">
+            <div class="shop-wrap">
+                <th:block layout:fragment="helper">
+                    <div class="helper">
+                        <p class="a">
+                          <a href="/shop" th:href="@{/shop}" class="helper-page selected" th:text="#{helper.shop}">Tienda</a>
+                        </p>
+                      </div>
+                      <hr class="helper-hr">
+                </th:block>
+                <section class="shop-content" layout:fragment="shop-content">
+                    <p>Changing contents</p>
+                </section>
+                <div th:if="${user} != null" id="cart-toggle-ext" class="cart-toggle">
+                    <img th:src="@{/images/shopping-cart.svg}" src="/images/shopping-cart.svg"
+                        th:alt="#{page.shop.cart.open}" alt="Open shopping cart">
+                </div>
+            </div>
+            <aside id="shopping-cart" class="hide">
+                <div class="shopping-cart-wrap">
+                    <div class="shopping-cart-header">
+                        <div>
+                            <div id="cart-toggle-int" class="cart-toggle">
+                                <img th:src="@{/images/close.svg}" src="/images/close.svg"
+                                    th:alt="#{page.shop.cart.close.alt}" alt="Close shopping cart" />
+                            </div>
+                        </div>
+                        <h2 class="shopping-cart-title" th:text="#{page.shop.shoppingCart}">Shopping Cart</h2>
+                    </div>
+                    <div class="product-list">
+                    </div>
+                    <div class="total">
+                        <p id="cart-total">1900€</p>
+                    </div>
+                    <div class="checkout">
+                        <button id="checkout" class="btn" th:text="#{page.shop.checkout}">Checkout</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+</body>

@@ -12,6 +12,7 @@ import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 
@@ -36,6 +37,6 @@ public class Country implements Serializable{
     private String i18n;
 
     @Version
-    @lombok.EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     private Integer version;
 }

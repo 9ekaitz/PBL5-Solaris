@@ -82,6 +82,7 @@ hr {
     display: flex;
     align-items: center;
     margin: 0.8rem;
+    text-decoration: none;
   }
   .nav-computer .nav-item * {
     display: inline-block;
@@ -121,15 +122,15 @@ hr {
   .nav-computer #eco.nav-item:hover .text, .nav-computer #eco.current .text {
     color: #49AE66;
   }
-}
-.nav-computer .no-animation:hover {
-  cursor: initial;
-}
-.nav-computer .no-animation:hover.logo {
-  fill: none;
-}
-.nav-computer .no-animation:hover.text {
-  color: #C7C7C7;
+  .nav-computer .no-animation:hover {
+    cursor: initial;
+  }
+  .nav-computer .no-animation:hover .logo {
+    fill: none;
+  }
+  .nav-computer .no-animation:hover .text {
+    color: #C7C7C7;
+  }
 }
 .nav-computer h2 {
   color: #C7C7C7;

@@ -14,8 +14,8 @@
                         <a class="link" href="/"><img class="logo" th:src="@{/images/solaris-white.png}" src="/images/solaris-white.png" alt="Solaris icon" th:alt=#{img.alt.solaris}/></a>
                     </div>
                     <div class="header-computer-options">
-                        <a class="link" href="/" th:text=#{header.installation}>Instalación</a>
-                        <a class="link" href="" th:if="${user != null}" th:text=#{header.solarZone}>Zona Solar</a>
+                        <a class="link" th:href="@{/}" th:text=#{header.installation}>Instalación</a>
+                        <a class="link" th:href="@{(${user.role.name} == 'ROLE_TECHNICIAN' ? '/install' : '/solarzone')}" th:if="${user != null}" th:text="#{header.solarZone}">Zona Solar</a>
                         <a class="link" href="/shop" th:text=#{header.shop}>Tienda</a>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/profile" th:if="${user != null}">
+                    <a class="icon" href="/profile" th:href="@{/profile}" th:if="${user != null}">
                         <svg class="logo" alt="Search products" th:alt=#{img.alt.profile}
                         width="24"
                         height="24"
@@ -55,7 +55,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/login" th:if="${user == null}">
+                    <a class="icon" href="/login" th:href="@{/login}" th:if="${user == null}">
                         <svg class="logo" alt="Search products" th:alt=#{img.alt.login}
                         width="24"
                         height="24"
@@ -75,7 +75,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/info">
+                    <a class="icon" href="/info" th:href="@{/info}">
                         <svg class="logo" alt="Information" th:alt=#{img.alt.info}
                         width="24"
                         height="24"
@@ -96,7 +96,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="icon" href="/shopping-cart">
+                    <a class="icon" href="/shopping-cart" th:href="@{/shopping-cart}">
                         <svg class="logo" alt="Shopping cart" th:alt=#{img.alt.cart}
                             width="24"
                             height="24"
@@ -141,10 +141,12 @@
                 </form>
             </div>
             <div class="header-computer-lang" id="header-computer-lang">
-                <th:block th:each="lang : ${languages}">
+                <div class="lang-wrap">
+                  <th:block th:each="lang : ${languages}">
                     <a th:href="'?lang=' + ${lang.code}" class="lang locales" th:text=#{${lang.i18n}}></a>
-                </th:block>
-            </div>
+                  </th:block>
+                </div>
+              </div>
         </div>
         <div class="header-mobile">
             <div>

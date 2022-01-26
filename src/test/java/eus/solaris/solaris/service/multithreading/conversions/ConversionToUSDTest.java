@@ -18,8 +18,8 @@ class ConversionToUSDTest {
         targets.add(-1.0);
 
         List<Double> expected = new ArrayList<>();
-        expected.add(2431.4811);
-        expected.add(58.26);
+        expected.add(24.31481100);
+        expected.add(0.5826);
         expected.add(0.0);
         expected.add(0.0);
 

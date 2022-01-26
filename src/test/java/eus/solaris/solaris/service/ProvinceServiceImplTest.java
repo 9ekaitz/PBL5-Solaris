@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import eus.solaris.solaris.domain.Comunidad;
 import eus.solaris.solaris.domain.Province;
 import eus.solaris.solaris.repository.ProvinceRepository;
 import eus.solaris.solaris.service.impl.ProvinceServiceImpl;
@@ -28,8 +29,9 @@ class ProvinceServiceImplTest {
     @Test
     void findAllTest() {
         List<Province> provinces = new ArrayList<>();
-        provinces.add(new Province(1L, "PROVINCE_ALACA", "province.alava", 1));
-        provinces.add(new Province(2L, "PROVINCE_BIZKAIA", "province.bizkaia", 2));
+        
+        provinces.add(new Province(1L, "PROVINCE_ALAVA", "province.alava", "Vitoria", new Comunidad(), 0));
+        provinces.add(new Province(2L, "PROVINCE_BIZKAIA", "province.bizkaia", "Bilbao", new Comunidad(), 2));
 
         when(provinceRepository.findAll()).thenReturn(provinces);
         assertEquals(provinces, provinceServiceImpl.findAll());
@@ -37,7 +39,7 @@ class ProvinceServiceImplTest {
 
     @Test
     void findByIdTest() {
-        Province province = new Province(1L, "PROVINCE_ALACA", "province.alava", 1);
+        Province province = new Province(1L, "PROVINCE_ALACA", "province.alava", "Vitoria", new Comunidad(), 1);
 
         when(provinceRepository.findById(1L)).thenReturn(java.util.Optional.of(province));
         assertEquals(province, provinceServiceImpl.findById(1L));

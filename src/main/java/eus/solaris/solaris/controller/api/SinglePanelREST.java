@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -16,14 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import eus.solaris.solaris.domain.SolarPanel;
 import eus.solaris.solaris.domain.SolarPanelDataEntry;
@@ -41,7 +38,7 @@ import javassist.tools.web.BadHttpRequest;
 
 @RestController
 @RequestMapping("/api/panel")
-public class SinglePanelREST implements HandlerInterceptor {
+public class SinglePanelREST {
 
     private static final Integer THREADS = 6;
 
@@ -80,8 +77,7 @@ public class SinglePanelREST implements HandlerInterceptor {
         Map<Instant, Double> data = Gatherer.extractData(entries);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.LINE);
-        Locale locale = LocaleContextHolder.getLocale();
-        fj.setLabel(messageSource.getMessage("rest.graph.single.real_time", null, locale));
+        fj.setLabel("kWh");
         return fj.getJSON().toString();
     }
 
@@ -100,8 +96,7 @@ public class SinglePanelREST implements HandlerInterceptor {
         Map<Instant, Double> data = tc.prepareData(panels, dto.getGroupMode(), ConversionType.NONE);
         FormatterJSON fj = new FormatterJSON(data);
         fj.setKind(Kind.BAR);
-        Locale locale = LocaleContextHolder.getLocale();
-        fj.setLabel(messageSource.getMessage("rest.graph.single.per_panel", null, locale));
+        fj.setLabel("kWh");
         return fj.getJSON().toString();
     }
 
@@ -117,12 +112,27 @@ public class SinglePanelREST implements HandlerInterceptor {
 
         JSONObject json = new JSONObject();
         json.put("voltage", p.getModel().getVoltage());
-        json.put("width", p.getModel().getWidth());
-        json.put("height", p.getModel().getHeight());
+        json.put("width", p.getModel().getSize().getWidth());
+        json.put("height", p.getModel().getSize().getHeight());
         json.put("energyThisMonth", thisMonth(p));
         json.put("energyLast30Days", last30Days(p));
         json.put("energyAllTime", allTime(p));
 
+        return json.toString();
+    }
+
+    @GetMapping(path = "/getPanels", produces = "application/json")
+    public String getPanels(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
+        if (!filterRequest(req, res))
+            return null;
+        User user = userService.findById(dto.getId());
+        List<SolarPanel> panels = solarPanelRepository.findByUser(user);
+        List<Long> panelIds = new ArrayList<>();
+        for (SolarPanel panel : panels) {
+            panelIds.add(panel.getId());
+        }
+        JSONObject json = new JSONObject();
+        json.put("panels", panelIds);
         return json.toString();
     }
 
@@ -145,7 +155,7 @@ public class SinglePanelREST implements HandlerInterceptor {
     }
 
     private Double getData(SolarPanel panel, Instant start, Instant end) {
-        return dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end);
+        return (dataEntryRepository.sumBySolarPanelAndTimestampBetween(panel, start, end) / 60) / 1000;
     }
 
     public boolean filterRequest(HttpServletRequest request, HttpServletResponse response) {

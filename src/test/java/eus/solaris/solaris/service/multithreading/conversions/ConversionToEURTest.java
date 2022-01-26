@@ -18,8 +18,8 @@ class ConversionToEURTest {
         targets.add(-1.0);
 
         List<Double> expected = new ArrayList<>();
-        expected.add(2114.2951);
-        expected.add(50.66);
+        expected.add(21.142951);
+        expected.add(0.5066);
         expected.add(0.0);
         expected.add(0.0);
 

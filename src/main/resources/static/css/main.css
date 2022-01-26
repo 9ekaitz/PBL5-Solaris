@@ -360,15 +360,8 @@ body {
   fill: #000;
 }
 
-.select {
-  display: block;
-  margin-block: 0.5rem 0;
-  border: 1px solid #000;
-  border-radius: 0.2rem;
-  height: 1.5em;
-}
-
-input {
+input,
+select {
   display: block;
   margin-block: 0.5rem 0;
   border: 1px solid #000;
@@ -376,9 +369,19 @@ input {
   padding: 0.2em;
   height: 1.5em;
 }
-input:focus, input:hover {
+input:focus, input:hover,
+select:focus,
+select:hover {
   outline: 1px solid #f9aa31;
   border-color: #f9aa31;
+}
+
+.select {
+  display: block;
+  margin-block: 0.5rem 0;
+  border: 1px solid #000;
+  border-radius: 0.2rem;
+  height: 1.5em;
 }
 
 input[type=checkbox] {
@@ -495,10 +498,10 @@ input[type=submit].delete-account:hover, input[type=submit].delete-account:focus
 @media (min-width: 768px) {
   .helper {
     display: block;
+    padding: 0.5rem 2rem;
     font-size: 1rem;
     max-width: 1300px;
-    margin: 0.5rem auto;
-    padding: 0 2rem;
+    margin: auto;
   }
   .helper .a {
     margin: 0;

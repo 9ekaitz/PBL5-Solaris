@@ -14,6 +14,7 @@ main {
             margin-block: 1rem;
 
             &.main {
+                flex-wrap: wrap;
                 .title {
                     text-align: left;
                     font-size: 3rem;
@@ -21,6 +22,11 @@ main {
 
                 .subtitle {
                     font-size: 1.5rem;
+                }
+
+                .sub-section {
+                  box-sizing: border-box;
+                  flex: 0 0 calc(50% - 2.5em);
                 }
             }
 
@@ -36,14 +42,18 @@ main {
                     &.info {
                         padding: 0.5rem 0 0 0;
                         font-size: 1rem;
+                        margin-bottom: 2rem;
                     }
                     &.number {
+                        height: 2em;
+                        font-size: 2em;
+                        width: 2em;
+                        display: grid;
+                        place-content: center;
+
                         margin: auto;
-                        width: 30px;
-                        line-height: 30px;
                         border-radius: 50%;
                         text-align: center;
-                        font-size: 1rem;
                         border: 1px solid black;
                     }
                 }
@@ -56,6 +66,7 @@ main {
                     display: block;
                     width: 100%;
                     margin-block: 1rem;
+                    max-width: 100%;
                 }
 
                 .title {
@@ -68,9 +79,9 @@ main {
                     font-size: 1.5rem;
                 }
 
-            }
-            &.installation .image {
-                order: 2;
+                &.installation .image {
+                    order: 2;
+                }
             }
         }
     }
@@ -124,6 +135,7 @@ main {
             .phases {
                 background-color: $extra-info-color;
                 .content-section {
+                    display: flex;
                     flex-direction: row;
                     justify-content: space-between;
                 }
@@ -135,6 +147,7 @@ main {
                     &.info {
                         padding: 0.5rem 0 0 0;
                         font-size: 1rem;
+                        margin-bottom: 0;
                     }
                     &.number {
                         margin: auto;

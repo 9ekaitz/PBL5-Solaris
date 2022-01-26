@@ -29,7 +29,12 @@ public class Gatherer implements Runnable {
     public static Map<Instant, Double> extractData(List<SolarPanelDataEntry> dataEntries) {
         Map<Instant, Double> dataMap = new TreeMap<>();
         for (SolarPanelDataEntry solarPanelDataEntry : dataEntries) {
-            dataMap.put(solarPanelDataEntry.getTimestamp(), solarPanelDataEntry.getPower());
+            if (dataMap.containsKey(solarPanelDataEntry.getTimestamp())) {
+                dataMap.put(solarPanelDataEntry.getTimestamp(),
+                        dataMap.get(solarPanelDataEntry.getTimestamp()) + solarPanelDataEntry.getPower());
+            } else {
+                dataMap.put(solarPanelDataEntry.getTimestamp(), solarPanelDataEntry.getPower());
+            }
         }
         return dataMap;
     }

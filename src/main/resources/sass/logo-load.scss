@@ -54,25 +54,19 @@
 }
 
 #logo-l {
-  animation: delete-letter 0.1s linear forwards 0.6s,
-    show-letter-l 0.5s linear forwards 1.6s,
-    fill-letter 0.2s linear forwards 2.1s;
+  animation: delete-letter 0.1s linear forwards 0.6s, show-letter-l 0.5s linear forwards 1.6s, fill-letter 0.2s linear forwards 2.1s;
   stroke-dasharray: 73.6;
   stroke-dashoffset: 73.6;
 }
 
 #logo-o {
-  animation: delete-letter 0.1s linear forwards 0.8s,
-    show-letter-o 0.5s linear forwards 1.4s,
-    fill-letter 0.2s linear forwards 1.9s;
+  animation: delete-letter 0.1s linear forwards 0.8s, show-letter-o 0.5s linear forwards 1.4s, fill-letter 0.2s linear forwards 1.9s;
   stroke-dasharray: 127.8;
   stroke-dashoffset: 127.8;
 }
 
 #logo-big-s {
-  animation: delete-letter 0.1s linear forwards 1s,
-    show-letter-big-s 0.5s linear forwards 1.2s,
-    fill-letter 0.2s linear forwards 1.7s;
+  animation: delete-letter 0.1s linear forwards 1s, show-letter-big-s 0.5s linear forwards 1.2s, fill-letter 0.2s linear forwards 1.7s;
   stroke-dasharray: 155.5;
   stroke-dashoffset: 155.5;
 }

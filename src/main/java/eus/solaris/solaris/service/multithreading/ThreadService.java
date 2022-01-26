@@ -88,10 +88,6 @@ public class ThreadService implements ICompletionObserver {
 
         Map<Instant, Double> dataMap = dataBuffer.getData();
 
-        if (solarPanels.size() > 1) {
-            dataMap = Processer.groupPanels(dataMap);
-        }
-
         if (groupMode == GroupMode.YEAR) {
             dataMap = Grouper.groupByMonth(dataMap);
         }

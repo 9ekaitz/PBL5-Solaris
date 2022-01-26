@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-  th:lang="#{locale}"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html th:lang="#{locale}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <head>
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/favicon/apple-touch-icon.png}" href="/images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/favicon/favicon-32x32.png}" href="/images/favicon/favicon-32x32.png">
@@ -20,10 +17,35 @@
     <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
     <link rel="stylesheet" th:href="@{/css/module/header_dashboard.css}" />
     <link rel="stylesheet" th:href="@{/css/module/nav_dashboard.css}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 minimum-scale=1" />
     <script th:src="@{/js/dashboard_nav.js}"></script>
     <script th:src="@{/js/dashboard_alerts.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
 
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Solaris</title>
+    <!-- Matomo -->
+    <script>
+      var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+      var u="https://deploysolaris.ddns.net:5443/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+  </script>
+<!-- End Matomo Code -->
+<!-- Matomo Tag Manager -->
+  <script>
+      var _mtm = window._mtm = window._mtm || [];
+      _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src='https://deploysolaris.ddns.net:5443/js/container_dXyikgUe.js'; s.parentNode.insertBefore(g,s);
+  </script>
+  <!-- End Matomo Tag Manager -->
   </head>
   <body>
     <header th:insert="header_dashboard :: header"></header>
