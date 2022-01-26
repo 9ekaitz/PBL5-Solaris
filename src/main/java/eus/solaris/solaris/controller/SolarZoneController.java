@@ -24,7 +24,7 @@ public class SolarZoneController {
         return solarPanelService.findByUser(user).isEmpty();
     }
 
-    @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
+    @PreAuthorize("hasAuthority('AUTH_DATA_READ')")
     @GetMapping
     public String solarZoneHome(Model model) {
         User user = (User) model.getAttribute("user");
@@ -36,7 +36,7 @@ public class SolarZoneController {
         }
     }
 
-    @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
+    @PreAuthorize("hasAuthority('AUTH_DATA_READ')")
     @GetMapping("/panel")
     public String solarZonePanel(Model model) {
         User user = (User) model.getAttribute("user");
@@ -48,7 +48,7 @@ public class SolarZoneController {
         }
     }
 
-    @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
+    @PreAuthorize("hasAuthority('AUTH_DATA_READ')")
     @GetMapping("/economic")
     public String solarZoneEcon(Model model) {
         User user = (User) model.getAttribute("user");
@@ -60,7 +60,7 @@ public class SolarZoneController {
         }
     }
 
-    @PreAuthorize("hasAuthority('PRIVILEGE_VIEW_DATA')")
+    @PreAuthorize("hasAuthority('AUTH_DATA_READ')")
     @GetMapping("/eco")
     public String solarZoneEco(Model model) {
         User user = (User) model.getAttribute("user");
