@@ -116,7 +116,7 @@
             <div class="header-computer-search">
                 <form method="GET" th:action="@{/login}" id="search-computer-bar">
                     <input type="text" name="" id="search-computer-box" placeholder="Producto" autofocus="autofocus">
-                    <input class="searcher" type="image" th:src="@{/images/search.svg}" src="/images/search.svg" title="Search products" th:title=#{img.alt.search}>
+                    <input class="searcher" type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" th:alt=#{img.alt.search}>
                 </form>
             </div>
             <div class="header-computer-lang" id="header-computer-lang">
@@ -208,7 +208,7 @@
                             </svg>
                         </a>
                         <a href="/info">
-                          <svg class="logo" title="Language" th:title="#{img.alt.ingo}"
+                          <svg class="logo" title="Language" th:title="#{img.alt.info}"
                             width="24"
                             height="24"
                             viewBox="0 0 24 24"
@@ -233,7 +233,7 @@
                 <div class="header-mobile-search">
                     <form method="GET" th:action="@{/login}" id="search-mobile-bar">
                         <input type="text" name="" id="search-mobile-box" placeholder="Producto" autofocus="autofocus">
-                        <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" title="Search products" th:title="#{img.alt.search}">
+                        <input type="image" th:src="@{/images/search.svg}" src="/images/search.svg" alt="Search products" th:alt="#{img.alt.search}">
                     </form>
                 </div>
                 <div class="header-mobile-lang" id="header-mobile-lang">
