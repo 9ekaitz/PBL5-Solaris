@@ -37,12 +37,6 @@
                         <label><div class="checkbox-group"><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}" th:id="${'size-' + size.id}"></div><span th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
                     </th:block>
                     <hr>
-                    <h2 th:text="#{page.dashboard.manage-products.price}"></h2>
-                    <label><div class="checkbox-group"><input type="checkbox" id="lt50"></div><span th:text="#{page.dashboard.manage-products.lt50}"></span></label>
-                    <label><div class="checkbox-group"><input type="checkbox" id="gt50_lt100"></div><span th:text="#{page.dashboard.manage-products.gt50_lt100}"></span></label>
-                    <label><div class="checkbox-group"><input type="checkbox" id="gt100_lt250"></div><span th:text="#{page.dashboard.manage-products.gt100_lt250}"></span></label>
-                    <label><div class="checkbox-group"><input type="checkbox" id="gt250"></div><span th:text="#{page.dashboard.manage-products.gt250}"></span></label>
-                    <hr>
                 </form>
                 <div class="products-items-panel">
                     <th:block th:each="product : ${products}">
