@@ -21,6 +21,7 @@ import eus.solaris.solaris.domain.Size;
 import eus.solaris.solaris.domain.SolarPanelModel;
 import eus.solaris.solaris.form.ProductCreateForm;
 import eus.solaris.solaris.form.ProductFilterForm;
+import eus.solaris.solaris.repository.ImageRepository;
 import eus.solaris.solaris.repository.ProductDescriptionRepository;
 import eus.solaris.solaris.repository.ProductRepository;
 import eus.solaris.solaris.repository.filters.BrandRepository;
@@ -59,6 +60,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private LanguageServiceImpl languageService;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Override
     public Product save(Product product) {
@@ -142,7 +146,8 @@ public class ProductServiceImpl implements ProductService {
             productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
             Product product = new Product();
             product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
-            product.setImagePath(pcf.getImagePath());
+            String imagePath = imageRepository.save(pcf.getImage(), ImageRepository.ABSOLUTE_PRODUCT_PATH, ImageRepository.RELATIVE_PRODUCT_PATH);
+            product.setImagePath(imagePath);
             product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
             product.setPrice(pcf.getPrice());
             product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
@@ -161,7 +166,10 @@ public class ProductServiceImpl implements ProductService {
     public Boolean update(Product product, ProductCreateForm pcf, Locale locale) {
         try {
             product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
-            product.setImagePath(pcf.getImagePath());
+            if(!pcf.getImage().isEmpty()) {
+                String imagePath = imageRepository.save(pcf.getImage(), ImageRepository.ABSOLUTE_PRODUCT_PATH, ImageRepository.RELATIVE_PRODUCT_PATH);
+                product.setImagePath(imagePath);
+            }
             product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
             product.setPrice(pcf.getPrice());
             product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));

@@ -15,7 +15,7 @@
             <ul class="error">
                 <li th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</li>
             </ul>
-            <form th:action="@{@{'/dashboard/edit-product/'+${productToEdit.id}}}" method="post">
+            <form th:action="@{@{'/dashboard/edit-product/'+${productToEdit.id}}}" method="post" enctype="multipart/form-data">
                 <div class="form-group-col1">
                     <div class="form-pair">
                         <label for="name" th:text="#{product.name} + ':'"></label>
@@ -48,8 +48,8 @@
                         </select>
                     </div>
                     <div class="form-pair">
-                        <label for="imagePath" th:text="#{product.image} + ':'"></label>
-                        <input type="text" name="imagePath" th:placeholder="#{product.image}" value="/img/products/solar-panel-1.jpg">
+                        <label for="image" th:text="#{product.image} + ':'"></label>
+                        <input type="file" name="image">
                     </div>
                 </div>
                 <div class="form-group-col2">

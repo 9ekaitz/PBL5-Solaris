@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -34,6 +36,7 @@ import eus.solaris.solaris.form.ProductCreateForm;
 import eus.solaris.solaris.form.ProductFilterForm;
 import eus.solaris.solaris.form.UserProfileCreateForm;
 import eus.solaris.solaris.form.UserProfileUpdateForm;
+import eus.solaris.solaris.repository.ImageRepository;
 import eus.solaris.solaris.service.ProductService;
 import eus.solaris.solaris.service.RoleService;
 import eus.solaris.solaris.service.UserService;
@@ -74,6 +77,9 @@ public class AdminController {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping("/manage-users")
@@ -227,7 +233,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/edit-product/{id}")
-    public String editProduct(@Validated @ModelAttribute ProductCreateForm pcf, BindingResult result, @PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String editProduct(@Validated(ProductCreateForm.EditProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, @PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Product product = productService.findById(id);
         Locale locale = LocaleContextHolder.getLocale();
         if (result.hasErrors() && product != null) {
@@ -254,7 +260,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
     @PostMapping(value = "/create-product")
-    public String createProduct(@Validated @ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String createProduct(@Validated(ProductCreateForm.CreateProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute(ERROR_FORM, errors);
