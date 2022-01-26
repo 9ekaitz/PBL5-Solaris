@@ -30,7 +30,7 @@ main {
     .button-a {
       display: block;
       margin-block: 0.5rem 0;
-      border: 1px solid $text-color;
+      border-color: $main-color;
       border-radius: $input-border;
       padding: 0.2em;
       height: 1.5em;

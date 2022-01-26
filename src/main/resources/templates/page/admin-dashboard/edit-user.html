@@ -50,7 +50,7 @@
                 <div class="button-group">
                     <input type="submit" value="Save"></input>
                     <a class="red-button" th:href="@{'/dashboard/delete-user/'+${userToEdit.id}}"><span th:text="#{page.dashboard.account.deleteuser}"></span></a>
-                    <a href="/dashboard/manage-users" class="red-button"><span th:text=#{dashboard.cancel}></span></a>
+                    <a th:href="@{/dashboard/manage-users}" class="red-button"><span th:text=#{dashboard.cancel}></span></a>
                 </div>
             </form>
         </div>
