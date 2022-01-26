@@ -19,7 +19,6 @@ public interface UserService extends Serializable {
     public User save(User user);
     public User findByUsername(String username);
     public List<User> findAll();
-    public User findById(Long id);
     public Boolean update(Long id, UserProfileUpdateForm upuf);
     public Boolean updateUserPassword(Long id, String password);
     public Boolean disable(User user);
