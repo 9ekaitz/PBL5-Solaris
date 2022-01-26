@@ -427,6 +427,7 @@ input[type=submit],
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
+  min-height: 3em;
   color: #000;
   background-color: #f9aa31;
   padding-inline: 1em;
