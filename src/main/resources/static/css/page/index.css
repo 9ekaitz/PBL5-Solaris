@@ -4,10 +4,14 @@ main .main-content {
   padding: 1rem 0rem 1rem 0rem;
 }
 main .main-content .content-section {
-  display: block;
+  display: flex;
+  flex-direction: column;
   font-size: 1rem;
   padding: 0rem 1rem 0rem 1rem;
   margin-block: 1rem;
+}
+main .main-content .content-section.main {
+  flex-wrap: wrap;
 }
 main .main-content .content-section.main .title {
   text-align: left;
@@ -15,6 +19,10 @@ main .main-content .content-section.main .title {
 }
 main .main-content .content-section.main .subtitle {
   font-size: 1.5rem;
+}
+main .main-content .content-section.main .sub-section {
+  box-sizing: border-box;
+  flex: 0 0 calc(50% - 2.5em);
 }
 main .main-content .content-section.phases {
   background-color: #F1F1F1;
@@ -29,14 +37,17 @@ main .main-content .content-section.phases p {
 main .main-content .content-section.phases p.info {
   padding: 0.5rem 0 0 0;
   font-size: 1rem;
+  margin-bottom: 2rem;
 }
 main .main-content .content-section.phases p.number {
+  height: 2em;
+  font-size: 2em;
+  width: 2em;
+  display: grid;
+  place-content: center;
   margin: auto;
-  width: 30px;
-  line-height: 30px;
   border-radius: 50%;
   text-align: center;
-  font-size: 1rem;
   border: 1px solid black;
 }
 main .main-content .content-section .sub-section {
@@ -46,6 +57,7 @@ main .main-content .content-section .sub-section img {
   display: block;
   width: 100%;
   margin-block: 1rem;
+  max-width: 100%;
 }
 main .main-content .content-section .sub-section .title {
   text-align: left;
@@ -55,12 +67,15 @@ main .main-content .content-section .sub-section .title {
 main .main-content .content-section .sub-section .subtitle {
   font-size: 1.5rem;
 }
+main .main-content .content-section.installation .image {
+  order: 2;
+}
 @media (min-width: 768px) {
   main .main-content {
     gap: 5rem;
   }
   main .main-content .content-section {
-    display: flex;
+    flex-direction: row;
     gap: 5rem;
     padding: 2rem;
     max-width: 1300px;
@@ -87,11 +102,15 @@ main .main-content .content-section .sub-section .subtitle {
     font-weight: lighter;
     text-align: justify;
   }
+  main .main-content .content-section.installation .image {
+    order: auto;
+  }
   main .main-content .phases {
     background-color: #F1F1F1;
   }
   main .main-content .phases .content-section {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
   main .main-content .phases .text {
@@ -102,6 +121,7 @@ main .main-content .content-section .sub-section .subtitle {
   main .main-content .phases .text.info {
     padding: 0.5rem 0 0 0;
     font-size: 1rem;
+    margin-bottom: 0;
   }
   main .main-content .phases .text.number {
     margin: auto;

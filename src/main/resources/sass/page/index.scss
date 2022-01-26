@@ -1,142 +1,163 @@
 @import "../util/variables";
 
 main {
-  .main-content {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 0rem 1rem 0rem;
-
-    .content-section {
-      display: block;
-      font-size: 1rem;
-      padding: 0rem 1rem 0rem 1rem;
-      margin-block: 1rem;
-
-      &.main {
-        .title {
-          text-align: left;
-          font-size: 3rem;
-        }
-
-        .subtitle {
-          font-size: 1.5rem;
-        }
-      }
-
-      &.phases {
-        background-color: $extra-info-color;
-        display: block;
-        padding: 1rem 1rem 1rem 1rem;
-
-        p {
-          text-align: center;
-          justify-content: center;
-          padding: 0;
-          &.info {
-            padding: 0.5rem 0 0 0;
-            font-size: 1rem;
-          }
-          &.number {
-            margin: auto;
-            width: 30px;
-            line-height: 30px;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 1rem;
-            border: 1px solid black;
-          }
-        }
-      }
-
-      .sub-section {
-        width: 100%;
-
-        img {
-          display: block;
-          width: 100%;
-          margin-block: 1rem;
-        }
-
-        .title {
-          text-align: left;
-          font-size: 2.75rem;
-          margin: 0;
-        }
-
-        .subtitle {
-          font-size: 1.5rem;
-        }
-      }
-    }
-  }
-
-  @media (min-width: $large-screen) {
     .main-content {
-      gap: 5rem;
-
-      .content-section {
         display: flex;
-        gap: 5rem;
-        padding: 2rem;
-        max-width: 1300px;
-        margin: auto;
-        font-size: 1.5rem;
+        flex-direction: column;
+        padding: 1rem 0rem 1rem 0rem;
 
-        &.main {
-          .title {
-            font-size: 3.5rem;
-          }
-
-          .subtitle {
-            font-size: 1.5rem;
-            font-weight: lighter;
-            text-align: justify;
-          }
-        }
-
-        &.unit {
-          .sub-section {
-            width: 100%;
-
-            .title {
-              font-size: 2rem;
-              margin: 0;
-            }
-
-            .subtitle {
-              font-size: 1.25rem;
-              font-weight: lighter;
-              text-align: justify;
-            }
-          }
-        }
-      }
-
-      .phases {
-        background-color: $extra-info-color;
         .content-section {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .text {
-          text-align: center;
-          justify-content: center;
-          padding: 0;
-          &.info {
-            padding: 0.5rem 0 0 0;
+            display: flex;
+            flex-direction: column;
             font-size: 1rem;
-          }
-          &.number {
-            margin: auto;
-            margin-top: 1em;
-            width: 70px;
-            line-height: 70px;
-            text-align: center;
-            font-size: 2rem;
-          }
+            padding: 0rem 1rem 0rem 1rem;
+            margin-block: 1rem;
+
+            &.main {
+                flex-wrap: wrap;
+                .title {
+                    text-align: left;
+                    font-size: 3rem;
+                }
+
+                .subtitle {
+                    font-size: 1.5rem;
+                }
+
+                .sub-section {
+                    box-sizing: border-box;
+                    flex: 0 0 calc(50% - 2.5em);
+                }
+            }
+
+            &.phases {
+                background-color: $extra-info-color;
+                display: block;
+                padding: 1rem 1rem 1rem 1rem;
+
+                p {
+                    text-align: center;
+                    justify-content: center;
+                    padding: 0;
+                    &.info {
+                        padding: 0.5rem 0 0 0;
+                        font-size: 1rem;
+                        margin-bottom: 2rem;
+                    }
+                    &.number {
+                        height: 2em;
+                        font-size: 2em;
+                        width: 2em;
+                        display: grid;
+                        place-content: center;
+
+                        margin: auto;
+                        border-radius: 50%;
+                        text-align: center;
+                        border: 1px solid black;
+                    }
+                }
+            }
+
+            .sub-section {
+                width: 100%;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    margin-block: 1rem;
+                    max-width: 100%;
+                }
+
+                .title {
+                    text-align: left;
+                    font-size: 2.75rem;
+                    margin: 0;
+                }
+
+                .subtitle {
+                    font-size: 1.5rem;
+                }
+            }
+            &.installation .image {
+                order: 2;
+            }
         }
-      }
     }
-  }
+
+    @media (min-width: $large-screen) {
+        .main-content {
+            gap: 5rem;
+
+            .content-section {
+                flex-direction: row;
+                gap: 5rem;
+                padding: 2rem;
+                max-width: 1300px;
+                margin: auto;
+                font-size: 1.5rem;
+
+                &.main {
+                    .title {
+                        font-size: 3.5rem;
+                    }
+
+                    .subtitle {
+                        font-size: 1.5rem;
+                        font-weight: lighter;
+                        text-align: justify;
+                    }
+                }
+
+                &.unit {
+                    .sub-section {
+                        width: 100%;
+
+                        .title {
+                            font-size: 2rem;
+                            margin: 0;
+                        }
+
+                        .subtitle {
+                            font-size: 1.25rem;
+                            font-weight: lighter;
+                            text-align: justify;
+                        }
+                    }
+                }
+
+                &.installation .image {
+                    order: auto;
+                }
+            }
+
+            .phases {
+                background-color: $extra-info-color;
+                .content-section {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+
+                .text {
+                    text-align: center;
+                    justify-content: center;
+                    padding: 0;
+                    &.info {
+                        padding: 0.5rem 0 0 0;
+                        font-size: 1rem;
+                        margin-bottom: 0;
+                    }
+                    &.number {
+                        margin: auto;
+                        margin-top: 1em;
+                        width: 70px;
+                        line-height: 70px;
+                        text-align: center;
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+    }
 }
