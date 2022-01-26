@@ -3,7 +3,6 @@ package eus.solaris.solaris.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +51,11 @@ public class AdminController {
     private static final String TOTAL_PAGES = "totalPages";
     private static final String PRODUCTS_MODEL = "products";
     private static final String USERS = "users";
+    private static final String ROLES = "roles";
+    private static final String USER_TO_EDIT = "userToEdit";
     private static final String PRODUCTS_TITLE = "PRODUCTS";
 
+    private static final String REDIRECT_MANAGE_PRODUCTS = "redirect:/dashboard/manage-products";
     private static final String REDIRECT_MANAGE_USERS = "redirect:/dashboard/manage-users";
     private static final String RETURN_MANAGE_USERS = "page/admin-dashboard/manage-products";
     private static final String CREATE_USER = "page/admin-dashboard/create-user";
@@ -101,9 +103,9 @@ public class AdminController {
     @GetMapping(value = "/edit-user/{id}")
     public String editUser(@PathVariable(value = "id") Long id, Model model) {
         User user = userService.findById(id);
-        model.addAttribute("roles", roleService.findAll());
-        model.addAttribute("userToEdit", user);
-        return "page/admin-dashboard/edit-user";
+        model.addAttribute(ROLES, roleService.findAll());
+        model.addAttribute(USER_TO_EDIT, user);
+        return EDIT_USER;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
@@ -113,8 +115,8 @@ public class AdminController {
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute("errorsUserData", errors);
             User user = userService.findById(id);
-            model.addAttribute("userToEdit", user);
-            model.addAttribute("roles", roleService.findAll());
+            model.addAttribute(USER_TO_EDIT, user);
+            model.addAttribute(ROLES, roleService.findAll());
             return EDIT_USER;
         } else {
             Boolean resultSQL = userService.update(id, upuf);
@@ -130,8 +132,8 @@ public class AdminController {
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute("errorsPassword", errors);
             User user = userService.findById(id);
-            model.addAttribute("userToEdit", user);
-            model.addAttribute("roles", roleService.findAll());
+            model.addAttribute(USER_TO_EDIT, user);
+            model.addAttribute(ROLES, roleService.findAll());
             return EDIT_USER;
         } else {
             Boolean resultSQL = userService.updateUserPassword(id, puf.getNewPassword());
@@ -152,9 +154,9 @@ public class AdminController {
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
     @GetMapping(value = "/create-user")
     public String showCreateUserPage(Model model) {
-        model.addAttribute("roles", roleService.findAll());
+        model.addAttribute(ROLES, roleService.findAll());
         model.addAttribute("form", new UserProfileCreateForm());
-        return "page/admin-dashboard/create-user";
+        return CREATE_USER;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_USERS')")
@@ -164,7 +166,7 @@ public class AdminController {
             List<ObjectError> errors = new ArrayList<>(result.getAllErrors());
             model.addAttribute(ERROR_FORM, errors);
             model.addAttribute("form", upcf);
-            model.addAttribute("roles", roleService.findAll());
+            model.addAttribute(ROLES, roleService.findAll());
             return CREATE_USER;
         } else {
             boolean resultSQL = userService.create(upcf);
@@ -220,7 +222,7 @@ public class AdminController {
         Locale locale = LocaleContextHolder.getLocale();
         model.addAttribute("description", productService.getProductDescription(product, locale));
         setProductFieldsIntoModel(model);
-        return "page/admin-dashboard/edit-product";
+        return RETURN_EDIT_PRODUCT;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
@@ -238,7 +240,7 @@ public class AdminController {
         } else {
             Boolean resultSQL = productService.update(product, pcf, locale);
             addFlashAttribute(resultSQL, redirectAttributes, "alert.updateproduct.success", "alert.updateproduct.error");
-            return "redirect:/dashboard/manage-products";
+            return REDIRECT_MANAGE_PRODUCTS;
         }
     }
 
@@ -262,7 +264,7 @@ public class AdminController {
         }
         Boolean resultSQL = productService.create(pcf);
         addFlashAttribute(resultSQL, redirectAttributes, "alert.createproduct.success", "alert.createproduct.error");
-        return "redirect:/dashboard/manage-products";
+        return REDIRECT_MANAGE_PRODUCTS;
     }
 
     @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
@@ -271,7 +273,7 @@ public class AdminController {
         Product product = productService.findById(id);
         Boolean resultSQL = productService.delete(product);
         addFlashAttribute(resultSQL, redirectAttributes, "alert.deleteproduct.success", "alert.deleteproduct.error");
-        return "redirect:/dashboard/manage-products";
+        return REDIRECT_MANAGE_PRODUCTS;
     }
 
     public void setProductFieldsIntoModel(Model model) {

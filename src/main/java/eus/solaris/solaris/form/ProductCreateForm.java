@@ -1,6 +1,5 @@
 package eus.solaris.solaris.form;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
