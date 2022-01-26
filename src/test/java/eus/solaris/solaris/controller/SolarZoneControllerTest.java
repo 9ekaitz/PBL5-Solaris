@@ -37,7 +37,7 @@ import eus.solaris.solaris.service.impl.UserServiceImpl;
 @Import(SpringWebAuxTestConfig.class)
 @ExtendWith(SpringExtension.class)
 @WebMvcTest({ SolarZoneController.class, UserControllerAdvice.class })
-public class SolarZoneControllerTest {
+class SolarZoneControllerTest {
   
   private final static String URL_SOLARZONE = "https://localhost/solarzone";
   private final static String URL_PANELS = "https://localhost/solarzone/panel";
