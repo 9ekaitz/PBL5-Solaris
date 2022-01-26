@@ -151,6 +151,21 @@ public class MultiPanelREST {
         return json.toString();
     }
 
+    @GetMapping(path = "/getPanels", produces = "application/json")
+    public String getPanels(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
+        if (!filterRequest(req, res))
+            return null;
+        User user = userRepository.findById(dto.getId()).orElse(null);
+        List<SolarPanel> panels = solarPanelRepository.findByUser(user);
+        List<Long> panelIds = new ArrayList<>();
+        for (SolarPanel panel : panels) {
+            panelIds.add(panel.getId());
+        }
+        JSONObject json = new JSONObject();
+        json.put("panels", panelIds);
+        return json.toString();
+    }
+
     private Map<Integer, Integer> countVoltages(List<SolarPanel> panels) {
         Map<Integer, Integer> map = new TreeMap<>();
 

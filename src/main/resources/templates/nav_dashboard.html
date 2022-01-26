@@ -33,6 +33,7 @@
         </a>
         <a
           id="available-installations"
+          th:if="${user.role.name == 'ROLE_TECHNICIAN'}"
           class="nav-mobile-item"
           th:href="@{/install?view=pending}"
         >
@@ -55,6 +56,7 @@
         </a>
         <a
           id="completed-installations"
+          th:if="${user.role.name == 'ROLE_TECHNICIAN'}"
           class="nav-mobile-item"
           th:href="@{/install?view=completed}"
         >

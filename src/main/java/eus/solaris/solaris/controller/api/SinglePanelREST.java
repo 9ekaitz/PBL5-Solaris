@@ -121,20 +121,7 @@ public class SinglePanelREST {
         return json.toString();
     }
 
-    @GetMapping(path = "/getPanels", produces = "application/json")
-    public String getPanels(SolarPanelRequestDTO dto, HttpServletResponse res, HttpServletRequest req) {
-        if (!filterRequest(req, res))
-            return null;
-        User user = userService.findById(dto.getId());
-        List<SolarPanel> panels = solarPanelRepository.findByUser(user);
-        List<Long> panelIds = new ArrayList<>();
-        for (SolarPanel panel : panels) {
-            panelIds.add(panel.getId());
-        }
-        JSONObject json = new JSONObject();
-        json.put("panels", panelIds);
-        return json.toString();
-    }
+
 
     private Double thisMonth(SolarPanel p) {
         Instant startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay().toInstant(ZoneOffset.UTC);
