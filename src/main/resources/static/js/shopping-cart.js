@@ -42,6 +42,7 @@ window.addEventListener("DOMContentLoaded", () => {
     cartTotal = document.querySelector("#cart-total");
     document.querySelectorAll(".filter-option-title").forEach(e => e.addEventListener('click', () => e.classList.toggle("show")));
     loadShop();
+    document.getElementById("checkout").addEventListener("click", ()=> window.location = "/shop/checkout");
 });
 
 const toggleShoppingCart = () => {

@@ -4,7 +4,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.Collections;
 import java.util.List;
@@ -86,25 +85,24 @@ public class SolarZoneControllerTest {
   @ParameterizedTest
   @ValueSource(strings = {URL_SOLARZONE, URL_PANELS, URL_ECONOMIC, URL_ECO})
   @WithUserDetails("testyAdmin")
-  void solarzoneWithUser() throws Exception {
+  void solarzoneWithUser(String url) throws Exception {
     SolarPanel p = createsolarPanel();
 
     List<SolarPanel> panels = Stream.of(p).collect(Collectors.toList());
 
     when(solarPanelService.findByUser(user)).thenReturn(panels);
-    mvc.perform(get("https://localhost:8443/solarzone"))
+    mvc.perform(get(url))
     .andExpect(status().isOk())
-    .andExpect(view().name("page/solarzone_home"))
     .andExpect(model().attribute("panels", panels));
   }
 
   @ParameterizedTest
   @ValueSource(strings = {URL_SOLARZONE, URL_PANELS, URL_ECONOMIC, URL_ECO})
   @WithUserDetails("testyAdmin")
-  void solarzoneWithUserNoPanels() throws Exception {
+  void solarzoneWithUserNoPanels(String url) throws Exception {
     when(solarPanelService.findByUser(user)).thenReturn(Collections.emptyList());
     
-    mvc.perform(get("https://localhost:8443/solarzone"))
+    mvc.perform(get(url))
     .andExpect(status().isUnauthorized());
   }
 
