@@ -6,26 +6,26 @@ let cartList;
 let cartTotal;
 
 const loadShop = async () => {
+    const addBtn = document.querySelector(".add-to-cart");
     cartToggleExt = document.getElementById("cart-toggle-ext");
     if (cartToggleExt) {
         const quantityLabel = document.querySelector(".single-product .product__quantity");
 
-        const addBtn = document.querySelector(".add-to-cart");
         if (addBtn) addBtn.addEventListener('click', () => {
             addProduct(parseInt(addBtn.getAttribute("data-target")), parseInt(quantityLabel.textContent));
         });
-        
+
         const sumBtn = document.querySelector(".single-product .controls__sum");
         if (sumBtn) sumBtn.addEventListener('click', () => {
             let quantity = parseInt(quantityLabel.textContent) + 1;
-            if(quantity < 1) quantity = 1;
+            if (quantity < 1) quantity = 1;
             quantityLabel.textContent = quantity;
         });
-        
+
         const subBtn = document.querySelector(".single-product .controls__substract");
         if (subBtn) subBtn.addEventListener('click', () => {
             let quantity = parseInt(quantityLabel.textContent) - 1;
-            if(quantity < 1) quantity = 1;
+            if (quantity < 1) quantity = 1;
             quantityLabel.textContent = quantity;
         });
 
@@ -35,6 +35,7 @@ const loadShop = async () => {
         }));
         await loadShoppingCart();
     }
+    else addBtn.addEventListener('click', () => window.location.href = '/login');
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -42,11 +43,16 @@ window.addEventListener("DOMContentLoaded", () => {
     cartTotal = document.querySelector("#cart-total");
     document.querySelectorAll(".filter-option-title").forEach(e => e.addEventListener('click', () => e.classList.toggle("show")));
     loadShop();
-    document.getElementById("checkout").addEventListener("click", ()=> window.location = "/shop/checkout");
+    document.getElementById("checkout").addEventListener("click", () => window.location = "/shop/checkout");
 });
 
 const toggleShoppingCart = () => {
     document.querySelectorAll("#shopping-cart, #cart-toggle-ext, body").forEach(e => e.classList.toggle("hide"));
+}
+
+const openShoppingCart = () => {
+    document.querySelectorAll("#cart-toggle-ext, body").forEach(e => e.classList.add("hide"));
+    document.querySelector("#shopping-cart").classList.remove("hide");
 }
 
 const loadShoppingCart = async () => {
@@ -191,7 +197,10 @@ const addProduct = async (id, quantity) => {
     });
     const result = await response.json();
     if (!response.ok) showError();
-    else updateItem(result, id);
+    else {
+        updateItem(result, id);
+        openShoppingCart();
+    }
 }
 
 const removeItem = (id, cart) => {
