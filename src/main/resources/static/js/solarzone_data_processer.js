@@ -80,7 +80,7 @@ const getHistoricalData = async (startDate, endDate) => {
       Credentials: "same-origin",
     },
   });
-  return await response.json();
+  return response.json();
 };
 
 const getRealTimeData = async () => {
@@ -94,7 +94,7 @@ const getRealTimeData = async () => {
       Credentials: "same-origin",
     },
   });
-  return await response.json();
+  return response.json();
 };
 
 const reloadRealTimeData = async () => {
@@ -186,7 +186,7 @@ const getGeneralData = async () => {
       Credentials: "same-origin",
     },
   });
-  return await response.json();
+  return response.json();
 };
 
 const getReadableValue = (value) => {

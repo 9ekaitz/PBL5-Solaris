@@ -1,6 +1,6 @@
 const fetchEcoData = async () => {
   const response = await fetch("/api/user-panel/eco?id=" + USER_ID);
-  return await response.json();
+  return response.json();
 };
 
 const getData = async () => {
