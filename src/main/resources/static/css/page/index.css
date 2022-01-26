@@ -68,7 +68,7 @@ main .main-content .content-section .sub-section .subtitle {
   font-size: 1.5rem;
 }
 main .main-content .content-section.installation .image {
-  order: 2;
+  order: 1;
 }
 @media (min-width: 768px) {
   main .main-content {
@@ -103,7 +103,7 @@ main .main-content .content-section.installation .image {
     text-align: justify;
   }
   main .main-content .content-section.installation .image {
-    order: auto;
+    order: 0;
   }
   main .main-content .phases {
     background-color: #F1F1F1;
