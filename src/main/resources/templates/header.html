@@ -14,8 +14,8 @@
                         <a class="link" href="/"><img class="logo" th:src="@{/images/solaris-white.png}" src="/images/solaris-white.png" alt="Solaris icon" th:alt=#{img.alt.solaris}/></a>
                     </div>
                     <div class="header-computer-options">
-                        <a class="link" href="/" th:text=#{header.installation}>Instalación</a>
-                        <a class="link" href="" th:if="${user != null}" th:text=#{header.solarZone}>Zona Solar</a>
+                        <a class="link" th:href="@{/}" th:text=#{header.installation}>Instalación</a>
+                        <a class="link" th:href="@{(${user.role.name} == 'ROLE_TECHNICIAN' ? '/install' : '/solarzone')}" th:if="${user != null}" th:text="#{header.solarZone}">Zona Solar</a>
                         <a class="link" href="/shop" th:text=#{header.shop}>Tienda</a>
                     </div>
                 </div>
