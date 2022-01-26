@@ -56,7 +56,7 @@
                       class="address-option"
                       th:value="${address.id}"
                       th:title="${address.street}+', '+${address.city}+', '+ #{${address.province.i18n}}+', '+ #{${address.country.i18n}}"
-                      th:text="${#strings.substring(address.street,0,12)}+'... '+${address.city}+', '+#{${address.country.i18n}}"
+                      th:text="(${#strings.length(address.street)} > 12 ? ${#strings.substring(address.street,0,12)}+'...': ${address.street})+' '+${address.city}+', '+#{${address.country.i18n}}"
                       th:selected="${address.defaultAddress}"
                     ></option>
                   </th:block>
