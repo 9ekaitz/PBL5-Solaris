@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{index_template}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/page/profile.css}">
+  <title th:text="'ERROR '+${error}">404</title>
+
+  <link rel="stylesheet" th:href="@{/css/page/error.css}">
+</head>
+
+<main layout:fragment="content" class="error-surroundings">
+  <div class="error-section">
+    <div class="icon">
+      <svg class="error" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z" /></svg>
+    </div>
+    <p th:text="'ERROR '+${error}"></p>
+    <p th:text="(${message}) ? ${message}"></p>
+  </div>
+</main>

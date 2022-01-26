@@ -15,12 +15,14 @@ public class CustomErrorController implements ErrorController{
     @GetMapping("/error")
     public String handleError(HttpServletRequest  request, Model model) {  
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        String message = request.getAttribute(RequestDispatcher.ERROR_MESSAGE).toString();
-        model.addAttribute("message", message);
-
+        Object message = request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
+        
+        if(message != null) {
+            model.addAttribute("message", message.toString());
+        }
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
-        
+            model.addAttribute("error", statusCode);
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "error/404";
             }
@@ -31,6 +33,6 @@ public class CustomErrorController implements ErrorController{
                 return "error/403";
             }
         }
-        return "page/error";
+        return "error/generic-error";
     }
 }
