@@ -51,7 +51,7 @@ public class SolarisApplication extends SpringBootServletInitializer implements 
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/img/**").addResourceLocations("file:img/")
+		registry.addResourceHandler("/img/**").addResourceLocations("file:uploads/")
 				.setCachePeriod(0);
 	}
 

@@ -37,8 +37,6 @@ import eus.solaris.solaris.config.SpringWebAuxTestConfig;
 import eus.solaris.solaris.domain.Installation;
 import eus.solaris.solaris.domain.Task;
 import eus.solaris.solaris.domain.User;
-import eus.solaris.solaris.repository.DataEntryRepository;
-import eus.solaris.solaris.repository.SolarPanelRepository;
 import eus.solaris.solaris.repository.impl.ImageRepositoryImpl;
 import eus.solaris.solaris.security.CustomUserDetails;
 import eus.solaris.solaris.service.impl.InstallationServiceImpl;
@@ -68,12 +66,6 @@ class InstallerControllerTest {
 
   @MockBean
   UserServiceImpl userServiceImpl;
-
-  @MockBean
-  SolarPanelRepository solarPanelRespository;
-
-  @MockBean
-  DataEntryRepository dataEntryRepository;
 
   @MockBean
   PasswordEncoder passwordEncoder;

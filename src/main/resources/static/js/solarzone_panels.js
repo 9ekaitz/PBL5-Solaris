@@ -3,7 +3,7 @@ const panelSelector = document.getElementById("panel-selector");
 let panelId;
 
 const getPanels = async () => {
-  const response = await fetch("/api/panel/getPanels?id=" + USER_ID, {
+  const response = await fetch("/api/user-panel/getPanels?id=" + USER_ID, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
