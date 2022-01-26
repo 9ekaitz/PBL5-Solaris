@@ -257,9 +257,10 @@ input[type="submit"],
 @media (min-width: $large-screen) {
   .helper {
     display: block;
-    margin: 0;
-    padding: 0.5rem 0 0.5rem 10rem;
+    padding: 0.5rem 2rem;
     font-size: 1rem;
+    max-width: 1300px;
+    margin: auto;
 
     .a {
       margin: 0;
