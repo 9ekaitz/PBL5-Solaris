@@ -17,7 +17,7 @@ public class ImageRepositoryImpl implements ImageRepository {
 
     private static final String BASE_PATH = System.getProperty("user.dir");
     private static final String PATH_SIGNATURES = BASE_PATH + "/signatures/";
-    private static final String RELATIVE_PROFILES_PATH = "/img/profile/";
+    private static final String RELATIVE_PROFILES_PATH = "/uploads/profile/";
     private static final String ABSOLUTE_PROFILES_PATH = BASE_PATH + RELATIVE_PROFILES_PATH;
 
     @Override
