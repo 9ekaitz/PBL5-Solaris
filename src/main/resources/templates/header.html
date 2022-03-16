@@ -13,7 +13,11 @@
                     </div>
                     <div class="header-computer-options">
                         <a class="link" th:href="@{/}" th:text=#{header.installation}>Instalación</a>
-                        <a class="link" th:href="@{(${user.role.name} == 'ROLE_TECHNICIAN' ? '/install' : '/solarzone')}" th:if="${user != null}" th:text="#{header.solarZone}">Zona Solar</a>
+                        <th:block th:switch="${user.role.name}">
+                        <a th:case="ROLE_TECHNICIAN" class="link" th:href="@{/install}" th:if="${user != null}" th:text="#{header.solarZone}">Zona Solar</a>
+                        <a th:case="ROLE_SUPERVISOR" class="link" th:href="@{/dashboard/manage-users}" th:if="${user != null}" th:text="#{header.solarZone}">Zona Solar</a>
+                        <a th:case="*" class="link" th:href="@{/solarzone}" th:if="${user != null}" th:text="#{header.solarZone}">Zona Solar</a>
+                        </th:block>
                         <a class="link" href="/shop" th:text=#{header.shop}>Tienda</a>
                     </div>
                 </div>
