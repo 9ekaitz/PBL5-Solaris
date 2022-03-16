@@ -984,8 +984,8 @@ class ProfileControllerTest {
     private Privilege createUserLoggedPrivilege() {
         Privilege privilege = new Privilege();
         privilege.setId(1L);
-        privilege.setCode("USER_LOGGED_VIEW");
-        privilege.setI18n("user.logged.view");
+        privilege.setCode("USER_LOGGED_READ");
+        privilege.setI18n("user.logged.read");
         privilege.setEnabled(true);
         privilege.setVersion(1);
         return privilege;

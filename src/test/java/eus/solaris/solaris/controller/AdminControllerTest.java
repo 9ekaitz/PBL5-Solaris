@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.maven.artifact.repository.Authentication;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.BeforeEach;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -37,7 +37,7 @@ import eus.solaris.solaris.service.impl.UserServiceImpl;
 
 @Import(SpringWebAuxTestConfig.class)
 @ExtendWith(SpringExtension.class)
-@WebMvcTest({ AdminController.class})
+@WebMvcTest(controllers = AdminController.class)
 class AdminControllerTest {
 
     @Autowired
@@ -218,8 +218,8 @@ class AdminControllerTest {
     private Privilege createProductManagementPrivilege() {
         Privilege privilege = new Privilege();
         privilege.setId(1L);
-        privilege.setCode("MANAGE_PRODUCTS");
-        privilege.setI18n("manage.products");
+        privilege.setCode("AUTH_MANAGE_PRODUCTS");
+        privilege.setI18n("auth.manage.products");
         privilege.setEnabled(true);
         privilege.setVersion(1);
         return privilege;
@@ -228,8 +228,8 @@ class AdminControllerTest {
     private Privilege createUserManagementPrivilege() {
         Privilege privilege = new Privilege();
         privilege.setId(2L);
-        privilege.setCode("MANAGE_USERS");
-        privilege.setI18n("manage.users");
+        privilege.setCode("AUTH_MANAGE_USERS");
+        privilege.setI18n("auth.manage.users");
         privilege.setEnabled(true);
         privilege.setVersion(1);
         return privilege;

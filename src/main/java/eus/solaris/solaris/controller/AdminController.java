@@ -78,7 +78,7 @@ public class AdminController {
     @Autowired
     ImageRepository imageRepository;
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @GetMapping("/manage-users")
     public String manageUser(Authentication authentication, Model model) {
         List<User> users = userService.findManageableUsers();
@@ -89,7 +89,7 @@ public class AdminController {
         return "page/admin-dashboard/manage-users";
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @GetMapping("/manage-users/{page}")
     public String manageUserPageHandler(Authentication authentication, @PathVariable(value = "page") int page, Model model) {
         List<User> users = userService.findManageableUsers();
@@ -101,7 +101,7 @@ public class AdminController {
         return "page/admin-dashboard/manage-users";
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @GetMapping(value = "/edit-user/{id}")
     public String editUser(@PathVariable(value = "id") Long id, Model model) {
         User user = userService.findById(id);
@@ -110,7 +110,7 @@ public class AdminController {
         return EDIT_USER;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @PostMapping(value = "/update-user/{id}")
     public String updateUser(@Validated @ModelAttribute UserProfileUpdateForm upuf, BindingResult result, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
@@ -127,7 +127,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @PostMapping(value = "/update-user-password/{id}")
     public String updateUserPassword(@Validated @ModelAttribute PasswordUpdateForm puf, BindingResult result, @PathVariable(value = "id") Long id, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
@@ -144,7 +144,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @GetMapping(value = "/delete-user/{id}")
     public String deleteUser(@PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
         User user = userService.findById(id);
@@ -153,7 +153,7 @@ public class AdminController {
         return REDIRECT_MANAGE_USERS;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @GetMapping(value = "/create-user")
     public String showCreateUserPage(Model model) {
         model.addAttribute(ROLES, roleService.findAll());
@@ -161,7 +161,7 @@ public class AdminController {
         return CREATE_USER;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_USERS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_USERS')")
     @PostMapping(value = "/create-user")
     public String createUser(@Validated @ModelAttribute UserProfileCreateForm upcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
@@ -177,7 +177,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products")
     public String showManageProductsPage(Model model) {
         setFilters(model);
@@ -189,7 +189,7 @@ public class AdminController {
         return RETURN_MANAGE_USERS;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @GetMapping(value = "/manage-products/{page}")
     public String showManageProductsPage(Model model, @PathVariable(value = "page") int page) {
         List<Product> products = productService.findAll();
@@ -202,7 +202,7 @@ public class AdminController {
         return RETURN_MANAGE_USERS;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @PostMapping(value = "/manage-products/filter")
     public String filterProducts(@ModelAttribute ProductFilterForm pff, BindingResult result, Model model) {
         setFilters(model);
@@ -213,7 +213,7 @@ public class AdminController {
         return RETURN_MANAGE_USERS;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @GetMapping(value = "/edit-product/{id}")
     public String showEditProductForm(@PathVariable(value = "id") Long id, Model model) {
         Product product = productService.findById(id);
@@ -224,7 +224,7 @@ public class AdminController {
         return RETURN_EDIT_PRODUCT;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @PostMapping(value = "/edit-product/{id}")
     public String editProduct(@Validated(ProductCreateForm.EditProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, @PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) throws IOException {
         Product product = productService.findById(id);
@@ -243,7 +243,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @GetMapping(value = "/create-product")
     public String editProduct(Model model) {
         model.addAttribute("form", new ProductCreateForm());
@@ -251,7 +251,7 @@ public class AdminController {
         return CREATE_PRODUCT;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @PostMapping(value = "/create-product")
     public String createProduct(@Validated(ProductCreateForm.CreateProduct.class) @ModelAttribute ProductCreateForm pcf, BindingResult result, Model model, RedirectAttributes redirectAttributes) throws IOException {
         if(result.hasErrors()) {
@@ -266,7 +266,7 @@ public class AdminController {
         return REDIRECT_MANAGE_PRODUCTS;
     }
 
-    @PreAuthorize("hasAuthority('MANAGE_PRODUCTS')")
+    @PreAuthorize("hasAuthority('AUTH_MANAGE_PRODUCTS')")
     @GetMapping(value = "/delete-product/{id}")
     public String deleteProduct(@PathVariable(value = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Product product = productService.findById(id);
