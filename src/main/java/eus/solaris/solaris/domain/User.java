@@ -94,5 +94,4 @@ public class User implements Serializable {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Integer version;
-
 }

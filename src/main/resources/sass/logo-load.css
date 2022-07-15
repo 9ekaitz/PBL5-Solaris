@@ -1,0 +1,262 @@
+.cls-1 {
+  fill: none;
+  stroke: #f9aa31;
+  stroke-miterlimit: 10;
+  stroke-width: 3px;
+}
+
+.cls-2 {
+  fill: #f9aa31;
+}
+
+#anim-logo {
+  position: relative;
+  margin: auto;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+#logo-sun-wrap {
+  -webkit-animation: sun-move 3s linear forwards;
+          animation: sun-move 3s linear forwards;
+}
+
+#logo-sun {
+  -webkit-animation: sun-rotate 3s linear forwards;
+          animation: sun-rotate 3s linear forwards;
+  transform-origin: center;
+  transform-box: fill-box;
+  position: absolute;
+}
+
+#logo-small-s {
+  -webkit-animation: delete-letter 0.1s linear forwards;
+          animation: delete-letter 0.1s linear forwards;
+  stroke-dasharray: 57.9;
+  stroke-dashoffset: 57.9;
+}
+
+#logo-i {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.2s;
+          animation: delete-letter 0.1s linear forwards 0.2s;
+  stroke-dasharray: 33.6;
+  stroke-dashoffset: 33.6;
+}
+
+#logo-r {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.4s;
+          animation: delete-letter 0.1s linear forwards 0.4s;
+  stroke-dasharray: 72;
+  stroke-dashoffset: 72;
+}
+
+#logo-a {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.5s;
+          animation: delete-letter 0.1s linear forwards 0.5s;
+  stroke-dasharray: 142.2;
+  stroke-dashoffset: 142.2;
+}
+
+#logo-l {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.6s, show-letter-l 0.5s linear forwards 1.6s, fill-letter 0.2s linear forwards 2.1s;
+          animation: delete-letter 0.1s linear forwards 0.6s, show-letter-l 0.5s linear forwards 1.6s, fill-letter 0.2s linear forwards 2.1s;
+  stroke-dasharray: 73.6;
+  stroke-dashoffset: 73.6;
+}
+
+#logo-o {
+  -webkit-animation: delete-letter 0.1s linear forwards 0.8s, show-letter-o 0.5s linear forwards 1.4s, fill-letter 0.2s linear forwards 1.9s;
+          animation: delete-letter 0.1s linear forwards 0.8s, show-letter-o 0.5s linear forwards 1.4s, fill-letter 0.2s linear forwards 1.9s;
+  stroke-dasharray: 127.8;
+  stroke-dashoffset: 127.8;
+}
+
+#logo-big-s {
+  -webkit-animation: delete-letter 0.1s linear forwards 1s, show-letter-big-s 0.5s linear forwards 1.2s, fill-letter 0.2s linear forwards 1.7s;
+          animation: delete-letter 0.1s linear forwards 1s, show-letter-big-s 0.5s linear forwards 1.2s, fill-letter 0.2s linear forwards 1.7s;
+  stroke-dasharray: 155.5;
+  stroke-dashoffset: 155.5;
+}
+
+#logo-wrap {
+  -webkit-animation: center-logo 1s linear forwards;
+          animation: center-logo 1s linear forwards;
+  transform-box: border-box;
+  transform-origin: center;
+}
+
+@-webkit-keyframes center-logo {
+  to {
+    transform: translateX(20%);
+  }
+}
+
+@keyframes center-logo {
+  to {
+    transform: translateX(20%);
+  }
+}
+@-webkit-keyframes delete-letter {
+  to {
+    fill: transparent;
+  }
+}
+@keyframes delete-letter {
+  to {
+    fill: transparent;
+  }
+}
+@-webkit-keyframes show-letter-big-s {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 155.5;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes show-letter-big-s {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 155.5;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes show-letter-o {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 127.8;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes show-letter-o {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 127.8;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes show-letter-l {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 73.6;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes show-letter-l {
+  from {
+    stroke: #f9aa31;
+    stroke-dashoffset: 73.6;
+  }
+  to {
+    stroke: #f9aa31;
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes fill-letter {
+  to {
+    fill: #f9aa31;
+  }
+}
+@keyframes fill-letter {
+  to {
+    fill: #f9aa31;
+  }
+}
+#eUX3co8Wz5g2_to {
+  -webkit-animation: eUX3co8Wz5g2_to__to 3000ms linear 1 normal forwards;
+          animation: eUX3co8Wz5g2_to__to 3000ms linear 1 normal forwards;
+}
+
+@-webkit-keyframes eUX3co8Wz5g2_to__to {
+  0% {
+    transform: translate(183.334999px, 77.305px);
+  }
+  33.333333% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+  100% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+}
+
+@keyframes eUX3co8Wz5g2_to__to {
+  0% {
+    transform: translate(183.334999px, 77.305px);
+  }
+  33.333333% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+  100% {
+    transform: translate(58.087165px, 69.250001px);
+  }
+}
+#eUX3co8Wz5g2_tr {
+  -webkit-animation: eUX3co8Wz5g2_tr__tr 3000ms linear 1 normal forwards;
+          animation: eUX3co8Wz5g2_tr__tr 3000ms linear 1 normal forwards;
+}
+
+@-webkit-keyframes eUX3co8Wz5g2_tr__tr {
+  0% {
+    transform: rotate(0deg);
+  }
+  33.333333% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes eUX3co8Wz5g2_tr__tr {
+  0% {
+    transform: rotate(0deg);
+  }
+  33.333333% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+#eUX3co8Wz5g2_ts {
+  -webkit-animation: eUX3co8Wz5g2_ts__ts 3000ms linear 1 normal forwards;
+          animation: eUX3co8Wz5g2_ts__ts 3000ms linear 1 normal forwards;
+}
+
+@-webkit-keyframes eUX3co8Wz5g2_ts__ts {
+  0% {
+    transform: scale(1, 1);
+  }
+  33.333333% {
+    transform: scale(1.99505, 1.99505);
+  }
+  100% {
+    transform: scale(1.99505, 1.99505);
+  }
+}
+
+@keyframes eUX3co8Wz5g2_ts__ts {
+  0% {
+    transform: scale(1, 1);
+  }
+  33.333333% {
+    transform: scale(1.99505, 1.99505);
+  }
+  100% {
+    transform: scale(1.99505, 1.99505);
+  }
+}/*# sourceMappingURL=logo-load.css.map */

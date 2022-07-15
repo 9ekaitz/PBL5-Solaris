@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/manage-products.css}" />
+    <title>Administrador</title>
+</head>
+
+<body>
+    <h2
+      class="page-title"
+      layout:fragment="title"
+      th:text="#{header.title.manage-products}"
+    ></h2>
+    <main layout:fragment="content" class="admin-dashboard">
+        <div class="manage-accounts container current">
+            <div class="title-flex">
+                <h1 class="title" th:text="#{page.dashboard.manageproducts}"></h1>
+                <a class="button-a" th:href="@{/dashboard/create-product}" th:text="#{page.dashboard.createaproduct}"></a>
+            </div>
+            <div class="products-panel">
+                <form class="filter-panel" th:action="@{/dashboard/manage-products/filter}" method="post">
+                    <input type="submit" th:value="#{page.dashboard.manage-products-filter}"></input>
+                    <hr>
+                    <h2 th:text="#{page.dashboard.manage-products.brand}"></h2>
+                    <th:block th:each="brand, iterator : ${brands}">
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="brandsIds[__${iterator.index}__]" th:value="${brand.id}" th:id="${'brand-' + brand.id}"></div><span th:text="${brand.name}"></span></label>
+                    </th:block>
+                    <hr>
+                    <h2 th:text="#{page.dashboard.manage-products.colors}"></h2>
+                    <th:block th:each="color, iterator : ${colors}">
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="colorsIds[__${iterator.index}__]" th:value="${color.id}" th:id="${'color-' + color.id}"></div><span th:text="${color.name}"></span></label>
+                    </th:block>
+                    <hr>
+                    <h2 th:text="#{page.dashboard.manage-products.materials}"></h2>
+                    <th:block th:each="material, iterator : ${materials}">
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="materialsIds[__${iterator.index}__]" th:value="${material.id}" th:id="${'material-' + material.id}"></div><span th:text="${material.name}"></span></label>
+                    </th:block>
+                    <hr>
+                    <h2 th:text="#{page.dashboard.manage-products.sizes}"></h2>
+                    <th:block th:each="size, iterator : ${sizes}">
+                        <label><div class="checkbox-group"><input type="checkbox" th:name="sizesIds[__${iterator.index}__]" th:value="${size.id}" th:id="${'size-' + size.id}"></div><span th:text="${size.height + ' x ' + size.width + 'm'}"></span></label>
+                    </th:block>
+                    <hr>
+                </form>
+                <div class="products-items-panel">
+                    <th:block th:each="product : ${products}">
+                        <div class="product">
+                            <div class="product-img">
+                                <img th:src="@{'~' + ${product.imagePath}}" alt="product-image">
+                            </div>
+                            <th:block th:each="description, iterator : ${product.descriptions}">
+                                <th:block th:with="listsize=${#lists.size(product.descriptions)-1}">
+                                    <p class="product-title" th:if="(${description.language.code} == #{locale}) or iterator.index eq listsize" th:text="${description.name}">Null</p>
+                                </th:block>
+                            </th:block>
+                            <p class="product-price" th:text="${product.price + ' €'}">Null</p>
+                            <div class="product-buttons">
+                                <a th:href="@{'/dashboard/edit-product/'+${product.id}}">
+                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                                    </svg>
+                                </a>
+                                <a th:href="@{'/dashboard/delete-product/'+${product.id}}">
+                                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+                <div class="products-item-pages">
+                    <th:block th:with="iterations=${actualPage}">
+                        <th:block th:each="i : ${#numbers.sequence( actualPage, iterations+3, 1 )}">
+                            <a th:if="${i gt 0 and i lt totalPages}" th:classappend="${i eq actualPage + 1} ? selected : notselected" th:href="@{'/dashboard/manage-products/'+${i}}" th:text="${i}">null</a>
+                        </th:block>
+                    </th:block>
+                    <span th:if="${totalPages gt 3}">...</span>
+                    <a th:href="@{'/dashboard/manage-products/'+${totalPages}}" th:classappend="${totalPages eq actualPage + 1} ? selected : notselected" th:text="${totalPages}">null</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

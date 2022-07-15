@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="@{dashboard_template}"
+>
+  <head>
+    <link rel="stylesheet" th:href="@{/css/page/manage-users.css}" />
+    <title>Administrador</title>
+  </head>
+
+  <body>
+    <h2
+      class="page-title"
+      layout:fragment="title"
+      th:text="#{header.title.manage-users}"
+    ></h2>
+    <main layout:fragment="content" class="admin-dashboard">
+      <div class="manage-accounts container">
+        <div class="title-flex">
+          <h1 class="title" th:text="#{page.dashboard.manageaccount}">
+            Administrar cuentas
+          </h1>
+          <a
+            class="button-a"
+            th:href="@{/dashboard/create-user}"
+            th:text="#{page.dashboard.createaccount}"
+            >Crear cuenta</a
+          >
+        </div>
+        <div class="accounts-list">
+          <table class="hidden-mf" aria-describedby="users">
+            <thead>
+              <tr>
+                <th id="select-all-checkbox-th">
+                  <input
+                    class="float-left"
+                    type="checkbox"
+                    id="select-all-chechbox"
+                  />
+                </th>
+                <th
+                  id="account-name-th"
+                  th:text="#{page.dashboard.account.name}"
+                >
+                  Name
+                </th>
+                <th
+                  id="account-username-th"
+                  th:text="#{page.dashboard.account.username}"
+                >
+                  Username
+                </th>
+                <th
+                  id="account-email-th"
+                  th:text="#{page.dashboard.account.email}"
+                >
+                  Email
+                </th>
+                <th
+                  id="account-role-th"
+                  th:text="#{page.dashboard.account.role}"
+                >
+                  Role
+                </th>
+                <th id="edit-account-th"></th>
+                <th id="delete-all-user-button-">
+                  <a id="delete-all-selected-users">
+                    <svg
+                      class="float-right"
+                      style="width: 24px; height: 24px"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z"
+                      />
+                    </svg>
+                  </a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <th:block th:each="user : ${users}">
+                <tr>
+                  <td>
+                    <input
+                      class="float-left"
+                      type="checkbox"
+                      th:id="${'delete-user-' + user.id}"
+                    />
+                  </td>
+                  <td
+                    th:text="${user.name} + ' ' + ${user.firstSurname} + ' ' + ${user.secondSurname}"
+                  >
+                    Null Null Null
+                  </td>
+                  <td th:text="${user.username}">null</td>
+                  <td th:text="${user.email}">null@null.null</td>
+                  <td th:text="${user.role.name}">Null</td>
+                  <td>
+                    <a th:href="@{'/dashboard/edit-user/'+${user.id}}">
+                      <svg
+                        style="width: 24px; height: 24px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+                        />
+                      </svg>
+                    </a>
+                  </td>
+                  <td>
+                    <a th:href="@{'/dashboard/delete-user/'+${user.id}}">
+                      <svg
+                        class="float-right"
+                        style="width: 24px; height: 24px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z"
+                        />
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
+              </th:block>
+            </tbody>
+          </table>
+          <div class="hidden-df">
+            <th:block th:each="user : ${users}">
+              <div class="user-div">
+                <span
+                  th:text="${user.name} + ' ' + ${user.firstSurname} + ' ' + ${user.secondSurname}"
+                  >null</span
+                >
+                <span th:text="${user.username}">null</span>
+                <span th:text="${user.email}">null</span>
+                <span th:text="${user.role.name}">null</span>
+                <div class="manage-user-buttons">
+                  <a th:href="@{'/dashboard/edit-user/'+${user.id}}">
+                    <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"
+                      />
+                    </svg>
+                  </a>
+                  <a th:href="@{'/dashboard/delete-user/'+${user.id}}">
+                    <svg
+                      class="float-right"
+                      style="width: 24px; height: 24px"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </th:block>
+          </div>
+          <div class="pages">
+            <th:block th:with="iterations=${actualPage}">
+              <th:block
+                th:each="i : ${#numbers.sequence( actualPage, iterations+3, 1 )}"
+              >
+                <a
+                  th:if="${i gt 0 and i lt totalPages}"
+                  th:classappend="${i eq actualPage + 1} ? selected : notselected"
+                  th:href="@{'/dashboard/manage-users/'+${i}}"
+                  th:text="${i}"
+                  >null</a
+                >
+              </th:block>
+            </th:block>
+            <span th:if="${totalPages gt 3}">...</span>
+            <a
+              th:href="@{'/dashboard/manage-users/'+${totalPages}}"
+              th:classappend="${totalPages eq actualPage + 1} ? selected : notselected"
+              th:text="${totalPages}"
+              >null</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -24,7 +24,7 @@ class RoleServiceImplTest {
 
     @Test
     void saveTest(){
-        Role role = new Role(1L, "ROLE_ADMIN", true, null, null, 1);
+        Role role = new Role(1L, "ROLE_ADMIN", true, null, "role.admin", null, 1);
 
         when(roleRepository.save(role)).thenReturn(role);
         assertEquals(role, roleServiceImpl.save(role));
@@ -32,7 +32,7 @@ class RoleServiceImplTest {
     
     @Test
     void findByIdTest(){
-        Role role = new Role(1L, "ROLE_ADMIN", true, null, null, 1);
+        Role role = new Role(1L, "ROLE_ADMIN", true, null, "role.admin", null, 1);
 
         when(roleRepository.findByName(role.getName())).thenReturn(role);
         assertEquals(role, roleServiceImpl.findByName(role.getName()));

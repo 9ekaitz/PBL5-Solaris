@@ -90,7 +90,7 @@ public class InstallerController {
     rAttributes.addFlashAttribute(SUCCESS_ATTRIBUTE, "alert.task.success");
     if (Boolean.TRUE.equals(form.isSigned()) && checkTaskCompleted(installation)) {
       try {
-        installation.setSignature(imageRepository.save(form.getSign()));
+        installation.setSignature(imageRepository.save(form.getSign(), ImageRepository.PATH_SIGNATURES, ImageRepository.RELATIVE_SIGNATURES_PATH));
         installation.setCompleted(true);
         installationService.save(installation);
         redirect = INSTALL_REDIRECT;

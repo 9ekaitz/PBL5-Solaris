@@ -1,8 +1,9 @@
 package eus.solaris.solaris.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
@@ -16,12 +17,18 @@ import eus.solaris.solaris.domain.Brand;
 import eus.solaris.solaris.domain.Color;
 import eus.solaris.solaris.domain.Material;
 import eus.solaris.solaris.domain.Product;
+import eus.solaris.solaris.domain.ProductDescription;
 import eus.solaris.solaris.domain.Size;
+import eus.solaris.solaris.domain.SolarPanelModel;
+import eus.solaris.solaris.form.ProductCreateForm;
 import eus.solaris.solaris.form.ProductFilterForm;
+import eus.solaris.solaris.repository.ImageRepository;
+import eus.solaris.solaris.repository.ProductDescriptionRepository;
 import eus.solaris.solaris.repository.ProductRepository;
 import eus.solaris.solaris.repository.filters.BrandRepository;
 import eus.solaris.solaris.repository.filters.ColorRepository;
 import eus.solaris.solaris.repository.filters.MaterialRepository;
+import eus.solaris.solaris.repository.filters.ModelRepository;
 import eus.solaris.solaris.repository.filters.SizeRepository;
 import eus.solaris.solaris.repository.specifications.ProductSpecifications;
 import eus.solaris.solaris.service.ProductService;
@@ -44,11 +51,36 @@ public class ProductServiceImpl implements ProductService {
     private SizeRepository sizeRepository;
 
     @Autowired
+    private ProductDescriptionRepository productDescriptionRepository;
+
+    @Autowired
     private MaterialRepository materialRepository;
+
+    @Autowired
+    private ModelRepository modelRepository;
+
+    @Autowired
+    private LanguageServiceImpl languageService;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Override
     public Product save(Product product) {
         return productRepository.save(product);
+    }
+    
+    @Override
+    public Boolean delete(Product product) {
+        try {
+            for (ProductDescription pDescription : product.getDescriptions()){
+                productDescriptionRepository.delete(pDescription);
+            }
+            productRepository.delete(product);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -90,6 +122,81 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<SolarPanelModel> getModels() {
+        return modelRepository.findAll();
+    }
+
+    @Override
+    public ProductDescription getProductDescription(Product product, Locale locale) {
+        for (ProductDescription pDescription : product.getDescriptions()) {
+            if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
+                return pDescription;
+            }
+        }
+        // if no description found with the user locale, return the first description
+        return product.getDescriptions().iterator().next();
+    }
+
+    @Override
+    public Product create(ProductCreateForm pcf) throws IOException {
+            ProductDescription productDescription = new ProductDescription();
+            productDescription.setName(pcf.getName());
+            productDescription.setSubtitle(pcf.getSubtitle());
+            productDescription.setDescription(pcf.getDescription());
+            productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+            Product product = new Product();
+            product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
+            String imagePath = imageRepository.save(pcf.getImage(), ImageRepository.ABSOLUTE_PRODUCT_PATH, ImageRepository.RELATIVE_PRODUCT_PATH);
+            product.setImagePath(imagePath);
+            product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
+            product.setPrice(pcf.getPrice());
+            product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
+            product.getModel().setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
+            product.getModel().setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
+            this.save(product);
+            productDescription.setProduct(product);
+            productDescriptionRepository.save(productDescription);
+            return product;
+    }
+
+    @Override
+    public Product update(Product product, ProductCreateForm pcf, Locale locale) throws IOException {
+        product.setModel(modelRepository.findById(pcf.getModelId()).orElse(null));
+        if(!pcf.getImage().isEmpty()) {
+            String imagePath = imageRepository.save(pcf.getImage(), ImageRepository.ABSOLUTE_PRODUCT_PATH, ImageRepository.RELATIVE_PRODUCT_PATH);
+            product.setImagePath(imagePath);
+        }
+        product.getModel().setBrand(brandRepository.findById(pcf.getBrandId()).orElse(null));
+        product.setPrice(pcf.getPrice());
+        product.getModel().setColor(colorRepository.findById(pcf.getColorId()).orElse(null));
+        product.getModel().setMaterial(materialRepository.findById(pcf.getMaterialId()).orElse(null));
+        product.getModel().setSize(sizeRepository.findById(pcf.getSizeId()).orElse(null));
+        this.save(product);
+        boolean descriptionUpdated = false;
+        for (ProductDescription pDescription : product.getDescriptions()) {
+            if (pDescription.getLanguage().getCode().equals(locale.getLanguage())) {
+                pDescription.setName(pcf.getName());
+                pDescription.setSubtitle(pcf.getSubtitle());
+                pDescription.setDescription(pcf.getDescription());
+                pDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+                productDescriptionRepository.save(pDescription);
+                pDescription.setProduct(product);
+                productDescriptionRepository.save(pDescription);
+                descriptionUpdated = true;
+            }
+        }
+        if(!descriptionUpdated) {
+            ProductDescription productDescription = new ProductDescription();
+            productDescription.setName(pcf.getName());
+            productDescription.setSubtitle(pcf.getSubtitle());
+            productDescription.setDescription(pcf.getDescription());
+            productDescription.setLanguage(languageService.findById(pcf.getLanguageId()));
+            productDescription.setProduct(product);
+            productDescriptionRepository.save(productDescription);
+        }
+        return product;
+    }
+
     public Page<Product> getFilteredProducts(ProductFilterForm pff, Integer page) {
         List<Specification<Product>> specifications = new ArrayList<>();
         Pageable pageable = PageRequest.of(page, pagesize);

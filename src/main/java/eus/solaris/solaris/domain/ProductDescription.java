@@ -34,6 +34,9 @@ public class ProductDescription {
     private String name;
 
     @Column(nullable = false)
+    private String subtitle;
+
+    @Column(nullable = false)
     private String description;
 
     @ManyToOne

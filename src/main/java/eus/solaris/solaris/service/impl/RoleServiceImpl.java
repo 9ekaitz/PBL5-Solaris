@@ -1,5 +1,7 @@
 package eus.solaris.solaris.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,13 @@ public class RoleServiceImpl implements RoleService {
     }
     public Role findByName(String name) {
         return roleRepository.findByName(name);
+    }
+    @Override
+    public List<Role> findAll() {
+        return roleRepository.findAll();
+    }
+    @Override
+    public Role findById(Long roleId) {
+        return roleRepository.findById(roleId).orElse(null);
     }
 }

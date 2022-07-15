@@ -12,14 +12,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Generated;
+import lombok.NoArgsConstructor;
+
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Entity
 @Table(name = "solar_panel_model")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Generated
 public class SolarPanelModel implements Serializable {
 
@@ -29,7 +34,7 @@ public class SolarPanelModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "code", nullable = false)
@@ -45,10 +50,10 @@ public class SolarPanelModel implements Serializable {
     private Double voltage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Material material;
+    private Size size;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Size size;
+    private Material material;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Brand brand;

@@ -7,11 +7,15 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import eus.solaris.solaris.domain.Address;
 import eus.solaris.solaris.domain.PaymentMethod;
 import eus.solaris.solaris.domain.User;
+import eus.solaris.solaris.form.UserProfileCreateForm;
+import eus.solaris.solaris.form.UserProfileUpdateForm;
 import eus.solaris.solaris.exception.AvatarNotCreatedException;
 import eus.solaris.solaris.form.UserInformationEditForm;
 import eus.solaris.solaris.form.UserRegistrationForm;
@@ -24,6 +28,8 @@ import eus.solaris.solaris.util.Beam;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Value("${solaris.pagination.users.pagesize}")
+	private Integer pagesize;
     private static final long serialVersionUID = 4889944577388711145L;
     private static final int SIZE = 32;
 
@@ -34,7 +40,7 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
     @Autowired
     UserRepository userRepository;
-
+    
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -69,6 +75,76 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public User disable(User user) {
+        user.setEnabled(false);
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public User update(Long id, UserProfileUpdateForm upuf) {
+        User user = this.findById(id);
+        user.setUsername(upuf.getUsername());
+        user.setName(upuf.getName());
+        user.setFirstSurname(upuf.getFirstSurname());
+        user.setSecondSurname(upuf.getSecondSurname());
+        user.setEmail(upuf.getEmail());
+        user.setRole(roleService.findById(upuf.getRoleId()));
+        this.save(user);
+        return user;
+    }
+
+    @Override
+    public User updateUserPassword(Long id, String password) {
+        User user = this.findById(id);
+        user.setPassword(passwordEncoder.encode(password));
+        this.save(user);
+        return user;
+    }
+
+    @Override
+    public List<User> findManageableUsers() {
+        return userRepository.findAllByRoleNameNotAndEnabled("ROLE_USER", true);
+    }
+
+    @Override
+    public PagedListHolder<User> getPagesFromUsersList(List<User> users) {
+        PagedListHolder<User> pages = new PagedListHolder<>(users);
+        pages.setPageSize(pagesize);
+        pages.setPage(0);
+        return pages;
+    }
+
+    @Override
+    public Boolean create(UserProfileCreateForm upcf) {
+        try {
+            User user = new User();
+            user.setUsername(upcf.getUsername());
+            user.setName(upcf.getName());
+            user.setFirstSurname(upcf.getFirstSurname());
+            user.setSecondSurname(upcf.getSecondSurname());
+            user.setEmail(upcf.getEmail());
+            user.setPassword(passwordEncoder.encode(upcf.getNewPassword()));
+            user.setRole(roleService.findById(upcf.getRoleId()));
+            user.setEnabled(true);
+            this.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+        
+    }
+
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
@@ -114,10 +190,5 @@ public class UserServiceImpl implements UserService {
 
         user.setPaymentMethods(userRepository.findPaymentMethodByUserId(user.getId()));
         return user.getPaymentMethods();
-    }
-
-    @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
     }
 }

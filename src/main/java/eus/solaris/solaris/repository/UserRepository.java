@@ -13,6 +13,9 @@ import eus.solaris.solaris.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    public User findByUsername(String username);
+    public List<User> findAll();
+    public List<User> findAllByRoleNameNotAndEnabled(String rolename, boolean enabled);
     public User findByUsernameIgnoreCase(String username);
     
     @Query("SELECT a FROM Address a WHERE a.user.id = ?1 AND a.enabled = true")
@@ -20,6 +23,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT p FROM PaymentMethod p WHERE p.user.id = ?1 AND p.enabled = true")
     public List<PaymentMethod> findPaymentMethodByUserId(Long id);
-
-    
 }

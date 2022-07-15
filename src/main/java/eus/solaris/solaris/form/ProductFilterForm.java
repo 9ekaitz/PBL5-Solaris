@@ -2,11 +2,10 @@ package eus.solaris.solaris.form;
 
 import java.util.List;
 
+import lombok.Data;
 import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
+@Data
 @Generated
 public class ProductFilterForm {
     private List<Long> brandsIds;

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="@{dashboard_template}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/page/edit-user.css}" />
+    <title>Administrador</title>
+</head>
+
+<body>
+    <h2
+      class="page-title"
+      layout:fragment="title"
+      th:text="#{header.title.edit-user}"
+    ></h2>
+    <main layout:fragment="content" class="admin-dashboard">
+        <div class="edit-account container">
+            <div class="title">
+                <h1>Editar usuario</h1>
+            </div>
+            <form th:action="@{'/dashboard/update-user/'+${userToEdit.id}}" method="post">
+                <ul class="error">
+                    <li th:each="error : ${errorsUserData}" th:text="${error.defaultMessage}">Error</li>
+                </ul>
+                <div class="form-pair">
+                    <label for="username" th:text="#{user.username} + ':'"></label>
+                    <input type="text" th:placeholder="#{user.username}" name="username" th:value="${userToEdit.username}">
+                </div>
+                <div class="form-pair">
+                    <label for="name" th:text="#{user.name} + ':'"></label>
+                    <input type="text" th:placeholder="#{user.name}" name="name" th:value="${userToEdit.name}">
+                </div>
+                <div class="form-pair">
+                    <label for="firstSurname" th:text="#{user.firstSurname} + ':'"></label>
+                    <input type="text" th:placeholder="#{user.firstSurname}" name="firstSurname" th:value="${userToEdit.firstSurname}">
+                </div>
+                <div class="form-pair">
+                    <label for="secondSurname" th:text="#{user.secondSurname} + ':'"></label>
+                    <input type="text" th:placeholder="#{user.secondSurname}" name="secondSurname" th:value="${userToEdit.secondSurname}">
+                </div>
+                <div class="form-pair">
+                    <label for="email" th:text="#{user.email} + ':'"></label>
+                    <input type="text" th:placeholder="#{user.email}" name="email" th:value="${userToEdit.email}">
+                </div>
+                <div class="form-pair">
+                    <label for="roleId" th:text="#{user.role} + ':'"></label><br>
+                    <select name="roleId" id="">
+                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="#{${role.i18n}}" th:selected="${userToEdit.role.id == role.id}">Null</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <input type="submit" value="Save"></input>
+                    <a class="red-button" th:href="@{'/dashboard/delete-user/'+${userToEdit.id}}"><span th:text="#{page.dashboard.account.deleteuser}"></span></a>
+                    <a th:href="@{/dashboard/manage-users}" class="red-button"><span th:text=#{dashboard.cancel}></span></a>
+                </div>
+            </form>
+        </div>
+        <div class="reset-account-password container">
+            <div class="title">
+                <h1 th:text="#{page.dashboard.account.changepassword}"></h1>
+            </div>
+            <form method="post" th:action="@{'/dashboard/update-user-password/'+${userToEdit.id}}">
+                <ul class="error">
+                    <li th:each="error : ${errorsPassword}" th:text="${error.defaultMessage}">Error</li>
+                </ul>
+                <div class="form-pair">
+                    <label for="newPassword" th:text="#{page.dashboard.account.newpassword} + ':'"></label>
+                    <input type="password" th:placeholder="#{page.dashboard.account.newpassword}" name="newPassword">
+                </div>
+                <div class="form-pair">
+                    <label for="verifyNewPasword" th:text="#{page.dashboard.account.repeatpassword} + ':'"></label>
+                    <input type="password" th:placeholder="#{page.dashboard.account.repeatpassword}" name="verifyNewPasword">
+                </div>
+                <div class="button-group">
+                    <input type="submit" th:value="#{page.dashboard.account.changepassword}">
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -95,7 +95,7 @@ class ProfileControllerTest {
         String username = "testyUser";
         Privilege privilege = createUserLoggedPrivilege();
 
-        Role ROLE_USER = new Role(1L, "ROLE_USER", true, null, Stream
+        Role ROLE_USER = new Role(1L, "ROLE_USER", true, null, "role.user", Stream
                 .of(privilege)
                 .collect(Collectors.toSet()), 1);
 
@@ -984,8 +984,8 @@ class ProfileControllerTest {
     private Privilege createUserLoggedPrivilege() {
         Privilege privilege = new Privilege();
         privilege.setId(1L);
-        privilege.setCode("USER_LOGGED_VIEW");
-        privilege.setI18n("user.logged.view");
+        privilege.setCode("USER_LOGGED_READ");
+        privilege.setI18n("user.logged.read");
         privilege.setEnabled(true);
         privilege.setVersion(1);
         return privilege;

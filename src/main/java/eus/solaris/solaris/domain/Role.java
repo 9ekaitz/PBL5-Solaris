@@ -45,6 +45,9 @@ public class Role implements Serializable {
     @OneToMany(mappedBy = "role")
     private List<User> users;
 
+    @Column(name = "i18n", nullable = false, length = 64)
+    private String i18n;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
